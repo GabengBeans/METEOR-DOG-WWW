@@ -145,7 +145,7 @@ export const appRouter = [
                 path: 'order_demand-list', 
                 name: 'order-demand-list', 
                 title: '需求订单', 
-                component: resolve => { require(['@/views/service/index'], resolve); }, 
+                component: resolve => { require(['@/views/order/order_demand_list/order_demand_list'], resolve); }, 
             },
             {
                 path: 'oreder-service-list', 
