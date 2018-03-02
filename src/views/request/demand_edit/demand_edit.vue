@@ -82,9 +82,9 @@
                     <FormItem>
                         <div class="user_detail_div">
                             <label class="from_label">服务方式:</label>
-                            <CheckboxGroup v-model="data.modeTypeDatas" style="display:inline-block">
-                                <Checkbox label="线上服务"></Checkbox>
-                                <Checkbox label="线下服务"></Checkbox>
+                            <CheckboxGroup v-model="data.modeType" style="display:inline-block">
+                                <Checkbox label=1>线上服务</Checkbox>
+                                <Checkbox label=2>线下服务</Checkbox>
                             </CheckboxGroup>
                         </div>
                     </FormItem>
@@ -92,10 +92,10 @@
                         <div class="user_detail_div">
                             <label class="from_label">有效天数:</label>
                             <Select v-model="data.validDays" style="width:100px">
-                                <Option  value="1" >7天</Option>
-                                <Option  value="2" >15天</Option>
-                                <Option  value="3" >30天</Option>
-                                <Option  value="4" >60天</Option>
+                                <Option  value=1 >7天</Option>
+                                <Option  value=2 >15天</Option>
+                                <Option  value=3 >30天</Option>
+                                <Option  value=4 >60天</Option>
                             </Select>
                         </div>
                     </FormItem>
@@ -214,8 +214,9 @@ export default {
             content:"保存中...",
             duration:0
         })
-        let modeType = [];
         let mediaVideo = []
+        let modeType = "["+this.data.modeType +"]"
+        console.log(modeType)
         let price = parseInt(this.data.price)*100
         let validDays = '['+ this.data.validDays+ ']'
         if(!this.data.mediaVideo)
@@ -223,13 +224,6 @@ export default {
             mediaVideo = []
         }else{
             mediaVideo = [this.data.mediaVideo]
-        }
-        if (this.data.modeTypeDatas.length == 2) {
-          modeType = [1, 2];
-        } else if (this.data.modeTypeDatas[0] == "线上服务") {
-          modeType = [1];
-        } else {
-          modeType = [2];
         }
         let data = {
           address: this.data.address || '',
@@ -375,15 +369,11 @@ export default {
                 }
               }
             } else if (x == "modeType") {
-                console.log(obj[x].length)
-              if (obj[x]=="[1,2]") {
-                this.data.modeTypeDatas = ["线上服务", "线下服务"];
-              } else if (obj[x]=="[1]") {
-                this.data.modeTypeDatas = ["线上服务"];
-              } else {
-                this.data.modeTypeDatas = ["线下服务"];
-              }
+               this.$set(this.data,"modeType",obj[x].replace(/[\[*\]]/g, "").split(","))
+               //console.log(this.data.modeType)
               //console.log( this.data.modeTypeData)
+            } else if(x=="validDays"){
+              this.$set(this.data,"validDays",obj[x].replace(/[\[*\]]/g, ""))
             } else {
               this.data[x] = obj[x];
             }

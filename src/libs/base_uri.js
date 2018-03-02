@@ -32,6 +32,7 @@ let base_uri = {
     service_detail_url :"/admin/v1/service/detail/",
     service_undercarriage_url:"/admin/v1/service/update/",
     service_audit_url :"/admin/v1/service/audit/",
+    service_update_url :"/admin/v1/service/service_update/",
     //二级品类
     category_query_two_level:"/admin/v1/categorys/query_two_level/"
 };

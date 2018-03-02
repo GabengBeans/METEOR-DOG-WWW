@@ -1,155 +1,160 @@
 <template>
-    <div v-if="show">
-        <div id="user_edit" style="background:#eee" v-if="show">
-            <Card :bordered="false" style="height:85vh;overflow:auto;">
-                <br>
-                <Form>
-                    <div style="color:blue;font-size:22px;text-align:center">
-                        需求编辑
-                    </div>
-                    <br>
-                    <div class="user_detail_div">
-                        <label class="from_label">用户ID:
-                            <b>{{data.user.id}}</b>
-                        </label>
+  <div v-if="show">
+    <div id="user_edit" style="background:#eee" v-if="show">
+      <Card :bordered="false" style="height:85vh;overflow:auto;">
+        <br>
+        <Form>
+          <div style="color:blue;font-size:22px;text-align:center">
+            服务编辑
+          </div>
+          <br>
+          <div class="user_detail_div">
+            <label class="from_label">用户ID:
+              <b>{{data.user.id}}</b>
+            </label>
 
-                        <label class="from_label">姓名:
-                            <b>{{data.user.nickname}}</b>
-                        </label>
+            <label class="from_label">姓名:
+              <b>{{data.user.nickname}}</b>
+            </label>
 
-                        <label class="from_label">手机号:
-                            <b>{{data.user.phone}}</b>
-                        </label>
+            <label class="from_label">手机号:
+              <b>{{data.user.phone}}</b>
+            </label>
 
-                        <label class="from_label">流星值:
-                            <b>{{(parseInt(data.user.meteorScore)/10).toFixed(1)+"分"}}</b>
-                        </label>
+            <label class="from_label">流星值:
+              <b>{{(parseInt(data.user.meteorScore)/10).toFixed(1)+"分"}}</b>
+            </label>
 
-                        <label class="from_label">认证信息:
-                            <Tag color="blue" v-for="item in data.user.selfAuthInfos" :key="item.key" style="line-height:20px;min-width:5vw;height:20px;text-align:center;">{{item}}</Tag>
-                        </label>
+            <label class="from_label">认证信息:
+              <Tag color="blue" v-for="item in data.user.selfAuthInfos" :key="item.key" style="line-height:20px;min-width:5vw;height:20px;text-align:center;">{{item}}</Tag>
+            </label>
 
-                        <label class="from_label">个人标签:
-                            <Tag color="blue" v-for="item in data.user.tags" :key="item.key" style="line-height:20px;min-width:5vw;height:20px;text-align:center;">{{item}}</Tag>
-                        </label>
-                    </div>
-                    <br>
-                    <div class="user_detail_div">
-                        <label class="from_label">需求标题:</label>
-                        <Input clearable style="width: 15vw;min-width:100px;" type="textarea" v-model='data.title' />
-                    </div>
-                    <br>
-                    <div class="user_detail_div">
-                        <label class="from_label">需求介绍:</label>
-                        <Input clearable style="width: 15vw;min-width:100px;" type="textarea" v-model='data.desc' />
-                    </div>
-                    <br>
-                    <div class="user_detail_div">
-                        <label class="from_label">需求限制:</label>
-                        <Input clearable style="width: 15vw;min-width:100px;" type="textarea" v-model='data.restrictions' />
-                    </div>
-                    <br>
-                    <FormItem>
-                        <div class="user_detail_div">
-                            <label class="from_label">需求品类:</label>
-                            <Select v-model="data.categoryParentId" style="width:150px">
-                                <Option v-for="item in levelData" :value="item.id" :key="item.value">{{ item.name }}</Option>
-                            </Select>
-                        </div>
-                    </FormItem>
-                    <br>
-                    <FormItem>
-                        <div class="user_detail_div">
-                            <label class="from_label">有效期至:</label><b>{{data.expireTime}}</b>
-                            <!-- <Input clearable style="width: 15vw;min-width:100px;"  v-model='data.expireTime' /> -->
-                            
-                            <!-- <template>
+            <label class="from_label">个人标签:
+              <Tag color="blue" v-for="item in data.user.tags" :key="item.key" style="line-height:20px;min-width:5vw;height:20px;text-align:center;">{{item}}</Tag>
+            </label>
+          </div>
+          <br>
+          <div class="user_detail_div">
+            <label class="from_label">服务标题:</label>
+            <Input clearable style="width: 15vw;min-width:100px;" type="textarea" v-model='data.title' />
+          </div>
+          <br>
+          <div class="user_detail_div">
+            <label class="from_label">服务介绍:</label>
+            <Input clearable style="width: 15vw;min-width:100px;" type="textarea" v-model='data.desc' />
+          </div>
+          <br>
+          <div class="user_detail_div">
+            <label class="from_label">服务限制:</label>
+            <Input clearable style="width: 15vw;min-width:100px;" type="textarea" v-model='data.restrictions' />
+          </div>
+          <br>
+          <FormItem>
+            <div class="user_detail_div">
+              <label class="from_label">服务品类:</label>
+              <Select v-model="data.categoryParentId" style="width:150px">
+                <Option v-for="item in levelData" :value="item.id" :key="item.value">{{ item.name }}</Option>
+              </Select>
+            </div>
+          </FormItem>
+          <br>
+          <FormItem>
+            <div class="user_detail_div">
+              <label class="from_label">有效期至:</label>
+              <b>{{data.expireTime}}</b>
+              <!-- <Input clearable style="width: 15vw;min-width:100px;"  v-model='data.expireTime' /> -->
+
+              <!-- <template>
                                 <DatePicker :value="data.expireTime" format="yyyy年MM月dd日" type="date" placeholder="Select date" style="width: 200px"></DatePicker>
                             </template> -->
-                        </div>
-                    </FormItem>
-                    <br>
-                    <FormItem>
-                        <div class="user_detail_div">
-                            <label class="from_label">出价:</label>
-                            <Input clearable style="width: 10vw;min-width:100px;" v-model='data.price' />
-                            <Select v-model="data.priceType" style="width:80px">
-                                <Option v-for="item in priceType" :value="item.type" :key="item.value">{{ item.name }}</Option>
-                            </Select>
-                        </div>
-                    </FormItem>
-                    <br>
-                    <FormItem>
-                        <div class="user_detail_div">
-                            <label class="from_label">服务方式:</label>
-                            <CheckboxGroup v-model="data.modeTypeDatas" style="display:inline-block">
-                                <Checkbox label="线上服务"></Checkbox>
-                                <Checkbox label="线下服务"></Checkbox>
-                            </CheckboxGroup>
-                        </div>
-                    </FormItem>
-                    <FormItem>
-                        <div class="user_detail_div">
-                            <label class="from_label">有效天数:</label>
-                            <Select v-model="data.validDays" style="width:100px">
-                                <Option  value="1" >7天</Option>
-                                <Option  value="2" >15天</Option>
-                                <Option  value="3" >30天</Option>
-                                <Option  value="4" >60天</Option>
-                            </Select>
-                        </div>
-                    </FormItem>
-                    <br>
-                    <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
-                        <label class="from_label">需求图片:</label>图片限制大小2M
-                        <UserEditImgList :imgList="data.mediaImg"></UserEditImgList>
-                    </div>
-                    <br>
-                    <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
-                        <label class="from_label">需求视频:</label>视频限制大小200M
-                        <UserEditImgList :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo"></UserEditImgList>
-                    </div>
-                    <br>
+            </div>
+          </FormItem>
+          <br>
+          <FormItem>
+            <div class="user_detail_div">
+              <label class="from_label">服务价格:</label>
+              <Input clearable style="width: 10vw;min-width:100px;" v-model='data.price' />
+              <Select v-model="data.priceType" style="width:80px">
+                <Option v-for="item in priceType" :value="item.type" :key="item.value">{{ item.name }}</Option>
+              </Select>
+            </div>
+          </FormItem>
+          <br>
+          <FormItem>
+            <div class="user_detail_div">
+              <label class="from_label">服务定金:</label>
+              <Input clearable style="width: 10vw;min-width:100px;" v-model='data.deposit' />
+            </div>
+          </FormItem>
+          <br>
+          <FormItem>
+            <div class="user_detail_div">
+              <label class="from_label">服务方式:</label>
+              <CheckboxGroup  v-model="data.modeType" style="display:inline-block">
+                <Checkbox label=1>线上服务</Checkbox>
+                <Checkbox label=2>线下服务</Checkbox>
+              </CheckboxGroup>
+            </div>
+          </FormItem>
+          <FormItem>
+            <div class="user_detail_div">
+              <label class="from_label">服务时段:</label>
+              <CheckboxGroup v-model="data.periodTypes" style="display:inline-block">
+                <Checkbox v-for="item in periods" :label="item.type" :key="item.key">{{item.name}}</Checkbox>
+              </CheckboxGroup>
+            </div>
+          </FormItem>
+          <br>
+          <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
+            <label class="from_label">服务图片:</label>图片限制大小2M
+            <UserEditImgList :imgList="data.mediaImg"></UserEditImgList>
+          </div>
+          <br>
+          <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
+            <label class="from_label">服务视频:</label>视频限制大小200M
+            <UserEditImgList :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo"></UserEditImgList>
+          </div>
+          <br>
 
-                    <FormItem style=" border-bottom: 1px solid rgb(219, 207, 207); padding-bottom:1vh">
-                        <div>
-                            <label class="from_label">需求位置:</label>
-                            <AutoComplete clearable :value="data.address" @input="serach_place" style="width: 15vw;min-width:100px;">
-                                <Option v-for="item in arr" :value="item" :key="item.key"></Option>
-                            </AutoComplete>
-                            <br><br>
-                            <div>
-                                <BMapComponent :lat="data.addressLat" :lon="data.addressLon" :keyword="data.address"></BMapComponent>
-                            </div>
-                        </div>
-                    </FormItem>
-                    <br><br>
-                    <div style="color:blue;font-size:22px;text-align:center">
-                        需求审核
-                    </div>
-                    <br><br>
-                    <div class="user_detail_div">
-                        <label class="from_label">审核时间:</label>
-                        <b>{{data.updateTime}}</b>
-                    </div>
-                    <br>
-                    <div class="user_detail_div">
-                        <label class="from_label">操作人:</label>
-                        <b>{{data.operator}}</b>
-                    </div>
-                    <br>
-                    <div class="user_detail_div">
-                        <label class="from_label">不通过原因:</label>
-                        <b>{{data.refuseReason}}</b>
-                    </div>
-                    <br>
-                </Form>
-                <div style="text-align:center">
-                    <Button type="success" @click="saveEdit()">保存修改</Button>
-                </div>
-            </Card>
+          <FormItem style=" border-bottom: 1px solid rgb(219, 207, 207); padding-bottom:1vh">
+            <div>
+              <label class="from_label">服务位置:</label>
+              <AutoComplete clearable :value="data.address" @input="serach_place" style="width: 15vw;min-width:100px;">
+                <Option v-for="item in arr" :value="item" :key="item.key"></Option>
+              </AutoComplete>
+              <br><br>
+              <div>
+                <BMapComponent :lat="data.addressLat" :lon="data.addressLon" :keyword="data.address"></BMapComponent>
+              </div>
+            </div>
+          </FormItem>
+          <br><br>
+          <div style="color:blue;font-size:22px;text-align:center">
+            服务审核
+          </div>
+          <br><br>
+          <div class="user_detail_div">
+            <label class="from_label">审核时间:</label>
+            <b>{{data.updateTime}}</b>
+          </div>
+          <br>
+          <div class="user_detail_div">
+            <label class="from_label">操作人:</label>
+            <b>{{data.operator}}</b>
+          </div>
+          <br>
+          <div class="user_detail_div">
+            <label class="from_label">不通过原因:</label>
+            <b>{{data.refuseReason}}</b>
+          </div>
+          <br>
+        </Form>
+        <div style="text-align:center">
+          <Button type="success" @click="saveEdit()">保存修改</Button>
         </div>
+      </Card>
     </div>
+  </div>
 </template>
 <script>
 import Util from "@/libs/util";
@@ -162,6 +167,36 @@ import BMapComponent from "../../public-components/BMapComponent";
 export default {
   data() {
     return {
+      periods:[
+        {
+          type:"1",
+          name:"周一"
+        },
+        {
+          type:"2",
+          name:"周二"
+        },
+        {
+          type:"3",
+          name:"周三"
+        },
+        {
+          type:"4",
+          name:"周四"
+        },
+        {
+          type:"5",
+          name:"周五"
+        },
+        {
+          type:"6",
+          name:"周六"
+        },
+        {
+          type:"7",
+          name:"周日"
+        },
+      ],
       arr: [],
       aliyun: baseUri.oss_url,
       show: false,
@@ -198,6 +233,7 @@ export default {
     BMapComponent
   },
   methods: {
+    
     beforeSaveEditValidate() {
       if (this.data.title.length > 100) {
         this.$Message.error("服务标题字数不能超过100字");
@@ -206,55 +242,59 @@ export default {
         this.$Message.error("服务标题不能为空");
         return false;
       }
-      return true
+      return true;
     },
     saveEdit: function() {
       if (this.beforeSaveEditValidate()) {
         this.$Message.loading({
-            content:"保存中...",
-            duration:0
-        })
-        let modeType = [];
-        let mediaVideo = []
-        let price = parseInt(this.data.price)*100
-        let validDays = '['+ this.data.validDays+ ']'
-        if(!this.data.mediaVideo)
-        {
-            mediaVideo = []
-        }else{
-            mediaVideo = [this.data.mediaVideo]
-        }
-        if (this.data.modeTypeDatas.length == 2) {
-          modeType = [1, 2];
-        } else if (this.data.modeTypeDatas[0] == "线上服务") {
-          modeType = [1];
+          content: "保存中...",
+          duration: 0
+        });
+        let mediaVideo = [];
+        let price = parseInt(this.data.price) * 100;
+        let modeType = "["+this.data.modeType+"]"
+        let deposit = parseInt(this.data.deposit)*100
+        console.log(this.data.modeType)
+        let validDays = "[" + this.data.validDays + "]"
+        let periodTypes = "[" + this.data.periodTypes +"]"
+        if (!this.data.mediaVideo) {
+          mediaVideo = "[]";
         } else {
-          modeType = [2];
+          mediaVideo = "["+this.data.mediaVideo+"]";
         }
         let data = {
-          address: this.data.address || '',
+          address: this.data.address || "",
           categoryParentId: this.data.categoryParentId,
           desc: this.data.desc,
           id: this.data.id,
           imageList: this.data.mediaImg,
-          lat: this.data.addressLat || '',
-          lon: this.data.addressLon || '',
+          lat: this.data.addressLat || "",
+          lon: this.data.addressLon || "",
           modeType: modeType,
-          price:price,
-          priceType:this.data.priceType,
-          restrictions:this.data.restrictions || "无",
-          title:this.data.title,
-          validDays:validDays,
-          videoList:mediaVideo
+          price: price,
+          deposit:deposit,
+          periodTypes:periodTypes,
+          priceType: this.data.priceType,
+          restrictions: this.data.restrictions || "无",
+          title: this.data.title,
+          videoList: mediaVideo
         };
-        console.log(data)
+        console.log(data);
         Util.ajax({
           method: "post",
-          url:baseUri.demand_update_url,
-          data:data
-        }).then((response)=>{
-            this.$Message.destroy()
-            this.$Message.success("保存成功")
+          url: baseUri.service_update_url,
+          data: data
+        }).then(response => {
+          if(response.data.success)
+          {
+            this.$Message.destroy();
+            this.$Message.success("保存成功");
+          }else{
+            this.$Message.destroy();
+            this.$Message.success("保存失败，请联系管理员");
+          }
+        }).catch((error)=>{
+          console.log(error)
         })
       }
     },
@@ -327,9 +367,9 @@ export default {
     function getDemandDetail() {
       return Util.ajax({
         method: "get",
-        url: baseUri.demand_detail_url,
+        url: baseUri.service_detail_url,
         params: {
-          demandId: This.$route.params.id
+          serviceId: This.$route.params.id
         }
       });
     }
@@ -345,7 +385,7 @@ export default {
       .all([getDemandDetail(), getTwoLevel()])
       .then(
         axios.spread((response, response1) => {
-             console.log(response.data.data);
+          console.log(response.data.data);
           //   console.log(response1)
           let obj = response.data.data;
           for (let x in obj) {
@@ -355,7 +395,7 @@ export default {
                 "yyyy-MM-dd hh:mm:ss"
               );
             } else if (x == "price") {
-              this.data[x] = (parseInt(obj[x]) / 100).toFixed(2);
+              this.data[x] = (parseInt(obj[x]) / 100);
             } else if (x == "priceType") {
               this.data[x] = parseInt(obj.priceType);
             } else if (x == "updateTime") {
@@ -365,7 +405,7 @@ export default {
               );
             } else if (x == "mediaList") {
               this.data.mediaImg = [];
-              for (let y=0; y<obj[x].length; y++) {
+              for (let y = 0; y < obj[x].length; y++) {
                 //console.log(obj.mediaList[y])
                 if (obj.mediaList[y].mediaType == 1) {
                   this.data.mediaImg.push(obj.mediaList[y].mediaUrl);
@@ -375,15 +415,15 @@ export default {
                 }
               }
             } else if (x == "modeType") {
-                console.log(obj[x].length)
-              if (obj[x]=="[1,2]") {
-                this.data.modeTypeDatas = ["线上服务", "线下服务"];
-              } else if (obj[x]=="[1]") {
-                this.data.modeTypeDatas = ["线上服务"];
-              } else {
-                this.data.modeTypeDatas = ["线下服务"];
-              }
-              //console.log( this.data.modeTypeData)
+              this.$set(this.data,"modeType",obj[x].replace(/[\[*\]]/g,"").split(","))
+              console.log(this.data.modeType)
+            }else if(x=="deposit")
+            {
+              this.data.deposit = parseInt(obj[x])/100
+            }else if(x=="periodTypes")
+            {
+              this.$set(this.data,"periodTypes",obj[x].replace(/[\[*\]]/g,"").split(","))
+              console.log(this.data.periodTypes)
             } else {
               this.data[x] = obj[x];
             }

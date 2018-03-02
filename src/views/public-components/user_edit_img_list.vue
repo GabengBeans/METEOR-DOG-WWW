@@ -55,7 +55,7 @@
         type="drag" 
         action="https://lxg.91taogu.com/up/" 
         style="display: inline-block;width:200px;">
-            <div style="min-width:198px;min-height:198px;line-height: 198px;width:10vw;height:20vh">
+            <div style="min-width:198px;min-height:198px;line-height:198px;width:10vw;height:20vh">
                 <Icon type="camera" size="40"></Icon>
             </div>
         </Upload>

@@ -103,7 +103,7 @@ export const appRouter = [
         path: '/request',
         icon: 'document-text',
         name: 'request', 
-        title: '需求审核', 
+        title: '需求管理', 
         access: 1,
         component: Main, 
         children: [ 
@@ -120,7 +120,7 @@ export const appRouter = [
         path: '/service',
         icon: 'clipboard',
         name: 'service', 
-        title: '服务审核', 
+        title: '服务管理', 
         access: 1,
         component: Main, 
         children: [ 
@@ -129,6 +129,28 @@ export const appRouter = [
                 icon: 'clipboard', 
                 name: 'service-index', 
                 title: '服务列表', 
+                component: resolve => { require(['@/views/service/index'], resolve); }, 
+            }
+        ]
+    },
+    {
+        path: '/order',
+        icon: 'ios-copy',
+        name: 'service', 
+        title: '订单管理', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'order_demand-list', 
+                name: 'order-demand-list', 
+                title: '需求订单', 
+                component: resolve => { require(['@/views/service/index'], resolve); }, 
+            },
+            {
+                path: 'oreder-service-list', 
+                name: 'oreder-service-list', 
+                title: '服务订单', 
                 component: resolve => { require(['@/views/service/index'], resolve); }, 
             }
         ]
