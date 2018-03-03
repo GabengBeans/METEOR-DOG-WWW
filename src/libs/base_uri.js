@@ -37,9 +37,10 @@ let base_uri = {
     //二级品类
     category_query_two_level:"/admin/v1/categorys/query_two_level/",
 
-    //需求订单
+    //订单
     order_search_orders_for_page_url :"/admin/v1/orders/search_orders_for_page/",
-    order_detail_url :"/admin/v1/orders/detail/"
+    order_detail_url :"/admin/v1/orders/detail/",
+    order_drawback_detail_url :"/admin/v1/orders/drawback_detail/"
 };
 
 export default base_uri;

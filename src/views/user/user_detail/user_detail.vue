@@ -62,14 +62,15 @@
                     <br>
                  <div class="user_detail_div">
                 <label class="from_label">相关图片</label>
-                <Avatar v-for="item in user_data.certificates[0].imageUrls" :src="aliyun + item" :key="item.key" shape="square"  style="width:8vw;height:8vw;margin-bottom:4px" />
+                <!-- <Avatar v-for="item in user_data.certificates[0].imageUrls" :src="aliyun + item" :key="item.key" shape="square"  style="width:8vw;height:8vw;margin-bottom:4px" /> -->
+                 <UserEditImgList :imgList="user_data.certificates[0].imageUrls"></UserEditImgList>
                   </div>
                      <br>
-                 <div class="user_detail_div">
+                 <!-- <div class="user_detail_div">
                 <label class="from_label">相关视频</label>
-                <!-- <Avatar v-for="item in user_data.certificates[0].imageUrls" :src="aliyun + item" :key="item.key" shape="square"  style="width:8vw;height:8vw;margin-bottom:4px" /> -->
+  
                   </div>
-                  <br>
+                  <br> -->
                    <div class="user_detail_div">
                         <label class="from_label">持卡人</label><b>{{user_data.accountHolder}}</b>
                     </div>
@@ -218,10 +219,6 @@ export default {
             new_obj[x].amount =
               (parseInt(src_obj[x].amount) / 100).toFixed(2) + "元";
           } else if (x == "resumes") {
-              // this.$set(this.user_data,"resumes",[{}, {}, {}, {}])
-              // for(let i = 0; i < 4; i++){
-              //   this.$set(this.user_data.resumes[i],"content",'')
-              // }
               new_obj.resumes = [{}, {}, {}, {}];
               for (let i = 0; i < 4; i++) {
                 if(src_obj.resumes[i])

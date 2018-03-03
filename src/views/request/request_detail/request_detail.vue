@@ -240,9 +240,9 @@ export default {
 };
 </script>
 <style>
-.user_detail_div {
-  border-bottom: 1px solid rgb(219, 207, 207);
-}
+  .user_detail_div {
+    border-bottom: 1px solid rgb(219, 207, 207);
+  }
 .user_detail_media {
   height: 18vh;
   line-height: 18vh;

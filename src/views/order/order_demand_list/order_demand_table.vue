@@ -83,7 +83,7 @@ export default {
                   },
                   on: {
                     click: () => {
-                      this.$router.push("/order-demand-detail/"+params.row.orderNo) 
+                      this.$router.push("/order-demand-drawback/"+params.row.id) 
                     }
                   }
                 },

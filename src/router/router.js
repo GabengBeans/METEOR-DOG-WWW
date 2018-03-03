@@ -81,8 +81,11 @@ export const otherRouter = {
         
         //需求订单详情
         { path: 'order-demand-detail/:id', title: '需求订单详情', name: 'order-demand-detail', component: resolve => { require(['@/views/order/order_demand_list/order_demand_detail/order_demand_detail'], resolve) } },
+        //需求订单退款
+        { path: 'order-demand-drawback/:id', title: '需求订单退款', name: 'order-demand-drawback', component: resolve => { require(['@/views/order/order_demand_list/order_demand_drawback/order_demand_drawback'], resolve) } },
         //服务订单详情
         { path: 'order-service-detail/:id', title: '服务订单详情', name: 'order-service-detail', component: resolve => { require(['@/views/order/order_service_list/order_service_detail/order_service_detail'], resolve) } }
+    
     ],
 };
 

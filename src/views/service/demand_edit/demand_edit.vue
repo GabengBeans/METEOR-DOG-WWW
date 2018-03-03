@@ -107,12 +107,12 @@
           <br>
           <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
             <label class="from_label">服务图片:</label>图片限制大小2M
-            <UserEditImgList :imgList="data.mediaImg"></UserEditImgList>
+            <UserEditImgList :imgList="data.mediaImg" :upload="true"></UserEditImgList>
           </div>
           <br>
           <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
             <label class="from_label">服务视频:</label>视频限制大小200M
-            <UserEditImgList :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo"></UserEditImgList>
+            <UserEditImgList :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo" :upload="true"></UserEditImgList>
           </div>
           <br>
 
