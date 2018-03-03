@@ -3,23 +3,24 @@
         <br><br>
         <search></search>
         <br><br>
-        <!-- <requestTable></requestTable>
+        <OrderDemandTable></OrderDemandTable>
         <br>
-        <requestPage></requestPage> -->
+        <OrderDemandChangePage></OrderDemandChangePage>
     </div>
 </template>
 <script>
 import search from './order_demand_search.vue'
-// import requestTable from './table.vue'
-// import requestPage from "./request_change_page.vue"
+import OrderDemandTable from './order_demand_table.vue'
+import OrderDemandChangePage from "./order_demand_change_page.vue"
 export default {
   components:{
       search,
-    //   requestTable,
-    //   requestPage
+      OrderDemandTable,
+      OrderDemandChangePage
   },
    created(){
-      this.$store.commit("GET_REQUEST_INFO",{data:this.$store.state.app.request_search_info,pageNo:1})
+       console.log("初始化")
+      this.$store.commit("GET_ORDER_DEMAND_INFO",{data:this.$store.state.app.order_demand_search_info,pageNo:1})
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
 <div id='user_table'>
     <Table style="min-width:800px;margin:0 16px;" 
-    border stripe  :columns="columns" :data="$store.state.app.request_search_result">
+    border stripe :columns="columns" :data="$store.state.app.order_demand_search_result">
     </Table>
 </div>
    
@@ -14,36 +14,36 @@ export default {
     return {
       columns: [
         {
-          title: "需求ID",
-          key: "id"
+          title: "订单号",
+          key: "orderNo"
         },
         {
           title: "需求标题",
           key: "title"
         },
         {
-          title: "商户/姓名/昵称",
-          key: "nickname"
+          title: "需求者",
+          key: "demander"
+        },
+        {
+          title: "需求价格",
+          key: "actualAmount"
+        },
+        {
+          title: "下单时间",
+          key: "createTime"
+        },
+        {
+          title: "状态",
+          key: "orderStatus"
+        },
+        {
+          title: "下单者",
+          key: "userName"
         },
         {
           title: "手机号",
           key: "phone"
-        },
-        {
-          title: "发布时间",
-          key: "createTime"
-        },
-        {
-          title: "审核时间",
-          key: "auditTime"
-        },
-        {
-          title: "审核状态",
-          key: "businessStatus"
-        },
-        {
-          title: "状态",
-          key: "status"
         },
         {
           title: "操作",
@@ -64,7 +64,7 @@ export default {
                   },
                   on: {
                     click: () => {
-                        this.$router.push("/request-detail/"+params.row.id)
+                        this.$router.push("/order-demand-detail/"+params.row.id)
                     }
                   }
                 },
@@ -76,18 +76,18 @@ export default {
                   props: {
                     type: "success",
                     size: "small",
-                    disabled:params.row.businessStatus =="审核中" && params.row.status=="有效"?false:true
+                    disabled:params.row.orderStatus =="申请退款"?false:true
                   },
                   style: {
                     marginRight: "5px"
                   },
                   on: {
                     click: () => {
-                      this.$router.push("/demand-review/"+params.row.id) 
+                      this.$router.push("/order-demand-detail/"+params.row.orderNo) 
                     }
                   }
                 },
-                "审核"
+                "审核退款"
               ),
               // ]
               // ),
@@ -96,7 +96,8 @@ export default {
                 {
                   props: {
                     type: "primary",
-                    size: "small"
+                    size: "small",
+                    disabled:params.row.orderStatus =="退款失败"?false:true
                   },
                   on: {
                     click: () => {
@@ -104,7 +105,7 @@ export default {
                     }
                   }
                 },
-                "编辑"
+                "退款"
               )
             ]);
           }

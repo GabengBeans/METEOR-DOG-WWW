@@ -30,6 +30,22 @@ const app = {
         service_search_info:{"businessStatus":"0","status":"-1"},
         service_search_result:[],
 
+        //需求订单公共状态
+        order_demand_page_info:{
+            currentPage:1,
+            totalPage:0
+        },
+        order_demand_search_info:{"businessType":"2","orderStatus":"0"},
+        order_demand_search_result:[],
+        
+        //服务订单公共状态
+        order_service_page_info:{
+            currentPage:1,
+            totalPage:0
+        },
+        order_service_search_info:{"businessType":"1","orderStatus":"0"},
+        order_service_search_result:[],
+
 
         cachePage: [],
         lang: '',
@@ -322,7 +338,80 @@ const app = {
                     state.service_search_result[x].status = status[statusIndex]
                 }
             })
-        } 
+        },
+        GET_ORDER_DEMAND_INFO(state,{data,pageNo}){
+            state.order_demand_search_info = data
+            console.log(data)
+            Util.ajax({
+                method:"post",
+                url:base_uri.order_search_orders_for_page_url,
+                headers:{
+                    token:Cookies.get("token")
+                },
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
+                },
+                data:data
+            }).then((response)=>{
+                //console.log(response)
+                let arr = response.data.data.items
+                let orderStatus = ["全部","待支付","待服务","已完成","已取消","申请退款","退款成功","退款失败","已过期","已付款"]
+                //let status = ["无效","有效"]
+                state.order_demand_page_info.currentPage = parseInt(response.data.data.page)
+                state.order_demand_page_info.totalPage = parseInt(response.data.data.totalCount)
+                state.order_demand_search_result = response.data.data.items
+                console.log( state.order_demand_search_result)
+                for(let x in arr) 
+                {   
+                    let orderStatu = parseInt( arr[x].orderStatus)
+                    //let statusIndex = parseInt(state.service_search_result[x].status)
+                    state.order_demand_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
+                    state.order_demand_search_result[x].orderStatus = orderStatus[orderStatu]
+                    state.order_demand_search_result[x].actualAmount = parseInt(arr[x].actualAmount)/100 + "元"
+                    //state.order_demand_search_result[x].status = status[statusIndex]
+               }
+            }).catch((error)=>{
+                conole.log(error)
+            })
+        },
+        GET_ORDER_SERVICE_INFO(state,{data,pageNo}){
+            state.order_service_search_info = data
+            console.log(data)
+            Util.ajax({
+                method:"post",
+                url:base_uri.order_search_orders_for_page_url,
+                headers:{
+                    token:Cookies.get("token")
+                },
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
+                },
+                data:data
+            }).then((response)=>{
+                //console.log(response)
+                let arr = response.data.data.items
+                let orderStatus = ["全部","待支付","待服务","已完成","已取消","申请退款","退款成功","退款失败","已过期","已付款"]
+                //let status = ["无效","有效"]
+                state.order_service_page_info.currentPage = parseInt(response.data.data.page)
+                state.order_service_page_info.totalPage = parseInt(response.data.data.totalCount)
+                state.order_service_search_result = response.data.data.items
+                console.log( state.order_service_search_result)
+                for(let x in arr) 
+                {   
+                    let orderStatu = parseInt( arr[x].orderStatus)
+                    //let statusIndex = parseInt(state.service_search_result[x].status)
+                    state.order_service_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
+                    state.order_service_search_result[x].orderStatus = orderStatus[orderStatu]
+                    state.order_service_search_result[x].rawPrice = parseInt(arr[x].rawPrice)/100 + "元"
+                    //state.order_demand_search_result[x].status = status[statusIndex]
+               }
+            }).catch((error)=>{
+                conole.log(error)
+            })
+        },
+        
     }
 };
 

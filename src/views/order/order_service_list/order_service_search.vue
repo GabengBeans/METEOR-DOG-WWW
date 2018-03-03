@@ -102,14 +102,14 @@ export default {
     search: function() {
       let obj = {};
       for (let x in this.data) {
-        obj.businessType = '2'
+        obj.businessType = '1'
         if (this.data[x].value != "") {
             obj[x] = this.data[x].value;
         }
       }
       //console.log(obj)
-      this.$store.state.app.order_demand_search_info = obj;
-      this.$store.commit("GET_ORDER_DEMAND_INFO", { data: obj, pageNo: 1 });
+      this.$store.state.app.order_service_search_info = obj;
+      this.$store.commit("GET_ORDER_SERVICE_INFO", { data: obj, pageNo: 1 });
     }
   }
 };

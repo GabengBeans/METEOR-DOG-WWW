@@ -33,8 +33,13 @@ let base_uri = {
     service_undercarriage_url:"/admin/v1/service/update/",
     service_audit_url :"/admin/v1/service/audit/",
     service_update_url :"/admin/v1/service/service_update/",
+    
     //二级品类
-    category_query_two_level:"/admin/v1/categorys/query_two_level/"
+    category_query_two_level:"/admin/v1/categorys/query_two_level/",
+
+    //需求订单
+    order_search_orders_for_page_url :"/admin/v1/orders/search_orders_for_page/",
+    order_detail_url :"/admin/v1/orders/detail/"
 };
 
 export default base_uri;

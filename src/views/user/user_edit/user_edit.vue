@@ -337,12 +337,15 @@ export default {
             new_obj[x].amount =
               (parseInt(src_obj[x].amount) / 100).toFixed(2) + "元";
           } else if (x == "resumes") {
-            if (src_obj[x] == "") {
-              new_obj.resumes = [{}, {}, {}, {}];
+            new_obj.resumes = [{}, {}, {}, {}];
               for (let i = 0; i < 4; i++) {
-                new_obj.resumes[i].content = "";
+                if(src_obj.resumes[i])
+                {
+                  new_obj.resumes[i].content = src_obj.resumes[i].content
+                }else{
+                  new_obj.resumes[i].content = ''
+                }
               }
-            }
           } else if (x == "certificates") {
             //console.log(src_obj.certificates[0].imageUrls)
             if (

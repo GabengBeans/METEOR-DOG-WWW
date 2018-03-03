@@ -58,12 +58,13 @@ export const otherRouter = {
     children: [
         { path: 'home', title: { i18n: 'home' }, name: 'home_index', component: resolve => { require(['@/views/home/home.vue'], resolve); } },
         { path: 'ownspace', title: '个人中心', name: 'ownspace_index', component: resolve => { require(['@/views/own-space/own-space.vue'], resolve); } },
-        { path: 'order/:order_id', title: '订单详情', name: 'order-info', component: resolve => { require(['@/views/advanced-router/component/order-info.vue'], resolve); } }, // 用于展示动态路由
-        { path: 'shopping', title: '购物详情', name: 'shopping', component: resolve => { require(['@/views/advanced-router/component/shopping-info.vue'], resolve); } }, // 用于展示带参路由
+        //{ path: 'order/:order_id', title: '订单详情', name: 'order-info', component: resolve => { require(['@/views/advanced-router/component/order-info.vue'], resolve); } }, // 用于展示动态路由
+        //{ path: 'shopping', title: '购物详情', name: 'shopping', component: resolve => { require(['@/views/advanced-router/component/shopping-info.vue'], resolve); } }, // 用于展示带参路由
         { path: 'message', title: '消息中心', name: 'message_index', component: resolve => { require(['@/views/message/message.vue'], resolve); } },
 
         //{ path: 'service-detail/:id', title: '服务详情', name: 'service-detail', component: resolve => { require(['@/views/service/detail'], resolve); } },
         //{ path: 'service-edit/:id', title: '服务修改', name: 'service-edit', component: resolve => { require(['@/views/service/edit'], resolve); } },
+       //用户
         { path: 'user-role/:id', title: '修改用户角色', name: 'user-role', component: resolve => { require(['@/views/user/modify_user_role/modify_user_role'], resolve) } },
         { path: 'user-edit/:id', title: '用户编辑', name: 'user-edit', component: resolve => { require(['@/views/user/user_edit/user_edit'], resolve) } },
         { path: 'user-detail/:id', title: '用户详情', name: 'user-detail', component: resolve => { require(['@/views/user/user_detail/user_detail'], resolve) } },
@@ -76,7 +77,12 @@ export const otherRouter = {
         //服务
         { path: 'service-detail/:id', title: '服务详情', name: 'service-detail', component: resolve => { require(['@/views/service/request_detail/request_detail'], resolve) } },
         { path: 'service-edit/:id', title: '服务编辑', name: 'service-edit', component: resolve => { require(['@/views/service/demand_edit/demand_edit'], resolve) } },
-        { path: 'service-review/:id', title: '服务审核', name: 'service-review', component: resolve => { require(['@/views/service/demand_review/demand_review'], resolve) } }
+        { path: 'service-review/:id', title: '服务审核', name: 'service-review', component: resolve => { require(['@/views/service/demand_review/demand_review'], resolve) } },
+        
+        //需求订单详情
+        { path: 'order-demand-detail/:id', title: '需求订单详情', name: 'order-demand-detail', component: resolve => { require(['@/views/order/order_demand_list/order_demand_detail/order_demand_detail'], resolve) } },
+        //服务订单详情
+        { path: 'order-service-detail/:id', title: '服务订单详情', name: 'order-service-detail', component: resolve => { require(['@/views/order/order_service_list/order_service_detail/order_service_detail'], resolve) } }
     ],
 };
 
@@ -136,22 +142,22 @@ export const appRouter = [
     {
         path: '/order',
         icon: 'ios-copy',
-        name: 'service', 
+        name: 'order', 
         title: '订单管理', 
         access: 1,
         component: Main, 
         children: [ 
             {
-                path: 'order_demand-list', 
+                path: 'order-demand-list', 
                 name: 'order-demand-list', 
                 title: '需求订单', 
                 component: resolve => { require(['@/views/order/order_demand_list/order_demand_list'], resolve); }, 
             },
             {
-                path: 'oreder-service-list', 
-                name: 'oreder-service-list', 
+                path: 'order-service-list', 
+                name: 'order-service-list', 
                 title: '服务订单', 
-                component: resolve => { require(['@/views/service/index'], resolve); }, 
+                component: resolve => { require(['@/views/order/order_service_list/order_service_list'], resolve); }, 
             }
         ]
     },
