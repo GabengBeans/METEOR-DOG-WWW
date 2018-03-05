@@ -165,6 +165,34 @@ export const appRouter = [
             }
         ]
     },
+    {
+        path: '/cash',
+        icon: 'cash',
+        name: 'cash', 
+        title: '结算管理', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'cash-flow-list', 
+                name: 'cash-flow-list',     
+                title: '资金流水', 
+                component: resolve => { require(['@/views/cash/cash_flow_list/cash_flow_list'], resolve); }, 
+            },
+            {
+                path: 'cash-withdraw-list', 
+                name: 'cash-withdraw-list', 
+                title: '提现申请', 
+                component: resolve => { require(['@/views/order/order_service_list/order_service_list'], resolve); }, 
+            },
+            {
+                path: 'cash-refund-list', 
+                name: 'cash-refund-list', 
+                title: '保障金退还', 
+                component: resolve => { require(['@/views/order/order_service_list/order_service_list'], resolve); }, 
+            }
+        ]
+    },
     // { // b.第二种情况：有二级菜单
     //     path: '/service', // 必填
     //     icon: 'social-buffer', // 必填，同上
