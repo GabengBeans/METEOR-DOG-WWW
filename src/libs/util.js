@@ -318,4 +318,15 @@ function padLeftZero(str) {
     return ('00'+str).substr(str.length);
 }
 
+util.formDatas = function(data) {
+    let ret = "";
+    for (let it in data) {
+      ret +=
+        encodeURIComponent(it) +
+        "=" +
+        encodeURIComponent(data[it]) +
+        "&";
+    }
+    return ret;
+  }
 export default util;

@@ -40,7 +40,8 @@ let base_uri = {
     //订单
     order_search_orders_for_page_url :"/admin/v1/orders/search_orders_for_page/",
     order_detail_url :"/admin/v1/orders/detail/",
-    order_drawback_detail_url :"/admin/v1/orders/drawback_detail/"
+    order_drawback_detail_url :"/admin/v1/orders/drawback_detail/",
+    order_audit_url :"/admin/v1/orders/audit/"
 };
 
 export default base_uri;

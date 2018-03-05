@@ -32,7 +32,7 @@
         <br>
         <div class="user_detail_div">
           <label class="from_label">下单时间:</label>
-          <b>{{data.updateTime}}</b>
+          <b>{{data.createTime}}</b>
         </div>
         <br>
         <div class="user_detail_div">
@@ -98,8 +98,8 @@ export default {
             "已付款"
           ];
           for (let x in obj) {
-            if (x == "updateTime") {
-              this.data.updateTime = Util.formatDate(
+            if (x == "createTime") {
+              this.data.createTime = Util.formatDate(
                 new Date(obj[x]),
                 "yyyy-MM-dd hh:mm:ss"
               );

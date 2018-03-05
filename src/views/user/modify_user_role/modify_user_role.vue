@@ -8,7 +8,8 @@
                 <Option value="2">推广代理人</Option>
                 <Option value="3">普通用户</Option>
             </Select>
-        </FormItem></Col>
+        </FormItem>
+        </Col>
         <router-link to="/user"><Button type="success" size="large" style="margin-left:2vw;">保存</Button></router-link>
         <router-link to="/user"><Button type="warning" size="large" style="margin-left:1vw;">返回</Button></router-link>
     </Form>
@@ -33,9 +34,6 @@ export default {
           url:baseUri.user_detail_url,
           params:{
               'userId':this.$route.params.id
-          },
-          headers:{
-              'token':Cookies.get("token")
           }
       }) .then((response)=>{
              // console.log(response)

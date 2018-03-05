@@ -342,7 +342,7 @@ const app = {
                 },
                 data:data
             }).then((response)=>{
-                //console.log(response)
+                console.log(response)
                 let arr = response.data.data.items
                 let orderStatus = ["全部","待支付","待服务","已完成","已取消","申请退款","退款成功","退款失败","已过期","已付款"]
                 //let status = ["无效","有效"]
