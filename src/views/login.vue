@@ -13,18 +13,16 @@
                 <div class="form-con">
                     <Form ref="loginForm" :model="form" :rules="rules">
                         <FormItem prop="userName">
-                            <Input v-model="form.userName" placeholder="请输入用户名">
+                            <Input v-model="form.userName" placeholder="请输入用户名" />
                                 <span slot="prepend">
                                     <Icon :size="16" type="person"></Icon>
                                 </span>
-                            </Input>
                         </FormItem>
                         <FormItem prop="password">
-                            <Input type="password" v-model="form.password" placeholder="请输入密码">
+                            <Input type="password" v-model="form.password" placeholder="请输入密码" />
                                 <span slot="prepend">
                                     <Icon :size="14" type="locked"></Icon>
                                 </span>
-                            </Input>
                         </FormItem>
                         <FormItem>
                             <Button @click="handleSubmit" type="primary" long>登录</Button>
@@ -73,12 +71,13 @@ export default {
                             if(resp.data.success){
                                 Cookies.set('user', obj.form.userName);
                                 Cookies.set('password', obj.form.password);
-                                Cookies.set('token',resp.data.data.token);
+                                Cookies.set('token',resp.data.data.token, { expires: 7});
                                 obj.$store.commit('setAvator', 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3448484253,3685836170&fm=27&gp=0.jpg');
                                 Cookies.set('access', 1);
                                 obj.$router.push({
                                     name: 'home_index'
                                 });
+                                console.log(Cookies.get("token"))
                             }else{
                                 obj.closable(resp.data.msg);
                             }

@@ -38,8 +38,8 @@
                 </div>
                 <br><br>
                 <div style="text-align:center">
-                    <Button type="success">通　过</Button>
-                    <Button type="error">不通过</Button>
+                    <Button type="success" @clcik="handleOk()">通　过</Button>
+                    <Button type="error" @click="handleNo()">不通过</Button>
                 </div>
             </Card>
         </div>
@@ -54,6 +54,14 @@ export default {
       data: {},
       show: false
     };
+  },
+  mehtods:{
+    handleOk(){
+
+    },
+    handleNo(){
+      
+    }
   },
   created() {
     this.$Message.loading({
@@ -73,7 +81,6 @@ export default {
           console.log(obj);
           for (let x in obj) {
             if (x == "isService") {
-              console.log(obj[x]);
               if (obj[x] == 1) {
                 this.data.isService = "已服务";
               } else {

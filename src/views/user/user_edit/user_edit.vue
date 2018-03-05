@@ -217,7 +217,7 @@ export default {
       this.user_data.avatarUrl = res.result.file.innerUrl;
     },
     saveInfo: function() {
-      console.log(this.resumeList)
+      console.log(this.resumeList);
       this.$Message.loading({
         content: "保存中...",
         duration: 0
@@ -282,25 +282,15 @@ export default {
     });
     let This = this;
     function getUserInfo() {
-      return Util.ajax({
-        method: "get",
-        url: baseUri.user_detail_url,
+      return Util.ajax.get(baseUri.user_detail_url, {
         params: {
           userId: This.$route.params.id
-        },
-        headers: {
-          token: Cookies.get("token")
         }
       });
     }
     function getAttentionUser() {
       //console.log(user_search_attention_users_for_page_url)
-      return Util.ajax({
-        method: "get",
-        url: baseUri.user_search_attention_users_for_page_url,
-        headers: {
-          token: Cookies.get("token")
-        },
+      return Util.ajax.get(baseUri.user_search_attention_users_for_page_url, {
         params: {
           userId: This.$route.params.id,
           pageNo: 1,
@@ -309,12 +299,7 @@ export default {
       });
     }
     function getInviterUsers() {
-      return Util.ajax({
-        method: "post",
-        url: baseUri.user_search_for_page_url,
-        headers: {
-          token: Cookies.get("token")
-        },
+      return Util.ajax.post(baseUri.user_search_for_page_url, {
         data: {
           inviterId: This.$route.params.id
         }
@@ -338,14 +323,13 @@ export default {
               (parseInt(src_obj[x].amount) / 100).toFixed(2) + "元";
           } else if (x == "resumes") {
             new_obj.resumes = [{}, {}, {}, {}];
-              for (let i = 0; i < 4; i++) {
-                if(src_obj.resumes[i])
-                {
-                  new_obj.resumes[i].content = src_obj.resumes[i].content
-                }else{
-                  new_obj.resumes[i].content = ''
-                }
+            for (let i = 0; i < 4; i++) {
+              if (src_obj.resumes[i]) {
+                new_obj.resumes[i].content = src_obj.resumes[i].content;
+              } else {
+                new_obj.resumes[i].content = "";
               }
+            }
           } else if (x == "certificates") {
             //console.log(src_obj.certificates[0].imageUrls)
             if (

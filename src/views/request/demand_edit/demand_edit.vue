@@ -319,27 +319,23 @@ export default {
       duration: 0
     });
     function getDemandDetail() {
-      return Util.ajax({
-        method: "get",
-        url: baseUri.demand_detail_url,
+      return Util.ajax.get(baseUri.demand_detail_url,{
         params: {
           demandId: This.$route.params.id
         }
-      });
+      })
+      
     }
     function getTwoLevel() {
       //console.log(baseUri.category_query_two_level)
-      return Util.ajax({
-        method: "get",
-        url: baseUri.category_query_two_level
-      });
+      return  Util.ajax.get(baseUri.category_query_two_level)
     }
 
     axios
       .all([getDemandDetail(), getTwoLevel()])
       .then(
         axios.spread((response, response1) => {
-             console.log(response.data.data);
+             console.log(response);
           //   console.log(response1)
           let obj = response.data.data;
           for (let x in obj) {
@@ -386,9 +382,9 @@ export default {
           this.$Message.destroy();
         })
       )
-      .catch(error => {
-        console.log(error);
-      });
+      // .catch(error => {
+      //   console.log(error);
+      // });
   }
 };
 </script>

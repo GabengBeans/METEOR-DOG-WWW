@@ -1,7 +1,5 @@
 import axios from 'axios';
 import env from '../../build/env';
-// import semver from 'semver';
-// import packjson from '../../package.json';
 import baseUri from './base_uri.js';
 import baseConfig from './base_config.js';
 import Cookies from "js-cookie"
@@ -20,7 +18,7 @@ util.title = function (title) {
 };
 
 console.log(util.getConfig.devUrl);
-
+const token = Cookies.get("token")
 const ajaxUrl = env === 'development'
     ? util.getConfig.devUrl
     : env === 'production'
@@ -31,7 +29,7 @@ util.ajax = axios.create({
     baseURL: ajaxUrl,
     timeout: util.getConfig.ajaxOutTime,
     headers:{
-        token:Cookies.get("token")
+        token:token
     }
 });
 

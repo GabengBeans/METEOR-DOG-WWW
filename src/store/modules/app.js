@@ -234,9 +234,6 @@ const app = {
             Util.ajax({
                 method:"post",
                 url:base_uri.user_search_for_page_url,
-                headers:{
-                    'token':Cookies.get("token")
-                },
                 params:{
                     pageNo:pageNo || 1,
                     pageSize:10
@@ -269,9 +266,6 @@ const app = {
             Util.ajax({
                 method:"post",
                 url:base_uri.demand_search_demands_for_page_url,
-                headers:{
-                    'token':Cookies.get("token")
-                },
                 params:{
                     pageNo:pageNo || 1,
                     pageSize:10
@@ -307,9 +301,6 @@ const app = {
             Util.ajax({
                 method:"post",
                 url:base_uri.service_search_services_page_url,
-                headers:{
-                    'token':Cookies.get("token")
-                },
                 params:{
                     pageNo:pageNo || 1,
                     pageSize:10
@@ -345,9 +336,6 @@ const app = {
             Util.ajax({
                 method:"post",
                 url:base_uri.order_search_orders_for_page_url,
-                headers:{
-                    token:Cookies.get("token")
-                },
                 params:{
                     pageNo:pageNo || 1,
                     pageSize:10
@@ -381,9 +369,6 @@ const app = {
             Util.ajax({
                 method:"post",
                 url:base_uri.order_search_orders_for_page_url,
-                headers:{
-                    token:Cookies.get("token")
-                },
                 params:{
                     pageNo:pageNo || 1,
                     pageSize:10

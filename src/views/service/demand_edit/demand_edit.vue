@@ -365,20 +365,15 @@ export default {
       duration: 0
     });
     function getDemandDetail() {
-      return Util.ajax({
-        method: "get",
-        url: baseUri.service_detail_url,
+      return Util.ajax.get(baseUri.service_detail_url,{
         params: {
           serviceId: This.$route.params.id
         }
-      });
+      })
     }
     function getTwoLevel() {
       //console.log(baseUri.category_query_two_level)
-      return Util.ajax({
-        method: "get",
-        url: baseUri.category_query_two_level
-      });
+      return Util.ajax.get(baseUri.category_query_two_level)
     }
 
     axios

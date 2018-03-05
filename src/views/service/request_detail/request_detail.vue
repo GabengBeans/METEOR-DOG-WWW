@@ -185,16 +185,12 @@ export default {
       content: "读取中...",
       duration: 0
     });
-    Util.ajax({
-      method: "get",
-      url: baseUri.service_detail_url,
+    Util.ajax.get( baseUri.service_detail_url,{
       params: {
         serviceId: this.$route.params.id
-      },
-      headers: {
-        token: Cookies.get("token")
       }
-    }).then(response => {
+    })
+    .then(response => {
       //console.log(response.data.data);
       let obj = response.data.data;
       let priceType = ["", "每次", "每小时", "每天", "每件"];
