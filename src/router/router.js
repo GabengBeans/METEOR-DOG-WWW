@@ -183,13 +183,13 @@ export const appRouter = [
                 path: 'cash-withdraw-list', 
                 name: 'cash-withdraw-list', 
                 title: '提现申请', 
-                component: resolve => { require(['@/views/order/order_service_list/order_service_list'], resolve); }, 
+                component: resolve => { require(['@/views/cash/cash_withdraw_list/cash_withdraw_list'], resolve); }, 
             },
             {
                 path: 'cash-refund-list', 
                 name: 'cash-refund-list', 
                 title: '保障金退还', 
-                component: resolve => { require(['@/views/order/order_service_list/order_service_list'], resolve); }, 
+                component: resolve => { require(['@/views/cash/cash_refund_list/cash_refund_list'], resolve); }, 
             }
         ]
     },
@@ -231,16 +231,16 @@ export const appRouter = [
             { path: 'index', title: '权限测试页', name: 'accesstest_index', access: 0, component: resolve => { require(['@/views/access/access-test.vue'], resolve); } }
         ]
     },
-    {
-        path: '/international',
-        icon: 'earth',
-        title: { i18n: 'international' },
-        name: 'international',
-        component: Main,
-        children: [
-            { path: 'index', title: { i18n: 'international' }, name: 'international_index', component: resolve => { require(['@/views/international/international.vue'], resolve); } }
-        ]
-    },
+    //{
+    //     path: '/international',
+    //     icon: 'earth',
+    //     title: { i18n: 'international' },
+    //     name: 'international',
+    //     component: Main,
+    //     children: [
+    //         { path: 'index', title: { i18n: 'international' }, name: 'international_index', component: resolve => { require(['@/views/international/international.vue'], resolve); } }
+    //     ]
+    // },
     {
         path: '/component',
         icon: 'social-buffer',

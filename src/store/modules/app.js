@@ -46,6 +46,14 @@ const app = {
         order_service_search_info:{"businessType":"1","orderStatus":"0"},
         order_service_search_result:[],
 
+        //资金流水公共状态
+        cash_flow_serch_info : {"chargeStatus":"-1","tradeType":"0"},
+        cash_flow_page_info:{
+            currentPage:1,
+            totalPage:0
+        },
+        cash_flow_search_result:[],
+
 
         cachePage: [],
         lang: '',
@@ -360,12 +368,12 @@ const app = {
                     //state.order_demand_search_result[x].status = status[statusIndex]
                }
             }).catch((error)=>{
-                conole.log(error)
+                console.log(error)
             })
         },
         GET_ORDER_SERVICE_INFO(state,{data,pageNo}){
             state.order_service_search_info = data
-            console.log(data)
+            //console.log(data)
             Util.ajax({
                 method:"post",
                 url:base_uri.order_search_orders_for_page_url,
@@ -393,10 +401,53 @@ const app = {
                     //state.order_demand_search_result[x].status = status[statusIndex]
                }
             }).catch((error)=>{
-                conole.log(error)
+                console.log(error)
             })
         },
-        
+        GET_CASH_FLOW_INFO(state,{data,pageNo}){
+            state.cash_flow_serch_info = data
+            Util.ajax({
+                method:"post",
+                url:base_uri.cash_search_account_log_url,
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
+                },
+                data:data
+            }).then((response)=>{
+                //console.log(response)
+                let arr = response.data.data.items
+                let chargeStatusArr = ["未成功","成功"]
+                let tradeTypeArr = ["全部","服务","需求","手续费","提现","退款","佣金","保障金","退还保障金"]
+                let isIncomingArr = ["","收入","支出"]
+                let paymentTypeArr = ["","支付宝","微信"]
+                let statusArr = ["禁用","启用"]
+                //let status = ["无效","有效"]
+                state.cash_flow_page_info.currentPage = parseInt(response.data.data.page)
+                state.cash_flow_page_info.totalPage = parseInt(response.data.data.totalCount)
+                state.cash_flow_search_result = response.data.data.items
+                
+                for(let x in arr) 
+                {   
+                    let chargeStatus = parseInt( arr[x].chargeStatus)
+                    let tradeType = parseInt( arr[x].tradeType)
+                    let isIncoming = parseInt(arr[x].isIncoming)
+                    let paymentType = parseInt(arr[x].paymentType)
+                    let status = parseInt(arr[x].status)
+                    //let statusIndex = parseInt(state.service_search_result[x].status)
+                    state.cash_flow_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
+                    state.cash_flow_search_result[x].chargeStatus = chargeStatusArr[chargeStatus]
+                    state.cash_flow_search_result[x].tradeType = tradeTypeArr[tradeType]
+                    state.cash_flow_search_result[x].amount = parseInt(arr[x].amount)/100 + "元"
+                    state.cash_flow_search_result[x].isIncoming = isIncomingArr[isIncoming]
+                    state.cash_flow_search_result[x].paymentType = paymentTypeArr[paymentType]
+                    state.cash_flow_search_result[x].status = statusArr[status]
+               }
+               //console.log( state.cash_flow_search_result)
+            }).catch((error)=>{
+                console.log(error)
+            })
+        }
     }
 };
 

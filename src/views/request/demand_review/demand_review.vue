@@ -64,8 +64,13 @@
         </div>
         <br>
         <div class="user_detail_div">
-          <label class="from_label">服务方式:</label>
+          <label class="from_label">需求方式:</label>
           <b>{{data.modeTypeData}}</b>
+        </div>
+        <br>
+         <div class="user_detail_div">
+          <label class="from_label">需求位置:</label>
+          <b>{{data.address}}</b>
         </div>
         <br>
         <div class="user_detail_media">

@@ -19,20 +19,22 @@
 <script>
 export default {
   name: "user_search",
-  props:["data","storeStatus","storeMutations"],
-  
+  props:["data","storeStatus"],
   methods: {
     search: function() {
       let obj = {};
       for (let x in this.data) {
-        obj.businessType = '2'
         if (this.data[x].value != "") {
             obj[x] = this.data[x].value;
         }
       }
-      //console.log(obj)
-      this.$store.state.app.order_demand_search_info = obj;
-      this.$store.commit("GET_ORDER_DEMAND_INFO", { data: obj, pageNo: 1 });
+      //console.log(this.storeStatus)
+      switch(this.storeStatus){
+        case "cashFlow": 
+          this.$store.state.app.cash_flow_page_info = obj
+          this.$store.commit("GET_CASH_FLOW_INFO", { data: obj, pageNo: 1 });
+        break
+      }
     }
   }
 };

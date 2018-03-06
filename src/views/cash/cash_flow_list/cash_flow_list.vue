@@ -1,9 +1,10 @@
 <template>
     <div>
         <br><br>
-        <search :data="data"></search>
+        <search :data="searchConfig" :storeStatus="status"  ></search>
         <br><br>
-        <!-- <OrderDemandTable></OrderDemandTable>
+        <TableComponent :columns="columns" :data="$store.state.app.cash_flow_search_result"></TableComponent>
+        <!-- 
         <br>
         <OrderDemandChangePage></OrderDemandChangePage> -->
     </div>
@@ -11,23 +12,27 @@
 <script>
 import config from '../config'
 import search from '@/views/public-components/search'
-// import OrderDemandTable from './order_demand_table.vue'
+import TableComponent from '@/views/public-components/table'
 // import OrderDemandChangePage from "./order_demand_change_page.vue"
 export default {
     data(){
         return {
-            data:config.cashFlow
+            status:"cashFlow",
+            searchConfig:config.cashFlow,
+            columns : config.cashFlowTableColumns,
+            //tableData:$store.state.app.cash_flow_search_result
         }
     },
   components:{
       search,
+      TableComponent
     //   OrderDemandTable,
     //   OrderDemandChangePage
   },
    created(){
-       console.log(config)
-       //console.log("初始化")
-      //this.$store.commit("GET_ORDER_DEMAND_INFO",{data:this.$store.state.app.order_demand_search_info,pageNo:1})
+      //console.log(config)
+      console.log(this.$store._mutations.GET_CASH_FLOW_INFO)
+      this.$store.commit("GET_CASH_FLOW_INFO",{data:this.$store.state.app.cash_flow_serch_info,pageNo:1})
   }
 }
 </script>

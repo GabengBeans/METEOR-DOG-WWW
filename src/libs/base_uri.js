@@ -41,7 +41,10 @@ let base_uri = {
     order_search_orders_for_page_url :"/admin/v1/orders/search_orders_for_page/",
     order_detail_url :"/admin/v1/orders/detail/",
     order_drawback_detail_url :"/admin/v1/orders/drawback_detail/",
-    order_audit_url :"/admin/v1/orders/audit/"
+    order_audit_url :"/admin/v1/orders/audit/",
+
+    //资金流水
+    cash_search_account_log_url :"/admin/v1/cash/account_log/search_account_log_for_page"
 };
 
 export default base_uri;

@@ -68,6 +68,11 @@
           <b>{{data.modeTypeData}}</b>
         </div>
         <br>
+        <div class="user_detail_div">
+          <label class="from_label">服务位置:</label>
+          <b>{{data.address}}</b>
+        </div>
+        <br>
         <div class="user_detail_media">
           <label class="from_label">服务图片:</label>
           <div class="demo-upload-list" v-for="item in data.mediaImg" :key="item.key">

@@ -1,26 +1,37 @@
 <template>
     <div>
         <br><br>
-        <search></search>
+        <search :data="searchConfig"></search>
         <br><br>
-        <OrderDemandTable></OrderDemandTable>
+        <TableComponent :columns="columns" :data="tableData"></TableComponent>
+        <!-- 
         <br>
-        <OrderDemandChangePage></OrderDemandChangePage>
+        <OrderDemandChangePage></OrderDemandChangePage> -->
     </div>
 </template>
 <script>
-import search from './order_demand_search.vue'
-import OrderDemandTable from './order_demand_table.vue'
-import OrderDemandChangePage from "./order_demand_change_page.vue"
+import config from '../config'
+import search from '@/views/public-components/search'
+import TableComponent from '@/views/public-components/table'
+// import OrderDemandChangePage from "./order_demand_change_page.vue"
 export default {
+    data(){
+        return {
+            searchConfig:config.cashWithDraw,
+            columns : config.cashFlowTableColumns,
+            tableData:[]
+        }
+    },
   components:{
       search,
-      OrderDemandTable,
-      OrderDemandChangePage
+      TableComponent
+    //   OrderDemandTable,
+    //   OrderDemandChangePage
   },
    created(){
-       console.log("初始化")
-      this.$store.commit("GET_ORDER_DEMAND_INFO",{data:this.$store.state.app.order_demand_search_info,pageNo:1})
+       //console.log(config)
+       //console.log("初始化")
+      //this.$store.commit("GET_ORDER_DEMAND_INFO",{data:this.$store.state.app.order_demand_search_info,pageNo:1})
   }
 }
 </script>
