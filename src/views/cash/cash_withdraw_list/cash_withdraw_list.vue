@@ -11,7 +11,7 @@
 <script>
 import config from '../config'
 import search from '@/views/public-components/search'
-import TableComponent from '@/views/public-components/table'
+import TableComponent from './cash_withdraw_table'
 import Page from "@/views/public-components/changePage"
 export default {
     data(){
