@@ -193,6 +193,23 @@ export const appRouter = [
             }
         ]
     },
+    {
+        path: '/merchant',
+        icon: 'person-stalker',
+        name: 'merchant', 
+        title: '商户管理', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'after-merchant-enter', 
+                icon: 'person-stalker', 
+                name: 'after-merchant-enter', 
+                title: '商户管理', 
+                component: resolve => { require(['@/views/merchant/after_merchant_enter'], resolve); }, 
+            }
+        ]
+    },
     // { // b.第二种情况：有二级菜单
     //     path: '/service', // 必填
     //     icon: 'social-buffer', // 必填，同上

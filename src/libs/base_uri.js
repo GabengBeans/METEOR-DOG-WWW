@@ -49,7 +49,10 @@ let base_uri = {
     account_search_bond_for_page_url :"/admin/v1/cash/account/search_bond_for_page",
     //提现
     cash_search_withdraw_for_page_url :"/admin/v1/cash/withdraw/search_withdraw_for_page",
-    cash_withdraw_audit_url :"/admin/v1/cash/withdraw/audit/"
+    cash_withdraw_audit_url :"/admin/v1/cash/withdraw/audit/",
+
+    //商户入驻
+    search_business_info_for_page_url:"/admin/v1/business_info/search_business_info_for_page"
 };
 
 export default base_uri;

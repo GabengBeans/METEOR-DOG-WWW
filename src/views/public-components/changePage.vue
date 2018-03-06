@@ -27,6 +27,10 @@ export default {
           //console.log(index)
           this.$store.commit("GET_CASH_WITHDRAW_INFO", { data: this.$store.state.app.cash_withdraw_search_info, pageNo:index});
         break
+        case "afterMerchantEnter": 
+          //console.log(index)
+          this.$store.commit("GET_MERCHANT_ENTER_INFO", { data: this.$store.state.app.merchant_enter_search_info, pageNo: index });
+        break
       }
     }
   }

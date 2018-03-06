@@ -70,6 +70,14 @@ const app = {
         },
         cash_withdraw_search_result:[],
 
+        //商户入驻
+        merchant_enter_search_info : {},
+        merchant_enter_page_info:{
+            currentPage:1,
+            totalPage:0
+        },
+        merchant_enter_search_result:[],
+
         cachePage: [],
         lang: '',
         isFullScreen: false,
@@ -530,6 +538,37 @@ const app = {
                     state.cash_withdraw_search_result[x].applyStatus = applyStatusArr[applyStatus]
                }
             //    console.log(state.cash_refund_search_result)
+            }).catch((error)=>{
+                console.log(error)
+            })
+        },
+        GET_MERCHANT_ENTER_INFO(state,{data,pageNo}){
+            state.merchant_enter_search_info = data
+            Util.ajax({
+                method:"post",
+                url:base_uri.search_business_info_for_page_url,
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
+                },
+                data:data
+            }).then((response)=>{
+                console.log(response)
+                let arr = response.data.data.items
+                state.merchant_enter_page_info.currentPage = parseInt(response.data.data.page)
+                state.merchant_enter_page_info.totalPage = parseInt(response.data.data.totalCount)
+                state.merchant_enter_search_result = response.data.data.items
+                
+                for(let x in arr) 
+                {   
+                    if(arr[x].createTime)
+                    {
+                        state.merchant_enter_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
+                    }else{
+                        state.merchant_enter_search_result[x].createTime = ''
+                    }
+               }
+               //console.log(state.cash_refund_search_result)
             }).catch((error)=>{
                 console.log(error)
             })

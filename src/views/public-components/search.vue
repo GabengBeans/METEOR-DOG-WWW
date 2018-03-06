@@ -43,6 +43,10 @@ export default {
           this.$store.state.app.cash_withdraw_search_info = obj
           this.$store.commit("GET_CASH_WITHDRAW_INFO", { data: obj, pageNo: 1 });
         break
+        case "afterMerchantEnter": 
+          this.$store.state.app.merchant_enter_search_info = obj
+          this.$store.commit("GET_MERCHANT_ENTER_INFO", { data: obj, pageNo: 1 });
+        break
       }
     }
   }
