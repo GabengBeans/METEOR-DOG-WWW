@@ -47,13 +47,28 @@ const app = {
         order_service_search_result:[],
 
         //资金流水公共状态
-        cash_flow_serch_info : {"chargeStatus":"-1","tradeType":"0"},
+        cash_flow_search_info : {"chargeStatus":"-1","tradeType":"0"},
         cash_flow_page_info:{
             currentPage:1,
             totalPage:0
         },
         cash_flow_search_result:[],
 
+        //保障金
+        cash_refund_search_info : {"bondStatus":"-1"},
+        cash_refund_page_info:{
+            currentPage:1,
+            totalPage:0
+        },
+        cash_refund_search_result:[],
+
+        //提现
+        cash_withdraw_search_info : {"applyStatus":"-1"},
+        cash_withdraw_page_info:{
+            currentPage:1,
+            totalPage:0
+        },
+        cash_withdraw_search_result:[],
 
         cachePage: [],
         lang: '',
@@ -422,7 +437,6 @@ const app = {
                 let isIncomingArr = ["","收入","支出"]
                 let paymentTypeArr = ["","支付宝","微信"]
                 let statusArr = ["禁用","启用"]
-                //let status = ["无效","有效"]
                 state.cash_flow_page_info.currentPage = parseInt(response.data.data.page)
                 state.cash_flow_page_info.totalPage = parseInt(response.data.data.totalCount)
                 state.cash_flow_search_result = response.data.data.items
@@ -444,6 +458,78 @@ const app = {
                     state.cash_flow_search_result[x].status = statusArr[status]
                }
                //console.log( state.cash_flow_search_result)
+            }).catch((error)=>{
+                console.log(error)
+            })
+        },
+        GET_CASH_REFUND_INFO(state,{data,pageNo}){
+            state.cash_flow_serch_info = data
+            Util.ajax({
+                method:"post",
+                url:base_uri.account_search_bond_for_page_url,
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
+                },
+                data:data
+            }).then((response)=>{
+                console.log(response)
+                let arr = response.data.data.items
+                let bondStatusArr = ["未缴纳","已缴纳","申请中"]
+                state.cash_refund_page_info.currentPage = parseInt(response.data.data.page)
+                state.cash_refund_page_info.totalPage = parseInt(response.data.data.totalCount)
+                state.cash_refund_search_result = response.data.data.items
+                
+                for(let x in arr) 
+                {   
+                    let bondStatus = parseInt( arr[x].bondStatus)
+                    if(arr[x].createTime)
+                    {
+                        state.cash_refund_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
+                    }else{
+                        state.cash_refund_search_result[x].createTime = ''
+                    }
+                    
+                    state.cash_refund_search_result[x].bondAmount = parseInt(arr[x].bondAmount)/100 + "元"
+                    state.cash_refund_search_result[x].bondStatus = bondStatusArr[bondStatus]
+               }
+               console.log(state.cash_refund_search_result)
+            }).catch((error)=>{
+                console.log(error)
+            })
+        },
+        GET_CASH_WITHDRAW_INFO(state,{data,pageNo}){
+            state.cash_flow_serch_info = data
+            Util.ajax({
+                method:"post",
+                url:base_uri.cash_search_withdraw_for_page_url,
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
+                },
+                data:data
+            }).then((response)=>{
+                console.log(response)
+                let arr = response.data.data.items
+                let applyStatusArr = ["申请中","申请通过","申请驳回"]
+                state.cash_withdraw_page_info.currentPage = parseInt(response.data.data.page)
+                state.cash_withdraw_page_info.totalPage = parseInt(response.data.data.totalCount)
+                state.cash_withdraw_search_result = response.data.data.items
+                
+                for(let x in arr) 
+                {   
+                    let applyStatus = parseInt(arr[x].applyStatus)
+                    if(arr[x].createTime)
+                    {
+                        state.cash_withdraw_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
+                    }else{
+                        state.cash_withdraw_search_result[x].createTime = ''
+                    }
+                    
+                    state.cash_withdraw_search_result[x].amount = parseInt(arr[x].amount)/100 + "元"
+                    state.cash_withdraw_search_result[x].applyStatus = applyStatusArr[applyStatus]
+               }
+            //    console.log(state.cash_refund_search_result)
             }).catch((error)=>{
                 console.log(error)
             })

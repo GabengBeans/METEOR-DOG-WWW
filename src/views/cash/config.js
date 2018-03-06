@@ -1,3 +1,5 @@
+import Util from "@/libs/util"
+import baseUri from "@/libs/base_uri"
 const config = {
 
 }
@@ -9,7 +11,7 @@ config.cashFlow = {
     },
     phone: {
         tagName: "手机号",
-        value: ""
+        value: "",
     },
     orderNo: {
         tagName: "订单号",
@@ -143,7 +145,7 @@ config.cashRefund = {
         tagName: "手机号",
         value: ""
     },
-    applyStatus: {
+    bondStatus: {
         tagName: "申请状态",
         value: "-1",
         tag: {
@@ -153,15 +155,15 @@ config.cashRefund = {
             },
             op2: {
                 num: "0",
-                value: "申请中"
+                value: "未缴纳"
             },
             op3: {
                 num: "1",
-                value: "审核通过"
+                value: "已缴纳"
             },
             op4: {
                 num: "2",
-                value: "申请驳回"
+                value: "申请中"
             }
         }
     },
@@ -178,6 +180,17 @@ config.cashRefund = {
 }
 
 config.cashFlowTableColumns = [
+    {
+        type: 'expand',
+        width: 50,
+        render: (h, params) => {
+            return h(expandRow, {
+                props: {
+                    row: params.row
+                }
+            })
+        }
+    },
     {
         title: "ID",
         key: "id"
@@ -199,48 +212,210 @@ config.cashFlowTableColumns = [
         key: "chargeStatus"
     },
     {
-        title:"服务ID",
-        key:"serviceId"
+        title: "服务ID",
+        key: "serviceId"
     },
     {
-        title:"订单编码",
-        key:"orderId"
+        title: "订单编码",
+        key: "orderId"
     },
     {
-        title:"交易类型",
-        key:"tradeType"
+        title: "交易类型",
+        key: "tradeType"
+    },
+    // {
+    //     title: "交易金额",
+    //     key: "amount"
+    // },
+    // {
+    //     title: "收入\支出",
+    //     key: "isIncoming"
+    // },
+    // {
+    //     title: "支付方式",
+    //     key: "paymentType"
+    // },
+    // {
+    //     title: "支出方",
+    //     key: "fromUserName"
+    // },
+    // {
+    //     title: "接收方",
+    //     key: "toUserName"
+    // },
+    // {
+    //     title: "系统订单号",
+    //     key: "orderNo"
+    // },
+    // {
+    //     title: "交易时间",
+    //     key: "createTime"
+    // },
+    // {
+    //     title: "数据状态",
+    //     key: "status"
+    // }
+]
+
+config.cashWithDrawTableColumns = [
+    {
+        title: "ID",
+        key: "id"
     },
     {
-        title:"交易金额",
-        key:"amount"
+        title: "用户名",
+        key: "userName"
     },
     {
-        title:"收入\支出",
-        key:"isIncoming"
+        title: "手机号",
+        key: "phone"
     },
     {
-        title:"支付方式",
-        key:"paymentType"
+        title: "提现金额",
+        key: "amount"
     },
     {
-        title:"支出方",
-        key:"fromUserName"
+        title: "操作时间",
+        key: "createTime"
     },
     {
-        title:"接收方",
-        key:"toUserName"
+        title: "申请状态",
+        key: "applyStatus"
     },
     {
-        title:"系统订单号",
-        key:"orderNo"
-    },
-    {
-        title:"交易时间",
-        key:"createTime"
-    },
-    {
-        title:"数据状态",
-        key:"status"
+        title: "操作",
+        key: "id",
+        width: 300,
+        align: "center",
+        render: (h, params) => {
+            return h("div", [
+                h(
+                    "Button",
+                    {
+                        props: {
+                            type: "success",
+                            size: "small",
+                            disabled: params.row.applyStatus == "申请中" ? false : true
+                        },
+                        style: {
+                            marginRight: "5px"
+                        },
+                        on: {
+                            click: () => {
+                                Util.ajax({
+                                    method:"post",
+                                    url:baseUri.cash_withdraw_audit_url,
+                                    data:{
+                                        withdrawId:params.row.id,
+                                        applyStatus:1,
+                                        refuseReason:''
+                                    },
+                                    transformRequest: [
+                                        function(data) {
+                                          let ret = "";
+                                          for (let it in data) {
+                                            ret +=
+                                              encodeURIComponent(it) +
+                                              "=" +
+                                              encodeURIComponent(data[it]) +
+                                              "&";
+                                          }
+                                          return ret;
+                                        }
+                                      ]
+                                })
+                                .then((res)=>{
+                                    if(res.data.data=="SUCCESS")
+                                    {
+                                        //this.$Message.success("审核通过")
+                                    }
+                                })
+                            }
+                        }
+                    },
+                    "审核通过"
+                ),
+                h(
+                    "Button",
+                    {
+                        props: {
+                            type: "error",
+                            size: "small",
+                            disabled: params.row.applyStatus == "申请中"? false : true
+                        },
+                        style: {
+                            marginRight: "5px"
+                        },
+                        on: {
+                            click: () => {
+
+                                // Util.ajax({
+                                //     method:"post",
+                                //     url:baseUri.cash_withdraw_audit_url,
+                                //     data:{
+                                //         withdrawId:params.row.id,
+                                //         applyStatus:2,
+                                //         refuseReason:''
+                                //     },
+                                //     transformRequest: [
+                                //         function(data) {
+                                //           let ret = "";
+                                //           for (let it in data) {
+                                //             ret +=
+                                //               encodeURIComponent(it) +
+                                //               "=" +
+                                //               encodeURIComponent(data[it]) +
+                                //               "&";
+                                //           }
+                                //           return ret;
+                                //         }
+                                //       ]
+                                // })
+                                // .then((res)=>{
+                                //     if(res.data.data=="SUCCESS")
+                                //     {
+                                //         //this.$Message.success("审核驳回")
+                                //     }
+                                // })
+                            }
+                        }
+                    },
+                    "审核驳回"
+                )
+            ]);
+        }
     }
+
+]
+
+config.cashRefundColumns = [
+    {
+        title: "ID",
+        key: "id"
+    },
+    {
+        title: "ping++chargeId",
+        key: "chargeId"
+    },
+    {
+        title: "用户名",
+        key: "nickname"
+    },
+    {
+        title: "手机号",
+        key: "phone"
+    },
+    {
+        title: "保障金",
+        key: "bondAmount"
+    },
+    {
+        title: "操作时间",
+        key: "createTime"
+    },
+    {
+        title: "申请状态",
+        key: "bondStatus"
+    },
 ]
 export default config

@@ -1,7 +1,7 @@
 <template>
 <div id='user_table'>
     <Table style="min-width:800px;margin:0 16px;" 
-    border stripe  :columns="columns" :data="data">
+    border  stripe  :columns="columns" :data="data">
     </Table>
 </div>
    

@@ -1,37 +1,33 @@
 <template>
     <div>
         <br><br>
-        <search :data="searchConfig"></search>
+        <search  :data="searchConfig" :storeStatus="status"></search>
         <br><br>
-        <TableComponent :columns="columns" :data="tableData"></TableComponent>
-        <!-- 
+        <TableComponent :columns="columns" :data="$store.state.app.cash_refund_search_result"></TableComponent>
         <br>
-        <OrderDemandChangePage></OrderDemandChangePage> -->
+        <Page :storeStatus="status" :currentPage="$store.state.app.cash_refund_page_info.currentPage" :totalPage="$store.state.app.cash_refund_page_info.totalPage"></Page> 
     </div>
 </template>
 <script>
 import config from '../config'
 import search from '@/views/public-components/search'
 import TableComponent from '@/views/public-components/table'
-// import OrderDemandChangePage from "./order_demand_change_page.vue"
+import Page from "@/views/public-components/changePage"
 export default {
     data(){
         return {
+            status:"cashRefund",
             searchConfig:config.cashRefund,
-            columns : config.cashFlowTableColumns,
-            tableData:[]
+            columns : config.cashRefundColumns,
         }
     },
   components:{
       search,
-      TableComponent
-    //   OrderDemandTable,
-    //   OrderDemandChangePage
+      TableComponent,
+      Page
   },
    created(){
-       //console.log(config)
-       //console.log("初始化")
-      //this.$store.commit("GET_ORDER_DEMAND_INFO",{data:this.$store.state.app.order_demand_search_info,pageNo:1})
+      this.$store.commit("GET_CASH_REFUND_INFO",{data:this.$store.state.app.cash_refund_search_info,pageNo:1})
   }
 }
 </script>

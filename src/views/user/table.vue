@@ -25,7 +25,8 @@ export default {
         },
         {
           title: "昵称",
-          key: "nickname"
+          key: "nickname",
+          ellipsis:"false"
         },
         {
           title: "真实姓名",
@@ -120,7 +121,7 @@ export default {
                           //this.user_query_response = response
                         })
                         .catch(error => {
-                          vue.$Message.error("请求超时");
+                          this.$Message.error("请求超时");
                         });
                     }
                   }
@@ -171,7 +172,7 @@ export default {
                           this.$Message.success("启用成功");
                         })
                         .catch(error => {
-                          vue.$Message.error("请求超时");
+                          this.$Message.error("请求超时");
                         });
                     }
                   }

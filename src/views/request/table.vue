@@ -19,11 +19,13 @@ export default {
         },
         {
           title: "需求标题",
-          key: "title"
+          key: "title",
+          ellipsis:"false"
         },
         {
           title: "商户/姓名/昵称",
-          key: "nickname"
+          key: "nickname",
+          ellipsis:"false"
         },
         {
           title: "手机号",
