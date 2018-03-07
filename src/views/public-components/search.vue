@@ -31,20 +31,20 @@ export default {
       console.log(obj)
       switch(this.storeStatus){
         case "cashFlow": 
-          this.$store.state.app.cash_flow_search_info = obj
+          //this.$store.state.app.cash_flow_search_info = obj
           this.$store.commit("GET_CASH_FLOW_INFO", { data: obj, pageNo: 1 });
         break
         case "cashRefund": 
         //console.log(obj)
-          this.$store.state.app.cash_refund_search_info = obj
+          //this.$store.state.app.cash_refund_search_info = obj
           this.$store.commit("GET_CASH_REFUND_INFO", { data: obj, pageNo: 1 });
         break
         case "cashWithDraw": 
-          this.$store.state.app.cash_withdraw_search_info = obj
+          //this.$store.state.app.cash_withdraw_search_info = obj
           this.$store.commit("GET_CASH_WITHDRAW_INFO", { data: obj, pageNo: 1 });
         break
         case "afterMerchantEnter": 
-          this.$store.state.app.merchant_enter_search_info = obj
+          //this.$store.state.app.merchant_enter_search_info = obj
           this.$store.commit("GET_MERCHANT_ENTER_INFO", { data: obj, pageNo: 1 });
         break
       }

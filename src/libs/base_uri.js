@@ -52,7 +52,14 @@ let base_uri = {
     cash_withdraw_audit_url :"/admin/v1/cash/withdraw/audit/",
 
     //商户入驻
-    search_business_info_for_page_url:"/admin/v1/business_info/search_business_info_for_page"
+    search_business_info_for_page_url:"/admin/v1/business_info/search_business_info_for_page",
+
+    //广告
+    new_advert_position_list_two_level_advert_position_url :"/admin/v1/new_advert_position/list_two_level_advert_position/",
+    advert_query_advert_url:"/admin/v1/new_advert/query_adverts/",
+    new_advert_edit_advert_url :"/admin/v1/new_advert/edit_advert/",
+    new_advert_add_url :"/admin/v1/new_advert/add_advert/",
+    new_advert_delete_advert_url:"/admin/v1/new_advert/delete_advert/"
 };
 
 export default base_uri;

@@ -78,6 +78,14 @@ const app = {
         },
         merchant_enter_search_result:[],
 
+        //广告位
+        advert_new_search_info : {},
+        advert_new_page_info:{
+            currentPage:1,
+            totalPage:0
+        },
+        advert_new_search_result:[],
+
         cachePage: [],
         lang: '',
         isFullScreen: false,
@@ -517,7 +525,7 @@ const app = {
                 },
                 data:data
             }).then((response)=>{
-                console.log(response)
+                //console.log(response)
                 let arr = response.data.data.items
                 let applyStatusArr = ["申请中","申请通过","申请驳回"]
                 state.cash_withdraw_page_info.currentPage = parseInt(response.data.data.page)
@@ -553,7 +561,7 @@ const app = {
                 },
                 data:data
             }).then((response)=>{
-                console.log(response)
+                //console.log(response)
                 let arr = response.data.data.items
                 state.merchant_enter_page_info.currentPage = parseInt(response.data.data.page)
                 state.merchant_enter_page_info.totalPage = parseInt(response.data.data.totalCount)
@@ -569,6 +577,37 @@ const app = {
                     }
                }
                //console.log(state.cash_refund_search_result)
+            }).catch((error)=>{
+                console.log(error)
+            })
+        },
+        GET_ADVERT_NEW_INFO(state,{data,pageNo}){
+            state.advert_new_search_info = data
+            Util.ajax({
+                method:"post",
+                url:base_uri.advert_query_advert_url,
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
+                },
+                data:data
+            }).then((response)=>{
+                //console.log(response)
+                let arr = response.data.data.items
+                state.advert_new_page_info.currentPage = parseInt(response.data.data.page)
+                state.advert_new_page_info.totalPage = parseInt(response.data.data.totalCount)
+                state.advert_new_search_result = response.data.data.items
+                
+                for(let x = 0;x<arr.length;x++) 
+                {   
+                    if(arr[x].updateTime)
+                    {
+                        state.advert_new_search_result[x].updateTime = Util.formatDate(new Date(arr[x].updateTime),"yyyy-MM-dd hh:mm:ss")
+                    }else{
+                        state.advert_new_search_result[x].updateTime = ''
+                    }
+               }
+               //console.log(state.advert_new_search_result)
             }).catch((error)=>{
                 console.log(error)
             })
