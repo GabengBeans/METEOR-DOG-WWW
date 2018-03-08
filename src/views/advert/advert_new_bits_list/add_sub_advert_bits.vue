@@ -14,7 +14,7 @@
                 </Col>
                 <Col :xs='13' :sm='13' :md='8' :lg='6'>
                 <FormItem style="min-width:100px" label="广告位级别">
-                    <Select v-model="data.level" >
+                    <Select v-model="data.level">
                         <Option v-for="item in selectData.level.tag" :key="item.key" :value="item.num">{{item.value}}</Option>
                     </Select>
                 </FormItem>
@@ -30,7 +30,7 @@
 </template>
 <script>
 export default {
-    name:"addSubAdvertBits",
+  name: "addSubAdvertBits",
   props: ["data", "selectData"]
 };
 </script>

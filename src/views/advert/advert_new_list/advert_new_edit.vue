@@ -20,7 +20,6 @@
                         </template>
                         <template v-if="data.imgUrl">
                             <div class="demo-upload-lists">
-
                                 <img :src="data.imgUrl">
                                 <div class="demo-upload-list-covers">
                                     <Icon type="ios-trash-outline" @click.native="handleRemove(data.imgUrl)"></Icon>

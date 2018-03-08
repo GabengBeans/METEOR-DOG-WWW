@@ -121,6 +121,15 @@
         </div>
         <br><br>
       </Card>
+      <Modal v-model="modalShow" @on-cancel="closePage()">
+        <p slot="header" style="color:#f60;text-align:center"></p>
+        <div style="font-size:20px;text-align:center">
+          <b>已审核</b>
+        </div>
+        <div slot="footer" style="text-align:center">
+          <Button type="success" size="large" @click="closePage()">返回</Button>
+        </div>
+      </Modal>
     </div>
   </div>
 </template>
@@ -131,6 +140,7 @@ import baseUri from "@/libs/base_uri";
 export default {
   data() {
     return {
+      modalShow:false,
       aliyun: baseUri.oss_url,
       show: false,
       data: {},
@@ -168,7 +178,7 @@ export default {
         .then(response => {
           console.log(response);
           if (response.data.success) {
-            this.$Message.success("已审核");
+             this.modalShow = true;
           } else {
             this.$Message.error("审核失败");
           }
@@ -201,6 +211,27 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    closePage() {
+      let pageOpenedList = this.$store.state.app.pageOpenedList;
+      let lastPageObj = pageOpenedList[0];
+      let len = pageOpenedList.length;
+      for (let i = 1; i < len; i++) {
+        if (pageOpenedList[i].name === this.$route.name) {
+          if (i < len - 1) {
+            lastPageObj = pageOpenedList[i + 1];
+          } else {
+            lastPageObj = pageOpenedList[i - 1];
+          }
+          break;
+        }
+      }
+      this.$store.commit("removeTag", this.$route.name);
+      this.$store.commit("closePage", this.$route.name);
+      pageOpenedList = this.$store.state.app.pageOpenedList;
+      localStorage.pageOpenedList = JSON.stringify(pageOpenedList);
+      this.$router.back(-1);
+      this.modalShow = false;
     }
   },
   created() {

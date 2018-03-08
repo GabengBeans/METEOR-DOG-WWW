@@ -22,31 +22,39 @@
             <Form label-position="right" :label-width="60">
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
                 <FormItem label="广告名称">
-                    <Input clearable v-model="data.adName"></Input>
+                    <Input clearable v-model="data.adName" />
                 </FormItem>
                 <FormItem label="上传">
                     <template v-if="data.mediaType==1">
                         <template v-if="!data.imgUrl">
                             图片大小限制2M
-                            <Upload ref="upload" :show-upload-list="false" :on-success="handleSuccess" :format="['jpg','jpeg','png']" :max-size="2048" :on-format-error="handleFormatError" :on-exceeded-size="handleMaxSize" :before-upload="handleBeforeUpload" :data="{
-                        'type':'user'
-                    }" action="https://lxg.91taogu.com/up/">
+                            <Upload ref="upload" 
+                            :show-upload-list="false" 
+                            :on-success="handleSuccess" 
+                            :format="['jpg','jpeg','png']" 
+                            :max-size="2048" 
+                            :on-format-error="handleFormatError" 
+                            :on-exceeded-size="handleMaxSize" 
+                            :before-upload="handleBeforeUpload" 
+                            :data="{
+                              'type':'user'
+                            }" 
+                            action="https://lxg.91taogu.com/up/">
                                 <div>
                                     <Icon type="camera" size="40"></Icon>
                                 </div>
                             </Upload>
                         </template>
-                        <template v-if="data.imgUrl">
+                    </template>
+                     <template v-if="data.imgUrl">
                             <div class="demo-upload-lists">
-
                                 <img :src="data.imgUrl">
                                 <div class="demo-upload-list-covers">
                                     <Icon type="ios-trash-outline" @click.native="handleRemove(data.imgUrl)"></Icon>
                                 </div>
                             </div>
                         </template>
-                    </template>
-                    <template v-if="data.mediaType==2">
+                    <template v-else-if="data.mediaType==2">
                         <template v-if="!data.imgUrl">
                             视频大小限制200M
                             <Upload ref="upload" 
@@ -65,15 +73,8 @@
                                 </div>
                             </Upload>
                         </template>
-                        <template v-if="data.imgUrl">
-                            <div class="demo-upload-lists">
-                                <img :src="data.imgUrl">
-                                <div class="demo-upload-list-covers">
-                                    <Icon type="ios-trash-outline" @click.native="handleRemove(data.imgUrl)"></Icon>
-                                </div>
-                            </div>
-                        </template>
                     </template>
+                   
                 </FormItem>
                 </Col>
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
@@ -92,7 +93,7 @@
                 </FormItem>
                 </Col>
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
-                <FormItem label="媒体类型">
+                <FormItem label="媒体类型">{{data.mediaType}}
                     <Select v-model="data.mediaType">
                         <Option :value=1>图片</Option>
                         <Option :value=2>视频</Option>
@@ -111,7 +112,7 @@ export default {
   props: ["data"],
   data() {
     return {
-        tags: [],
+      tags: [],
       level: "",
       names: [],
     };
@@ -138,18 +139,22 @@ export default {
       this.visible = true;
     },
     handleRemove(file) {
+      console.log(1111)
+      console.log(this.data.imgUrl)
       this.data.imgUrl = "";
     },
     handleSuccess(res, file) {
-      console.log(res);
-      this.$Message.destroy();
-      this.$Message.success("上传成功");
-      this.data.imgUrl = res.result.file.outUrl;
+      if(res.success)
+      {
+        this.$Message.destroy();
+        this.$Message.success("图片上传成功");
+        this.data.imgUrl = res.result.file.outUrl;
+        console.log(this.data.imgUrl)
+      }
     },
     handleVideoSuccess(res, file) {
-      console.log(res);
       this.$Message.destroy();
-      this.$Message.success("上传成功");
+      this.$Message.success("视频上传成功");
       this.data.imgUrl = res.result.file.outUrl;
       this.data.videoId = res.result.fiel.videoId
     },
