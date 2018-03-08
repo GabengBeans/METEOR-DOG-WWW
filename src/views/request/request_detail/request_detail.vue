@@ -159,27 +159,15 @@ export default {
         this.$Message.error("下架原因不能为空");
         return false;
       }
+      let data = {
+        demandId: this.$route.params.id,
+        status: 0,
+        refuseReason: this.refuseReason
+      };
       Util.ajax({
         method: "post",
         url: baseUri.demand_undercarriage_url,
-        data: {
-          demandId: this.$route.params.id,
-          status: 0,
-          refuseReason: this.refuseReason
-        },
-        transformRequest: [
-          function(data) {
-            let ret = "";
-            for (let it in data) {
-              ret +=
-                encodeURIComponent(it) +
-                "=" +
-                encodeURIComponent(data[it]) +
-                "&";
-            }
-            return ret;
-          }
-        ]
+        data: Util.formatDate(data)
       }).then(response => {
         this.$Message.success("下架成功");
       });

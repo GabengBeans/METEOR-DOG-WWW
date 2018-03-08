@@ -59,7 +59,9 @@ let base_uri = {
     advert_query_advert_url:"/admin/v1/new_advert/query_adverts/",
     new_advert_edit_advert_url :"/admin/v1/new_advert/edit_advert/",
     new_advert_add_url :"/admin/v1/new_advert/add_advert/",
-    new_advert_delete_advert_url:"/admin/v1/new_advert/delete_advert/"
+    new_advert_delete_advert_url:"/admin/v1/new_advert/delete_advert/",
+    advert_position_search_for_page_url:"/admin/v1/advert_position/search_advert_position_for_page/",
+    advert_position_add_url :"/admin/v1/advert_position/add_advert_position/"
 };
 
 export default base_uri;

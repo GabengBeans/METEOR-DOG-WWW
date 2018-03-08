@@ -328,35 +328,6 @@ export default {
     handleVideo() {
       this.videoVisible = true;
     }
-    // showUnder() {
-    //   this.underVisible = !this.underVisible;
-    // },
-    // handleUnder() {
-    //   Util.ajax({
-    //     method: "post",
-    //     url: baseUri.demand_undercarriage_url,
-    //     data: {
-    //       demandId: this.$route.params.id,
-    //       status: 0,
-    //       refuseReason: this.refuseReason
-    //     },
-    //     transformRequest: [
-    //       function(data) {
-    //         let ret = "";
-    //         for (let it in data) {
-    //           ret +=
-    //             encodeURIComponent(it) +
-    //             "=" +
-    //             encodeURIComponent(data[it]) +
-    //             "&";
-    //         }
-    //         return ret;
-    //       }
-    //     ]
-    //   }).then(response => {
-    //     console.log(response);
-    //   });
-    // }
   },
   created() {
     let This = this;

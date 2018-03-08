@@ -68,7 +68,7 @@
           <b>{{data.modeTypeData}}</b>
         </div>
         <br>
-         <div class="user_detail_div">
+        <div class="user_detail_div">
           <label class="from_label">需求位置:</label>
           <b>{{data.address}}</b>
         </div>
@@ -122,14 +122,14 @@
         <br><br>
       </Card>
       <Modal v-model="modalShow" @on-cancel="closePage()">
-          <p slot="header" style="color:#f60;text-align:center"></p>
-          <div style="font-size:20px;text-align:center">
-            <b >已审核</b>
-          </div>
-          <div slot="footer" style="text-align:center">
-            <Button type="success" size="large" @click="closePage()">返回</Button>
-          </div>
-        </Modal>
+        <p slot="header" style="color:#f60;text-align:center"></p>
+        <div style="font-size:20px;text-align:center">
+          <b>已审核</b>
+        </div>
+        <div slot="footer" style="text-align:center">
+          <Button type="success" size="large" @click="closePage()">返回</Button>
+        </div>
+      </Modal>
     </div>
   </div>
 </template>
@@ -140,7 +140,7 @@ import baseUri from "@/libs/base_uri";
 export default {
   data() {
     return {
-      modalShow:false,
+      modalShow: false,
       aliyun: baseUri.oss_url,
       show: false,
       data: {},
@@ -165,32 +165,20 @@ export default {
       this.underVisible = !this.underVisible;
     },
     reviewSuccess() {
+      let data = {
+        demandId: this.$route.params.id,
+        businessStatus: 3,
+        refuseReason: this.refuseReason
+      };
       Util.ajax({
         method: "post",
         url: baseUri.demand_autit_url,
-        data: {
-          demandId: this.$route.params.id,
-          businessStatus: 3,
-          refuseReason: this.refuseReason
-        },
-        transformRequest: [
-          function(data) {
-            let ret = "";
-            for (let it in data) {
-              ret +=
-                encodeURIComponent(it) +
-                "=" +
-                encodeURIComponent(data[it]) +
-                "&";
-            }
-            return ret;
-          }
-        ]
+        data: Util.formatDate(data)
       })
         .then(response => {
           console.log(response);
           if (response.data.success) {
-            this.modalShow=true
+            this.modalShow = true;
           } else {
             this.$Message.error("审核失败,请联系管理员");
           }
@@ -204,27 +192,15 @@ export default {
         this.$Message.error("不通过原因不能为空");
         return false;
       }
+      let data = {
+        demandId: this.$route.params.id,
+        businessStatus: 5,
+        refuseReason: this.refuseReason
+      };
       Util.ajax({
         method: "post",
         url: baseUri.demand_autit_url,
-        data: {
-          demandId: this.$route.params.id,
-          businessStatus: 5,
-          refuseReason: this.refuseReason
-        },
-        transformRequest: [
-          function(data) {
-            let ret = "";
-            for (let it in data) {
-              ret +=
-                encodeURIComponent(it) +
-                "=" +
-                encodeURIComponent(data[it]) +
-                "&";
-            }
-            return ret;
-          }
-        ]
+        data: Util.formatDate(data)
       })
         .then(response => {
           if (response.data.success) {
@@ -255,8 +231,8 @@ export default {
       this.$store.commit("closePage", this.$route.name);
       pageOpenedList = this.$store.state.app.pageOpenedList;
       localStorage.pageOpenedList = JSON.stringify(pageOpenedList);
-      this.$router.back(-1)
-      this.modalShow = false
+      this.$router.back(-1);
+      this.modalShow = false;
     }
   },
   created() {

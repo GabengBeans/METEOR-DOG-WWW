@@ -155,27 +155,15 @@ export default {
       this.underVisible = !this.underVisible;
     },
     reviewSuccess() {
+      let data = {
+        serviceId: this.$route.params.id,
+        businessStatus: 3,
+        refuseReason: this.refuseReason
+      };
       Util.ajax({
         method: "post",
         url: baseUri.service_audit_url,
-        data: {
-          serviceId: this.$route.params.id,
-          businessStatus: 3,
-          refuseReason: this.refuseReason
-        },
-        transformRequest: [
-          function(data) {
-            let ret = "";
-            for (let it in data) {
-              ret +=
-                encodeURIComponent(it) +
-                "=" +
-                encodeURIComponent(data[it]) +
-                "&";
-            }
-            return ret;
-          }
-        ]
+        data: Util.formatDate(data)
       })
         .then(response => {
           console.log(response);
@@ -194,26 +182,14 @@ export default {
         this.$Message.error("不通过原因不能为空");
         return false;
       }
+      let data = {
+        serviceId: this.$route.params.id,
+        businessStatus: 5,
+        refuseReason: this.refuseReason
+      };
       Utile.ajax
         .post(baseUri.service_audit_url, {
-          data: {
-            serviceId: this.$route.params.id,
-            businessStatus: 5,
-            refuseReason: this.refuseReason
-          },
-          transformRequest: [
-            function(data) {
-              let ret = "";
-              for (let it in data) {
-                ret +=
-                  encodeURIComponent(it) +
-                  "=" +
-                  encodeURIComponent(data[it]) +
-                  "&";
-              }
-              return ret;
-            }
-          ]
+          data: Util.formatDate(data)
         })
         .then(response => {
           if (response.data.success) {

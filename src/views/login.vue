@@ -77,7 +77,7 @@ export default {
                                 obj.$router.push({
                                     name: 'home_index'
                                 });
-                                console.log(Cookies.get("token"))
+                                console.log("设置cookies成功："+Cookies.get("token"))
                             }else{
                                 obj.closable(resp.data.msg);
                             }

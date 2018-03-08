@@ -18,7 +18,6 @@ util.title = function (title) {
 };
 
 console.log(util.getConfig.devUrl);
-const token = Cookies.get("token")
 const ajaxUrl = env === 'development'
     ? util.getConfig.devUrl
     : env === 'production'
@@ -28,11 +27,17 @@ const ajaxUrl = env === 'development'
 util.ajax = axios.create({
     baseURL: ajaxUrl,
     timeout: util.getConfig.ajaxOutTime,
-    headers:{
-        token:token
-    }
 });
-
+util.ajax.interceptors.request.use(
+    config => {
+        //console.log("请求拦截器")
+        const token = Cookies.get("token") //获取存储在本地的token
+        config.headers = {
+            'token':token
+        };  
+        return config;
+    }
+);
 util.inOf = function (arr, targetArr) {
     let res = true;
     arr.forEach(item => {
@@ -318,15 +323,11 @@ function padLeftZero(str) {
     return ('00'+str).substr(str.length);
 }
 
-util.formDatas = function(data) {
-    let ret = "";
+util.formData= function(data) {
+    let formData = new FormData()
     for (let it in data) {
-      ret +=
-        encodeURIComponent(it) +
-        "=" +
-        encodeURIComponent(data[it]) +
-        "&";
+     formData.append(it,data[it])
     }
-    return ret;
+    return formData;
   }
 export default util;

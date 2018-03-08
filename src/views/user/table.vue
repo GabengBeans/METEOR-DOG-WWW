@@ -1,7 +1,7 @@
 <template>
   <div id='user_table'>
-      <Table style="min-width:800px;margin:0 16px;" border stripe :columns="columns" :data="$store.state.app.user_search_result">
-      </Table>
+    <Table style="min-width:800px;margin:0 16px;" border stripe :columns="columns" :data="$store.state.app.user_search_result">
+    </Table>
   </div>
 
 </template>
@@ -26,7 +26,7 @@ export default {
         {
           title: "昵称",
           key: "nickname",
-          ellipsis:"false"
+          ellipsis: "false"
         },
         {
           title: "真实姓名",
@@ -88,31 +88,14 @@ export default {
                   },
                   on: {
                     click: () => {
+                      let data = {
+                        userId: params.row.id,
+                        status: 0
+                      };
                       Util.ajax({
                         method: "post",
                         url: baseUri.user_forbidden_user_url,
-                        headers: {
-                          token: Cookies.get("token"),
-                          "Content-Type": "application/x-www-form-urlencoded"
-                        },
-                        data: {
-                          userId: params.row.id,
-                          status: 0
-                        },
-                        timeout: 3000,
-                        transformRequest: [
-                          function(data) {
-                            let ret = "";
-                            for (let it in data) {
-                              ret +=
-                                encodeURIComponent(it) +
-                                "=" +
-                                encodeURIComponent(data[it]) +
-                                "&";
-                            }
-                            return ret;
-                          }
-                        ]
+                        data: Util.formData(data)
                       })
                         .then(response => {
                           //console.log(params.row.status)
@@ -141,31 +124,15 @@ export default {
                   },
                   on: {
                     click: () => {
+                      let data = {
+                         userId: params.row.id,
+                          status: 1
+                      }
                       Util.ajax({
                         method: "post",
                         url: baseUri.user_forbidden_user_url,
-                        headers: {
-                          token: Cookies.get("token"),
-                          "Content-Type": "application/x-www-form-urlencoded"
-                        },
                         timeout: 3000,
-                        data: {
-                          userId: params.row.id,
-                          status: 1
-                        },
-                        transformRequest: [
-                          function(data) {
-                            let ret = "";
-                            for (let it in data) {
-                              ret +=
-                                encodeURIComponent(it) +
-                                "=" +
-                                encodeURIComponent(data[it]) +
-                                "&";
-                            }
-                            return ret;
-                          }
-                        ]
+                        data: Util.formData(data)
                       })
                         .then(response => {
                           params.row.status = "正常";

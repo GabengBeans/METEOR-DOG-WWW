@@ -104,27 +104,15 @@ export default {
   },
   methods: {
     handleOk() {
+      let data ={
+        withdrawId: this.withdrawId,
+          applyStatus: 1,
+          refuseReason: ""
+      }
       Util.ajax({
         method: "post",
         url: baseUri.cash_withdraw_audit_url,
-        data: {
-          withdrawId: this.withdrawId,
-          applyStatus: 1,
-          refuseReason: ""
-        },
-        transformRequest: [
-          function(data) {
-            let ret = "";
-            for (let it in data) {
-              ret +=
-                encodeURIComponent(it) +
-                "=" +
-                encodeURIComponent(data[it]) +
-                "&";
-            }
-            return ret;
-          }
-        ]
+        data:Util.formData(data)
       }).then(res => {
         if (res.data.data == "SUCCESS") {
           this.$Message.success("审核通过成功！");
@@ -140,27 +128,15 @@ export default {
       });
     },
     handleCancel() {
+      let data = {
+         withdrawId: this.withdrawId,
+          applyStatus: 2,
+          refuseReason: ""
+      }
       Util.ajax({
         method: "post",
         url: baseUri.cash_withdraw_audit_url,
-        data: {
-          withdrawId: this.withdrawId,
-          applyStatus: 2,
-          refuseReason: ""
-        },
-        transformRequest: [
-          function(data) {
-            let ret = "";
-            for (let it in data) {
-              ret +=
-                encodeURIComponent(it) +
-                "=" +
-                encodeURIComponent(data[it]) +
-                "&";
-            }
-            return ret;
-          }
-        ]
+        data:Util.formData(data)
       }).then(res => {
         if (res.data.data == "SUCCESS") {
           this.$Message.error("审核驳回成功！");

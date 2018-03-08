@@ -78,13 +78,22 @@ const app = {
         },
         merchant_enter_search_result:[],
 
-        //广告位
+        //广告
         advert_new_search_info : {},
         advert_new_page_info:{
             currentPage:1,
             totalPage:0
         },
         advert_new_search_result:[],
+
+        //广告位
+        advert_position_search_info : {},
+        advert_position_page_info:{
+            currentPage:1,
+            totalPage:0
+        },
+        advert_position_search_result:[],
+
 
         cachePage: [],
         lang: '',
@@ -610,6 +619,35 @@ const app = {
                //console.log(state.advert_new_search_result)
             }).catch((error)=>{
                 console.log(error)
+            })
+        },
+        GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO(state,{data,pageNo}){
+            state.advert_position_search_info = data
+            Util.ajax({
+                method:"post",
+                url:base_uri.advert_position_search_for_page_url,
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
+                },
+                data:data
+            }).then((response)=>{
+                console.log(response)
+                let levelArr = ["","一级广告位","二级广告位","三级广告位","四级广告位"]
+                let statusArr = ["禁用","启用"]
+                let arr = response.data.data.items
+                state.advert_position_page_info.currentPage = parseInt(response.data.data.page)
+                state.advert_position_page_info.totalPage = parseInt(response.data.data.totalCount)
+                state.advert_position_search_result = response.data.data.items
+                
+                for(let x = 0;x<arr.length;x++) 
+                {   
+                    state.advert_position_search_result[x].level = levelArr[arr[x].level]
+                    state.advert_position_search_result[x].status = statusArr[arr[x].status]
+               }
+               //console.log(state.advert_position_search_result)
+            }).catch((error)=>{
+                console.log(error) 
             })
         }
     }

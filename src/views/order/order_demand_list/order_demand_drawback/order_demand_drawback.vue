@@ -44,7 +44,7 @@
         <Modal v-model="modalShow" @on-cancel="closePage()">
           <p slot="header" style="color:#f60;text-align:center"></p>
           <div style="font-size:20px;text-align:center">
-            <b >已审核</b>
+            <b>已审核</b>
           </div>
           <div slot="footer" style="text-align:center">
             <Button type="success" size="large" @click="closePage()">返回</Button>
@@ -67,35 +67,23 @@ export default {
   },
   methods: {
     handleOk() {
+      let data = {
+        orderId: this.data.orderId,
+        orderStatus: 6
+      };
       Util.ajax({
         method: "post",
         url: baseUri.order_audit_url,
-        data: {
-          orderId: this.data.orderId,
-          orderStatus: 6
-        },
-        transformRequest: [
-          function(data) {
-            let ret = "";
-            for (let it in data) {
-              ret +=
-                encodeURIComponent(it) +
-                "=" +
-                encodeURIComponent(data[it]) +
-                "&";
-            }
-            return ret;
-          }
-        ]
+        data: Util.formData(data)
       })
         .then(response => {
           console.log(response);
           if (response.data.success) {
             console.log("已审核");
-            this.modalShow = true
+            this.modalShow = true;
           } else {
             console.log("审核失败");
-            this.modalShow = true
+            this.modalShow = true;
           }
         })
         .catch(error => {
@@ -103,35 +91,23 @@ export default {
         });
     },
     handleNo() {
+      let data = {
+         orderId: this.data.orderId,
+          orderStatus: 7
+      }
       Util.ajax({
         method: "post",
         url: baseUri.order_audit_url,
-        data: {
-          orderId: this.data.orderId,
-          orderStatus: 7
-        },
-        transformRequest: [
-          function(data) {
-            let ret = "";
-            for (let it in data) {
-              ret +=
-                encodeURIComponent(it) +
-                "=" +
-                encodeURIComponent(data[it]) +
-                "&";
-            }
-            return ret;
-          }
-        ]
+        data: Util.formData(data)
       })
         .then(response => {
           console.log(response);
           if (response.data.success) {
             console.log("已审核");
-            this.modalShow = true
+            this.modalShow = true;
           } else {
             console.log("审核失败");
-            this.modalShow = true
+            this.modalShow = true;
           }
         })
         .catch(error => {
@@ -156,8 +132,8 @@ export default {
       this.$store.commit("closePage", this.$route.name);
       pageOpenedList = this.$store.state.app.pageOpenedList;
       localStorage.pageOpenedList = JSON.stringify(pageOpenedList);
-      this.$router.back(-1)
-      this.modalShow = false
+      this.$router.back(-1);
+      this.modalShow = false;
     }
   },
   created() {

@@ -1,55 +1,55 @@
 <template>
-    <div>
-        <br><br>
-        <Row :gutter='16'>
-            <Form label-position="right" :label-width="60">
-                <Col :xs='13' :sm='13' :md='8' :lg='5'>
-                <FormItem style="min-width:60px" label="广告位">
-                    <Select v-model="level">
-                        <Option v-for="item in tags" :key="item.key" :value="item.level">{{item.positionName}}</Option>
-                    </Select>
-                </FormItem>
-                </Col>
-                <Col :xs='13' :sm='13' :md='8' :lg='5'>
-                <FormItem style="min-width:60px" label="子广告位" v-if="name">
-                    <Select v-model="id">
-                        <Option v-for="item in name" :key="item.key" :value="item.id">{{item.positionName}}</Option>
-                    </Select>
-                </FormItem>
-                </Col>
-            </Form>
-            <Button style='margin-left:38px' type="primary" shape="circle" icon="ios-search" @click.native='search'>搜索</Button>
-            <Button :disabled="btn" style='margin-left:38px' type="success" shape="circle" @click.native='addAdverNewBtn'>添加广告</Button>
-        </Row>
-        <br><br>
-        <TableComponent :columns="advertNewListColumns" :data="$store.state.app.advert_new_search_result"></TableComponent>
-        <br>
-        <Page :storeStatus="status" :currentPage="$store.state.app.advert_new_page_info.currentPage" :totalPage="$store.state.app.advert_new_page_info.totalPage"></Page>
-        <Modal v-model="showAdvertEdit" width="80vw">
-            <p slot="header" style="color:#f60;text-align:center">
-                <span>广告编辑</span>
-            </p>
-            <div style="text-align:center">
-                <Deatil :data="advertDetail"></Deatil>
-            </div>
-            <div slot="footer">
-                <Button type="success" @click="saveAdverNew">保存</Button>
-                <Button type="error" @click="showAdvertEdit=false">返回</Button>
-            </div>
-        </Modal>
-        <Modal v-model="showAddAdvert" width="80vw">
-            <p slot="header" style="color:#f60;text-align:center">
-                <span>添加广告</span>
-            </p>
-            <div style="text-align:center">
-                <AddAdverNew :data="addAdverNewdata"></AddAdverNew>
-            </div>
-            <div slot="footer">
-                <Button type="success" @click="addAdverNew">保存</Button>
-                <Button type="error" @click="showAddAdvert=false">返回</Button>
-            </div>
-        </Modal>
-    </div>
+  <div>
+    <br><br>
+    <Row :gutter='16'>
+      <Form label-position="right" :label-width="60">
+        <Col :xs='13' :sm='13' :md='8' :lg='5'>
+        <FormItem style="min-width:60px" label="广告位">
+          <Select v-model="level">
+            <Option v-for="item in tags" :key="item.key" :value="item.level">{{item.positionName}}</Option>
+          </Select>
+        </FormItem>
+        </Col>
+        <Col :xs='13' :sm='13' :md='8' :lg='5'>
+        <FormItem style="min-width:60px" label="子广告位" v-if="name">
+          <Select v-model="id">
+            <Option v-for="item in name" :key="item.key" :value="item.id">{{item.positionName}}</Option>
+          </Select>
+        </FormItem>
+        </Col>
+      </Form>
+      <Button style='margin-left:38px' type="primary" shape="circle" icon="ios-search" @click.native='search'>搜索</Button>
+      <Button :disabled="btn" style='margin-left:38px' type="success" shape="circle" @click.native='addAdverNewBtn'>添加广告</Button>
+    </Row>
+    <br><br>
+    <TableComponent :columns="advertNewListColumns" :data="$store.state.app.advert_new_search_result"></TableComponent>
+    <br>
+    <Page :storeStatus="status" :currentPage="$store.state.app.advert_new_page_info.currentPage" :totalPage="$store.state.app.advert_new_page_info.totalPage"></Page>
+    <Modal v-model="showAdvertEdit" width="80vw">
+      <p slot="header" style="color:#f60;text-align:center">
+        <span>广告编辑</span>
+      </p>
+      <div style="text-align:center">
+        <Deatil :data="advertDetail"></Deatil>
+      </div>
+      <div slot="footer">
+        <Button type="success" @click="saveAdverNew">保存</Button>
+        <Button type="error" @click="showAdvertEdit=false">返回</Button>
+      </div>
+    </Modal>
+    <Modal v-model="showAddAdvert" width="80vw">
+      <p slot="header" style="color:#f60;text-align:center">
+        <span>添加广告</span>
+      </p>
+      <div style="text-align:center">
+        <AddAdverNew :data="addAdverNewdata"></AddAdverNew>
+      </div>
+      <div slot="footer">
+        <Button type="success" @click="addAdverNew">保存</Button>
+        <Button type="error" @click="showAddAdvert=false">返回</Button>
+      </div>
+    </Modal>
+  </div>
 </template>
 <script>
 import Util from "@/libs/util";
@@ -125,25 +125,13 @@ export default {
                   },
                   on: {
                     click: () => {
+                      let data = {
+                        advertId: params.row.id
+                      };
                       Util.ajax({
                         method: "post",
                         url: baseUri.new_advert_delete_advert_url,
-                        data: {
-                          advertId: params.row.id
-                        },
-                        transformRequest: [
-                          function(data) {
-                            let ret = "";
-                            for (let it in data) {
-                              ret +=
-                                encodeURIComponent(it) +
-                                "=" +
-                                encodeURIComponent(data[it]) +
-                                "&";
-                            }
-                            return ret;
-                          }
-                        ]
+                        data: Util.formData(data)
                       })
                         .then(res => {
                           if (res.data.data == "SUCCESS") {
@@ -177,15 +165,13 @@ export default {
       obj.positionId = this.id;
       this.$store.commit("GET_ADVERT_NEW_INFO", { data: obj, pageNo: 1 });
     },
-    addAdverNewBtn:function(){
-        for(let x in this.addAdverNewdata)
-        {
-            if(x!="positionId")
-            {
-                this.addAdverNewdata[x]=""
-            }
+    addAdverNewBtn: function() {
+      for (let x in this.addAdverNewdata) {
+        if (x != "positionId") {
+          this.addAdverNewdata[x] = "";
         }
-        this.showAddAdvert = true
+      }
+      this.showAddAdvert = true;
     },
     addAdverNew: function() {
       console.log(this.addAdverNewdata);
@@ -195,6 +181,15 @@ export default {
           return false;
         }
       }
+      let data = {
+        adName: this.addAdverNewdata.adName,
+        positionId: this.addAdverNewdata.positionId,
+        businessId: this.addAdverNewdata.businessId,
+        adType: this.addAdverNewdata.adType,
+        mediaType: this.addAdverNewdata.mediaType,
+        adSort: this.addAdverNewdata.adSort,
+        imgUrl: this.addAdverNewdata.imgUrl
+      };
       this.$Message.loading({
         content: "保存中...",
         duration: 0
@@ -202,28 +197,7 @@ export default {
       Util.ajax({
         method: "post",
         url: baseUri.new_advert_add_url,
-        data: {
-          adName: this.addAdverNewdata.adName,
-          positionId: this.addAdverNewdata.positionId,
-          businessId: this.addAdverNewdata.businessId,
-          adType: this.addAdverNewdata.adType,
-          mediaType: this.addAdverNewdata.mediaType,
-          adSort: this.addAdverNewdata.adSort,
-          imgUrl: this.addAdverNewdata.imgUrl
-        },
-        transformRequest: [
-          function(data) {
-            let ret = "";
-            for (let it in data) {
-              ret +=
-                encodeURIComponent(it) +
-                "=" +
-                encodeURIComponent(data[it]) +
-                "&";
-            }
-            return ret;
-          }
-        ]
+        data: Util.formData(data)
       })
         .then(res => {
           if (res.data.data == "SUCCESS") {
@@ -250,6 +224,15 @@ export default {
           return false;
         }
       }
+      let data = {
+        adName: this.advertDetail.adName,
+        id: this.advertDetail.id,
+        businessId: this.advertDetail.businessId,
+        adType: this.advertDetail.adType,
+        mediaType: this.advertDetail.mediaType,
+        adSort: this.advertDetail.adSort,
+        imgUrl: this.advertDetail.imgUrl
+      };
       this.$Message.loading({
         content: "保存中...",
         duration: 0
@@ -257,28 +240,7 @@ export default {
       Util.ajax({
         method: "post",
         url: baseUri.new_advert_edit_advert_url,
-        data: {
-          adName: this.advertDetail.adName,
-          id: this.advertDetail.id,
-          businessId: this.advertDetail.businessId,
-          adType: this.advertDetail.adType,
-          mediaType: this.advertDetail.mediaType,
-          adSort: this.advertDetail.adSort,
-          imgUrl: this.advertDetail.imgUrl
-        },
-        transformRequest: [
-          function(data) {
-            let ret = "";
-            for (let it in data) {
-              ret +=
-                encodeURIComponent(it) +
-                "=" +
-                encodeURIComponent(data[it]) +
-                "&";
-            }
-            return ret;
-          }
-        ]
+        data: Util.formData(data)
       })
         .then(res => {
           if (res.data.data == "SUCCESS") {
@@ -290,7 +252,7 @@ export default {
             });
             this.showAdvertEdit = false;
           } else {
-            this.$Message.erros("保存失败，请联系管理员");
+            this.$Message.error("保存失败，请联系管理员");
           }
         })
         .catch(error => {
