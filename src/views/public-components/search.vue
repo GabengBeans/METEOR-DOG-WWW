@@ -51,6 +51,10 @@ export default {
           //this.$store.state.app.merchant_enter_search_info = obj
           this.$store.commit("GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO", { data: obj, pageNo: 1 });
         break
+        case "afterFeedBackListSearch": 
+          //this.$store.state.app.merchant_enter_search_info = obj
+          this.$store.commit("GET_AFTER_FEEDBACK_INFO", { data: obj, pageNo:1 });
+        break
       }
     }
   }

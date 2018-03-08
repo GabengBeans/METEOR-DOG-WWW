@@ -74,6 +74,8 @@ let base_uri = {
     brokerage_order_search_for_page:"/admin/v1/extend_manager/brokerage_order/search_for_page",
     brokerage_order_detail:"/admin/v1/extend_manager/brokerage_order/detail",
 
+    //售后管理
+    after_feedback_query_for_page :"/admin/v1/after/feedback/search_feedback_for_page"
 };
 
 export default base_uri;

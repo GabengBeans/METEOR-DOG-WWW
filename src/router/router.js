@@ -294,6 +294,22 @@ export const appRouter = [
             }
         ]
     },
+    {
+        path: '/feedback',
+        icon: 'ios-telephone',
+        name: 'after-feedback', 
+        title: '售后管理', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'after-feedback-list', 
+                name: 'after-feedback-list', 
+                title: '用户反馈管理', 
+                component: resolve => { require(['@/views/after_feedback/after_feedback_list/after_feedback_list'], resolve); }, 
+            }
+        ]
+    },
     // { // b.第二种情况：有二级菜单
     //     path: '/service', // 必填
     //     icon: 'social-buffer', // 必填，同上

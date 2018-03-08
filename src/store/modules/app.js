@@ -94,6 +94,14 @@ const app = {
         },
         advert_position_search_result: [],
 
+        //售后管理
+        after_feedback_search_info: {},
+        after_feedback_page_info: {
+            currentPage: 1,
+            totalPage: 0
+        },
+        after_feedback_search_result: [],
+
         // 拓展用户--代理人
         expand_page_info: {
             currentPage: 1,
@@ -321,6 +329,10 @@ const app = {
                 //Cookies.set("user_search_result",JSON.stringify(state.user_search_result))
             })
         },
+
+
+
+        //需求信息
         GET_REQUEST_INFO(state, { data, pageNo }) {
             state.request_search_info = data
             Util.ajax({
@@ -354,6 +366,7 @@ const app = {
                 }
             })
         },
+        //服务信息
         GET_SERVICE_INFO(state, { data, pageNo }) {
             state.service_search_info = data
             Util.ajax({
@@ -386,6 +399,7 @@ const app = {
                 }
             })
         },
+        //需求订单
         GET_ORDER_DEMAND_INFO(state, { data, pageNo }) {
             state.order_demand_search_info = data
             console.log(data)
@@ -418,39 +432,40 @@ const app = {
                 console.log(error)
             })
         },
-        GET_ORDER_SERVICE_INFO(state,{data,pageNo}){
+        //服务订单
+        GET_ORDER_SERVICE_INFO(state, { data, pageNo }) {
             state.order_service_search_info = data
             //console.log(data)
             Util.ajax({
-                method:"post",
-                url:base_uri.order_search_orders_for_page_url,
-                params:{
-                    pageNo:pageNo || 1,
-                    pageSize:10
+                method: "post",
+                url: base_uri.order_search_orders_for_page_url,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
                 },
-                data:data
-            }).then((response)=>{
+                data: data
+            }).then((response) => {
                 //console.log(response)
                 let arr = response.data.data.items
-                let orderStatus = ["全部","待支付","待服务","已完成","已取消","申请退款","退款成功","退款失败","已过期","已付款"]
+                let orderStatus = ["全部", "待支付", "待服务", "已完成", "已取消", "申请退款", "退款成功", "退款失败", "已过期", "已付款"]
                 //let status = ["无效","有效"]
                 state.order_service_page_info.currentPage = parseInt(response.data.data.page)
                 state.order_service_page_info.totalPage = parseInt(response.data.data.totalCount)
                 state.order_service_search_result = response.data.data.items
-                console.log( state.order_service_search_result)
-                for(let x in arr) 
-                {   
-                    let orderStatu = parseInt( arr[x].orderStatus)
+                console.log(state.order_service_search_result)
+                for (let x in arr) {
+                    let orderStatu = parseInt(arr[x].orderStatus)
                     //let statusIndex = parseInt(state.service_search_result[x].status)
-                    state.order_service_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
+                    state.order_service_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
                     state.order_service_search_result[x].orderStatus = orderStatus[orderStatu]
-                    state.order_service_search_result[x].rawPrice = parseInt(arr[x].rawPrice)/100 + "元"
+                    state.order_service_search_result[x].rawPrice = parseInt(arr[x].rawPrice) / 100 + "元"
                     //state.order_demand_search_result[x].status = status[statusIndex]
-               }
-            }).catch((error)=>{
+                }
+            }).catch((error) => {
                 console.log(error)
             })
         },
+        //拓展信息
         GET_EXPAND_INFO(state, { data, pageNo }) {
             state.expand_search_info = data
             Util.ajax({
@@ -485,6 +500,7 @@ const app = {
                 console.log(error)
             })
         },
+        //资金信息
         GET_CASH_FLOW_INFO(state, { data, pageNo }) {
             state.cash_flow_serch_info = data
             Util.ajax({
@@ -527,6 +543,7 @@ const app = {
                 console.log(error)
             })
         },
+        //保障金退回
         GET_CASH_REFUND_INFO(state, { data, pageNo }) {
             state.cash_flow_serch_info = data
             Util.ajax({
@@ -561,6 +578,7 @@ const app = {
                 console.log(error)
             })
         },
+        //提现申请
         GET_CASH_WITHDRAW_INFO(state, { data, pageNo }) {
             state.cash_flow_serch_info = data
             Util.ajax({
@@ -595,34 +613,33 @@ const app = {
                 console.log(error)
             })
         },
+        //商户入住
         GET_MERCHANT_ENTER_INFO(state, { data, pageNo }) {
             state.merchant_enter_search_info = data
             Util.ajax({
-                method:"post",
-                url:base_uri.search_business_info_for_page_url,
-                params:{
-                    pageNo:pageNo || 1,
-                    pageSize:10
+                method: "post",
+                url: base_uri.search_business_info_for_page_url,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
                 },
-                data:data
-            }).then((response)=>{
+                data: data
+            }).then((response) => {
                 //console.log(response)
                 let arr = response.data.data.items
                 state.merchant_enter_page_info.currentPage = parseInt(response.data.data.page)
                 state.merchant_enter_page_info.totalPage = parseInt(response.data.data.totalCount)
                 state.merchant_enter_search_result = response.data.data.items
-                
-                for(let x in arr) 
-                {   
-                    if(arr[x].createTime)
-                    {
-                        state.merchant_enter_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
-                    }else{
+
+                for (let x in arr) {
+                    if (arr[x].createTime) {
+                        state.merchant_enter_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
+                    } else {
                         state.merchant_enter_search_result[x].createTime = ''
                     }
-               }
-               //console.log(state.cash_refund_search_result)
-            }).catch((error)=>{
+                }
+                //console.log(state.cash_refund_search_result)
+            }).catch((error) => {
                 console.log(error)
             })
         },
@@ -658,6 +675,7 @@ const app = {
                 console.log(error)
             })
         },
+        //广告管理
         GET_ADVERT_NEW_INFO(state, { data, pageNo }) {
             state.advert_new_search_info = data
             Util.ajax({
@@ -687,35 +705,69 @@ const app = {
                 console.log(error)
             })
         },
+        //广告位管理
         GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO(state, { data, pageNo }) {
             state.advert_position_search_info = data
             Util.ajax({
-                method:"post",
-                url:base_uri.advert_position_search_for_page_url,
-                params:{
-                    pageNo:pageNo || 1,
-                    pageSize:10
+                method: "post",
+                url: base_uri.advert_position_search_for_page_url,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
                 },
-                data:data
-            }).then((response)=>{
-                console.log(response)
-                let levelArr = ["","一级广告位","二级广告位","三级广告位","四级广告位"]
-                let statusArr = ["禁用","启用"]
-                let arr = response.data.data.items
-                state.advert_position_page_info.currentPage = parseInt(response.data.data.page)
-                state.advert_position_page_info.totalPage = parseInt(response.data.data.totalCount)
-                state.advert_position_search_result = response.data.data.items
-                
-                for(let x = 0;x<arr.length;x++) 
-                {   
-                    state.advert_position_search_result[x].level = levelArr[arr[x].level]
-                    state.advert_position_search_result[x].status = statusArr[arr[x].status]
-               }
-               //console.log(state.advert_position_search_result)
-            }).catch((error)=>{
-                console.log(error) 
+                data: data
+            }).then((response) => {
+                //console.log(response)
+                if (response.data.success) {
+                    let levelArr = ["", "一级广告位", "二级广告位", "三级广告位", "四级广告位"]
+                    let statusArr = ["禁用", "启用"]
+                    let arr = response.data.data.items
+                    state.advert_position_page_info.currentPage = parseInt(response.data.data.page)
+                    state.advert_position_page_info.totalPage = parseInt(response.data.data.totalCount)
+                    state.advert_position_search_result = response.data.data.items
+
+                    for (let x = 0; x < arr.length; x++) {
+                        state.advert_position_search_result[x].level = levelArr[arr[x].level]
+                        state.advert_position_search_result[x].status = statusArr[arr[x].status]
+                    }
+                } else {
+                    Vue.$Message.error("获取失败，请检查网络")
+                }
+                //console.log(state.advert_position_search_result)
+            }).catch((error) => {
+                console.log(error)
             })
-        }
+        },
+        //售后管理
+        GET_AFTER_FEEDBACK_INFO(state, { data, pageNo }) {
+            state.after_feedback_search_info = data
+            Util.ajax({
+                method: "post",
+                url: base_uri.after_feedback_query_for_page,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
+                },
+                data: data
+            }).then((response) => {
+                console.log(response)
+                if (response.data.success) {
+                    let arr = response.data.data.items
+                    state.after_feedback_page_info.currentPage = parseInt(response.data.data.page)
+                    state.after_feedback_page_info.totalPage = parseInt(response.data.data.totalCount)
+                    state.after_feedback_search_result = response.data.data.items
+
+                    for (let x = 0; x < arr.length; x++) {
+                        state.after_feedback_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
+                        if (!arr[x].phone) {
+                            state.after_feedback_search_result[x].phone = ""
+                        }
+                    }
+                } 
+            }).catch((error) => {
+                console.log(error)
+            })
+        },
     }
 }
-        export default app
+export default app
