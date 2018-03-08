@@ -173,7 +173,7 @@ export default {
       Util.ajax({
         method: "post",
         url: baseUri.demand_autit_url,
-        data: Util.formatDate(data)
+        data: Util.formData(data)
       })
         .then(response => {
           console.log(response);
@@ -200,7 +200,7 @@ export default {
       Util.ajax({
         method: "post",
         url: baseUri.demand_autit_url,
-        data: Util.formatDate(data)
+        data: Util.formData(data)
       })
         .then(response => {
           if (response.data.success) {

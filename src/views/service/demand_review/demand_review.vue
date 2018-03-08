@@ -163,7 +163,7 @@ export default {
       Util.ajax({
         method: "post",
         url: baseUri.service_audit_url,
-        data: Util.formatDate(data)
+        data: Util.formData(data)
       })
         .then(response => {
           console.log(response);
@@ -189,7 +189,7 @@ export default {
       };
       Utile.ajax
         .post(baseUri.service_audit_url, {
-          data: Util.formatDate(data)
+          data: Util.formData(data)
         })
         .then(response => {
           if (response.data.success) {

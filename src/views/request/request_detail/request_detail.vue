@@ -167,7 +167,7 @@ export default {
       Util.ajax({
         method: "post",
         url: baseUri.demand_undercarriage_url,
-        data: Util.formatDate(data)
+        data: Util.formData(data)
       }).then(response => {
         this.$Message.success("下架成功");
       });

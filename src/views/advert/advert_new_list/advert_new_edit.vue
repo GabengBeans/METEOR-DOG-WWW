@@ -58,11 +58,11 @@
                     </template>
                 </FormItem>
                 </Col>
-                <Col :xs='13' :sm='13' :md='8' :lg='4'>
-                <FormItem label="业务">
-                    <Input clearable v-model="data.businessId"></Input>
-                </FormItem>
-                </Col>
+                    <Col :xs='13' :sm='13' :md='8' :lg='4'>
+                    <FormItem label="业务">
+                        <Input clearable v-model="data.businessId"></Input>
+                    </FormItem>
+                    </Col>
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
                 <FormItem label="业务类型">
                     <Input clearable v-model="data.adType"></Input>

@@ -27,4 +27,5 @@ config.advertNewBitsList = {
     }
 }
 
+
 export default config
