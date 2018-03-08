@@ -30,6 +30,18 @@
                 <Button type="error" @click="showAddSubAdertBits=false">返回</Button>
             </div>
         </Modal>
+        <Modal v-model="showEditSubAdertBits" width="80vw">
+            <p slot="header" style="color:#f60;text-align:center">
+                <span>编辑子广告位</span>
+            </p>
+            <div style="text-align:center">
+                <AddSubAdvertBits :data="editSubAdvertBitsData" :selectData="searchConfig"></AddSubAdvertBits>
+            </div>
+            <div slot="footer">
+                <Button type="success" @click.native="addSubAdertBits">保存</Button>
+                <Button type="error" @click="showAddSubAdertBits=false">返回</Button>
+            </div>
+        </Modal>
     </div>
 </template>
 <script>
@@ -43,12 +55,14 @@ import baseUri from "@/libs/base_uri";
 export default {
   data() {
     return {
+        showEditSubAdertBits:false,
       addSubAdvertBitsData: {
         positionName: "",
         userId: "",
         level: "1",
         adSort: ""
       },
+      editSubAdvertBitsData:{},
       showAddSubAdertBits: false,
       status: "advertNewBits",
       searchConfig: config.advertNewBitsList,
@@ -85,14 +99,20 @@ export default {
                   },
                   on: {
                     click: () => {
-                      let arr = this.$store.state.app.advert_new_search_result;
-                      for (let x = 0; x < arr.length; x++) {
-                        if (params.row.id == arr[x].id) {
-                          this.advertDetail = arr[x];
-                          this.showAdvertEdit = true;
-                          //console.log(arr[x])
-                        }
-                      }
+                      Util.ajax({
+                          method:"get",
+                          url:baseUri.advert_position_detail_url,
+                          params:{
+                              advertPositionId:params.row.id
+                          }
+                      }).then((res)=>{
+                          console.log(res)
+                          if(res.data.success)
+                          {
+                              this.editSubAdvertBitsData = res.data.data
+                              this.showEditSubAdertBits = true
+                          }
+                      })
                     }
                   }
                 },
@@ -110,13 +130,13 @@ export default {
                   },
                   on: {
                     click: () => {
-                        let data={
-                            advertId:params.row.id
-                        }
+                      let data = {
+                        adverPositionId: params.row.id
+                      };
                       Util.ajax({
                         method: "post",
-                        url: baseUri.advert_position_search_for_page_url,
-                        data:Util.formData(data)
+                        url: baseUri.advert_position_delete_url,
+                        data: Util.formData(data)
                       })
                         .then(res => {
                           if (res.data.data == "SUCCESS") {
@@ -124,7 +144,7 @@ export default {
                             this.$store.commit(
                               "GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO",
                               {
-                                data: obj,
+                                data: { level: this.searchConfig.level.value },
                                 pageNo: 1
                               }
                             );
@@ -160,19 +180,24 @@ export default {
       });
     },
     addSubAdertBits: function() {
-        for (let x in this.addSubAdvertBitsData) {
+      for (let x in this.addSubAdvertBitsData) {
         if (!this.addSubAdvertBitsData[x]) {
           this.$Message.error("请补全信息");
           return false;
         }
       }
+    //   if(!this.addSubAdvertBitsData.userId instanceof Number)
+    //     {
+    //         this.$Message.error("用户ID异常")
+    //         return false
+    //     }
       let data = {
         positionName: this.addSubAdvertBitsData.positionName,
         userId: this.addSubAdvertBitsData.userId,
         level: this.addSubAdvertBitsData.level,
         adSort: this.addSubAdvertBitsData.adSort
       };
-      
+
       this.$Message.loading({
         content: "保存中...",
         duration: 0
@@ -180,7 +205,7 @@ export default {
       Util.ajax({
         method: "post",
         url: baseUri.advert_position_add_url,
-        data: Util.formData(data),
+        data: Util.formData(data)
       })
         .then(res => {
           console.log(res);
@@ -188,13 +213,13 @@ export default {
             this.$Message.destroy();
             this.$Message.success("保存成功");
             this.$store.commit("GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO", {
-              data: { level: searchConfig.level.value, pageNo: 1 },
+              data: { level: this.searchConfig.level.value },
               pageNo: 1
             });
-            this.showAdvertEdit = false;
-          } else {
+            this.showAddSubAdertBits = false;
+          }else {
             this.$Message.destroy();
-            this.$Message.error("保存失败，请联系管理员");
+            this.$Message.error("保存失败,请检查填写信息");
           }
         })
         .catch(error => {

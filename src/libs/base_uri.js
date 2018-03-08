@@ -69,8 +69,10 @@ let base_uri = {
     extend_user_edit_extend_user:"/admin/v1/extend_user/edit_extend_user",
     // 返佣订单审核
     brokerage_order_search_for_page:"/admin/v1/extend_manager/brokerage_order/search_for_page",
-    brokerage_order_detail:"/admin/v1/extend_manager/brokerage_order/detail"
+    brokerage_order_detail:"/admin/v1/extend_manager/brokerage_order/detail",
 
+    advert_position_delete_url:"/admin/v1/advert_position/delete_advert_position/",
+    advert_position_detail_url :"/admin/v1/advert_position/detail/"
 };
 
 export default base_uri;
