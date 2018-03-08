@@ -30,6 +30,20 @@ const app = {
         service_search_info:{"businessStatus":"0","status":"-1"},
         service_search_result:[],
 
+        // 拓展用户--代理人
+        expand_page_info:{
+            currentPage:1,
+            totalPage:0
+        },
+        expand_search_info:{"expandStatus":"-1"},
+        expand_search_result:[],
+        // 拓展用户--返佣订单审核
+        brokerage_order_info:{
+            currentPage:1,
+            totalPage:0
+        },
+        brokerage_order_search_info:{"businessStatus":"0"},
+        brokerage_order_search_result:[],
 
         cachePage: [],
         lang: '',
@@ -322,7 +336,87 @@ const app = {
                     state.service_search_result[x].status = status[statusIndex]
                 }
             })
-        } 
+        },
+        GET_EXPAND_INFO(state,{data,pageNo}){
+            state.expand_search_info = data
+            Util.ajax({
+                method:"post",
+                url:base_uri.extend_user_search_ex_userinfo_for_page,
+                headers:{
+                    'token':Cookies.get("token")
+                },
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
+                },
+                data:data
+            }).then((res) => {
+                // console.log(res)
+                let arr = res.data.data.items;
+                // console.log(arr)
+                let status = ["无效","有效"];
+                state.expand_page_info.currentPage = parseInt(res.data.data.page)
+                state.expand_page_info.totalPage = parseInt(res.data.data.totalCount)
+                state.expand_search_result = arr
+                for(let x in arr) {   
+                    let statusIndex = parseInt(state.expand_search_result[x].expandStatus)
+                    state.expand_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
+                    state.expand_search_result[x].tradeAmount = arr[x].tradeAmount*0.01
+                    if(arr[x].auditTime)
+                    {
+                        state.expand_search_result[x].auditTime = Util.formatDate(new Date(arr[x].auditTime),"yyyy-MM-dd hh:mm:ss")
+                    }else{
+                        state.expand_search_result[x].auditTime = ''
+                    } 
+                    state.expand_search_result[x].expandStatus = status[statusIndex]
+                }
+            })
+        },
+        GET_BROKERAGE_ORDER_INFO(state,{data,pageNo}){
+            state.brokerage_order_search_info = data
+            Util.ajax({
+                method:"post",
+                url:base_uri.brokerage_order_search_for_page,
+                headers:{
+                    'token':Cookies.get("token")
+                },
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
+                },
+                data:data
+            }).then((res) => {
+                console.log(res)
+                let arr = res.data.data.items;
+                let businessStatus = ["全部","待审核","审核未通过","审核通过"];
+                state.brokerage_order_info.currentPage = parseInt(res.data.data.page)
+                state.brokerage_order_info.totalPage = parseInt(res.data.data.totalCount)
+                state.brokerage_order_search_result = arr
+                for(let x in arr) {
+                    let businessIndex = parseInt( state.brokerage_order_search_result[x].businessStatus)
+
+                    state.brokerage_order_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
+                    state.brokerage_order_search_result[x].platformServiceCharge = arr[x].platformServiceCharge * 0.01;
+                    state.brokerage_order_search_result[x].brokerage = arr[x].brokerage * 0.01;
+                    state.brokerage_order_search_result[x].reate = arr[x].reate * 0.01;
+                    
+                    
+                    if(arr[x].accountDay)
+                    {
+                        state.brokerage_order_search_result[x].accountDay = Util.formatDate(new Date(arr[x].accountDay),"yyyy-MM-dd hh:mm:ss")
+                    }else{
+                        state.brokerage_order_search_result[x].accountDay = ''
+                    } 
+                    if(arr[x].auditTime)
+                    {
+                        state.brokerage_order_search_result[x].auditTime = Util.formatDate(new Date(arr[x].auditTime),"yyyy-MM-dd hh:mm:ss")
+                    }else{
+                        state.brokerage_order_search_result[x].auditTime = ''
+                    } 
+                    state.brokerage_order_search_result[x].businessStatus = businessStatus[businessIndex]
+                }
+            })
+        }
     }
 };
 
