@@ -144,19 +144,7 @@ export const appRouter = [
             }
         ]
     },
-    {
-        path: '/expand',
-        icon: 'network',
-        name: 'expand',
-        title: '拓展管理',
-        access: 1,
-        component: Main,
-        children: [
-            { path: 'expand-manager', title: '代理人管理', name: 'expand-manager', icon: 'document', component: resolve => { require(['@/views/expand/expand-manager/index'], resolve); } },
-            { path: 'expand-order-audit', title: '返佣订单审核', name: 'expand-order-audit', icon: 'document', component: resolve => { require(['@/views/expand/expand-order-audit/index'], resolve); } },
-            { path: 'expand-charge-list', title: '佣金结算', name: 'expand-charge-list', icon: 'document', component: resolve => { require(['@/views/expand/expand-charge-list/index'], resolve); } }            
-        ]
-    },
+    
     // { // b.第二种情况：有二级菜单
     //     path: '/service', // 必填
     //     icon: 'social-buffer', // 必填，同上
@@ -174,27 +162,27 @@ export const appRouter = [
     //         }
     //     ]
     // },
-    {
-        path: '/access',
-        icon: 'key',
-        name: 'access',
-        title: '权限管理',
-        component: Main,
-        children: [
-            { path: 'index', title: '权限管理', name: 'access_index', component: resolve => { require(['@/views/access/access.vue'], resolve); } }
-        ]
-    },
-    {
-        path: '/access-test',
-        icon: 'lock-combination',
-        title: '权限测试页',
-        name: 'accesstest',
-        access: 0,
-        component: Main,
-        children: [
-            { path: 'index', title: '权限测试页', name: 'accesstest_index', access: 0, component: resolve => { require(['@/views/access/access-test.vue'], resolve); } }
-        ]
-    },
+    // {
+    //     path: '/access',
+    //     icon: 'key',
+    //     name: 'access',
+    //     title: '权限管理',
+    //     component: Main,
+    //     children: [
+    //         { path: 'index', title: '权限管理', name: 'access_index', component: resolve => { require(['@/views/access/access.vue'], resolve); } }
+    //     ]
+    // },
+    // {
+    //     path: '/access-test',
+    //     icon: 'lock-combination',
+    //     title: '权限测试页',
+    //     name: 'accesstest',
+    //     access: 0,
+    //     component: Main,
+    //     children: [
+    //         { path: 'index', title: '权限测试页', name: 'accesstest_index', access: 0, component: resolve => { require(['@/views/access/access-test.vue'], resolve); } }
+    //     ]
+    // },
     // {
     //     path: '/international',
     //     icon: 'earth',
@@ -225,6 +213,19 @@ export const appRouter = [
                 title: '服务订单', 
                 component: resolve => { require(['@/views/order/order_service_list/order_service_list'], resolve); }, 
             }
+        ]
+    },
+    {
+        path: '/expand',
+        icon: 'network',
+        name: 'expand',
+        title: '拓展管理',
+        access: 1,
+        component: Main,
+        children: [
+            { path: 'expand-manager', title: '代理人管理', name: 'expand-manager', icon: 'document', component: resolve => { require(['@/views/expand/expand-manager/index'], resolve); } },
+            { path: 'expand-order-audit', title: '返佣订单审核', name: 'expand-order-audit', icon: 'document', component: resolve => { require(['@/views/expand/expand-order-audit/index'], resolve); } },
+            { path: 'expand-charge-list', title: '佣金结算', name: 'expand-charge-list', icon: 'document', component: resolve => { require(['@/views/expand/expand-charge-list/index'], resolve); } }            
         ]
     },
     {

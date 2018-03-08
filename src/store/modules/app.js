@@ -598,27 +598,32 @@ const app = {
         GET_MERCHANT_ENTER_INFO(state, { data, pageNo }) {
             state.merchant_enter_search_info = data
             Util.ajax({
-                method: "post",
-                url: base_uri.search_business_info_for_page_url,
-            }).then((res) => {
-                // console.log(res)
-                let arr = res.data.data.items;
-                // console.log(arr)
-                let status = ["无效", "有效"];
-                state.expand_page_info.currentPage = parseInt(res.data.data.page)
-                state.expand_page_info.totalPage = parseInt(res.data.data.totalCount)
-                state.expand_search_result = arr
-                for (let x in arr) {
-                    let statusIndex = parseInt(state.expand_search_result[x].expandStatus)
-                    state.expand_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
-                    state.expand_search_result[x].tradeAmount = arr[x].tradeAmount * 0.01
-                    if (arr[x].auditTime) {
-                        state.expand_search_result[x].auditTime = Util.formatDate(new Date(arr[x].auditTime), "yyyy-MM-dd hh:mm:ss")
-                    } else {
-                        state.expand_search_result[x].auditTime = ''
+                method:"post",
+                url:base_uri.search_business_info_for_page_url,
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
+                },
+                data:data
+            }).then((response)=>{
+                //console.log(response)
+                let arr = response.data.data.items
+                state.merchant_enter_page_info.currentPage = parseInt(response.data.data.page)
+                state.merchant_enter_page_info.totalPage = parseInt(response.data.data.totalCount)
+                state.merchant_enter_search_result = response.data.data.items
+                
+                for(let x in arr) 
+                {   
+                    if(arr[x].createTime)
+                    {
+                        state.merchant_enter_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
+                    }else{
+                        state.merchant_enter_search_result[x].createTime = ''
                     }
-                    state.expand_search_result[x].expandStatus = status[statusIndex]
-                }
+               }
+               //console.log(state.cash_refund_search_result)
+            }).catch((error)=>{
+                console.log(error)
             })
         },
         GET_BROKERAGE_ORDER_INFO(state, { data, pageNo }) {
