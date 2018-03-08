@@ -86,8 +86,15 @@ export const otherRouter = {
         //服务订单详情
         { path: 'order-service-detail/:id', title: '服务订单详情', name: 'order-service-detail', component: resolve => { require(['@/views/order/order_service_list/order_service_detail/order_service_detail'], resolve) } },
         //服务订单退款
-        { path: 'order-service-drawback/:id', title: '服务订单退款', name: 'order-service-drawback', component: resolve => { require(['@/views/order/order_service_list/order_service_drawback/order_service_drawback'], resolve) } }
-    ],
+        { path: 'order-service-drawback/:id', title: '服务订单退款', name: 'order-service-drawback', component: resolve => { require(['@/views/order/order_service_list/order_service_drawback/order_service_drawback'], resolve) } },
+        // 拓展-代理人管理
+        { path: 'expand-manager-detail/:id', title: '代理人详情', name: 'expand-manager-detail', component: resolve => { require(['@/views/expand/expand-manager/expand-manager-detail/expand-manager-detail'], resolve) } },
+        { path: 'expand-manager-edit/:id', title: '代理人编辑', name: 'expand-manager-edit', component: resolve => { require(['@/views/expand/expand-manager/expand-manager-edit/expand-manager-edit'], resolve) } },
+        { path: 'expand-manager-review/:id', title: '代理人审核', name: 'expand-manager-review', component: resolve => { require(['@/views/expand/expand-manager/expand-manager-review/expand-manager-review'], resolve) } },
+        // 拓展-返佣订单审核
+        { path: 'expand-order-audit-detail/:id', title: '返佣订单详情', name: 'expand-order-audit-detail', component: resolve => { require(['@/views/expand/expand-order-audit/expand-order-audit-detail/expand-order-audit-detail'], resolve) } },
+        
+    ]
 };
 
 // 作为Main组件的子页面展示并且在左侧菜单显示的路由写在appRouter里
@@ -141,6 +148,67 @@ export const appRouter = [
                 title: '服务列表', 
                 component: resolve => { require(['@/views/service/index'], resolve); }, 
             }
+        ]
+    },
+    {
+        path: '/expand',
+        icon: 'network',
+        name: 'expand',
+        title: '拓展管理',
+        access: 1,
+        component: Main,
+        children: [
+            { path: 'expand-manager', title: '代理人管理', name: 'expand-manager', icon: 'document', component: resolve => { require(['@/views/expand/expand-manager/index'], resolve); } },
+            { path: 'expand-order-audit', title: '返佣订单审核', name: 'expand-order-audit', icon: 'document', component: resolve => { require(['@/views/expand/expand-order-audit/index'], resolve); } },
+            { path: 'expand-charge-list', title: '佣金结算', name: 'expand-charge-list', icon: 'document', component: resolve => { require(['@/views/expand/expand-charge-list/index'], resolve); } }            
+        ]
+    },
+    // { // b.第二种情况：有二级菜单
+    //     path: '/service', // 必填
+    //     icon: 'social-buffer', // 必填，同上
+    //     name: 'service', // 必填，同上
+    //     title: '服务管理', // 必填，同上
+    //     access: 1,
+    //     component: Main, // 必填，同上
+    //     children: [ // 必填，同上
+    //         {
+    //             path: 'index', // 必填，同上
+    //             icon: 'ios-list', // 必填，同上
+    //             name: 'service-index', // 必填，同上
+    //             title: '服务列表', // 必填，将显示在左侧菜单栏二级菜单
+    //             component: resolve => { require(['@/views/service/index'], resolve); } // 必填
+    //         }
+    //     ]
+    // },
+    {
+        path: '/access',
+        icon: 'key',
+        name: 'access',
+        title: '权限管理',
+        component: Main,
+        children: [
+            { path: 'index', title: '权限管理', name: 'access_index', component: resolve => { require(['@/views/access/access.vue'], resolve); } }
+        ]
+    },
+    {
+        path: '/access-test',
+        icon: 'lock-combination',
+        title: '权限测试页',
+        name: 'accesstest',
+        access: 0,
+        component: Main,
+        children: [
+            { path: 'index', title: '权限测试页', name: 'accesstest_index', access: 0, component: resolve => { require(['@/views/access/access-test.vue'], resolve); } }
+        ]
+    },
+    {
+        path: '/international',
+        icon: 'earth',
+        title: { i18n: 'international' },
+        name: 'international',
+        component: Main,
+        children: [
+            { path: 'index', title: { i18n: 'international' }, name: 'international_index', component: resolve => { require(['@/views/international/international.vue'], resolve); } }
         ]
     },
     {
