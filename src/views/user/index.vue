@@ -12,6 +12,7 @@
 import search from './search.vue'
 import userTable from './table.vue'
 import userPage from "./user_change_page.vue"
+import Cookies from "js-cookie"
 export default {
   components:{
       search,

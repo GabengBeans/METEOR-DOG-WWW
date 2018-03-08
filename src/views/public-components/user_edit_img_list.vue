@@ -39,7 +39,8 @@
                 <Icon type="camera" size="40"></Icon>
             </div>
         </Upload> -->
-        <div v-if="videoUrl"></div>
+        <template v-if="upload">
+          <div v-if="videoUrl"></div>
         <Upload v-else ref="upload" 
         :show-upload-list="false"
         :on-success="handleSuccess" 
@@ -55,10 +56,12 @@
         type="drag" 
         action="https://lxg.91taogu.com/up/" 
         style="display: inline-block;width:200px;">
-            <div style="min-width:198px;min-height:198px;line-height: 198px;width:10vw;height:20vh">
+            <div style="min-width:198px;min-height:198px;line-height:198px;width:10vw;height:20vh">
                 <Icon type="camera" size="40"></Icon>
             </div>
         </Upload>
+        </template>
+        
         <Modal v-if="videoUrl" title="播放视频" v-model="visible">
         <video :src="videoUrl" autoplay controls="controls" v-if="visible" style="width: 100%"></video>
         </Modal>
@@ -78,7 +81,7 @@ export default {
       uploadList: []
     };
   },
-  props: ["imgList","videoUrl"],
+  props: ["imgList","videoUrl","upload"],
   methods: {
     handleView(name) {
       this.imgName = name;

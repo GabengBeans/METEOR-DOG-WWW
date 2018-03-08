@@ -32,9 +32,36 @@ let base_uri = {
     service_detail_url :"/admin/v1/service/detail/",
     service_undercarriage_url:"/admin/v1/service/update/",
     service_audit_url :"/admin/v1/service/audit/",
+    service_update_url :"/admin/v1/service/service_update/",
+    
     //二级品类
     category_query_two_level:"/admin/v1/categorys/query_two_level/",
 
+    //订单
+    order_search_orders_for_page_url :"/admin/v1/orders/search_orders_for_page/",
+    order_detail_url :"/admin/v1/orders/detail/",
+    order_drawback_detail_url :"/admin/v1/orders/drawback_detail/",
+    order_audit_url :"/admin/v1/orders/audit/",
+
+    //资金流水
+    cash_search_account_log_url :"/admin/v1/cash/account_log/search_account_log_for_page",
+    //保障金
+    account_search_bond_for_page_url :"/admin/v1/cash/account/search_bond_for_page",
+    //提现
+    cash_search_withdraw_for_page_url :"/admin/v1/cash/withdraw/search_withdraw_for_page",
+    cash_withdraw_audit_url :"/admin/v1/cash/withdraw/audit/",
+
+    //商户入驻
+    search_business_info_for_page_url:"/admin/v1/business_info/search_business_info_for_page",
+
+    //广告
+    new_advert_position_list_two_level_advert_position_url :"/admin/v1/new_advert_position/list_two_level_advert_position/",
+    advert_query_advert_url:"/admin/v1/new_advert/query_adverts/",
+    new_advert_edit_advert_url :"/admin/v1/new_advert/edit_advert/",
+    new_advert_add_url :"/admin/v1/new_advert/add_advert/",
+    new_advert_delete_advert_url:"/admin/v1/new_advert/delete_advert/",
+    advert_position_search_for_page_url:"/admin/v1/advert_position/search_advert_position_for_page/",
+    advert_position_add_url :"/admin/v1/advert_position/add_advert_position/",
     // 拓展管理信息
      // 代理人管理
     extend_user_search_ex_userinfo_for_page:"/admin/v1/extend_user/search_ex_userinfo_for_page",
@@ -42,8 +69,10 @@ let base_uri = {
     extend_user_edit_extend_user:"/admin/v1/extend_user/edit_extend_user",
     // 返佣订单审核
     brokerage_order_search_for_page:"/admin/v1/extend_manager/brokerage_order/search_for_page",
-    brokerage_order_detail:"/admin/v1/extend_manager/brokerage_order/detail"
+    brokerage_order_detail:"/admin/v1/extend_manager/brokerage_order/detail",
 
+    advert_position_delete_url:"/admin/v1/advert_position/delete_advert_position/",
+    advert_position_detail_url :"/admin/v1/advert_position/detail/"
 };
 
 export default base_uri;

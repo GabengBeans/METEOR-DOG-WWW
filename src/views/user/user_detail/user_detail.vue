@@ -1,100 +1,116 @@
 <template>
-    <div v-if="show">
-        <div id="user_edit" style="background:#eee">
-            <Card :bordered="false" style="height:85vh;overflow:auto;">
-                    <Avatar :src="aliyun + user_data.avatarUrl" shape="square" style="width:6vw;height:6vw" />
-                    <br><br>
-                    <Tag color="blue" v-for="item in user_data.selfAuthInfos" :key="item.key" style="line-height:3vh;min-width:5vw;min-height:3vh;text-align:center;">{{item}}</Tag>
-                    <br><br>
-               
-                    <div class="user_detail_div">
-                        <label class="from_label">手机号</label><b>{{user_data.phone}}</b>
-                    </div>
-                    <br>
-                    <div class="user_detail_div">
-                        <label class="from_label">真实姓名</label><b>{{user_data.realname}}</b>
-                    </div>
-                    <br>
-                    <div class="user_detail_div">
-                        <label class="from_label">性别</label><b>{{user_data.sex}}</b>
-                    </div>
-                    <br>
-                    <div class="user_detail_div">
-                        <label class="from_label">昵称</label><b>{{user_data.nickname}}</b>
-                    </div>
-                    <br>
-                   <div class="user_detail_div">
-                        <label class="from_label">流星值</label><b>{{user_data.meteorScore}}</b>
-                    </div>
-                    <br>
-                   <div class="user_detail_div">
-                        <label class="from_label">余额</label><b>{{user_data.account.amount}}</b>
-                    </div>
-                    <br>
-                    <div class="user_detail_div">
-                        <label class="from_label">住址</label><b>{{user_data.address}}</b>
-                    </div>
-                    <br>
-                   <div class="user_detail_div">
-                        <label class="from_label">推荐人ID</label><b>{{user_data.inviterId}}</b>
-                    </div>
-                    <br>
-                   <div class="user_detail_div">
-                        <label class="from_label">个人标签</label>
-                         <Tag color="blue" v-for="item in user_data.listTags" :key="item.key" style="line-height:3vh;min-width:5vw;min-height:3vh;text-align:center;">{{item.lableName}}</Tag>
-                    </div>
-                    <br>
-                     <div class="user_detail_div">
-                        <label class="from_label">认证证书</label><b>{{user_data.resumes[3].content}}</b>
-                    </div>
-                    <br>
-                    <div class="user_detail_div">
-                        <label class="from_label">职业经历</label><b>{{user_data.resumes[0].content}}</b>
-                    </div>
-                    <br>
-                    <div class="user_detail_div">
-                        <label class="from_label">教育背景</label><b>{{user_data.resumes[2].content}}</b>
-                    </div>
-                    <br>
-                    <div class="user_detail_div">
-                        <label class="from_label">项目经验</label><b>{{user_data.resumes[1].content}}</b>
-                    </div>
-                    <br>
-                 <div class="user_detail_div">
-                <label class="from_label">相关图片</label>
-                <Avatar v-for="item in user_data.certificates[0].imageUrls" :src="aliyun + item" :key="item.key" shape="square"  style="width:8vw;height:8vw;margin-bottom:4px" />
-                  </div>
-                     <br>
-                 <div class="user_detail_div">
-                <label class="from_label">相关视频</label>
-                <!-- <Avatar v-for="item in user_data.certificates[0].imageUrls" :src="aliyun + item" :key="item.key" shape="square"  style="width:8vw;height:8vw;margin-bottom:4px" /> -->
-                  </div>
-                  <br>
-                   <div class="user_detail_div">
-                        <label class="from_label">持卡人</label><b>{{user_data.accountHolder}}</b>
-                    </div>
-                    <br>
-                     <div class="user_detail_div">
-                        <label class="from_label">开户行</label><b>{{user_data.openingBank}}</b>
-                    </div>
-                    <br>
-                     <div class="user_detail_div">
-                        <label class="from_label">银行卡</label><b>{{user_data.accountNo}}</b>
-                    </div>
-                    <br>
-                <div>
-                    <Tabs value="name1">
-                        <TabPane label="邀请用户" name="name1">
-                            <Table border stripe :columns="invite_user_columns" :data="inviter_arr"></Table>
-                        </TabPane>
-                        <TabPane label="关注用户" name="name2">
-                            <Table border stripe :columns=" attention_user_columns" :data="attention_arr"></Table>
-                        </TabPane>
-                    </Tabs>
-                </div>
-            </Card>
+  <div v-if="show">
+    <div id="user_edit" style="background:#eee">
+      <Card :bordered="false" style="height:85vh;overflow:auto;">
+        <Avatar :src="aliyun + user_data.avatarUrl" shape="square" style="width:6vw;height:6vw" />
+        <br><br>
+        <Tag color="blue" v-for="item in user_data.selfAuthInfos" :key="item.key" style="line-height:3vh;min-width:5vw;min-height:3vh;text-align:center;">{{item}}</Tag>
+        <br><br>
+
+        <div class="user_detail_div">
+          <label class="from_label">手机号</label>
+          <b>{{user_data.phone}}</b>
         </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">真实姓名</label>
+          <b>{{user_data.realname}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">性别</label>
+          <b>{{user_data.sex}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">昵称</label>
+          <b>{{user_data.nickname}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">流星值</label>
+          <b>{{user_data.meteorScore}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">余额</label>
+          <b>{{user_data.account.amount}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">住址</label>
+          <b>{{user_data.address}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">推荐人ID</label>
+          <b>{{user_data.inviterId}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">个人标签</label>
+          <Tag color="blue" v-for="item in user_data.listTags" :key="item.key" style="line-height:3vh;min-width:5vw;min-height:3vh;text-align:center;">{{item.lableName}}</Tag>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">认证证书</label>
+          <b>{{user_data.resumes[3].content}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">职业经历</label>
+          <b>{{user_data.resumes[0].content}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">教育背景</label>
+          <b>{{user_data.resumes[2].content}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">项目经验</label>
+          <b>{{user_data.resumes[1].content}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">相关图片</label>
+          <!-- <Avatar v-for="item in user_data.certificates[0].imageUrls" :src="aliyun + item" :key="item.key" shape="square"  style="width:8vw;height:8vw;margin-bottom:4px" /> -->
+          <UserEditImgList :imgList="user_data.certificates[0].imageUrls"></UserEditImgList>
+        </div>
+        <br>
+        <!-- <div class="user_detail_div">
+                <label class="from_label">相关视频</label>
+  
+                  </div>
+                  <br> -->
+        <div class="user_detail_div">
+          <label class="from_label">持卡人</label>
+          <b>{{user_data.accountHolder}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">开户行</label>
+          <b>{{user_data.openingBank}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">银行卡</label>
+          <b>{{user_data.accountNo}}</b>
+        </div>
+        <br>
+        <div>
+          <Tabs value="name1">
+            <TabPane label="邀请用户" name="name1">
+              <Table border stripe :columns="invite_user_columns" :data="inviter_arr"></Table>
+            </TabPane>
+            <TabPane label="关注用户" name="name2">
+              <Table border stripe :columns=" attention_user_columns" :data="attention_arr"></Table>
+            </TabPane>
+          </Tabs>
+        </div>
+      </Card>
     </div>
+  </div>
 </template>
 <script>
 import Util from "@/libs/util";
@@ -163,25 +179,15 @@ export default {
     });
     let This = this;
     function getUserInfo() {
-      return Util.ajax({
-        method: "get",
-        url: baseUri.user_detail_url,
+      return Util.ajax.get(baseUri.user_detail_url, {
         params: {
           userId: This.$route.params.id
-        },
-        headers: {
-          token: Cookies.get("token")
         }
       });
     }
     function getAttentionUser() {
       //console.log(user_search_attention_users_for_page_url)
-      return Util.ajax({
-        method: "get",
-        url: baseUri.user_search_attention_users_for_page_url,
-        headers: {
-          token: Cookies.get("token")
-        },
+      return Util.ajax.get(baseUri.user_search_attention_users_for_page_url, {
         params: {
           userId: This.$route.params.id,
           pageNo: 1,
@@ -190,12 +196,7 @@ export default {
       });
     }
     function getInviterUsers() {
-      return Util.ajax({
-        method: "post",
-        url: baseUri.user_search_for_page_url,
-        headers: {
-          token: Cookies.get("token")
-        },
+      return Util.ajax.post(baseUri.user_search_for_page_url, {
         data: {
           inviterId: This.$route.params.id
         }
@@ -218,9 +219,11 @@ export default {
             new_obj[x].amount =
               (parseInt(src_obj[x].amount) / 100).toFixed(2) + "元";
           } else if (x == "resumes") {
-            if (src_obj[x] == "") {
-              new_obj.resumes = [{}, {}, {}, {}];
-              for (let i = 0; i < 4; i++) {
+            new_obj.resumes = [{}, {}, {}, {}];
+            for (let i = 0; i < 4; i++) {
+              if (src_obj.resumes[i]) {
+                new_obj.resumes[i].content = src_obj.resumes[i].content;
+              } else {
                 new_obj.resumes[i].content = "";
               }
             }
@@ -239,11 +242,11 @@ export default {
               new_obj.certificates = [{}];
               new_obj.certificates[0].imageUrls = [];
             }
-          }else if (x=="sex") {
-              new_obj[x] = src_obj[x] == 1 ? "男" : "女";
-              if (src_obj[x] == 3) {
-                new_obj[x] = "不详";
-              }
+          } else if (x == "sex") {
+            new_obj[x] = src_obj[x] == 1 ? "男" : "女";
+            if (src_obj[x] == 3) {
+              new_obj[x] = "不详";
+            }
           } else {
             new_obj[x] = src_obj[x];
           }

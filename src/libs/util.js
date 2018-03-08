@@ -1,7 +1,5 @@
 import axios from 'axios';
 import env from '../../build/env';
-// import semver from 'semver';
-// import packjson from '../../package.json';
 import baseUri from './base_uri.js';
 import baseConfig from './base_config.js';
 import Cookies from "js-cookie"
@@ -20,7 +18,6 @@ util.title = function (title) {
 };
 
 console.log(util.getConfig.devUrl);
-
 const ajaxUrl = env === 'development'
     ? util.getConfig.devUrl
     : env === 'production'
@@ -30,11 +27,17 @@ const ajaxUrl = env === 'development'
 util.ajax = axios.create({
     baseURL: ajaxUrl,
     timeout: util.getConfig.ajaxOutTime,
-    headers:{
-        token:Cookies.get("token")
-    }
 });
-
+util.ajax.interceptors.request.use(
+    config => {
+        //console.log("请求拦截器")
+        const token = Cookies.get("token") //获取存储在本地的token
+        config.headers = {
+            'token':token
+        };  
+        return config;
+    }
+);
 util.inOf = function (arr, targetArr) {
     let res = true;
     arr.forEach(item => {
@@ -320,4 +323,11 @@ function padLeftZero(str) {
     return ('00'+str).substr(str.length);
 }
 
+util.formData= function(data) {
+    let formData = new FormData()
+    for (let it in data) {
+     formData.append(it,data[it])
+    }
+    return formData;
+  }
 export default util;

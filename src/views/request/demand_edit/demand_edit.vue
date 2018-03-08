@@ -82,9 +82,9 @@
                     <FormItem>
                         <div class="user_detail_div">
                             <label class="from_label">服务方式:</label>
-                            <CheckboxGroup v-model="data.modeTypeDatas" style="display:inline-block">
-                                <Checkbox label="线上服务"></Checkbox>
-                                <Checkbox label="线下服务"></Checkbox>
+                            <CheckboxGroup v-model="data.modeType" style="display:inline-block">
+                                <Checkbox label=1>线上服务</Checkbox>
+                                <Checkbox label=2>线下服务</Checkbox>
                             </CheckboxGroup>
                         </div>
                     </FormItem>
@@ -92,17 +92,17 @@
                         <div class="user_detail_div">
                             <label class="from_label">有效天数:</label>
                             <Select v-model="data.validDays" style="width:100px">
-                                <Option  value="1" >7天</Option>
-                                <Option  value="2" >15天</Option>
-                                <Option  value="3" >30天</Option>
-                                <Option  value="4" >60天</Option>
+                                <Option  value=1 >7天</Option>
+                                <Option  value=2 >15天</Option>
+                                <Option  value=3 >30天</Option>
+                                <Option  value=4 >60天</Option>
                             </Select>
                         </div>
                     </FormItem>
                     <br>
                     <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
                         <label class="from_label">需求图片:</label>图片限制大小2M
-                        <UserEditImgList :imgList="data.mediaImg"></UserEditImgList>
+                        <UserEditImgList :imgList="data.mediaImg" :upload="true"></UserEditImgList>
                     </div>
                     <br>
                     <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
@@ -214,8 +214,9 @@ export default {
             content:"保存中...",
             duration:0
         })
-        let modeType = [];
         let mediaVideo = []
+        let modeType = "["+this.data.modeType +"]"
+        console.log(modeType)
         let price = parseInt(this.data.price)*100
         let validDays = '['+ this.data.validDays+ ']'
         if(!this.data.mediaVideo)
@@ -223,13 +224,6 @@ export default {
             mediaVideo = []
         }else{
             mediaVideo = [this.data.mediaVideo]
-        }
-        if (this.data.modeTypeDatas.length == 2) {
-          modeType = [1, 2];
-        } else if (this.data.modeTypeDatas[0] == "线上服务") {
-          modeType = [1];
-        } else {
-          modeType = [2];
         }
         let data = {
           address: this.data.address || '',
@@ -288,35 +282,7 @@ export default {
     handleVideo() {
       this.videoVisible = true;
     }
-    // showUnder() {
-    //   this.underVisible = !this.underVisible;
-    // },
-    // handleUnder() {
-    //   Util.ajax({
-    //     method: "post",
-    //     url: baseUri.demand_undercarriage_url,
-    //     data: {
-    //       demandId: this.$route.params.id,
-    //       status: 0,
-    //       refuseReason: this.refuseReason
-    //     },
-    //     transformRequest: [
-    //       function(data) {
-    //         let ret = "";
-    //         for (let it in data) {
-    //           ret +=
-    //             encodeURIComponent(it) +
-    //             "=" +
-    //             encodeURIComponent(data[it]) +
-    //             "&";
-    //         }
-    //         return ret;
-    //       }
-    //     ]
-    //   }).then(response => {
-    //     console.log(response);
-    //   });
-    // }
+
   },
   created() {
     let This = this;
@@ -325,27 +291,23 @@ export default {
       duration: 0
     });
     function getDemandDetail() {
-      return Util.ajax({
-        method: "get",
-        url: baseUri.demand_detail_url,
+      return Util.ajax.get(baseUri.demand_detail_url,{
         params: {
           demandId: This.$route.params.id
         }
-      });
+      })
+      
     }
     function getTwoLevel() {
       //console.log(baseUri.category_query_two_level)
-      return Util.ajax({
-        method: "get",
-        url: baseUri.category_query_two_level
-      });
+      return  Util.ajax.get(baseUri.category_query_two_level)
     }
 
     axios
       .all([getDemandDetail(), getTwoLevel()])
       .then(
         axios.spread((response, response1) => {
-             console.log(response.data.data);
+             console.log(response);
           //   console.log(response1)
           let obj = response.data.data;
           for (let x in obj) {
@@ -375,15 +337,11 @@ export default {
                 }
               }
             } else if (x == "modeType") {
-                console.log(obj[x].length)
-              if (obj[x]=="[1,2]") {
-                this.data.modeTypeDatas = ["线上服务", "线下服务"];
-              } else if (obj[x]=="[1]") {
-                this.data.modeTypeDatas = ["线上服务"];
-              } else {
-                this.data.modeTypeDatas = ["线下服务"];
-              }
+               this.$set(this.data,"modeType",obj[x].replace(/[\[*\]]/g, "").split(","))
+               //console.log(this.data.modeType)
               //console.log( this.data.modeTypeData)
+            } else if(x=="validDays"){
+              this.$set(this.data,"validDays",obj[x].replace(/[\[*\]]/g, ""))
             } else {
               this.data[x] = obj[x];
             }
@@ -396,9 +354,9 @@ export default {
           this.$Message.destroy();
         })
       )
-      .catch(error => {
-        console.log(error);
-      });
+      // .catch(error => {
+      //   console.log(error);
+      // });
   }
 };
 </script>
