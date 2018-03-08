@@ -38,8 +38,8 @@
                 <AddSubAdvertBits :data="editSubAdvertBitsData" :selectData="searchConfig"></AddSubAdvertBits>
             </div>
             <div slot="footer">
-                <Button type="success" @click.native="addSubAdertBits">保存</Button>
-                <Button type="error" @click="showAddSubAdertBits=false">返回</Button>
+                <Button type="success" @click.native="EditSubAdertBits">保存</Button>
+                <Button type="error" @click="showEditSubAdertBits=false">返回</Button>
             </div>
         </Modal>
     </div>
@@ -178,6 +178,21 @@ export default {
         data: obj,
         pageNo: 1
       });
+    },
+    EditSubAdertBits(){
+        for (let x in this.editSubAdvertBitsData) {
+        if (!this.editSubAdvertBitsData[x]) {
+          this.$Message.error("请补全信息");
+          return false;
+        }
+      }
+      let data = {
+          positionName:this.editSubAdvertBitsData.positionName,
+          id:this.editSubAdvertBitsData.id,
+          userId:this.editSubAdvertBitsData.userId,
+          level:this.editSubAdvertBitsData.level,
+          adSort:this.editSubAdvertBitsData.adSort
+      }
     },
     addSubAdertBits: function() {
       for (let x in this.addSubAdvertBitsData) {

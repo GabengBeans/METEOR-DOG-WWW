@@ -62,6 +62,9 @@ let base_uri = {
     new_advert_delete_advert_url:"/admin/v1/new_advert/delete_advert/",
     advert_position_search_for_page_url:"/admin/v1/advert_position/search_advert_position_for_page/",
     advert_position_add_url :"/admin/v1/advert_position/add_advert_position/",
+    advert_position_delete_url:"/admin/v1/advert_position/delete_advert_position/",
+    advert_position_detail_url :"/admin/v1/advert_position/detail/",
+    advert_position_edit_url :"/admin/v1/advert_position/edit_advert_position/",
     // 拓展管理信息
      // 代理人管理
     extend_user_search_ex_userinfo_for_page:"/admin/v1/extend_user/search_ex_userinfo_for_page",
@@ -71,8 +74,6 @@ let base_uri = {
     brokerage_order_search_for_page:"/admin/v1/extend_manager/brokerage_order/search_for_page",
     brokerage_order_detail:"/admin/v1/extend_manager/brokerage_order/detail",
 
-    advert_position_delete_url:"/admin/v1/advert_position/delete_advert_position/",
-    advert_position_detail_url :"/admin/v1/advert_position/detail/"
 };
 
 export default base_uri;
