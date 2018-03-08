@@ -690,57 +690,30 @@ const app = {
         GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO(state, { data, pageNo }) {
             state.advert_position_search_info = data
             Util.ajax({
-                method: "post",
-                url: base_uri.advert_position_search_for_page_url,
-                params: {
-                    pageNo: pageNo || 1,
-                    pageSize: 10
+                method:"post",
+                url:base_uri.advert_position_search_for_page_url,
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
                 },
-                data: data
-            }).then((response) => {
+                data:data
+            }).then((response)=>{
                 console.log(response)
-                let levelArr = ["", "一级广告位", "二级广告位", "三级广告位", "四级广告位"]
-                let statusArr = ["禁用", "启用"]
+                let levelArr = ["","一级广告位","二级广告位","三级广告位","四级广告位"]
+                let statusArr = ["禁用","启用"]
                 let arr = response.data.data.items
                 state.advert_position_page_info.currentPage = parseInt(response.data.data.page)
                 state.advert_position_page_info.totalPage = parseInt(response.data.data.totalCount)
                 state.advert_position_search_result = response.data.data.items
-
-                for (let x = 0; x < arr.length; x++) {
+                
+                for(let x = 0;x<arr.length;x++) 
+                {   
                     state.advert_position_search_result[x].level = levelArr[arr[x].level]
                     state.advert_position_search_result[x].status = statusArr[arr[x].status]
-                }
-                //console.log(state.advert_position_search_result)
-            }).catch((error) => {
-                console.log(error)
-            }).then((res) => {
-                console.log(res)
-                let arr = res.data.data.items;
-                let businessStatus = ["全部", "待审核", "审核未通过", "审核通过"];
-                state.brokerage_order_info.currentPage = parseInt(res.data.data.page)
-                state.brokerage_order_info.totalPage = parseInt(res.data.data.totalCount)
-                state.brokerage_order_search_result = arr
-                for (let x in arr) {
-                    let businessIndex = parseInt(state.brokerage_order_search_result[x].businessStatus)
-
-                    state.brokerage_order_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
-                    state.brokerage_order_search_result[x].platformServiceCharge = arr[x].platformServiceCharge * 0.01;
-                    state.brokerage_order_search_result[x].brokerage = arr[x].brokerage * 0.01;
-                    state.brokerage_order_search_result[x].reate = arr[x].reate * 0.01;
-
-
-                    if (arr[x].accountDay) {
-                        state.brokerage_order_search_result[x].accountDay = Util.formatDate(new Date(arr[x].accountDay), "yyyy-MM-dd hh:mm:ss")
-                    } else {
-                        state.brokerage_order_search_result[x].accountDay = ''
-                    }
-                    if (arr[x].auditTime) {
-                        state.brokerage_order_search_result[x].auditTime = Util.formatDate(new Date(arr[x].auditTime), "yyyy-MM-dd hh:mm:ss")
-                    } else {
-                        state.brokerage_order_search_result[x].auditTime = ''
-                    }
-                    state.brokerage_order_search_result[x].businessStatus = businessStatus[businessIndex]
-                }
+               }
+               //console.log(state.advert_position_search_result)
+            }).catch((error)=>{
+                console.log(error) 
             })
         }
     }

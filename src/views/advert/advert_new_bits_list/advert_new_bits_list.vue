@@ -193,6 +193,31 @@ export default {
           level:this.editSubAdvertBitsData.level,
           adSort:this.editSubAdvertBitsData.adSort
       }
+      this.$Message.loading({
+        content: "保存中...",
+        duration: 0
+      });
+      Util.ajax({
+        method:"post",
+        url:baseUri.advert_position_edit_url,
+        data:Util.formData(data)
+      }).then(res=>{
+        if (res.data.data == "SUCCESS") {
+            this.$Message.destroy();
+            this.$Message.success("更新成功");
+            this.$store.commit("GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO", {
+              data: { level: this.searchConfig.level.value },
+              pageNo: 1
+            });
+            this.showEditSubAdertBits = false;
+          }else {
+            this.$Message.destroy();
+            this.$Message.error("更新失败,请检查填写信息");
+          }
+      })
+      .catch(error => {
+          console.log(error);
+        });
     },
     addSubAdertBits: function() {
       for (let x in this.addSubAdvertBitsData) {
