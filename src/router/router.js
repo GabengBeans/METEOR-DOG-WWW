@@ -58,13 +58,8 @@ export const otherRouter = {
     children: [
         { path: 'home', title: { i18n: 'home' }, name: 'home_index', component: resolve => { require(['@/views/home/home.vue'], resolve); } },
         { path: 'ownspace', title: '个人中心', name: 'ownspace_index', component: resolve => { require(['@/views/own-space/own-space.vue'], resolve); } },
-        //{ path: 'order/:order_id', title: '订单详情', name: 'order-info', component: resolve => { require(['@/views/advanced-router/component/order-info.vue'], resolve); } }, // 用于展示动态路由
-        //{ path: 'shopping', title: '购物详情', name: 'shopping', component: resolve => { require(['@/views/advanced-router/component/shopping-info.vue'], resolve); } }, // 用于展示带参路由
         { path: 'message', title: '消息中心', name: 'message_index', component: resolve => { require(['@/views/message/message.vue'], resolve); } },
-
-        //{ path: 'service-detail/:id', title: '服务详情', name: 'service-detail', component: resolve => { require(['@/views/service/detail'], resolve); } },
-        //{ path: 'service-edit/:id', title: '服务修改', name: 'service-edit', component: resolve => { require(['@/views/service/edit'], resolve); } },
-       //用户
+        //用户
         { path: 'user-role/:id', title: '修改用户角色', name: 'user-role', component: resolve => { require(['@/views/user/modify_user_role/modify_user_role'], resolve) } },
         { path: 'user-edit/:id', title: '用户编辑', name: 'user-edit', component: resolve => { require(['@/views/user/user_edit/user_edit'], resolve) } },
         { path: 'user-detail/:id', title: '用户详情', name: 'user-detail', component: resolve => { require(['@/views/user/user_detail/user_detail'], resolve) } },
@@ -92,8 +87,7 @@ export const otherRouter = {
         { path: 'expand-manager-edit/:id', title: '代理人编辑', name: 'expand-manager-edit', component: resolve => { require(['@/views/expand/expand-manager/expand-manager-edit/expand-manager-edit'], resolve) } },
         { path: 'expand-manager-review/:id', title: '代理人审核', name: 'expand-manager-review', component: resolve => { require(['@/views/expand/expand-manager/expand-manager-review/expand-manager-review'], resolve) } },
         // 拓展-返佣订单审核
-        { path: 'expand-order-audit-detail/:id', title: '返佣订单详情', name: 'expand-order-audit-detail', component: resolve => { require(['@/views/expand/expand-order-audit/expand-order-audit-detail/expand-order-audit-detail'], resolve) } },
-        
+        { path: 'expand-order-audit-detail/:id', title: '返佣订单详情', name: 'expand-order-audit-detail', component: resolve => { require(['@/views/expand/expand-order-audit/expand-order-audit-detail/expand-order-audit-detail'], resolve) } }
     ]
 };
 
@@ -201,16 +195,16 @@ export const appRouter = [
             { path: 'index', title: '权限测试页', name: 'accesstest_index', access: 0, component: resolve => { require(['@/views/access/access-test.vue'], resolve); } }
         ]
     },
-    {
-        path: '/international',
-        icon: 'earth',
-        title: { i18n: 'international' },
-        name: 'international',
-        component: Main,
-        children: [
-            { path: 'index', title: { i18n: 'international' }, name: 'international_index', component: resolve => { require(['@/views/international/international.vue'], resolve); } }
-        ]
-    },
+    // {
+    //     path: '/international',
+    //     icon: 'earth',
+    //     title: { i18n: 'international' },
+    //     name: 'international',
+    //     component: Main,
+    //     children: [
+    //         { path: 'index', title: { i18n: 'international' }, name: 'international_index', component: resolve => { require(['@/views/international/international.vue'], resolve); } }
+    //     ]
+    // },
     {
         path: '/order',
         icon: 'ios-copy',

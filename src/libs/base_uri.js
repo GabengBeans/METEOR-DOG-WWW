@@ -37,7 +37,6 @@ let base_uri = {
     //二级品类
     category_query_two_level:"/admin/v1/categorys/query_two_level/",
 
-<<<<<<< HEAD
     //订单
     order_search_orders_for_page_url :"/admin/v1/orders/search_orders_for_page/",
     order_detail_url :"/admin/v1/orders/detail/",
@@ -62,8 +61,7 @@ let base_uri = {
     new_advert_add_url :"/admin/v1/new_advert/add_advert/",
     new_advert_delete_advert_url:"/admin/v1/new_advert/delete_advert/",
     advert_position_search_for_page_url:"/admin/v1/advert_position/search_advert_position_for_page/",
-    advert_position_add_url :"/admin/v1/advert_position/add_advert_position/"
-=======
+    advert_position_add_url :"/admin/v1/advert_position/add_advert_position/",
     // 拓展管理信息
      // 代理人管理
     extend_user_search_ex_userinfo_for_page:"/admin/v1/extend_user/search_ex_userinfo_for_page",
@@ -73,7 +71,6 @@ let base_uri = {
     brokerage_order_search_for_page:"/admin/v1/extend_manager/brokerage_order/search_for_page",
     brokerage_order_detail:"/admin/v1/extend_manager/brokerage_order/detail"
 
->>>>>>> fc57bf31aa2c162cb5246f695be3714d28eeff0a
 };
 
 export default base_uri;
