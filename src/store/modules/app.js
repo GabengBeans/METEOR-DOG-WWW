@@ -799,11 +799,12 @@ const app = {
                             let _obj = {}
                             
                             _obj.title = obj.childCategory[x].name
+                            _obj.url = obj.childCategory[x].avatarUrl
                             _obj.expand = true
                            category.push(_obj)
                         }
                       
-                        //Vue.set(state.category_search_result,"childCategory",category)
+                        Vue.set(state.category_search_result,"childCategory",category)
                         //state.category_search_result.childCategory = Object.assign({},state.category_search_result.childCategory,category)
                         state.category_search_result.childCategory = category
                         console.log(state.category_search_result.childCategory)
@@ -811,7 +812,28 @@ const app = {
                     
                 }else if(businessType==2)
                 {
-
+                    if(response.data.success)
+                    {
+                        var category=[]
+                        Vue.set(state.category_tag_search_result,"name",obj.name)
+                        Vue.set(state.category_tag_search_result,"url",obj.avatarUrl)
+                        //Vue.set(state.category_search_result,"childCategory",[])
+                        //console.log(state.category_search_result.childCategory)
+                        for(let x=0;x<obj.childCategory.length;x++)
+                        {
+                            let _obj = {}
+                            
+                            _obj.title = obj.childCategory[x].name
+                            _obj.url = obj.childCategory[x].avatarUrl
+                            _obj.expand = true
+                           category.push(_obj)
+                        }
+                      
+                        Vue.set(state.category_tag_search_result,"childCategory",category)
+                        //state.category_search_result.childCategory = Object.assign({},state.category_search_result.childCategory,category)
+                        state.category_tag_search_result.childCategory = category
+                        console.log(state.category_tag_search_result.childCategory)
+                    }
                 }
                 // if (response.data.success) {
                 //     let arr = response.data.data.items

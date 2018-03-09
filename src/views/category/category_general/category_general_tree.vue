@@ -1,20 +1,20 @@
 <template>
-    <div >
-        <template v-if="categoryData.childCategory.length>0">
-            {{categoryData.childCategory}}
-        <Tree :data="data" show-checkbox multiple :render="renderContent"></Tree>
-        </template>
+    <div>
+        <Tree :data="data" show-checkbox multiple :load-data="loadData" :render="renderContent"></Tree>
+        <AddCategory :show="showAddCategory"></AddCategory>
     </div>
 </template>
 <script>
+import AddCategory from "./category_general_add";
 export default {
   props: ["categoryData"],
   data() {
     return {
-        arr:[],
+      showAddCategory: false,
       data: [
         {
-          expand: true,
+          expand: false,
+          loading: false,
           selected: true,
           render: (h, { root, node, data }) => {
             return h(
@@ -23,6 +23,7 @@ export default {
                 style: {
                   display: "inline-block",
                   width: "100%",
+                  minWidth: "200px",
                   height: "40px",
                   lineHeight: "40px"
                 }
@@ -32,31 +33,35 @@ export default {
                   "span",
                   {
                     style: {
-                      height: "20px",
+                      width: "300px",
                       fontSize: "20px",
                       color: "#2d8cf0",
-                      lineHeight: "40px"
+                      lineHeight: "40px",
+                      display: "inline-block",
+                      position: "relative"
                     }
                   },
                   [
                     h("img", {
                       attrs: {
-                        src: this.categoryData?this.categoryData.url:''
+                        src: this.categoryData ? this.categoryData.url : ""
                       },
                       style: {
                         width: "30px",
                         height: "30px",
-                        marginRight: "8px"
+                        marginRight: "8px",
+                        position: "absolute",
+                        top: "6px"
                       }
                     }),
                     h(
                       "span",
                       {
                         style: {
-                          lineHeight: "40px"
+                          marginLeft: "40px"
                         }
                       },
-                      this.categoryData?this.categoryData.name:''
+                      this.categoryData ? this.categoryData.name : ""
                     )
                   ]
                 ),
@@ -71,6 +76,18 @@ export default {
                   },
                   [
                     h(
+                      "span",
+                      {
+                        style: {
+                          display: "inline-block",
+                          marginRight: "8px",
+                          color: "gray",
+                          fontSize: "20px"
+                        }
+                      },
+                      "启用"
+                    ),
+                    h(
                       "Button",
                       {
                         props: Object.assign({}, this.buttonProps, {
@@ -82,7 +99,7 @@ export default {
                         },
                         on: {
                           click: () => {
-                            this.append(data);
+                            this.showAddCategory = true
                           }
                         }
                       },
@@ -110,7 +127,8 @@ export default {
                       {
                         props: Object.assign({}, this.buttonProps, {
                           icon: "ios-minus-empty",
-                          type: "error"
+                          type: "error",
+                          disabled: true
                         }),
                         style: {
                           marginRight: "8px"
@@ -142,24 +160,24 @@ export default {
               ]
             );
           },
-          children: this.categoryData?this.categoryData.childCategory:[]
-        //   [
-        //     {
-        //     //   title: "child 1-2",
-        //     //   expand: true,
+          children: []
+          //   [
+          //     {
+          //     //   title: "child 1-2",
+          //     //   expand: true,
 
-        //     //   children: [
-        //     //     {
-        //     //       title: "leaf 1-2-1",
-        //     //       expand: true
-        //     //     },
-        //     //     {
-        //     //       title: "leaf 1-2-1",
-        //     //       expand: true
-        //     //     }
-        //     //    ]
-        //      }
-        //   ]
+          //     //   children: [
+          //     //     {
+          //     //       title: "leaf 1-2-1",
+          //     //       expand: true
+          //     //     },
+          //     //     {
+          //     //       title: "leaf 1-2-1",
+          //     //       expand: true
+          //     //     }
+          //     //    ]
+          //      }
+          //   ]
         }
       ],
       buttonProps: {
@@ -169,13 +187,22 @@ export default {
     };
   },
   methods: {
+    loadData(item, callback) {
+      setTimeout(() => {
+        const data = this.categoryData ? this.categoryData.childCategory : [];
+        callback(data);
+      }, 500);
+    },
     renderContent(h, { root, node, data }) {
       return h(
         "span",
         {
           style: {
             display: "inline-block",
-            width: "100%"
+            width: "100%",
+            minWidth: "200px",
+            height: "40px",
+            lineHeight: "40px"
           }
         },
         [
@@ -183,20 +210,36 @@ export default {
             "span",
             {
               style: {
+                width: "300px",
                 fontSize: "20px",
-                color: "blue"
+                color: "#2d8cf0",
+                lineHeight: "40px",
+                display: "inline-block",
+                position: "relative"
               }
             },
             [
-              h("Icon", {
-                props: {
-                  type: "ios-paper-outline"
+              h("img", {
+                attrs: {
+                  src: data.url
                 },
                 style: {
-                  marginRight: "8px"
+                  width: "30px",
+                  height: "30px",
+                  marginRight: "8px",
+                  position: "absolute",
+                  top: "6px"
                 }
               }),
-              h("span", data.title)
+              h(
+                "span",
+                {
+                  style: {
+                    marginLeft: "40px"
+                  }
+                },
+                data.title
+              )
             ]
           ),
           h(
@@ -210,6 +253,18 @@ export default {
             },
             [
               h(
+                "span",
+                {
+                  style: {
+                    display: "inline-block",
+                    marginRight: "8px",
+                    color: "gray",
+                    fontSize: "20px"
+                  }
+                },
+                "启用"
+              ),
+              h(
                 "Button",
                 {
                   props: Object.assign({}, this.buttonProps, {
@@ -221,7 +276,7 @@ export default {
                   },
                   on: {
                     click: () => {
-                      this.append(data);
+                      console.log(node.nodeKey);
                     }
                   }
                 },
@@ -295,6 +350,12 @@ export default {
       const index = parent.children.indexOf(data);
       parent.children.splice(index, 1);
     }
+  },
+  components:{
+      AddCategory
   }
 };
 </script>
+<style>
+
+</style>
