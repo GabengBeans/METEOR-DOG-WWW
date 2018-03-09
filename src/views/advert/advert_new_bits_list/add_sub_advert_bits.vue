@@ -1,6 +1,6 @@
 <template>
     <div class="addSubAdvertBits">
-        <Form label-position="right" :label-width="80">
+        <Form label-position="right" :label-width="80" :rules="ruleValidate">
             <Row>
                 <Col :xs='13' :sm='13' :md='8' :lg='6'>
                 <FormItem label="资源位名称">
@@ -8,7 +8,7 @@
                 </FormItem>
                 </Col>
                 <Col :xs='13' :sm='13' :md='8' :lg='6'>
-                <FormItem label="用户ID">
+                <FormItem label="用户ID" prop="userId">
                     <Input clearable v-model="data.userId"></Input>
                 </FormItem>
                 </Col>
@@ -31,7 +31,17 @@
 <script>
 export default {
   name: "addSubAdvertBits",
-  props: ["data", "selectData"]
+  props: ["data", "selectData"],
+  data() {
+    return {
+      ruleValidate: {
+        userId: [
+          { required: true, message: "用户ID不能为空", trigger: "blur" },
+          { type: "number", message: "只能输入数字", trigger: "blur" }
+        ]
+      }
+    };
+  }
 };
 </script>
 <style>

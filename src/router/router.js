@@ -279,6 +279,28 @@ export const appRouter = [
         ]
     },
     {
+        path: '/category',
+        icon: 'compose',
+        name: 'category', 
+        title: '类目管理', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'category-general', 
+                name: 'category-general', 
+                title: '类目维护', 
+                component: resolve => { require(['@/views/category/category_general/category_general_index'], resolve); }, 
+            },
+            {
+                path: 'category-tab-general', 
+                name: 'category-tab-general', 
+                title: '标签维护', 
+                component: resolve => { require(['@/views/merchant/after_merchant_enter'], resolve); }, 
+            }
+        ]
+    },
+    {
         path: '/merchant',
         icon: 'person-stalker',
         name: 'merchant', 

@@ -117,6 +117,13 @@ const app = {
         brokerage_order_search_info: { "businessStatus": "0" },
         brokerage_order_search_result: [],
 
+        //类目and标签管理
+        category_search_result:{
+            childCategory:[]
+        },
+        category_tag_search_result:{},
+
+
         cachePage: [],
         lang: '',
         isFullScreen: false,
@@ -750,7 +757,7 @@ const app = {
                 },
                 data: data
             }).then((response) => {
-                console.log(response)
+                //console.log(response)
                 if (response.data.success) {
                     let arr = response.data.data.items
                     state.after_feedback_page_info.currentPage = parseInt(response.data.data.page)
@@ -768,6 +775,61 @@ const app = {
                 console.log(error)
             })
         },
+        GET_CATEGORY_SEARCH_INFO(state,{businessType}){
+            Util.ajax({
+                method: "get",
+                url: base_uri.category_search_url,
+                params: {
+                    businessType:businessType
+                }
+            }).then((response) => {
+                console.log(response)
+                let obj =response.data.data.allCategory[0]
+                if(businessType==1) 
+                {
+                    if(response.data.success)
+                    {
+                        var category=[]
+                        Vue.set(state.category_search_result,"name",obj.name)
+                        Vue.set(state.category_search_result,"url",obj.avatarUrl)
+                        //Vue.set(state.category_search_result,"childCategory",[])
+                        //console.log(state.category_search_result.childCategory)
+                        for(let x=0;x<obj.childCategory.length;x++)
+                        {
+                            let _obj = {}
+                            
+                            _obj.title = obj.childCategory[x].name
+                            _obj.expand = true
+                           category.push(_obj)
+                        }
+                      
+                        //Vue.set(state.category_search_result,"childCategory",category)
+                        //state.category_search_result.childCategory = Object.assign({},state.category_search_result.childCategory,category)
+                        state.category_search_result.childCategory = category
+                        console.log(state.category_search_result.childCategory)
+                    }
+                    
+                }else if(businessType==2)
+                {
+
+                }
+                // if (response.data.success) {
+                //     let arr = response.data.data.items
+                //     state.after_feedback_page_info.currentPage = parseInt(response.data.data.page)
+                //     state.after_feedback_page_info.totalPage = parseInt(response.data.data.totalCount)
+                //     state.after_feedback_search_result = response.data.data.items
+
+                //     for (let x = 0; x < arr.length; x++) {
+                //         state.after_feedback_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
+                //         if (!arr[x].phone) {
+                //             state.after_feedback_search_result[x].phone = ""
+                //         }
+                //     }
+                // } 
+            }).catch((error) => {
+                console.log(error)
+            })
+        }
     }
 }
 export default app

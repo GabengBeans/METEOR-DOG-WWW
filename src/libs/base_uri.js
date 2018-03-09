@@ -75,7 +75,10 @@ let base_uri = {
     brokerage_order_detail:"/admin/v1/extend_manager/brokerage_order/detail",
 
     //售后管理
-    after_feedback_query_for_page :"/admin/v1/after/feedback/search_feedback_for_page"
+    after_feedback_query_for_page :"/admin/v1/after/feedback/search_feedback_for_page",
+
+    //类别管理
+    category_search_url :"/admin/v1/categorys/search_category_list"
 };
 
 export default base_uri;
