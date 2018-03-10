@@ -121,7 +121,9 @@ const app = {
         category_search_result:{
             childCategory:[]
         },
-        category_tag_search_result:{},
+        categorys_search_result:{
+            childCategory:[]
+        },
 
 
         cachePage: [],
@@ -789,65 +791,54 @@ const app = {
                 {
                     if(response.data.success)
                     {
-                        var category=[]
+                        let category=[]
                         Vue.set(state.category_search_result,"name",obj.name)
                         Vue.set(state.category_search_result,"url",obj.avatarUrl)
-                        //Vue.set(state.category_search_result,"childCategory",[])
-                        //console.log(state.category_search_result.childCategory)
+                        Vue.set(state.category_search_result,"status",obj.status)
+                        Vue.set(state.category_search_result,"type",obj.type)
+                        Vue.set(state.category_search_result,"id",obj.id)
+    
                         for(let x=0;x<obj.childCategory.length;x++)
                         {
                             let _obj = {}
                             
                             _obj.title = obj.childCategory[x].name
                             _obj.url = obj.childCategory[x].avatarUrl
+                            _obj.id = obj.childCategory[x].id
                             _obj.expand = true
                            category.push(_obj)
                         }
                       
                         Vue.set(state.category_search_result,"childCategory",category)
-                        //state.category_search_result.childCategory = Object.assign({},state.category_search_result.childCategory,category)
-                        state.category_search_result.childCategory = category
-                        console.log(state.category_search_result.childCategory)
+                        console.log(state.category_search_result)
                     }
                     
                 }else if(businessType==2)
                 {
                     if(response.data.success)
                     {
-                        var category=[]
-                        Vue.set(state.category_tag_search_result,"name",obj.name)
-                        Vue.set(state.category_tag_search_result,"url",obj.avatarUrl)
-                        //Vue.set(state.category_search_result,"childCategory",[])
-                        //console.log(state.category_search_result.childCategory)
+                        let category=[]
+                        Vue.set(state.categorys_search_result,"name",obj.name)
+                        Vue.set(state.categorys_search_result,"url",obj.avatarUrl)
+                        Vue.set(state.categorys_search_result,"status",obj.status)
+                        Vue.set(state.categorys_search_result,"type",obj.type)
+                        Vue.set(state.categorys_search_result,"id",obj.id)
                         for(let x=0;x<obj.childCategory.length;x++)
                         {
                             let _obj = {}
                             
                             _obj.title = obj.childCategory[x].name
                             _obj.url = obj.childCategory[x].avatarUrl
+                            _obj.id = obj.childCategory[x].id
                             _obj.expand = true
                            category.push(_obj)
                         }
                       
-                        Vue.set(state.category_tag_search_result,"childCategory",category)
-                        //state.category_search_result.childCategory = Object.assign({},state.category_search_result.childCategory,category)
-                        state.category_tag_search_result.childCategory = category
-                        console.log(state.category_tag_search_result.childCategory)
+                        Vue.set(state.categorys_search_result,"childCategory",category)
+                        //console.log(state.categorys_search_result)
                     }
                 }
-                // if (response.data.success) {
-                //     let arr = response.data.data.items
-                //     state.after_feedback_page_info.currentPage = parseInt(response.data.data.page)
-                //     state.after_feedback_page_info.totalPage = parseInt(response.data.data.totalCount)
-                //     state.after_feedback_search_result = response.data.data.items
-
-                //     for (let x = 0; x < arr.length; x++) {
-                //         state.after_feedback_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
-                //         if (!arr[x].phone) {
-                //             state.after_feedback_search_result[x].phone = ""
-                //         }
-                //     }
-                // } 
+                
             }).catch((error) => {
                 console.log(error)
             })

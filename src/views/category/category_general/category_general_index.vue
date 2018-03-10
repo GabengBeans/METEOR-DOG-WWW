@@ -4,13 +4,12 @@
             <MyTree :categoryData="$store.state.app.category_search_result"></MyTree>
         </Card>
         <Card class="card_class">
-            <MyTree :categoryData="$store.state.app.category_tag_search_result"></MyTree>
+            <MyTree :categoryData="$store.state.app.categorys_search_result"></MyTree>
         </Card>
     </div>
 </template>
 <script>
 import MyTree from "./category_general_tree";
-
 export default {
   name: "category",
   

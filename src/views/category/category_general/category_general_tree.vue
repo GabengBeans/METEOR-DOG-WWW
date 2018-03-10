@@ -1,16 +1,31 @@
 <template>
-    <div>
-        <Tree :data="data" show-checkbox multiple :load-data="loadData" :render="renderContent"></Tree>
-        <AddCategory :show="showAddCategory"></AddCategory>
-    </div>
+  <div>
+    <Tree :data="data" multiple :load-data="loadData" :render="renderContent"></Tree>
+    <AddCategory :data="addObj"></AddCategory>
+  </div>
 </template>
 <script>
 import AddCategory from "./category_general_add";
+import Util from "@/libs/util";
+import baseUri from "@/libs/base_uri";
 export default {
   props: ["categoryData"],
   data() {
     return {
-      showAddCategory: false,
+      addObj: {
+        showAddCategory: false,
+        id: "",
+        name: "",
+        isHot: "",
+        level: "2",
+        isRecommend: "",
+        levelName: "",
+        sort: "100",
+        status: 1,
+        avatarUrl: "",
+        parentId: "",
+        type: ""
+      },
       data: [
         {
           expand: false,
@@ -99,7 +114,11 @@ export default {
                         },
                         on: {
                           click: () => {
-                            this.showAddCategory = true
+                            this.addObj.showAddCategory = true;
+                            this.addObj.levelName = this.categoryData.name;
+                            (this.addObj.levle = "2"),
+                              (this.addObj.parentId = this.categoryData.id);
+                            this.addObj.type = this.categoryData.type;
                           }
                         }
                       },
@@ -269,14 +288,19 @@ export default {
                 {
                   props: Object.assign({}, this.buttonProps, {
                     icon: "ios-plus-empty",
-                    type: "success"
+                    type: "success",
+                    disabled: true
                   }),
                   style: {
                     marginRight: "8px"
                   },
                   on: {
                     click: () => {
-                      console.log(node.nodeKey);
+                      this.addObj.showAddCategory = true;
+                      this.addObj.levelName = this.categoryData.childCategory;
+                      (this.addObj.levle = "2"),
+                        (this.addObj.parentId = this.categoryData.id),
+                        (this.addObj.type = this.categoryData.type);
                     }
                   }
                 },
@@ -339,20 +363,38 @@ export default {
     append(data) {
       const children = data.children || [];
       children.push({
-        title: "appended node",
+        title: this.categoryData.name,
         expand: true
       });
       this.$set(data, "children", children);
     },
     remove(root, node, data) {
-      const parentKey = root.find(el => el === node).parent;
-      const parent = root.find(el => el.nodeKey === parentKey).node;
-      const index = parent.children.indexOf(data);
-      parent.children.splice(index, 1);
+      let formData = {
+        categoryId: data.id
+      };
+      Util.ajax({
+        method: "post",
+        url: baseUri.category_delete_url,
+        data: Util.formData(formData)
+      })
+        .then(res => {
+          if (res.data.success) {
+            const parentKey = root.find(el => el === node).parent;
+            const parent = root.find(el => el.nodeKey === parentKey).node;
+            const index = parent.children.indexOf(data);
+            parent.children.splice(index, 1);
+            this.$Message.success("删除成功");
+          } else {
+            this.$Message.error("删除失败，请联系管理员");
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
-  components:{
-      AddCategory
+  components: {
+    AddCategory
   }
 };
 </script>

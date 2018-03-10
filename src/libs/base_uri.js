@@ -78,7 +78,9 @@ let base_uri = {
     after_feedback_query_for_page :"/admin/v1/after/feedback/search_feedback_for_page",
 
     //类别管理
-    category_search_url :"/admin/v1/categorys/search_category_list"
+    category_search_url :"/admin/v1/categorys/search_category_list",
+    category_update_url :"/admin/v1/categorys/update_category/",
+    category_delete_url :"/admin/v1/categorys/delete_category/"
 };
 
 export default base_uri;
