@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <Tree :data="data" multiple :load-data="loadData" :render="renderContent"></Tree>
-    <AddCategoryTab :data="addObj" :categoryData="categoryData" ></AddCategoryTab>
-    <!-- <EditCategory :data="editObj" :categoryData="categoryData" ></EditCategory> -->
-  </div>
+    <div>
+        <Tree :data="data" multiple :load-data="loadData" :render="renderContent"></Tree>
+        <AddCategoryTab :data="addObj" :categoryData="categoryData"></AddCategoryTab>
+        <EditCategoryTab :data="editObj" :categoryData="categoryData"></EditCategoryTab>
+    </div>
 </template>
 <script>
 import AddCategoryTab from "./category_tab_general_add";
-// import EditCategory from "./category_general_edit";
+import EditCategoryTab from "./category_tab_general_edit";
 import Util from "@/libs/util";
 import baseUri from "@/libs/base_uri";
 export default {
@@ -16,25 +16,16 @@ export default {
     return {
       addObj: {
         showAddCategory: false,
-        labelType:"",
-        name:"",
-        level:"2",
-        levelName:"",
-        status:1,
-      },
-      editObj:{
-        showEditCategory:false,
-        id: "",
+        labelType: "",
         name: "",
-        isHot: "",
-        level: "",
-        isRecommend: "",
+        level: "2",
         levelName: "",
-        sort: "100",
-        status: 1,
-        avatarUrl: "",
-        parentId: "",
-        type: ""
+        status: 1
+      },
+      editObj: {
+        showEditCategory: false,
+        name: "",
+        status: 1
       },
       data: [
         {
@@ -74,7 +65,7 @@ export default {
                           marginLeft: "8px"
                         }
                       },
-                      this.categoryData?this.categoryData.tabName:""
+                      this.categoryData ? this.categoryData.tabName : ""
                     )
                   ]
                 ),
@@ -113,39 +104,14 @@ export default {
                         on: {
                           click: () => {
                             this.addObj.showAddCategory = true;
-                            this.addObj.labelType = this.categoryData.labelType
-                            this.addObj.leve = "2",
-                            this.addObj.name = this.categoryData.name,
-                            this.addObj.levelName = this.categoryData.levelName
+                            this.addObj.labelType = this.categoryData.labelType;
+                            (this.addObj.leve = "2"),
+                              (this.addObj.name = this.categoryData.name),
+                              (this.addObj.levelName = this.categoryData.levelName);
                           }
                         }
                       },
                       "新增二级标签"
-                    ),
-                    h(
-                      "Button",
-                      {
-                        props: Object.assign({}, this.buttonProps, {
-                          type: "primary"
-                        }),
-                        style: {
-                          marginRight: "8px"
-                        },
-                        on: {
-                          click: () => {
-                            this.editObj.showEditCategory = true;
-                            this.editObj.status = this.categoryData.status;
-                            this.editObj.avatarUrl = this.categoryData.avatarUrl; 
-                            this.editObj.name = this.categoryData.name;
-                            this.editObj.sort = this.categoryData.sort;
-                            this.editObj.isHot = this.categoryData.isHot?true:false;
-                            this.editObj.isRecommend = this.categoryData.isRecommend?true:false;
-                            this.editObj.level = this.categoryData.level
-                            this.editObj.id = this.categoryData.id;
-                          }
-                        }
-                      },
-                      "编辑"
                     ),
                     h(
                       "Button",
@@ -234,7 +200,6 @@ export default {
               }
             },
             [
-                
               h(
                 "span",
                 {
@@ -258,29 +223,38 @@ export default {
                   },
                   on: {
                     click: () => {
-                      let subObj = {}
-                      for(let x = 0;x<this.categoryData.childCategory.length;x++)
-                      {
-                        if(data.nodeKey==this.categoryData.childCategory[x].nodeKey)
-                        {
-                          subObj = this.categoryData.childCategory[x]
+                      let obj;
+                      this.editObj.showEditCategory = true;
+                      
+                      for (
+                        let x = 0;
+                        x < this.categoryData.allLabels.length;
+                        x++
+                      ) {
+                        if (
+                          data.nodeKey == this.categoryData.allLabels[x].nodeKey
+                        ) {
+                          obj = this.categoryData.allLabels[x];
                         }
                       }
-                      //Object.assign(this.editObj,subObj);
-                      console.log(subObj)
-                    
-                      this.editObj.avatarUrl = subObj.avatarUrl;
-                       console.log(this.editObj.avatarUrl)
-                      this.editObj.status = subObj.status; 
-                      this.editObj.name = subObj.title;
-                      this.editObj.sort = subObj.sort;
-                      this.editObj.isHot = subObj.isHot?true:false;
-                      this.editObj.isRecommend = subObj.isRecommend?true:false;
-                      this.editObj.level = subObj.level
-                      this.editObj.id = subObj.id;
-                      this.editObj.type = subObj.type
-                      this.editObj.showEditCategory = true;
-                     
+
+                      if(!obj)
+                      {
+                          for(let x = 0;
+                        x < this.categoryData.allLabels.length;
+                        x++){
+                            for(let y =0;y<this.categoryData.allLabels[x].childLableVos.length;y++)
+                            {
+                                if(data.nodeKey==this.categoryData.allLabels[x].childLableVos[y].nodeKey)
+                                {
+                                    obj = this.categoryData.allLabels[x].childLableVos[y]
+                                }
+                            }
+                        }
+                      }
+                      console.log(obj);
+                      this.editObj.name = obj.name;
+                      this.editObj.status = obj.status;
                     }
                   }
                 },
@@ -310,14 +284,12 @@ export default {
       );
     },
     append(obj, subData) {
-        let _obj = {}
-        for(let x = 0;x<this.categoryData.allLabels.length;x++)
-        {
-            if(obj == this.categoryData.allLabels[x].id)
-            {
-                _obj = this.categoryData.allLabels[x]
-            }
+      let _obj = {};
+      for (let x = 0; x < this.categoryData.allLabels.length; x++) {
+        if (obj == this.categoryData.allLabels[x].id) {
+          _obj = this.categoryData.allLabels[x];
         }
+      }
       const children = _obj.childLableVos || [];
       children.push({
         name: subData,
@@ -360,7 +332,7 @@ export default {
   },
   components: {
     AddCategoryTab,
-    // EditCategory
+    EditCategoryTab
   }
 };
 </script>
