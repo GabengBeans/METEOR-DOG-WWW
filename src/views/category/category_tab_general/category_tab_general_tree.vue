@@ -1,13 +1,13 @@
 <template>
   <div>
     <Tree :data="data" multiple :load-data="loadData" :render="renderContent"></Tree>
-    <AddCategory :data="addObj" :categoryData="categoryData" ></AddCategory>
-    <EditCategory :data="editObj" :categoryData="categoryData" ></EditCategory>
+    <AddCategoryTab :data="addObj" :categoryData="categoryData" ></AddCategoryTab>
+    <!-- <EditCategory :data="editObj" :categoryData="categoryData" ></EditCategory> -->
   </div>
 </template>
 <script>
-import AddCategory from "./category_general_add";
-import EditCategory from "./category_general_edit";
+import AddCategoryTab from "./category_tab_general_add";
+// import EditCategory from "./category_general_edit";
 import Util from "@/libs/util";
 import baseUri from "@/libs/base_uri";
 export default {
@@ -16,17 +16,11 @@ export default {
     return {
       addObj: {
         showAddCategory: false,
-        id: "",
-        name: "",
-        isHot: "",
-        level: "2",
-        isRecommend: "",
-        levelName: "",
-        sort: "100",
-        status: 1,
-        avatarUrl: "",
-        parentId: "",
-        type: ""
+        labelType:"",
+        name:"",
+        level:"2",
+        levelName:"",
+        status:1,
       },
       editObj:{
         showEditCategory:false,
@@ -73,26 +67,14 @@ export default {
                     }
                   },
                   [
-                    h("img", {
-                      attrs: {
-                        src: this.categoryData ? this.categoryData.avatarUrl : ""
-                      },
-                      style: {
-                        width: "30px",
-                        height: "30px",
-                        marginRight: "8px",
-                        position: "absolute",
-                        top: "6px"
-                      }
-                    }),
                     h(
                       "span",
                       {
                         style: {
-                          marginLeft: "40px"
+                          marginLeft: "8px"
                         }
                       },
-                      this.categoryData ? this.categoryData.name : ""
+                      this.categoryData?this.categoryData.tabName:""
                     )
                   ]
                 ),
@@ -131,14 +113,14 @@ export default {
                         on: {
                           click: () => {
                             this.addObj.showAddCategory = true;
-                            this.addObj.levelName = this.categoryData.name;
-                            (this.addObj.levle = "2"),
-                              (this.addObj.parentId = this.categoryData.id);
-                            this.addObj.type = this.categoryData.type;
+                            this.addObj.labelType = this.categoryData.labelType
+                            this.addObj.leve = "2",
+                            this.addObj.name = this.categoryData.name,
+                            this.addObj.levelName = this.categoryData.levelName
                           }
                         }
                       },
-                      "新增二级分类"
+                      "新增二级标签"
                     ),
                     h(
                       "Button",
@@ -183,20 +165,6 @@ export default {
                         }
                       },
                       "删除"
-                    ),
-                    h(
-                      "Button",
-                      {
-                        props: Object.assign({}, this.buttonProps, {
-                          type: "info"
-                        }),
-                        on: {
-                          click: () => {
-                            //this.remove(root, node, data);
-                          }
-                        }
-                      },
-                      "捆绑标签"
                     )
                   ]
                 )
@@ -204,23 +172,6 @@ export default {
             );
           },
           children: []
-          //   [
-          //     {
-          //     //   title: "child 1-2",
-          //     //   expand: true,
-
-          //     //   children: [
-          //     //     {
-          //     //       title: "leaf 1-2-1",
-          //     //       expand: true
-          //     //     },
-          //     //     {
-          //     //       title: "leaf 1-2-1",
-          //     //       expand: true
-          //     //     }
-          //     //    ]
-          //      }
-          //   ]
         }
       ],
       buttonProps: {
@@ -232,7 +183,7 @@ export default {
   methods: {
     loadData(item, callback) {
       setTimeout(() => {
-        const data = this.categoryData ? this.categoryData.childCategory : [];
+        const data = this.categoryData ? this.categoryData.allLabels : [];
         callback(data);
       }, 500);
     },
@@ -262,23 +213,11 @@ export default {
               }
             },
             [
-              h("img", {
-                attrs: {
-                  src: data.avatarUrl
-                },
-                style: {
-                  width: "30px",
-                  height: "30px",
-                  marginRight: "8px",
-                  position: "absolute",
-                  top: "6px"
-                }
-              }),
               h(
                 "span",
                 {
                   style: {
-                    marginLeft: "40px"
+                    marginLeft: "8px"
                   }
                 },
                 data.name
@@ -295,6 +234,7 @@ export default {
               }
             },
             [
+                
               h(
                 "span",
                 {
@@ -306,29 +246,6 @@ export default {
                   }
                 },
                 "启用"
-              ),
-              h(
-                "Button",
-                {
-                  props: Object.assign({}, this.buttonProps, {
-                    icon: "ios-plus-empty",
-                    type: "success",
-                    disabled: true
-                  }),
-                  style: {
-                    marginRight: "8px"
-                  },
-                  on: {
-                    click: () => {
-                      this.addObj.showAddCategory = true;
-                      this.addObj.levelName = this.categoryData.childCategory;
-                      this.addObj.levle = "2"
-                      this.addObj.parentId = this.categoryData.id
-                      this.addObj.type = this.categoryData.type
-                    }
-                  }
-                },
-                "新增三级分类"
               ),
               h(
                 "Button",
@@ -355,7 +272,7 @@ export default {
                       this.editObj.avatarUrl = subObj.avatarUrl;
                        console.log(this.editObj.avatarUrl)
                       this.editObj.status = subObj.status; 
-                      this.editObj.name = subObj.name;
+                      this.editObj.name = subObj.title;
                       this.editObj.sort = subObj.sort;
                       this.editObj.isHot = subObj.isHot?true:false;
                       this.editObj.isRecommend = subObj.isRecommend?true:false;
@@ -386,20 +303,6 @@ export default {
                   }
                 },
                 "删除"
-              ),
-              h(
-                "Button",
-                {
-                  props: Object.assign({}, this.buttonProps, {
-                    type: "info"
-                  }),
-                  on: {
-                    click: () => {
-                      //this.remove(root, node, data);
-                    }
-                  }
-                },
-                "捆绑标签"
               )
             ]
           )
@@ -407,14 +310,19 @@ export default {
       );
     },
     append(obj, subData) {
-      console.log(obj)
-      const children = obj.childCategory || [];
+        let _obj = {}
+        for(let x = 0;x<this.categoryData.allLabels.length;x++)
+        {
+            if(obj == this.categoryData.allLabels[x].id)
+            {
+                _obj = this.categoryData.allLabels[x]
+            }
+        }
+      const children = _obj.childLableVos || [];
       children.push({
-        title: subData.name,
-        url: subData.avatarUrl,
+        name: subData,
         expand: true
       });
-      console.log(children);
       this.$set(this.data, "children", children);
     },
     remove(root, node, data) {
@@ -451,8 +359,8 @@ export default {
     }
   },
   components: {
-    AddCategory,
-    EditCategory
+    AddCategoryTab,
+    // EditCategory
   }
 };
 </script>

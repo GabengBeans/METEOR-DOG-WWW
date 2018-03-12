@@ -24,10 +24,9 @@ export default {
 </script>
 <style>
 .card_class {
-  width: 40vw;
-  min-width: 400px;
+  min-width: 40vw;
   float: left;
   margin: 1vw;
-  min-width: 300px;
+  min-width: 700px;
 }
 </style>

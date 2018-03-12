@@ -1,12 +1,9 @@
 <template>
   <div class="category">
-    <Modal :loading="loading" v-model="data.showAddCategory" title="新增二级分类" @on-cancel="handleCandel" @on-ok="handleOk">
+    <Modal :loading="loading" v-model="data.showEditCategory" title="编辑一级分类" @on-cancel="handleCandel" @on-ok="handleOk" >
       <Form label-position="right" :label-width="80">
-        <FormItem label="分类名称" width="20vw">
+        <FormItem label="分类名称">
           <Input class="category_Input" clearable v-model="data.name" />
-        </FormItem>
-        <FormItem label="所属级别">
-          <b>{{data.levelName}}</b>
         </FormItem>
         <FormItem label="状态">
           <RadioGroup v-model="data.status">
@@ -40,7 +37,7 @@
             <div class="demo-upload-lists">
               <img :src="data.avatarUrl">
               <div class="demo-upload-list-covers">
-                <Icon type="ios-trash-outline" @click.native="handleRemove(data.avatarUrl)"></Icon>
+                <Icon type="ios-trash-outline" @click.native="handleRemove()"></Icon>
               </div>
             </div>
           </template>
@@ -61,7 +58,7 @@ export default {
   },
   methods: {
     handleCandel() {
-      this.data.showAddCategory = false;
+      this.data.showEditCategory = false;
     },
     handleOk() {
       Util.ajax({
@@ -74,25 +71,26 @@ export default {
           isRecommend: this.data.isRecommend ? 1 : 0,
           level: this.data.level,
           name: this.data.name,
-          parentId: this.data.parentId,
           sort: this.data.sort,
           status: this.data.status,
-          type: this.data.type
+          type:this.data.type
         }
       })
         .then(res => {
           if (res.data.success) {
-            this.$parent.append(this.categoryData,this.data)
-            this.data.showAddCategory = false;
-            this.$Message.success("新增成功");
+            this.data.showEditCategory = false;
+            this.$Message.success("保存成功");
           } else {
             this.loading = false;
             this.$Message.error(res.data.msg);
           }
         })
+        .catch(error => {
+          console.log(error);
+        });
     },
     handleSuccess(res) {
-      console.log(res);
+      //console.log(res);
       this.data.avatarUrl = res.result.file.outUrl;
       //console.log(this.data.imgUrl)
     },
@@ -101,6 +99,7 @@ export default {
     handleBeforeUpload() {},
     handleRemove() {
       this.data.avatarUrl = "";
+      //console.log(this.data)
     }
   }
 };

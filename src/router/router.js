@@ -296,7 +296,7 @@ export const appRouter = [
                 path: 'category-tab-general', 
                 name: 'category-tab-general', 
                 title: '标签维护', 
-                component: resolve => { require(['@/views/merchant/after_merchant_enter'], resolve); }, 
+                component: resolve => { require(['@/views/category/category_tab_general/category_tab_general_index'], resolve); }, 
             }
         ]
     },

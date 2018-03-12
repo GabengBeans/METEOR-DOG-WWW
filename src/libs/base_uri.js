@@ -80,7 +80,10 @@ let base_uri = {
     //类别管理
     category_search_url :"/admin/v1/categorys/search_category_list",
     category_update_url :"/admin/v1/categorys/update_category/",
-    category_delete_url :"/admin/v1/categorys/delete_category/"
+    category_delete_url :"/admin/v1/categorys/delete_category/",
+    //标签管理
+    label_search_label_list_url:"/admin/v1/lables/search_label_list/",
+    label_add_lable_url :"/admin/v1/lables/add_lable/"
 };
 
 export default base_uri;

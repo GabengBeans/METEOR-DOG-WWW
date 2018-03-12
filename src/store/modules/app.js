@@ -117,7 +117,7 @@ const app = {
         brokerage_order_search_info: { "businessStatus": "0" },
         brokerage_order_search_result: [],
 
-        //类目and标签管理
+        //类目管理
         category_search_result:{
             childCategory:[]
         },
@@ -125,6 +125,13 @@ const app = {
             childCategory:[]
         },
 
+        //标签管理
+        category_tab_search_result:{
+           
+        },
+        categorys_tab_search_result:{
+            
+        },
 
         cachePage: [],
         lang: '',
@@ -777,6 +784,8 @@ const app = {
                 console.log(error)
             })
         },
+
+        //类别管理
         GET_CATEGORY_SEARCH_INFO(state,{businessType}){
             Util.ajax({
                 method: "get",
@@ -791,26 +800,37 @@ const app = {
                 {
                     if(response.data.success)
                     {
+                    //     Util.recursion(response.data.data.allCategory)
+                    //     Vue.set(state.category_search_result,"allCategory",response.data.data.allCategory)
+                    
                         let category=[]
                         Vue.set(state.category_search_result,"name",obj.name)
-                        Vue.set(state.category_search_result,"url",obj.avatarUrl)
+                        Vue.set(state.category_search_result,"avatarUrl",obj.avatarUrl)
                         Vue.set(state.category_search_result,"status",obj.status)
                         Vue.set(state.category_search_result,"type",obj.type)
                         Vue.set(state.category_search_result,"id",obj.id)
-    
+                        Vue.set(state.category_search_result,"sort",obj.sort)
+                        Vue.set(state.category_search_result,"isRecommend",obj.isRecommend)
+                        Vue.set(state.category_search_result,"isHot",obj.isHot)
+                        Vue.set(state.category_search_result,"level",obj.level)
                         for(let x=0;x<obj.childCategory.length;x++)
                         {
                             let _obj = {}
-                            
-                            _obj.title = obj.childCategory[x].name
-                            _obj.url = obj.childCategory[x].avatarUrl
+                            _obj.name = obj.childCategory[x].name
+                            _obj.avatarUrl = obj.childCategory[x].avatarUrl
                             _obj.id = obj.childCategory[x].id
+                            _obj.status = obj.childCategory[x].status
+                            _obj.sort = obj.childCategory[x].sort
+                            _obj.isRecommend = obj.childCategory[x].isRecommend?true:false
+                            _obj.isHot = obj.childCategory[x].isHot?true:false
+                            _obj.level = obj.childCategory[x].level
+                            _obj.type = obj.childCategory[x].type
                             _obj.expand = true
                            category.push(_obj)
                         }
                       
                         Vue.set(state.category_search_result,"childCategory",category)
-                        console.log(state.category_search_result)
+                        //console.log(state.category_search_result)
                     }
                     
                 }else if(businessType==2)
@@ -819,17 +839,26 @@ const app = {
                     {
                         let category=[]
                         Vue.set(state.categorys_search_result,"name",obj.name)
-                        Vue.set(state.categorys_search_result,"url",obj.avatarUrl)
+                        Vue.set(state.categorys_search_result,"avatarUrl",obj.avatarUrl)
                         Vue.set(state.categorys_search_result,"status",obj.status)
                         Vue.set(state.categorys_search_result,"type",obj.type)
                         Vue.set(state.categorys_search_result,"id",obj.id)
+                        Vue.set(state.categorys_search_result,"sort",obj.sort)
+                        Vue.set(state.categorys_search_result,"isRecommend",obj.isRecommend)
+                        Vue.set(state.categorys_search_result,"isHot",obj.isHot)
+                        Vue.set(state.categorys_search_result,"level",obj.level)
                         for(let x=0;x<obj.childCategory.length;x++)
                         {
                             let _obj = {}
-                            
-                            _obj.title = obj.childCategory[x].name
-                            _obj.url = obj.childCategory[x].avatarUrl
+                            _obj.name = obj.childCategory[x].name
+                            _obj.avatarUrl = obj.childCategory[x].avatarUrl
                             _obj.id = obj.childCategory[x].id
+                            _obj.status = obj.childCategory[x].status
+                            _obj.sort = obj.childCategory[x].sort
+                            _obj.isRecommend = obj.childCategory[x].isRecommend?true:false
+                            _obj.isHot = obj.childCategory[x].isHot?true:false
+                            _obj.level = obj.childCategory[x].level
+                            _obj.type = obj.childCategory[x].type
                             _obj.expand = true
                            category.push(_obj)
                         }
@@ -839,6 +868,60 @@ const app = {
                     }
                 }
                 
+            }).catch((error) => {
+                console.log(error)
+            })
+        },
+        //标签管理
+        GET_LABEL_LIST_SEARCH_INFO(state,{lableType}){
+            Util.ajax({
+                method: "get",
+                url: base_uri.label_search_label_list_url,
+                params: {
+                    lableType:lableType
+                }
+            }).then((response) => {
+                console.log(response)
+                if(lableType==1) 
+                {
+                    if(response.data.success)
+                    {
+                        let levelName = []
+                        for(let x=0;x<response.data.data.allLabels.length;x++)
+                        {
+                            let obj = {}
+                            obj.name = response.data.data.allLabels[x].name
+                            obj.id = response.data.data.allLabels[x].id
+                            levelName.push(obj)
+                        }
+                       Util.recursion(response.data.data.allLabels)
+                       Vue.set(state.category_tab_search_result,"allLabels",response.data.data.allLabels)
+                       Vue.set(state.category_tab_search_result,"tabName","买家")
+                       Vue.set(state.category_tab_search_result,"levelName",levelName)
+                       Vue.set(state.category_tab_search_result,"labelType","1")
+                       
+                    }
+                    
+                }else if(lableType==2)
+                {
+                    if(response.data.success)
+                    {
+                        let levelName = []
+                        for(let x=0;x<response.data.data.allLabels.length;x++)
+                        {
+                            let obj = {}
+                            obj.name = response.data.data.allLabels[x].name
+                            obj.id = response.data.data.allLabels[x].id
+                            levelName.push(obj)
+                        }
+                        Util.recursion(response.data.data.allLabels)
+                        Vue.set(state.categorys_tab_search_result,"allLabels",response.data.data.allLabels)
+                        Vue.set(state.categorys_tab_search_result,"tabName","卖家")
+                        Vue.set(state.categorys_tab_search_result,"levelName",levelName)
+                        Vue.set(state.categorys_tab_search_result,"labelType","2")
+                    }
+                }
+                //console.log(state.category_tab_search_result)
             }).catch((error) => {
                 console.log(error)
             })
