@@ -2,7 +2,7 @@
   <div id='user_search'>
     <Row :gutter='16'>
       <Form label-position="right" :label-width="60">
-        <Col :xs='13' :sm='13' :md='8' :lg='5' style="height:57px;" v-for="item in data" :key="item.key">
+        <Col :xs='13' :sm='13' :md='8' :lg='5' v-for="item in data" :key="item.key" style="height:57px;">
         <FormItem style="min-width:100px" :label="item.tagName">
           <Select v-model="item.value" v-if="item.tag">
             <Option v-for="item in item.tag" :key="item.key" :value="item.num">{{item.value}}</Option>
@@ -12,7 +12,7 @@
         </FormItem>
         </Col>
       </Form>
-      <Button style='margin-left:38px;float:left;' type="primary" shape="circle" icon="ios-search" @click.native='search'>搜索</Button>
+      <Button style='margin-left:38px' type="primary" shape="circle" icon="ios-search" @click.native='search'>搜索</Button>
     </Row>
   </div>
 </template>
@@ -22,6 +22,10 @@ export default {
   data() {
     return {
       data: {
+        balanceOrderNo: {
+          tagName: "订单号",
+          value: ""
+        },
         phone: {
           tagName: "手机号",
           value: ""
@@ -30,12 +34,8 @@ export default {
           tagName: "代理人",
           value: ""
         },
-        orderNo:{
-          tagName: "订单号",
-          value: ""
-        },
-        businessStatus: {
-          tagName: "审核状态",
+        balanceStatus: {
+          tagName: "结算状态",
           value: "0",
           tag: {
             op1: {
@@ -44,15 +44,15 @@ export default {
             },
             op2: {
               num: "1",
-              value: "待审核"
+              value: "已结算"
             },
             op3: {
               num: "2",
-              value: "审核未通过"
+              value: "未结算"
             },
             op4: {
               num: "3",
-              value: "审核通过"
+              value: "待结算"
             }
           }
         },
@@ -66,16 +66,17 @@ export default {
           value: "",
           data: "1"
         },
-        startAuditTime: {
-          tagName: "审核时间",
+        startBalanceTime: {
+          tagName: "结算时间",
           value: "",
           data: "2"
         },
-        endAuditTime: {
+        endBalanceTime: {
           tagName: "至",
           value: "",
           data: "2"
         },
+       
       }
     };
   },
@@ -84,18 +85,18 @@ export default {
       let obj = {};
       for (let x in this.data) {
         if (this.data[x].value != "") {
-          if (x == "startAccountDay") {
-            obj[x] = new Date(this.data[x].value).getTime();
-          } else if (x == "endAccountDay") {
+          if (x == "startAccountDay" || x == "endAccountDay" || x == "startBalanceTime" || x == "endBalanceTime") {
+            console.log(this.data[x].value)
             obj[x] = new Date(this.data[x].value).getTime();
           } else {
             obj[x] = this.data[x].value;
           }
+          // obj[x] = this.data[x].value;
         }
       }
-      // console.log(obj)
-      this.$store.state.app.brokerage_order_search_info = obj;
-      this.$store.commit("GET_BROKERAGE_ORDER_INFO", { data: obj, pageNo: 1 });
+      console.log(obj)
+      this.$store.state.app.expand_charge_search_info = obj;
+      this.$store.commit("GET_EXPAND_CHARGE_INFO", { data: obj, pageNo: 1 });
     }
   }
 };

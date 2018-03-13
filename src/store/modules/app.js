@@ -102,12 +102,26 @@ const app = {
         expand_search_info: { "expandStatus": "-1" },
         expand_search_result: [],
         // 拓展用户--返佣订单审核
-        brokerage_order_info: {
+        brokerage_order_page_info: {
             currentPage: 1,
             totalPage: 0
         },
         brokerage_order_search_info: { "businessStatus": "0" },
         brokerage_order_search_result: [],
+        // 拓展用户 -- 佣金结算
+        expand_charge_page_info: {
+            currentPage: 1,
+            totalPage: 0
+        },
+        expand_charge_search_info:{},
+        expand_charge_search_result: [],
+        // 拓展用户 -- 代理组管理
+        expand_group_page_info: {
+            currentPage: 1,
+            totalPage: 0
+        },
+        expand_group_search_info:{},
+        expand_group_search_result: [],
 
         cachePage: [],
         lang: '',
@@ -388,7 +402,7 @@ const app = {
         },
         GET_ORDER_DEMAND_INFO(state, { data, pageNo }) {
             state.order_demand_search_info = data
-            console.log(data)
+            // console.log(data)
             Util.ajax({
                 method: "post",
                 url: base_uri.order_search_orders_for_page_url,
@@ -398,14 +412,14 @@ const app = {
                 },
                 data: data
             }).then((response) => {
-                console.log(response)
+                // console.log(response)
                 let arr = response.data.data.items
                 let orderStatus = ["全部", "待支付", "待服务", "已完成", "已取消", "申请退款", "退款成功", "退款失败", "已过期", "已付款"]
                 //let status = ["无效","有效"]
                 state.order_demand_page_info.currentPage = parseInt(response.data.data.page)
                 state.order_demand_page_info.totalPage = parseInt(response.data.data.totalCount)
                 state.order_demand_search_result = response.data.data.items
-                console.log(state.order_demand_search_result)
+                // console.log(state.order_demand_search_result)
                 for (let x in arr) {
                     let orderStatu = parseInt(arr[x].orderStatus)
                     //let statusIndex = parseInt(state.service_search_result[x].status)
@@ -437,7 +451,7 @@ const app = {
                 state.order_service_page_info.currentPage = parseInt(response.data.data.page)
                 state.order_service_page_info.totalPage = parseInt(response.data.data.totalCount)
                 state.order_service_search_result = response.data.data.items
-                console.log( state.order_service_search_result)
+                // console.log( state.order_service_search_result)
                 for(let x in arr) 
                 {   
                     let orderStatu = parseInt( arr[x].orderStatus)
@@ -451,38 +465,92 @@ const app = {
                 console.log(error)
             })
         },
-        GET_EXPAND_INFO(state, { data, pageNo }) {
+        GET_EXPAND_INFO(state,{data,pageNo}){
             state.expand_search_info = data
             Util.ajax({
-                method: "post",
-                url: base_uri.extend_user_search_ex_userinfo_for_page,
-                headers: {
-                    'token': Cookies.get("token")
+                method:"post",
+                url:base_uri.extend_user_search_ex_userinfo_for_page,
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
                 },
-                params: {
-                    pageNo: pageNo || 1,
-                    pageSize: 10
-                },
-                data: data
-            }).then((response) => {
-                //console.log(response)
-                let arr = response.data.data.items
-                let orderStatus = ["全部", "待支付", "待服务", "已完成", "已取消", "申请退款", "退款成功", "退款失败", "已过期", "已付款"]
-                //let status = ["无效","有效"]
-                state.order_service_page_info.currentPage = parseInt(response.data.data.page)
-                state.order_service_page_info.totalPage = parseInt(response.data.data.totalCount)
-                state.order_service_search_result = response.data.data.items
-                console.log(state.order_service_search_result)
-                for (let x in arr) {
-                    let orderStatu = parseInt(arr[x].orderStatus)
-                    //let statusIndex = parseInt(state.service_search_result[x].status)
-                    state.order_service_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
-                    state.order_service_search_result[x].orderStatus = orderStatus[orderStatu]
-                    state.order_service_search_result[x].rawPrice = parseInt(arr[x].rawPrice) / 100 + "元"
-                    //state.order_demand_search_result[x].status = status[statusIndex]
+                data:data
+            }).then((res) => {
+                // console.log(res)
+                let arr = res.data.data.items;
+                // console.log(arr)
+                let status = ["无效","有效"];
+                state.expand_page_info.currentPage = parseInt(res.data.data.page)
+                state.expand_page_info.totalPage = parseInt(res.data.data.totalCount)
+                state.expand_search_result = arr
+                for(let x in arr) {   
+                    let statusIndex = parseInt(state.expand_search_result[x].expandStatus)
+                    state.expand_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
+                    state.expand_search_result[x].tradeAmount = arr[x].tradeAmount*0.01
+                    if(arr[x].auditTime)
+                    {
+                        state.expand_search_result[x].auditTime = Util.formatDate(new Date(arr[x].auditTime),"yyyy-MM-dd hh:mm:ss")
+                    }else{
+                        state.expand_search_result[x].auditTime = ''
+                    } 
+                    state.expand_search_result[x].expandStatus = status[statusIndex]
                 }
-            }).catch((error) => {
-                console.log(error)
+            })
+        },
+        GET_EXPAND_CHARGE_INFO(state,{data,pageNo}){
+            state.expand_charge_search_info = data
+            Util.ajax({
+                method:"post",
+                url:base_uri.brokerage_balance_search_for_page_url,
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
+                },
+                data:data
+            }).then((res) => {
+                let arr = res.data.data.items;
+                console.log(arr)
+                let balanceStatus = ["全部","已结算","未结算","待结算"];
+                state.expand_charge_page_info.currentPage = parseInt(res.data.data.page)
+                state.expand_charge_page_info.totalPage = parseInt(res.data.data.totalCount)
+                state.expand_charge_search_result = arr
+                for(let x in arr) {   
+                    let balanceIndex = parseInt(state.expand_charge_search_result[x].balanceStatus)
+                    state.expand_charge_search_result[x].accountDay = Util.formatDate(new Date(arr[x].accountDay),"yyyy-MM-dd hh:mm:ss")
+                    state.expand_charge_search_result[x].tradeAmount = arr[x].tradeAmount*0.01
+                    state.expand_charge_search_result[x].platformServiceCharge = arr[x].platformServiceCharge*0.01                    
+                    state.expand_charge_search_result[x].balanceAmount = arr[x].balanceAmount*0.01                    
+                    state.expand_charge_search_result[x].reate = arr[x].reate*0.01                    
+                    
+                    if(arr[x].balanceTime)
+                    {
+                        state.expand_charge_search_result[x].balanceTime = Util.formatDate(new Date(arr[x].balanceTime),"yyyy-MM-dd hh:mm:ss")
+                    }else{
+                        state.expand_charge_search_result[x].balanceTime = ''
+                    } 
+                    state.expand_charge_search_result[x].balanceStatus = balanceStatus[balanceIndex]
+                }
+            })
+        },
+        GET_EXPAND_GROUP_INFO(state,{data,pageNo}){
+            state.expand_group_search_info = data
+            Util.ajax({
+                method:"post",
+                url:base_uri.extend_group_search_ex_group_for_page,
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
+                },
+                data:data
+            }).then((res) => {
+                console.log(res)
+                let arr = res.data.data.items;
+                state.expand_group_page_info.currentPage = parseInt(res.data.data.page)
+                state.expand_group_page_info.totalPage = parseInt(res.data.data.totalCount)
+                state.expand_group_search_result = arr
+                // for (let x in arr) {
+
+                // }
             })
         },
         GET_CASH_FLOW_INFO(state, { data, pageNo }) {
@@ -538,7 +606,7 @@ const app = {
                 },
                 data: data
             }).then((response) => {
-                console.log(response)
+                // console.log(response)
                 let arr = response.data.data.items
                 let bondStatusArr = ["未缴纳", "已缴纳", "申请中"]
                 state.cash_refund_page_info.currentPage = parseInt(response.data.data.page)
@@ -556,7 +624,7 @@ const app = {
                     state.cash_refund_search_result[x].bondAmount = parseInt(arr[x].bondAmount) / 100 + "元"
                     state.cash_refund_search_result[x].bondStatus = bondStatusArr[bondStatus]
                 }
-                console.log(state.cash_refund_search_result)
+                // console.log(state.cash_refund_search_result)
             }).catch((error) => {
                 console.log(error)
             })
@@ -626,36 +694,46 @@ const app = {
                 console.log(error)
             })
         },
-        GET_BROKERAGE_ORDER_INFO(state, { data, pageNo }) {
+        GET_BROKERAGE_ORDER_INFO(state,{data,pageNo}){
             state.brokerage_order_search_info = data
             Util.ajax({
-                method: "post",
-                url: base_uri.brokerage_order_search_for_page,
-                headers: {
-                    'token': Cookies.get("token")
+                method:"post",
+                url:base_uri.brokerage_order_search_for_page,
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
                 },
-                params: {
-                    pageNo: pageNo || 1,
-                    pageSize: 10
-                },
-                data: data
-            }).then((response) => {
-                //console.log(response)
-                let arr = response.data.data.items
-                state.merchant_enter_page_info.currentPage = parseInt(response.data.data.page)
-                state.merchant_enter_page_info.totalPage = parseInt(response.data.data.totalCount)
-                state.merchant_enter_search_result = response.data.data.items
-
-                for (let x in arr) {
-                    if (arr[x].createTime) {
-                        state.merchant_enter_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
-                    } else {
-                        state.merchant_enter_search_result[x].createTime = ''
-                    }
+                data:data
+            }).then((res) => {
+                // console.log(res)
+                let arr = res.data.data.items;
+                let businessStatus = ["全部","待审核","审核未通过","审核通过"];
+                state.brokerage_order_page_info.currentPage = parseInt(res.data.data.page)
+                state.brokerage_order_page_info.totalPage = parseInt(res.data.data.totalCount)
+                state.brokerage_order_search_result = arr
+                for(let x in arr) {
+                    let businessIndex = parseInt( state.brokerage_order_search_result[x].businessStatus)
+    
+                    state.brokerage_order_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
+                    state.brokerage_order_search_result[x].platformServiceCharge = arr[x].platformServiceCharge * 0.01;
+                    state.brokerage_order_search_result[x].brokerage = arr[x].brokerage * 0.01;
+                    state.brokerage_order_search_result[x].reate = arr[x].reate * 0.01;
+                    
+                    
+                    if(arr[x].accountDay)
+                    {
+                        state.brokerage_order_search_result[x].accountDay = Util.formatDate(new Date(arr[x].accountDay),"yyyy-MM-dd hh:mm:ss")
+                    }else{
+                        state.brokerage_order_search_result[x].accountDay = ''
+                    } 
+                    if(arr[x].auditTime)
+                    {
+                        state.brokerage_order_search_result[x].auditTime = Util.formatDate(new Date(arr[x].auditTime),"yyyy-MM-dd hh:mm:ss")
+                    }else{
+                        state.brokerage_order_search_result[x].auditTime = ''
+                    } 
+                    state.brokerage_order_search_result[x].businessStatus = businessStatus[businessIndex]
                 }
-                //console.log(state.cash_refund_search_result)
-            }).catch((error) => {
-                console.log(error)
             })
         },
         GET_ADVERT_NEW_INFO(state, { data, pageNo }) {
@@ -698,7 +776,7 @@ const app = {
                 },
                 data: data
             }).then((response) => {
-                console.log(response)
+                // console.log(response)
                 let levelArr = ["", "一级广告位", "二级广告位", "三级广告位", "四级广告位"]
                 let statusArr = ["禁用", "启用"]
                 let arr = response.data.data.items
@@ -714,7 +792,7 @@ const app = {
             }).catch((error) => {
                 console.log(error)
             }).then((res) => {
-                console.log(res)
+                // console.log(res)
                 let arr = res.data.data.items;
                 let businessStatus = ["全部", "待审核", "审核未通过", "审核通过"];
                 state.brokerage_order_info.currentPage = parseInt(res.data.data.page)

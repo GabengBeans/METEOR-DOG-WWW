@@ -70,6 +70,17 @@ let base_uri = {
     // 返佣订单审核
     brokerage_order_search_for_page:"/admin/v1/extend_manager/brokerage_order/search_for_page",
     brokerage_order_detail:"/admin/v1/extend_manager/brokerage_order/detail",
+    brokerage_order_audit:"/admin/v1/extend_manager/brokerage_order/audit",
+
+    // 佣金结算
+    brokerage_balance_search_for_page_url:"/admin/v1/extend_manager/brokerage_balance/search_for_page",
+    brokerage_balance_detail_url: "/admin/v1/extend_manager/brokerage_balance/detail",
+    brokerage_order_search_for_log_page_url: "/admin/v1/extend_manager/brokerage_order/search_for_log_page",
+
+    // 代理组管理
+    extend_group_search_ex_group_for_page: "/admin/v1/extend_group/search_ex_group_for_page",
+    extend_group_detail:"/admin/v1/extend_group/detail",
+    extend_group_update_group: "/admin/v1/extend_group/update_group",
 
     advert_position_delete_url:"/admin/v1/advert_position/delete_advert_position/",
     advert_position_detail_url :"/admin/v1/advert_position/detail/"

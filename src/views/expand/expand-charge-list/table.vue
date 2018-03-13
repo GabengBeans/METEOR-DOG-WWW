@@ -1,15 +1,15 @@
 <template>
   <div id='user_table'>
       <Table style="min-width:800px;margin:0 16px;" 
-      border stripe :columns="columns" :data="$store.state.app.brokerage_order_search_result">
+      border stripe :columns="columns" :data="$store.state.app.expand_charge_search_result">
       </Table>
   </div>
+   
 </template>
 
 <script>
 import Util from '@/libs/util'
 import baseUri from '@/libs/base_uri'
-// import base_uri from '../../libs/base_uri';
 import Cookies from "js-cookie"
 export default {
   name: "user_table",
@@ -18,28 +18,28 @@ export default {
     return {
       columns: [
         {
-          title: "ID",
-          key: "id"
+          title: "订单号",
+          key: "balanceOrderNo"
         },
         {
           title: "手机号",
           key: "phone"
         },
         {
-          title: "代理人",
+          title: "代理人姓名",
           key: "extendUsername"
         },
         {
-          title: "交易日",
+          title: "交易日期",
           key: "accountDay"
         },
         {
-          title: "交易订单号",
-          key: "orderNo"
+          title: "交易笔数",
+          key: "tradeCount"
         },
         {
-          title: "服务者",
-          key: "providerName"
+          title: "交易金额(元)",
+          key: "tradeAmount"
         },
         {
           title: "平台服务费(元)",
@@ -50,16 +50,16 @@ export default {
           key: "reate"
         },
         {
-          title: "佣金(元)",
-          key: "brokerage"
+          title: "结算佣金(元)",
+          key: "balanceAmount"
         },
         {
-          title: "审核状态",
-          key: "businessStatus"
+          title: "结算状态",
+          key: "balanceStatus"
         },
         {
-          title: "审核时间",
-          key: "auditTime"
+          title: "结算时间",
+          key: "balanceTime"
         },
         {
           title: "操作",
@@ -80,64 +80,19 @@ export default {
                   },
                   on: {
                     click: () => {
-                        this.$router.push("/expand-order-audit-detail/"+params.row.id)
+                        this.$router.push("/expand-charge-detail/"+params.row.id)
                     }
                   }
                 },
                 "查看"
               ),
-              h(
+               h(
                 "Button",
                 {
                   props: {
                     type: "success",
                     size: "small",
-                    disabled:params.row.businessStatus == "审核通过" ? true : false                    
-                  },
-                  style: {
-                    marginRight: "5px"
-                  },
-                  on: {
-                    click: () => {
-                      // this.$Modal.confirm({
-                      //   title: "提示",
-                      //   content: '确定审核通过？',
-                      //   okText: "确定",
-                      //   cancelText: "取消",
-                      //   onOk: () => {
-                      //     let id = params.row.id;
-                      //     let status;
-                      //     if(params.row.businessStatus == '审核未通过'){
-                      //       status = 2
-                      //     }else if (params.row.businessStatus == '待审核') {
-                      //       status = 1
-                      //     }
-                      //     let data = {
-                      //         brokerageOrderId: id,
-                      //         businessStatus: status,
-                      //         remark: ''
-                      //     }
-                      //     Util.ajax({
-                      //       method:"post",
-                      //       url:baseUri.brokerage_order_audit,
-                      //       data: Util.formData(data)
-                      //     }).then((res) => {
-                      //       console.log(res)
-                      //     })
-                      //   }
-                      // })
-                    }
-                  }
-                },
-                "审核通过"
-              ),
-              h(
-                "Button",
-                {
-                  props: {
-                    type: "error",
-                    size: "small",
-                    disabled:params.row.businessStatus == "待审核" ? false : true
+                    disabled:params.row.balanceStatus == "已结算" ? true : false                    
                   },
                   style: {
                     marginRight: "5px"
@@ -148,16 +103,32 @@ export default {
                     }
                   }
                 },
-                "审核不通过"
+                "已结算"
+              ),
+              h(
+                "Button",
+                {
+                  props: {
+                    type: "error",
+                    size: "small",
+                    disabled:params.row.balanceStatus == "待结算" ? false : true
+                  },
+                  style: {
+                    marginRight: "5px"
+                  },
+                  on: {
+                    click: () => {
+                        
+                    }
+                  }
+                },
+                "未结算"
               ),
             ]);
           }
         }
       ]
     };
-  },
-  methods:{
-
   }
 };
 </script>

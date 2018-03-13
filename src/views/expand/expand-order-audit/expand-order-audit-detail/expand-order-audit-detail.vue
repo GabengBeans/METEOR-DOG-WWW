@@ -90,27 +90,7 @@ export default {
             }
             
         }
-    //   let obj = res.data.data;
-    //   // console.log(obj)
-    //   for (let x in obj) {
-    //     if(x == 'createTime' || x == 'updateTime'){
-    //       this.data[x] = Util.formatDate(
-    //         new Date(obj[x]),
-    //         "yyyy-MM-dd hh:mm:ss"
-    //       );
-    //     }else if(x == 'tradeAmount' || x == 'brokerage'){
-    //       this.data[x] = obj[x] * 0.01;
-    //     }else if(x == 'all'){
-    //       // console.log(obj[x])
-    //       this.data[x] = obj[x];
-    //       this.data[x].tradeAmount = obj[x].tradeAmount * 0.01;
-    //       this.data[x].brokerage = obj[x].brokerage * 0.01;          
-    //     } else{
-    //       this.data[x] = obj[x];
-    //     }  
-    //   }
-    //   this.data1[0] = this.data.all;
-    //   this.data2[0] = this.data;
+
       this.show = true;
       this.$Message.destroy();
     });
