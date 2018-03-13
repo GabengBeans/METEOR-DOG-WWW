@@ -94,6 +94,22 @@ export const otherRouter = {
 // 作为Main组件的子页面展示并且在左侧菜单显示的路由写在appRouter里
 export const appRouter = [
     { // b.第二种情况：有二级菜单
+        path: '/statistics', // 必填
+        icon: 'stats-bars', // 必填，同上
+        name: "statistics-transaction", // 必填，同上
+        title: '统计分析', // 必填，同上
+        access: 1,
+        component: Main, // 必填，同上
+        children: [ // 必填，同上
+            {
+                path: 'index', // 必填，同上的
+                name: 'statistics-transaction-index', // 必填，同上
+                title: '交易统计', // 必填，将显示在左侧菜单栏二级菜单
+                component: resolve => { require(['@/views/statistics/statistics_transaction/statistics_transaction_index'], resolve); }, // 必填
+            }
+        ]
+    },
+    { // b.第二种情况：有二级菜单
         path: '/user', // 必填
         icon: 'ios-person', // 必填，同上
         name: 'user', // 必填，同上

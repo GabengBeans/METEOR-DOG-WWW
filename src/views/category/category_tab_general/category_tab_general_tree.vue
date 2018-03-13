@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Tree :data="data" multiple :load-data="loadData" :render="renderContent"></Tree>
+        <Tree :data="data" :render="renderContent"></Tree>
         <AddCategoryTab :data="addObj" :categoryData="categoryData"></AddCategoryTab>
         <EditCategoryTab :data="editObj" :categoryData="categoryData"></EditCategoryTab>
     </div>
@@ -29,8 +29,7 @@ export default {
       },
       data: [
         {
-          expand: false,
-          loading: false,
+          expand: true,
           selected: true,
           render: (h, { root, node, data }) => {
             return h(
@@ -79,18 +78,18 @@ export default {
                     }
                   },
                   [
-                    h(
-                      "span",
-                      {
-                        style: {
-                          display: "inline-block",
-                          marginRight: "8px",
-                          color: "gray",
-                          fontSize: "20px"
-                        }
-                      },
-                      "启用"
-                    ),
+                    // h(
+                    //   "span",
+                    //   {
+                    //     style: {
+                    //       display: "inline-block",
+                    //       marginRight: "8px",
+                    //       color: "gray",
+                    //       fontSize: "20px"
+                    //     }
+                    //   },
+                    //   "启用"
+                    // ),
                     h(
                       "Button",
                       {
@@ -137,22 +136,15 @@ export default {
               ]
             );
           },
-          children: []
+          children: this.categoryData.allLabels
         }
       ],
       buttonProps: {
         type: "ghost",
-        size: "small"
       }
     };
   },
   methods: {
-    loadData(item, callback) {
-      setTimeout(() => {
-        const data = this.categoryData ? this.categoryData.allLabels : [];
-        callback(data);
-      }, 500);
-    },
     renderContent(h, { root, node, data }) {
       return h(
         "span",
@@ -200,18 +192,18 @@ export default {
               }
             },
             [
-              h(
-                "span",
-                {
-                  style: {
-                    display: "inline-block",
-                    marginRight: "8px",
-                    color: "gray",
-                    fontSize: "20px"
-                  }
-                },
-                "启用"
-              ),
+              // h(
+              //   "span",
+              //   {
+              //     style: {
+              //       display: "inline-block",
+              //       marginRight: "8px",
+              //       color: "gray",
+              //       fontSize: "20px"
+              //     }
+              //   },
+              //   "启用"
+              // ),
               h(
                 "Button",
                 {
@@ -252,9 +244,11 @@ export default {
                             }
                         }
                       }
-                      console.log(obj);
+                      //console.log(obj);
                       this.editObj.name = obj.name;
                       this.editObj.status = obj.status;
+                      this.editObj.id = obj.id;
+                      this.editObj.parentId = obj.parentId
                     }
                   }
                 },
@@ -283,28 +277,14 @@ export default {
         ]
       );
     },
-    append(obj, subData) {
-      let _obj = {};
-      for (let x = 0; x < this.categoryData.allLabels.length; x++) {
-        if (obj == this.categoryData.allLabels[x].id) {
-          _obj = this.categoryData.allLabels[x];
-        }
-      }
-      const children = _obj.childLableVos || [];
-      children.push({
-        name: subData,
-        expand: true
-      });
-      this.$set(this.data, "children", children);
-    },
     remove(root, node, data) {
       if (data.id) {
         let formData = {
-          categoryId: data.id
+          labelId: data.id
         };
         Util.ajax({
           method: "post",
-          url: baseUri.category_delete_url,
+          url: baseUri.label_delete_label_url,
           data: Util.formData(formData)
         })
           .then(res => {

@@ -34,23 +34,23 @@ export default {
       this.data.showEditCategory = false;
     },
     handleOk() {
+      console.log(this.data)
       Util.ajax({
         method: "post",
-        url: baseUri.category_update_url,
+        url: baseUri.label_update_label_url,
         data: {
-          avatarUrl: this.data.avatarUrl,
           id: this.data.id,
-          isHot: this.data.isHot ? 1 : 0,
-          isRecommend: this.data.isRecommend ? 1 : 0,
-          level: this.data.level,
           name: this.data.name,
-          sort: this.data.sort,
+          parentId:this.data.parentId,
           status: this.data.status,
-          type:this.data.type
         }
       })
         .then(res => {
           if (res.data.success) {
+            this.$store.state.app.category_tab_search_result.allLabels=""
+            this.$store.state.app.categorys_tab_search_result.allLabels=""
+            this.$store.commit("GET_LABEL_LIST_SEARCH_INFO", { lableType: 1 });
+            this.$store.commit("GET_LABEL_LIST_SEARCH_INFO", { lableType: 2 });
             this.data.showEditCategory = false;
             this.$Message.success("保存成功");
           } else {

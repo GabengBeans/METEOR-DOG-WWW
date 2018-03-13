@@ -52,7 +52,10 @@ export default {
       })
         .then(res => {
           if (res.data.success) {
-            this.$parent.append(this.levelName,this.data.name)
+            this.$store.state.app.category_tab_search_result.allLabels=""
+            this.$store.state.app.categorys_tab_search_result.allLabels=""
+            this.$store.commit("GET_LABEL_LIST_SEARCH_INFO", { lableType: 1 });
+            this.$store.commit("GET_LABEL_LIST_SEARCH_INFO", { lableType: 2 });
             this.data.showAddCategory = false;
             this.$Message.success("新增成功");
           } else {

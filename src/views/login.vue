@@ -69,15 +69,14 @@ export default {
                             }
                         }).then(resp => {
                             if(resp.data.success){
-                                Cookies.set('user', obj.form.userName);
+                                Cookies.set('user', obj.form.userName,);
                                 Cookies.set('password', obj.form.password);
-                                Cookies.set('token',resp.data.data.token);
+                                Cookies.set('token',resp.data.data.token,{ expires: 30, path: '' });
                                 obj.$store.commit('setAvator', 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3448484253,3685836170&fm=27&gp=0.jpg');
                                 Cookies.set('access', 1);
                                 obj.$router.push({
                                     name: 'home_index'
                                 });
-                                console.log("设置cookies成功："+Cookies.get("token"))
                             }else{
                                 obj.closable(resp.data.msg);
                             }

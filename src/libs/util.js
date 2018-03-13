@@ -330,8 +330,8 @@ util.formData= function(data) {
     }
     return formData;
   }
-util.recursion =  function (obj){
-    if(obj && obj.length==0)
+util.recursion =  function (obj,subName){
+    if(!obj)
     {
         return false
     }else{
@@ -339,8 +339,8 @@ util.recursion =  function (obj){
         {
             //Vue.set(obj[x],'expand',true)
             obj[x].expand = true
-            obj[x].children = obj[x].childLableVos
-            util.recursion(obj[x].children)
+            obj[x].children = obj[x][subName]
+            util.recursion(obj[x].children,subName)
         }
     }
 }

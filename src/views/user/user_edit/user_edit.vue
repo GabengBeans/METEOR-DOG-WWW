@@ -85,7 +85,7 @@
         <label class="from_label">上传图片</label>图片不能大于2M
         <UserEditImgList :imgList="user_data.certificates[0].imageUrls" :upload="true"></UserEditImgList>
         <div style="text-align:center;border-top:1px solid gray;border-bottom:1px solid gray;padding:1vh">
-          <Button type="error" @click.native="saveInfo">保存</Button>
+          <Button type="success" @click.native="saveInfo">保存</Button>
         </div>
         <div>
           <Tabs value="name1">

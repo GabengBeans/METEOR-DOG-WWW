@@ -1,11 +1,15 @@
 <template>
-    <div class="category" style="width:85vw;min-width:650px;margin:auto;">
+    <div class="category" style="width:88vw;min-width:650px;margin:auto;">
+      <template v-if="$store.state.app.category_search_result && $store.state.app.category_search_result.childCategory.length>0">
         <Card class="card_class">
             <MyTree :categoryData="$store.state.app.category_search_result"></MyTree>
         </Card>
+      </template>
+      <template v-if="$store.state.app.categorys_search_result && $store.state.app.categorys_search_result.childCategory.length>0">
         <Card class="card_class">
             <MyTree :categoryData="$store.state.app.categorys_search_result"></MyTree>
         </Card>
+         </template>
     </div>
 </template>
 <script>

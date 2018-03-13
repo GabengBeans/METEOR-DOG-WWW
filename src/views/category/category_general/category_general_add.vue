@@ -82,7 +82,10 @@ export default {
       })
         .then(res => {
           if (res.data.success) {
-            this.$parent.append(this.categoryData,this.data)
+            this.$store.state.app.category_search_result=""
+            this.$store.state.app.categorys_search_result=""
+            this.$store.commit("GET_CATEGORY_SEARCH_INFO", { businessType: 1 });
+            this.$store.commit("GET_CATEGORY_SEARCH_INFO", { businessType: 2 });
             this.data.showAddCategory = false;
             this.$Message.success("新增成功");
           } else {

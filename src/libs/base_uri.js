@@ -83,7 +83,12 @@ let base_uri = {
     category_delete_url :"/admin/v1/categorys/delete_category/",
     //标签管理
     label_search_label_list_url:"/admin/v1/lables/search_label_list/",
-    label_add_lable_url :"/admin/v1/lables/add_lable/"
+    label_add_lable_url :"/admin/v1/lables/add_lable/",
+    label_update_label_url:"/admin/v1/lables/update_label/",
+    label_delete_label_url:"/admin/v1/lables/delete_label/",
+
+    //统计页
+    order_statistics_query :"/admin/v1/order_statistics/query_statistics"
 };
 
 export default base_uri;

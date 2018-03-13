@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Tree :data="data" multiple :load-data="loadData" :render="renderContent"></Tree>
+    <Tree :data="data"  :render="renderContent"></Tree>
     <AddCategory :data="addObj" :categoryData="categoryData" ></AddCategory>
-    <EditCategory :data="editObj" :categoryData="categoryData" ></EditCategory>
+    <EditCategory :data="editObj" ></EditCategory>
   </div>
 </template>
 <script>
@@ -44,9 +44,9 @@ export default {
       },
       data: [
         {
-          expand: false,
-          loading: false,
-          selected: true,
+          expand: true,
+          //loading: false,
+          //selected: true,
           render: (h, { root, node, data }) => {
             return h(
               "span",
@@ -75,7 +75,7 @@ export default {
                   [
                     h("img", {
                       attrs: {
-                        src: this.categoryData ? this.categoryData.avatarUrl : ""
+                        src: this.categoryData.avatarUrl
                       },
                       style: {
                         width: "30px",
@@ -92,7 +92,7 @@ export default {
                           marginLeft: "40px"
                         }
                       },
-                      this.categoryData ? this.categoryData.name : ""
+                      this.categoryData.name
                     )
                   ]
                 ),
@@ -106,18 +106,18 @@ export default {
                     }
                   },
                   [
-                    h(
-                      "span",
-                      {
-                        style: {
-                          display: "inline-block",
-                          marginRight: "8px",
-                          color: "gray",
-                          fontSize: "20px"
-                        }
-                      },
-                      "启用"
-                    ),
+                    // h(
+                    //   "span",
+                    //   {
+                    //     style: {
+                    //       display: "inline-block",
+                    //       marginRight: "8px",
+                    //       color: "gray",
+                    //       fontSize: "20px"
+                    //     }
+                    //   },
+                    //   "启用"
+                    // ),
                     h(
                       "Button",
                       {
@@ -132,8 +132,8 @@ export default {
                           click: () => {
                             this.addObj.showAddCategory = true;
                             this.addObj.levelName = this.categoryData.name;
-                            (this.addObj.levle = "2"),
-                              (this.addObj.parentId = this.categoryData.id);
+                            this.addObj.levle = "2",
+                            this.addObj.parentId = this.categoryData.id;
                             this.addObj.type = this.categoryData.type;
                           }
                         }
@@ -203,7 +203,7 @@ export default {
               ]
             );
           },
-          children: []
+          children:this.categoryData.childCategory 
           //   [
           //     {
           //     //   title: "child 1-2",
@@ -225,17 +225,16 @@ export default {
       ],
       buttonProps: {
         type: "ghost",
-        size: "small"
       }
     };
   },
   methods: {
-    loadData(item, callback) {
-      setTimeout(() => {
-        const data = this.categoryData ? this.categoryData.childCategory : [];
-        callback(data);
-      }, 500);
-    },
+    // loadData(item, callback) {
+    //   setTimeout(() => {
+    //     const data = this.categoryData ? this.categoryData.childCategory : [];
+    //     callback(data);
+    //   }, 500);
+    // },
     renderContent(h, { root, node, data }) {
       return h(
         "span",
@@ -295,36 +294,60 @@ export default {
               }
             },
             [
-              h(
-                "span",
-                {
-                  style: {
-                    display: "inline-block",
-                    marginRight: "8px",
-                    color: "gray",
-                    fontSize: "20px"
-                  }
-                },
-                "启用"
-              ),
+              // h(
+              //   "span",
+              //   {
+              //     style: {
+              //       display: "inline-block",
+              //       marginRight: "8px",
+              //       color: "gray",
+              //       fontSize: "20px"
+              //     }
+              //   },
+              //   "启用"
+              // ),
               h(
                 "Button",
                 {
                   props: Object.assign({}, this.buttonProps, {
                     icon: "ios-plus-empty",
                     type: "success",
-                    disabled: true
                   }),
                   style: {
                     marginRight: "8px"
                   },
                   on: {
                     click: () => {
+                      let obj
+                      for (
+                        let x = 0;
+                        x < this.categoryData.length;
+                        x++
+                      ) {
+                        if (
+                          data.nodeKey == this.categoryData[x].nodeKey
+                        ) {
+                          obj = this.categoryData[x];
+                        }
+                      }
+
+                      if(!obj)
+                      {
+                          for(let x = 0;
+                        x < this.categoryData.childCategory.length;
+                        x++){
+                            if(data.nodeKey == this.categoryData.childCategory[x].nodeKey)
+                            {
+                              obj = this.categoryData.childCategory[x]
+                            }
+                        }
+                      }
                       this.addObj.showAddCategory = true;
-                      this.addObj.levelName = this.categoryData.childCategory;
-                      this.addObj.levle = "2"
-                      this.addObj.parentId = this.categoryData.id
                       this.addObj.type = this.categoryData.type
+                      this.addObj.level = "3"
+                      this.addObj.levelName = obj.name;
+                      this.addObj.parentId = obj.id
+                      
                     }
                   }
                 },
@@ -341,27 +364,39 @@ export default {
                   },
                   on: {
                     click: () => {
-                      let subObj = {}
-                      for(let x = 0;x<this.categoryData.childCategory.length;x++)
-                      {
-                        if(data.nodeKey==this.categoryData.childCategory[x].nodeKey)
-                        {
-                          subObj = this.categoryData.childCategory[x]
+                      let obj
+                      for (
+                        let x = 0;
+                        x < this.categoryData.length;
+                        x++
+                      ) {
+                        if (
+                          data.nodeKey == this.categoryData[x].nodeKey
+                        ) {
+                          obj = this.categoryData[x];
                         }
                       }
-                      //Object.assign(this.editObj,subObj);
-                      console.log(subObj)
-                    
-                      this.editObj.avatarUrl = subObj.avatarUrl;
-                       console.log(this.editObj.avatarUrl)
-                      this.editObj.status = subObj.status; 
-                      this.editObj.name = subObj.name;
-                      this.editObj.sort = subObj.sort;
-                      this.editObj.isHot = subObj.isHot?true:false;
-                      this.editObj.isRecommend = subObj.isRecommend?true:false;
-                      this.editObj.level = subObj.level
-                      this.editObj.id = subObj.id;
-                      this.editObj.type = subObj.type
+                      if(!obj)
+                      {
+                          for(let x = 0;
+                        x < this.categoryData.childCategory.length;
+                        x++){
+                            if(data.nodeKey == this.categoryData.childCategory[x].nodeKey)
+                            {
+                              obj = this.categoryData.childCategory[x]
+                            }
+                        }
+                      }
+
+                      this.editObj.avatarUrl = obj.avatarUrl;
+                      this.editObj.status = obj.status; 
+                      this.editObj.name = obj.name;
+                      this.editObj.sort = obj.sort;
+                      this.editObj.isHot = obj.isHot?true:false;
+                      this.editObj.isRecommend = obj.isRecommend?true:false;
+                      this.editObj.level = obj.level
+                      this.editObj.id = obj.id;
+                      this.editObj.type = obj.type
                       this.editObj.showEditCategory = true;
                      
                     }
@@ -405,17 +440,6 @@ export default {
           )
         ]
       );
-    },
-    append(obj, subData) {
-      console.log(obj)
-      const children = obj.childCategory || [];
-      children.push({
-        title: subData.name,
-        url: subData.avatarUrl,
-        expand: true
-      });
-      console.log(children);
-      this.$set(this.data, "children", children);
     },
     remove(root, node, data) {
       if (data.id) {

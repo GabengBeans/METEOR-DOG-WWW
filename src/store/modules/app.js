@@ -133,6 +133,11 @@ const app = {
             
         },
 
+        //统计
+        order_statistics_search_info: {},
+        order_statistics_search_result:{},
+
+
         cachePage: [],
         lang: '',
         isFullScreen: false,
@@ -161,7 +166,7 @@ const app = {
         messageCount: 0,
         dontCache: ['text-editor', 'artical-publish'] // 在这里定义你不想要缓存的页面的name属性值(参见路由配置router.js)
     },
-    mutations: {
+    mutations: {    
         setTagsList(state, list) {
             state.tagsList.push(...list);
         },
@@ -794,77 +799,22 @@ const app = {
                     businessType:businessType
                 }
             }).then((response) => {
-                console.log(response)
+                //console.log(response)
                 let obj =response.data.data.allCategory[0]
                 if(businessType==1) 
                 {
                     if(response.data.success)
                     {
-                    //     Util.recursion(response.data.data.allCategory)
-                    //     Vue.set(state.category_search_result,"allCategory",response.data.data.allCategory)
-                    
-                        let category=[]
-                        Vue.set(state.category_search_result,"name",obj.name)
-                        Vue.set(state.category_search_result,"avatarUrl",obj.avatarUrl)
-                        Vue.set(state.category_search_result,"status",obj.status)
-                        Vue.set(state.category_search_result,"type",obj.type)
-                        Vue.set(state.category_search_result,"id",obj.id)
-                        Vue.set(state.category_search_result,"sort",obj.sort)
-                        Vue.set(state.category_search_result,"isRecommend",obj.isRecommend)
-                        Vue.set(state.category_search_result,"isHot",obj.isHot)
-                        Vue.set(state.category_search_result,"level",obj.level)
-                        for(let x=0;x<obj.childCategory.length;x++)
-                        {
-                            let _obj = {}
-                            _obj.name = obj.childCategory[x].name
-                            _obj.avatarUrl = obj.childCategory[x].avatarUrl
-                            _obj.id = obj.childCategory[x].id
-                            _obj.status = obj.childCategory[x].status
-                            _obj.sort = obj.childCategory[x].sort
-                            _obj.isRecommend = obj.childCategory[x].isRecommend?true:false
-                            _obj.isHot = obj.childCategory[x].isHot?true:false
-                            _obj.level = obj.childCategory[x].level
-                            _obj.type = obj.childCategory[x].type
-                            _obj.expand = true
-                           category.push(_obj)
-                        }
-                      
-                        Vue.set(state.category_search_result,"childCategory",category)
-                        //console.log(state.category_search_result)
+                    Util.recursion(response.data.data.allCategory,"childCategory")
+                    state.category_search_result = response.data.data.allCategory[0]
                     }
                     
                 }else if(businessType==2)
                 {
                     if(response.data.success)
                     {
-                        let category=[]
-                        Vue.set(state.categorys_search_result,"name",obj.name)
-                        Vue.set(state.categorys_search_result,"avatarUrl",obj.avatarUrl)
-                        Vue.set(state.categorys_search_result,"status",obj.status)
-                        Vue.set(state.categorys_search_result,"type",obj.type)
-                        Vue.set(state.categorys_search_result,"id",obj.id)
-                        Vue.set(state.categorys_search_result,"sort",obj.sort)
-                        Vue.set(state.categorys_search_result,"isRecommend",obj.isRecommend)
-                        Vue.set(state.categorys_search_result,"isHot",obj.isHot)
-                        Vue.set(state.categorys_search_result,"level",obj.level)
-                        for(let x=0;x<obj.childCategory.length;x++)
-                        {
-                            let _obj = {}
-                            _obj.name = obj.childCategory[x].name
-                            _obj.avatarUrl = obj.childCategory[x].avatarUrl
-                            _obj.id = obj.childCategory[x].id
-                            _obj.status = obj.childCategory[x].status
-                            _obj.sort = obj.childCategory[x].sort
-                            _obj.isRecommend = obj.childCategory[x].isRecommend?true:false
-                            _obj.isHot = obj.childCategory[x].isHot?true:false
-                            _obj.level = obj.childCategory[x].level
-                            _obj.type = obj.childCategory[x].type
-                            _obj.expand = true
-                           category.push(_obj)
-                        }
-                      
-                        Vue.set(state.categorys_search_result,"childCategory",category)
-                        //console.log(state.categorys_search_result)
+                        Util.recursion(response.data.data.allCategory,"childCategory")
+                        state.categorys_search_result = response.data.data.allCategory[0]
                     }
                 }
                 
@@ -881,7 +831,7 @@ const app = {
                     lableType:lableType
                 }
             }).then((response) => {
-                console.log(response)
+                //console.log(response)
                 if(lableType==1) 
                 {
                     if(response.data.success)
@@ -894,12 +844,13 @@ const app = {
                             obj.id = response.data.data.allLabels[x].id
                             levelName.push(obj)
                         }
-                       Util.recursion(response.data.data.allLabels)
+                       Util.recursion(response.data.data.allLabels,"childLableVos")
                        Vue.set(state.category_tab_search_result,"allLabels",response.data.data.allLabels)
+                       //console.log(state.category_tab_search_result.allLabels instanceof Array)
                        Vue.set(state.category_tab_search_result,"tabName","买家")
                        Vue.set(state.category_tab_search_result,"levelName",levelName)
                        Vue.set(state.category_tab_search_result,"labelType","1")
-                       
+                       //console.log(state.category_tab_search_result)
                     }
                     
                 }else if(lableType==2)
@@ -914,7 +865,7 @@ const app = {
                             obj.id = response.data.data.allLabels[x].id
                             levelName.push(obj)
                         }
-                        Util.recursion(response.data.data.allLabels)
+                        Util.recursion(response.data.data.allLabels,"childLableVos")
                         Vue.set(state.categorys_tab_search_result,"allLabels",response.data.data.allLabels)
                         Vue.set(state.categorys_tab_search_result,"tabName","卖家")
                         Vue.set(state.categorys_tab_search_result,"levelName",levelName)
@@ -922,6 +873,29 @@ const app = {
                     }
                 }
                 //console.log(state.category_tab_search_result)
+            }).catch((error) => {
+                console.log(error)
+            })
+        },
+        //统计
+        GET_ORDER_STATISTICS_SEARCH_INFO(state,{time}){
+            Util.ajax({
+                method: "post",
+                url: base_uri.order_statistics_query,
+                data:time
+            }).then((response) => {
+                
+                if(response.data.success)
+                {
+                    
+                    // for(let x in response.data.data)
+                    //  {
+                    //      Vue.set(state.order_statistics_search_result,x,parseInt(response.data.data[x]))
+                    //  }
+                    state.order_statistics_search_result = response.data.data
+                  
+                }
+                //console.log(state.order_statistics_search_result)
             }).catch((error) => {
                 console.log(error)
             })

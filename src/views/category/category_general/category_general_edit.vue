@@ -50,7 +50,7 @@
 import Util from "@/libs/util";
 import baseUri from "@/libs/base_uri";
 export default {
-  props: ["data","categoryData"],
+  props: ["data"],
   data() {
     return {
       loading: true
@@ -78,6 +78,10 @@ export default {
       })
         .then(res => {
           if (res.data.success) {
+            this.$store.state.app.category_search_result=""
+            this.$store.state.app.categorys_search_result=""
+            this.$store.commit("GET_CATEGORY_SEARCH_INFO", { businessType: 1 });
+            this.$store.commit("GET_CATEGORY_SEARCH_INFO", { businessType: 2 });
             this.data.showEditCategory = false;
             this.$Message.success("保存成功");
           } else {

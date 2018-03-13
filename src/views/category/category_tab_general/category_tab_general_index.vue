@@ -1,14 +1,15 @@
 <template>
-    <div class="category_tab" style="width:85vw;min-width:650px;margin:auto;">
-        <div>
-            <Button type="success">新增一级标签</Button>
-        </div>
+    <div class="category_tab" style="width:78vw;min-width:700px;margin:auto">
+        <template v-if ="$store.state.app.category_tab_search_result && $store.state.app.category_tab_search_result.allLabels" >
         <Card class="card_class">
             <MyTree :categoryData="$store.state.app.category_tab_search_result"></MyTree>
         </Card>
+        </template>
+        <template v-if ="$store.state.app.categorys_tab_search_result && $store.state.app.categorys_tab_search_result.allLabels"> 
         <Card class="card_class">
             <MyTree :categoryData="$store.state.app.categorys_tab_search_result"></MyTree>
         </Card>
+        </template>
     </div>
 </template>
 <script>
@@ -28,7 +29,7 @@ export default {
 <style>
 .card_class {
   min-width: 40vw;
-  float: left;
+  float:left;
   margin: 1vw;
   min-width: 700px;
 }

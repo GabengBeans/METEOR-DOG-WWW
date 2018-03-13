@@ -55,6 +55,10 @@ export default {
           //this.$store.state.app.merchant_enter_search_info = obj
           this.$store.commit("GET_AFTER_FEEDBACK_INFO", { data: obj, pageNo:1 });
         break
+        case "statisticsTransactionSearch": 
+          //this.$store.state.app.merchant_enter_search_info = obj
+          this.$store.commit("GET_ORDER_STATISTICS_SEARCH_INFO", { time: obj});
+        break
       }
     }
   }
