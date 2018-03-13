@@ -330,4 +330,18 @@ util.formData= function(data) {
     }
     return formData;
   }
+util.recursion =  function (obj){
+    if(obj && obj.length==0)
+    {
+        return false
+    }else{
+        for(let x=0;x<obj.length;x++)
+        {
+            //Vue.set(obj[x],'expand',true)
+            obj[x].expand = true
+            obj[x].children = obj[x].childLableVos
+            util.recursion(obj[x].children)
+        }
+    }
+}
 export default util;

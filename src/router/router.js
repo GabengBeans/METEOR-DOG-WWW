@@ -289,6 +289,28 @@ export const appRouter = [
         ]
     },
     {
+        path: '/category',
+        icon: 'compose',
+        name: 'category', 
+        title: '类目管理', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'category-general', 
+                name: 'category-general', 
+                title: '类目维护', 
+                component: resolve => { require(['@/views/category/category_general/category_general_index'], resolve); }, 
+            },
+            {
+                path: 'category-tab-general', 
+                name: 'category-tab-general', 
+                title: '标签维护', 
+                component: resolve => { require(['@/views/category/category_tab_general/category_tab_general_index'], resolve); }, 
+            }
+        ]
+    },
+    {
         path: '/merchant',
         icon: 'person-stalker',
         name: 'merchant', 
@@ -301,6 +323,22 @@ export const appRouter = [
                 name: 'after-merchant-enter', 
                 title: '商户管理', 
                 component: resolve => { require(['@/views/merchant/after_merchant_enter'], resolve); }, 
+            }
+        ]
+    },
+    {
+        path: '/feedback',
+        icon: 'ios-telephone',
+        name: 'after-feedback', 
+        title: '售后管理', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'after-feedback-list', 
+                name: 'after-feedback-list', 
+                title: '用户反馈管理', 
+                component: resolve => { require(['@/views/after_feedback/after_feedback_list/after_feedback_list'], resolve); }, 
             }
         ]
     },

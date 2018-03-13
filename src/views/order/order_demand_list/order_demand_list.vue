@@ -19,7 +19,7 @@ export default {
       OrderDemandChangePage
   },
    created(){
-       console.log("初始化")
+       //console.log("初始化")
       this.$store.commit("GET_ORDER_DEMAND_INFO",{data:this.$store.state.app.order_demand_search_info,pageNo:1})
   }
 }

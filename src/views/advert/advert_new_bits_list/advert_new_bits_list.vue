@@ -38,8 +38,8 @@
                 <AddSubAdvertBits :data="editSubAdvertBitsData" :selectData="searchConfig"></AddSubAdvertBits>
             </div>
             <div slot="footer">
-                <Button type="success" @click.native="addSubAdertBits">保存</Button>
-                <Button type="error" @click="showAddSubAdertBits=false">返回</Button>
+                <Button type="success" @click.native="EditSubAdertBits">保存</Button>
+                <Button type="error" @click="showEditSubAdertBits=false">返回</Button>
             </div>
         </Modal>
     </div>
@@ -178,6 +178,46 @@ export default {
         data: obj,
         pageNo: 1
       });
+    },
+    EditSubAdertBits(){
+        for (let x in this.editSubAdvertBitsData) {
+        if (!this.editSubAdvertBitsData[x]) {
+          this.$Message.error("请补全信息");
+          return false;
+        }
+      }
+      let data = {
+          positionName:this.editSubAdvertBitsData.positionName,
+          id:this.editSubAdvertBitsData.id,
+          userId:this.editSubAdvertBitsData.userId,
+          level:this.editSubAdvertBitsData.level,
+          adSort:this.editSubAdvertBitsData.adSort
+      }
+      this.$Message.loading({
+        content: "保存中...",
+        duration: 0
+      });
+      Util.ajax({
+        method:"post",
+        url:baseUri.advert_position_edit_url,
+        data:Util.formData(data)
+      }).then(res=>{
+        if (res.data.data == "SUCCESS") {
+            this.$Message.destroy();
+            this.$Message.success("更新成功");
+            this.$store.commit("GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO", {
+              data: { level: this.searchConfig.level.value },
+              pageNo: 1
+            });
+            this.showEditSubAdertBits = false;
+          }else {
+            this.$Message.destroy();
+            this.$Message.error("更新失败,请检查填写信息");
+          }
+      })
+      .catch(error => {
+          console.log(error);
+        });
     },
     addSubAdertBits: function() {
       for (let x in this.addSubAdvertBitsData) {

@@ -62,6 +62,9 @@ let base_uri = {
     new_advert_delete_advert_url:"/admin/v1/new_advert/delete_advert/",
     advert_position_search_for_page_url:"/admin/v1/advert_position/search_advert_position_for_page/",
     advert_position_add_url :"/admin/v1/advert_position/add_advert_position/",
+    advert_position_delete_url:"/admin/v1/advert_position/delete_advert_position/",
+    advert_position_detail_url :"/admin/v1/advert_position/detail/",
+    advert_position_edit_url :"/admin/v1/advert_position/edit_advert_position/",
     // 拓展管理信息
      // 代理人管理
     extend_user_search_ex_userinfo_for_page:"/admin/v1/extend_user/search_ex_userinfo_for_page",
@@ -82,8 +85,16 @@ let base_uri = {
     extend_group_detail:"/admin/v1/extend_group/detail",
     extend_group_update_group: "/admin/v1/extend_group/update_group",
 
-    advert_position_delete_url:"/admin/v1/advert_position/delete_advert_position/",
-    advert_position_detail_url :"/admin/v1/advert_position/detail/"
+    //售后管理
+    after_feedback_query_for_page :"/admin/v1/after/feedback/search_feedback_for_page",
+
+    //类别管理
+    category_search_url :"/admin/v1/categorys/search_category_list",
+    category_update_url :"/admin/v1/categorys/update_category/",
+    category_delete_url :"/admin/v1/categorys/delete_category/",
+    //标签管理
+    label_search_label_list_url:"/admin/v1/lables/search_label_list/",
+    label_add_lable_url :"/admin/v1/lables/add_lable/"
 };
 
 export default base_uri;

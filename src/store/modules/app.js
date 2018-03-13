@@ -94,6 +94,14 @@ const app = {
         },
         advert_position_search_result: [],
 
+        //售后管理
+        after_feedback_search_info: {},
+        after_feedback_page_info: {
+            currentPage: 1,
+            totalPage: 0
+        },
+        after_feedback_search_result: [],
+
         // 拓展用户--代理人
         expand_page_info: {
             currentPage: 1,
@@ -122,6 +130,22 @@ const app = {
         },
         expand_group_search_info:{},
         expand_group_search_result: [],
+
+        //类目管理
+        category_search_result:{
+            childCategory:[]
+        },
+        categorys_search_result:{
+            childCategory:[]
+        },
+
+        //标签管理
+        category_tab_search_result:{
+           
+        },
+        categorys_tab_search_result:{
+            
+        },
 
         cachePage: [],
         lang: '',
@@ -335,6 +359,10 @@ const app = {
                 //Cookies.set("user_search_result",JSON.stringify(state.user_search_result))
             })
         },
+
+
+
+        //需求信息
         GET_REQUEST_INFO(state, { data, pageNo }) {
             state.request_search_info = data
             Util.ajax({
@@ -368,6 +396,7 @@ const app = {
                 }
             })
         },
+        //服务信息
         GET_SERVICE_INFO(state, { data, pageNo }) {
             state.service_search_info = data
             Util.ajax({
@@ -400,9 +429,10 @@ const app = {
                 }
             })
         },
+        //需求订单
         GET_ORDER_DEMAND_INFO(state, { data, pageNo }) {
             state.order_demand_search_info = data
-            // console.log(data)
+            //console.log(data)
             Util.ajax({
                 method: "post",
                 url: base_uri.order_search_orders_for_page_url,
@@ -412,14 +442,14 @@ const app = {
                 },
                 data: data
             }).then((response) => {
-                // console.log(response)
+                //console.log(response)
                 let arr = response.data.data.items
                 let orderStatus = ["全部", "待支付", "待服务", "已完成", "已取消", "申请退款", "退款成功", "退款失败", "已过期", "已付款"]
                 //let status = ["无效","有效"]
                 state.order_demand_page_info.currentPage = parseInt(response.data.data.page)
                 state.order_demand_page_info.totalPage = parseInt(response.data.data.totalCount)
                 state.order_demand_search_result = response.data.data.items
-                // console.log(state.order_demand_search_result)
+                //console.log(state.order_demand_search_result)
                 for (let x in arr) {
                     let orderStatu = parseInt(arr[x].orderStatus)
                     //let statusIndex = parseInt(state.service_search_result[x].status)
@@ -432,40 +462,41 @@ const app = {
                 console.log(error)
             })
         },
-        GET_ORDER_SERVICE_INFO(state,{data,pageNo}){
+        //服务订单
+        GET_ORDER_SERVICE_INFO(state, { data, pageNo }) {
             state.order_service_search_info = data
             //console.log(data)
             Util.ajax({
-                method:"post",
-                url:base_uri.order_search_orders_for_page_url,
-                params:{
-                    pageNo:pageNo || 1,
-                    pageSize:10
+                method: "post",
+                url: base_uri.order_search_orders_for_page_url,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
                 },
-                data:data
-            }).then((response)=>{
+                data: data
+            }).then((response) => {
                 //console.log(response)
                 let arr = response.data.data.items
-                let orderStatus = ["全部","待支付","待服务","已完成","已取消","申请退款","退款成功","退款失败","已过期","已付款"]
+                let orderStatus = ["全部", "待支付", "待服务", "已完成", "已取消", "申请退款", "退款成功", "退款失败", "已过期", "已付款"]
                 //let status = ["无效","有效"]
                 state.order_service_page_info.currentPage = parseInt(response.data.data.page)
                 state.order_service_page_info.totalPage = parseInt(response.data.data.totalCount)
                 state.order_service_search_result = response.data.data.items
-                // console.log( state.order_service_search_result)
-                for(let x in arr) 
-                {   
-                    let orderStatu = parseInt( arr[x].orderStatus)
+                //console.log(state.order_service_search_result)
+                for (let x in arr) {
+                    let orderStatu = parseInt(arr[x].orderStatus)
                     //let statusIndex = parseInt(state.service_search_result[x].status)
-                    state.order_service_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
+                    state.order_service_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
                     state.order_service_search_result[x].orderStatus = orderStatus[orderStatu]
-                    state.order_service_search_result[x].rawPrice = parseInt(arr[x].rawPrice)/100 + "元"
+                    state.order_service_search_result[x].rawPrice = parseInt(arr[x].rawPrice) / 100 + "元"
                     //state.order_demand_search_result[x].status = status[statusIndex]
-               }
-            }).catch((error)=>{
+                }
+            }).catch((error) => {
                 console.log(error)
             })
         },
-        GET_EXPAND_INFO(state,{data,pageNo}){
+        //拓展信息
+        GET_EXPAND_INFO(state, { data, pageNo }) {
             state.expand_search_info = data
             Util.ajax({
                 method:"post",
@@ -553,6 +584,7 @@ const app = {
                 // }
             })
         },
+        //资金信息
         GET_CASH_FLOW_INFO(state, { data, pageNo }) {
             state.cash_flow_serch_info = data
             Util.ajax({
@@ -595,6 +627,7 @@ const app = {
                 console.log(error)
             })
         },
+        //保障金退回
         GET_CASH_REFUND_INFO(state, { data, pageNo }) {
             state.cash_flow_serch_info = data
             Util.ajax({
@@ -629,6 +662,7 @@ const app = {
                 console.log(error)
             })
         },
+        //提现申请
         GET_CASH_WITHDRAW_INFO(state, { data, pageNo }) {
             state.cash_flow_serch_info = data
             Util.ajax({
@@ -663,34 +697,33 @@ const app = {
                 console.log(error)
             })
         },
+        //商户入住
         GET_MERCHANT_ENTER_INFO(state, { data, pageNo }) {
             state.merchant_enter_search_info = data
             Util.ajax({
-                method:"post",
-                url:base_uri.search_business_info_for_page_url,
-                params:{
-                    pageNo:pageNo || 1,
-                    pageSize:10
+                method: "post",
+                url: base_uri.search_business_info_for_page_url,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
                 },
-                data:data
-            }).then((response)=>{
+                data: data
+            }).then((response) => {
                 //console.log(response)
                 let arr = response.data.data.items
                 state.merchant_enter_page_info.currentPage = parseInt(response.data.data.page)
                 state.merchant_enter_page_info.totalPage = parseInt(response.data.data.totalCount)
                 state.merchant_enter_search_result = response.data.data.items
-                
-                for(let x in arr) 
-                {   
-                    if(arr[x].createTime)
-                    {
-                        state.merchant_enter_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
-                    }else{
+
+                for (let x in arr) {
+                    if (arr[x].createTime) {
+                        state.merchant_enter_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
+                    } else {
                         state.merchant_enter_search_result[x].createTime = ''
                     }
-               }
-               //console.log(state.cash_refund_search_result)
-            }).catch((error)=>{
+                }
+                //console.log(state.cash_refund_search_result)
+            }).catch((error) => {
                 console.log(error)
             })
         },
@@ -736,6 +769,7 @@ const app = {
                 }
             })
         },
+        //广告管理
         GET_ADVERT_NEW_INFO(state, { data, pageNo }) {
             state.advert_new_search_info = data
             Util.ajax({
@@ -765,6 +799,7 @@ const app = {
                 console.log(error)
             })
         },
+        //广告位管理
         GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO(state, { data, pageNo }) {
             state.advert_position_search_info = data
             Util.ajax({
@@ -776,51 +811,199 @@ const app = {
                 },
                 data: data
             }).then((response) => {
-                // console.log(response)
-                let levelArr = ["", "一级广告位", "二级广告位", "三级广告位", "四级广告位"]
-                let statusArr = ["禁用", "启用"]
-                let arr = response.data.data.items
-                state.advert_position_page_info.currentPage = parseInt(response.data.data.page)
-                state.advert_position_page_info.totalPage = parseInt(response.data.data.totalCount)
-                state.advert_position_search_result = response.data.data.items
+                //console.log(response)
+                if (response.data.success) {
+                    let levelArr = ["", "一级广告位", "二级广告位", "三级广告位", "四级广告位"]
+                    let statusArr = ["禁用", "启用"]
+                    let arr = response.data.data.items
+                    state.advert_position_page_info.currentPage = parseInt(response.data.data.page)
+                    state.advert_position_page_info.totalPage = parseInt(response.data.data.totalCount)
+                    state.advert_position_search_result = response.data.data.items
 
-                for (let x = 0; x < arr.length; x++) {
-                    state.advert_position_search_result[x].level = levelArr[arr[x].level]
-                    state.advert_position_search_result[x].status = statusArr[arr[x].status]
+                    for (let x = 0; x < arr.length; x++) {
+                        state.advert_position_search_result[x].level = levelArr[arr[x].level]
+                        state.advert_position_search_result[x].status = statusArr[arr[x].status]
+                    }
+                } else {
+                    Vue.$Message.error("获取失败，请检查网络")
                 }
                 //console.log(state.advert_position_search_result)
             }).catch((error) => {
                 console.log(error)
-            }).then((res) => {
-                // console.log(res)
-                let arr = res.data.data.items;
-                let businessStatus = ["全部", "待审核", "审核未通过", "审核通过"];
-                state.brokerage_order_info.currentPage = parseInt(res.data.data.page)
-                state.brokerage_order_info.totalPage = parseInt(res.data.data.totalCount)
-                state.brokerage_order_search_result = arr
-                for (let x in arr) {
-                    let businessIndex = parseInt(state.brokerage_order_search_result[x].businessStatus)
+            })
+        },
+        //售后管理
+        GET_AFTER_FEEDBACK_INFO(state, { data, pageNo }) {
+            state.after_feedback_search_info = data
+            Util.ajax({
+                method: "post",
+                url: base_uri.after_feedback_query_for_page,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
+                },
+                data: data
+            }).then((response) => {
+                //console.log(response)
+                if (response.data.success) {
+                    let arr = response.data.data.items
+                    state.after_feedback_page_info.currentPage = parseInt(response.data.data.page)
+                    state.after_feedback_page_info.totalPage = parseInt(response.data.data.totalCount)
+                    state.after_feedback_search_result = response.data.data.items
 
-                    state.brokerage_order_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
-                    state.brokerage_order_search_result[x].platformServiceCharge = arr[x].platformServiceCharge * 0.01;
-                    state.brokerage_order_search_result[x].brokerage = arr[x].brokerage * 0.01;
-                    state.brokerage_order_search_result[x].reate = arr[x].reate * 0.01;
-
-
-                    if (arr[x].accountDay) {
-                        state.brokerage_order_search_result[x].accountDay = Util.formatDate(new Date(arr[x].accountDay), "yyyy-MM-dd hh:mm:ss")
-                    } else {
-                        state.brokerage_order_search_result[x].accountDay = ''
+                    for (let x = 0; x < arr.length; x++) {
+                        state.after_feedback_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
+                        if (!arr[x].phone) {
+                            state.after_feedback_search_result[x].phone = ""
+                        }
                     }
-                    if (arr[x].auditTime) {
-                        state.brokerage_order_search_result[x].auditTime = Util.formatDate(new Date(arr[x].auditTime), "yyyy-MM-dd hh:mm:ss")
-                    } else {
-                        state.brokerage_order_search_result[x].auditTime = ''
-                    }
-                    state.brokerage_order_search_result[x].businessStatus = businessStatus[businessIndex]
+                } 
+            }).catch((error) => {
+                console.log(error)
+            })
+        },
+
+        //类别管理
+        GET_CATEGORY_SEARCH_INFO(state,{businessType}){
+            Util.ajax({
+                method: "get",
+                url: base_uri.category_search_url,
+                params: {
+                    businessType:businessType
                 }
+            }).then((response) => {
+                console.log(response)
+                let obj =response.data.data.allCategory[0]
+                if(businessType==1) 
+                {
+                    if(response.data.success)
+                    {
+                    //     Util.recursion(response.data.data.allCategory)
+                    //     Vue.set(state.category_search_result,"allCategory",response.data.data.allCategory)
+                    
+                        let category=[]
+                        Vue.set(state.category_search_result,"name",obj.name)
+                        Vue.set(state.category_search_result,"avatarUrl",obj.avatarUrl)
+                        Vue.set(state.category_search_result,"status",obj.status)
+                        Vue.set(state.category_search_result,"type",obj.type)
+                        Vue.set(state.category_search_result,"id",obj.id)
+                        Vue.set(state.category_search_result,"sort",obj.sort)
+                        Vue.set(state.category_search_result,"isRecommend",obj.isRecommend)
+                        Vue.set(state.category_search_result,"isHot",obj.isHot)
+                        Vue.set(state.category_search_result,"level",obj.level)
+                        for(let x=0;x<obj.childCategory.length;x++)
+                        {
+                            let _obj = {}
+                            _obj.name = obj.childCategory[x].name
+                            _obj.avatarUrl = obj.childCategory[x].avatarUrl
+                            _obj.id = obj.childCategory[x].id
+                            _obj.status = obj.childCategory[x].status
+                            _obj.sort = obj.childCategory[x].sort
+                            _obj.isRecommend = obj.childCategory[x].isRecommend?true:false
+                            _obj.isHot = obj.childCategory[x].isHot?true:false
+                            _obj.level = obj.childCategory[x].level
+                            _obj.type = obj.childCategory[x].type
+                            _obj.expand = true
+                           category.push(_obj)
+                        }
+                      
+                        Vue.set(state.category_search_result,"childCategory",category)
+                        //console.log(state.category_search_result)
+                    }
+                    
+                }else if(businessType==2)
+                {
+                    if(response.data.success)
+                    {
+                        let category=[]
+                        Vue.set(state.categorys_search_result,"name",obj.name)
+                        Vue.set(state.categorys_search_result,"avatarUrl",obj.avatarUrl)
+                        Vue.set(state.categorys_search_result,"status",obj.status)
+                        Vue.set(state.categorys_search_result,"type",obj.type)
+                        Vue.set(state.categorys_search_result,"id",obj.id)
+                        Vue.set(state.categorys_search_result,"sort",obj.sort)
+                        Vue.set(state.categorys_search_result,"isRecommend",obj.isRecommend)
+                        Vue.set(state.categorys_search_result,"isHot",obj.isHot)
+                        Vue.set(state.categorys_search_result,"level",obj.level)
+                        for(let x=0;x<obj.childCategory.length;x++)
+                        {
+                            let _obj = {}
+                            _obj.name = obj.childCategory[x].name
+                            _obj.avatarUrl = obj.childCategory[x].avatarUrl
+                            _obj.id = obj.childCategory[x].id
+                            _obj.status = obj.childCategory[x].status
+                            _obj.sort = obj.childCategory[x].sort
+                            _obj.isRecommend = obj.childCategory[x].isRecommend?true:false
+                            _obj.isHot = obj.childCategory[x].isHot?true:false
+                            _obj.level = obj.childCategory[x].level
+                            _obj.type = obj.childCategory[x].type
+                            _obj.expand = true
+                           category.push(_obj)
+                        }
+                      
+                        Vue.set(state.categorys_search_result,"childCategory",category)
+                        //console.log(state.categorys_search_result)
+                    }
+                }
+                
+            }).catch((error) => {
+                console.log(error)
+            })
+        },
+        //标签管理
+        GET_LABEL_LIST_SEARCH_INFO(state,{lableType}){
+            Util.ajax({
+                method: "get",
+                url: base_uri.label_search_label_list_url,
+                params: {
+                    lableType:lableType
+                }
+            }).then((response) => {
+                console.log(response)
+                if(lableType==1) 
+                {
+                    if(response.data.success)
+                    {
+                        let levelName = []
+                        for(let x=0;x<response.data.data.allLabels.length;x++)
+                        {
+                            let obj = {}
+                            obj.name = response.data.data.allLabels[x].name
+                            obj.id = response.data.data.allLabels[x].id
+                            levelName.push(obj)
+                        }
+                       Util.recursion(response.data.data.allLabels)
+                       Vue.set(state.category_tab_search_result,"allLabels",response.data.data.allLabels)
+                       Vue.set(state.category_tab_search_result,"tabName","买家")
+                       Vue.set(state.category_tab_search_result,"levelName",levelName)
+                       Vue.set(state.category_tab_search_result,"labelType","1")
+                       
+                    }
+                    
+                }else if(lableType==2)
+                {
+                    if(response.data.success)
+                    {
+                        let levelName = []
+                        for(let x=0;x<response.data.data.allLabels.length;x++)
+                        {
+                            let obj = {}
+                            obj.name = response.data.data.allLabels[x].name
+                            obj.id = response.data.data.allLabels[x].id
+                            levelName.push(obj)
+                        }
+                        Util.recursion(response.data.data.allLabels)
+                        Vue.set(state.categorys_tab_search_result,"allLabels",response.data.data.allLabels)
+                        Vue.set(state.categorys_tab_search_result,"tabName","卖家")
+                        Vue.set(state.categorys_tab_search_result,"levelName",levelName)
+                        Vue.set(state.categorys_tab_search_result,"labelType","2")
+                    }
+                }
+                //console.log(state.category_tab_search_result)
+            }).catch((error) => {
+                console.log(error)
             })
         }
     }
 }
-        export default app
+export default app

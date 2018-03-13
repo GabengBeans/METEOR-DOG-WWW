@@ -197,10 +197,12 @@ export default {
         businessStatus: 5,
         refuseReason: this.refuseReason
       };
-      Utile.ajax
-        .post(baseUri.service_audit_url, {
-          data: Util.formData(data)
-        })
+      console.log(data)
+      Util.ajax({
+        method: "post",
+        url: baseUri.service_audit_url,
+        data: Util.formData(data)
+      })
         .then(response => {
           if (response.data.success) {
             this.$Message.success("已审核");
