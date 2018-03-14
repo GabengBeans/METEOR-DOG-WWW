@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="margin-left:3vw;">
         <div class="demo-upload-list" v-if="videoUrl" >
            <template v-if="imgList">
                 <img :src="imgList">
@@ -12,7 +12,7 @@
         <div class="demo-upload-list" v-else v-for="item in uploadList" :key="item.key">
             <template v-if="item">
                 <img :src="aliyun + item">
-                <div class="demo-upload-list-cover">
+                <div class="demo-upload-list-cover" v-if="change">
                     <Icon type="ios-eye-outline" @click.native="handleView(item)" style="margin-right:3vw"></Icon>
                     <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
                 </div>
@@ -56,7 +56,7 @@
         type="drag" 
         action="https://lxg.91taogu.com/up/" 
         style="display: inline-block;width:200px;">
-            <div style="min-width:198px;min-height:198px;line-height:198px;width:10vw;height:20vh">
+            <div style="width:198px;height:198px;line-height:198px;">
                 <Icon type="camera" size="40"></Icon>
             </div>
         </Upload>
@@ -81,7 +81,7 @@ export default {
       uploadList: []
     };
   },
-  props: ["imgList","videoUrl","upload"],
+  props: ["imgList","videoUrl","upload","change"],
   methods: {
     handleView(name) {
       this.imgName = name;
@@ -158,12 +158,10 @@ export default {
 <style>
 .demo-upload-list {
   display: inline-block;
-  min-width: 200px;
-  min-height: 200px; 
-  width: 10vw;
-  height: 20vh;
+  width: 200px;
+  height: 200px; 
   text-align: center;
-  line-height: 60px;
+  line-height:200px;
   border: 1px solid transparent;
   border-radius: 4px;
   overflow: hidden;

@@ -102,12 +102,12 @@
                     <br>
                     <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
                         <label class="from_label">需求图片:</label>图片限制大小2M
-                        <UserEditImgList :imgList="data.mediaImg" :upload="true"></UserEditImgList>
+                        <UserEditImgList :change="true" :imgList="data.mediaImg" :upload="true"></UserEditImgList>
                     </div>
                     <br>
                     <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
                         <label class="from_label">需求视频:</label>视频限制大小200M
-                        <UserEditImgList :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo"></UserEditImgList>
+                        <UserEditImgList :change="true"  :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo"></UserEditImgList>
                     </div>
                     <br>
 
@@ -381,35 +381,6 @@ export default {
   min-width: 75px;
   min-height: 16px;
 }
-.demo-upload-list {
-  display: inline-block;
-  min-width: 150px;
-  min-height: 150px;
-  width: 8vw;
-  height: 16vh;
-  text-align: center;
-  line-height: 60px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  overflow: hidden;
-  background: #fff;
-  position: relative;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  margin-right: 4px;
-}
-.demo-upload-list img {
-  width: 100%;
-  height: 100%;
-}
-.demo-upload-list-cover {
-  display: none;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.6);
-  line-height: 200px;
-}
+
 </style>
 

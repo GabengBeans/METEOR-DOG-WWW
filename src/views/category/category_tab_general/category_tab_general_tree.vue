@@ -215,40 +215,12 @@ export default {
                   },
                   on: {
                     click: () => {
-                      let obj;
-                      this.editObj.showEditCategory = true;
-                      
-                      for (
-                        let x = 0;
-                        x < this.categoryData.allLabels.length;
-                        x++
-                      ) {
-                        if (
-                          data.nodeKey == this.categoryData.allLabels[x].nodeKey
-                        ) {
-                          obj = this.categoryData.allLabels[x];
-                        }
-                      }
-
-                      if(!obj)
-                      {
-                          for(let x = 0;
-                        x < this.categoryData.allLabels.length;
-                        x++){
-                            for(let y =0;y<this.categoryData.allLabels[x].childLableVos.length;y++)
-                            {
-                                if(data.nodeKey==this.categoryData.allLabels[x].childLableVos[y].nodeKey)
-                                {
-                                    obj = this.categoryData.allLabels[x].childLableVos[y]
-                                }
-                            }
-                        }
-                      }
                       //console.log(obj);
-                      this.editObj.name = obj.name;
-                      this.editObj.status = obj.status;
-                      this.editObj.id = obj.id;
-                      this.editObj.parentId = obj.parentId
+                      this.editObj.showEditCategory = true;
+                      this.editObj.name = data.name;
+                      this.editObj.status = data.status;
+                      this.editObj.id = data.id;
+                      this.editObj.parentId = data.parentId
                     }
                   }
                 },

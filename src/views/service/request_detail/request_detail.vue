@@ -75,14 +75,7 @@
         <br>
         <div class="user_detail_media">
           <label class="from_label">服务图片:</label>
-          <div class="demo-upload-list" v-for="item in data.mediaImg" :key="item.key">
-            <template v-if="item">
-              <img :src="aliyun + item" @click="handleView(item)" />
-            </template>
-            <Modal title="展示大图" v-model="visible">
-              <img :src="aliyun + imgName" v-if="visible" style="width: 100%">
-            </Modal>
-          </div>
+          <UserEditImgList :change="false" :imgList="data.mediaImg"></UserEditImgList>
         </div>
         <br>
         <div class="user_detail_media">
@@ -127,6 +120,7 @@
 import Util from "@/libs/util";
 import Cookies from "js-cookie";
 import baseUri from "@/libs/base_uri";
+import UserEditImgList from "@/views/public-components/user_edit_img_list";
 export default {
   data() {
     return {
@@ -226,6 +220,9 @@ export default {
         this.show = true;
         this.$Message.destroy();
       });
+  },
+  components:{
+   UserEditImgList
   }
 };
 </script>
@@ -234,9 +231,6 @@ export default {
   border-bottom: 1px solid rgb(219, 207, 207);
 }
 .user_detail_media {
-  height: 18vh;
-  line-height: 18vh;
-  min-height: 180px;
   border-bottom: 1px solid rgb(219, 207, 207);
 }
 .from_label {
@@ -248,25 +242,6 @@ export default {
   min-width: 75px;
   min-height: 16px;
 }
-.demo-upload-list {
-  display: inline-block;
-  min-width: 150px;
-  min-height: 150px;
-  width: 8vw;
-  height: 16vh;
-  text-align: center;
-  line-height: 60px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  overflow: hidden;
-  background: #fff;
-  position: relative;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  margin-right: 4px;
-}
-.demo-upload-list img {
-  width: 100%;
-  height: 100%;
-}
+
 </style>
 

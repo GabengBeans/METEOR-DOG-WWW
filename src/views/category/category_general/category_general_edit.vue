@@ -1,6 +1,6 @@
 <template>
   <div class="category">
-    <Modal :loading="loading" v-model="data.showEditCategory" title="编辑一级分类" @on-cancel="handleCandel" @on-ok="handleOk" >
+    <Modal :loading="loading" v-model="data.showEditCategory" :title="data.title" @on-cancel="handleCandel" @on-ok="handleOk" >
       <Form label-position="right" :label-width="80">
         <FormItem label="分类名称">
           <Input class="category_Input" clearable v-model="data.name" />

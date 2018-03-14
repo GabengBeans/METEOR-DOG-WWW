@@ -75,7 +75,7 @@
         <div class="user_detail_div">
           <label class="from_label">相关图片</label>
           <!-- <Avatar v-for="item in user_data.certificates[0].imageUrls" :src="aliyun + item" :key="item.key" shape="square"  style="width:8vw;height:8vw;margin-bottom:4px" /> -->
-          <UserEditImgList :imgList="user_data.certificates[0].imageUrls"></UserEditImgList>
+          <UserEditImgList :change="false" :imgList="user_data.certificates[0].imageUrls"></UserEditImgList>
         </div>
         <br>
         <!-- <div class="user_detail_div">

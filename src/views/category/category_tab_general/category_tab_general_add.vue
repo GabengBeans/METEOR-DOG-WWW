@@ -1,6 +1,6 @@
 <template>
   <div class="category">
-    <Modal :loading="loading" v-model="data.showAddCategory" title="新增二级分类" @on-cancel="handleCandel" @on-ok="handleOk">
+    <Modal :loading="loading" v-model="data.showAddCategory" title="新增二级标签" @on-cancel="handleCandel" @on-ok="handleOk">
       <Form label-position="right" :label-width="80">
         <FormItem label="标签名称" width="20vw">
           <Input class="category_Input" clearable v-model="data.name" />

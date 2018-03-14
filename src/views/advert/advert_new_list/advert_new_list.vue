@@ -11,7 +11,7 @@
         </FormItem>
         </Col>
         <Col :xs='13' :sm='13' :md='8' :lg='5'>
-        <FormItem style="min-width:60px" label="子广告位" v-if="name">
+        <FormItem style="min-width:60px" label="子广告位" >
           <Select v-model="id">
             <Option v-for="item in name" :key="item.key" :value="item.id">{{item.positionName}}</Option>
           </Select>
@@ -63,7 +63,11 @@ export default {
   data() {
     return {
       btn: true,
-      addAdverNewdata: {},
+      addAdverNewdata: {
+        adName:"",
+        mediaType:1,
+        imgUrl:""
+      },
       showAdvertEdit: false,
       showAddAdvert: false,
       advertDetail: {},
@@ -167,14 +171,16 @@ export default {
     },
     addAdverNewBtn: function() {
       for (let x in this.addAdverNewdata) {
-        if (x != "positionId") {
+        if (x == "positionId"  || x== "mediaType" || x=="imgUrl") {
+          
+        }else{
           this.addAdverNewdata[x] = "";
         }
       }
       this.showAddAdvert = true;
     },
     addAdverNew: function() {
-      console.log(this.addAdverNewdata);
+      //console.log(this.addAdverNewdata);
       for (let x in this.addAdverNewdata) {
         if (!this.addAdverNewdata[x]) {
           this.$Message.error("请补全信息");
@@ -263,16 +269,20 @@ export default {
   computed: {
     name: function() {
       let arr = [];
+      //console.log(this.level)
       if (this.level) {
         for (let x = 0; x < this.names.length; x++) {
           if (this.level == this.names[x].level) {
             arr.push(this.names[x]);
           }
         }
-      }
-      if (arr.length) {
         this.id = arr[0].id;
       }
+       //console.log(arr)
+      // if (arr.length) {
+        
+      // }
+      //console.log(this.id)
       return arr;
     }
   },
@@ -294,12 +304,13 @@ export default {
           let objName = [];
           let objNames = [];
           let arr = res.data.data;
+          let subArr
           for (let x = 0; x < arr.length; x++) {
             objLevel[x] = {};
             //objLevel[x].id = arr[x].id
             objLevel[x].positionName = arr[x].positionName;
             objLevel[x].level = arr[x].level;
-            let subArr = arr[x];
+            subArr = arr[x];
             //console.log(subArr)
             for (let y = 0; y < subArr.subPositionResults.length; y++) {
               objName[y] = {};

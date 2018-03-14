@@ -26,7 +26,8 @@ export default {
         status: 1,
         avatarUrl: "",
         parentId: "",
-        type: ""
+        type: "",
+        title:""
       },
       editObj:{
         showEditCategory:false,
@@ -135,6 +136,7 @@ export default {
                             this.addObj.levle = "2",
                             this.addObj.parentId = this.categoryData.id;
                             this.addObj.type = this.categoryData.type;
+                            this.addObj.title = "新增二级分类"
                           }
                         }
                       },
@@ -160,6 +162,8 @@ export default {
                             this.editObj.isRecommend = this.categoryData.isRecommend?true:false;
                             this.editObj.level = this.categoryData.level
                             this.editObj.id = this.categoryData.id;
+                            this.editObj.avatarUrl = this.categoryData.avatarUrl
+                            this.editObj.title = "编辑一级类目"
                           }
                         }
                       },
@@ -312,46 +316,48 @@ export default {
                   props: Object.assign({}, this.buttonProps, {
                     icon: "ios-plus-empty",
                     type: "success",
+                    disabled:data.level<3?false:true
                   }),
                   style: {
-                    marginRight: "8px"
+                    marginRight: "8px",
                   },
                   on: {
                     click: () => {
-                      let obj
-                      for (
-                        let x = 0;
-                        x < this.categoryData.length;
-                        x++
-                      ) {
-                        if (
-                          data.nodeKey == this.categoryData[x].nodeKey
-                        ) {
-                          obj = this.categoryData[x];
-                        }
-                      }
+                      // let obj
+                      // for (
+                      //   let x = 0;
+                      //   x < this.categoryData.length;
+                      //   x++
+                      // ) {
+                      //   if (
+                      //     data.nodeKey == this.categoryData[x].nodeKey
+                      //   ) {
+                      //     obj = this.categoryData[x];
+                      //   }
+                      // }
 
-                      if(!obj)
-                      {
-                          for(let x = 0;
-                        x < this.categoryData.childCategory.length;
-                        x++){
-                            if(data.nodeKey == this.categoryData.childCategory[x].nodeKey)
-                            {
-                              obj = this.categoryData.childCategory[x]
-                            }
-                        }
-                      }
+                      // if(!obj)
+                      // {
+                      //     for(let x = 0;
+                      //   x < this.categoryData.childCategory.length;
+                      //   x++){
+                      //       if(data.nodeKey == this.categoryData.childCategory[x].nodeKey)
+                      //       {
+                      //         obj = this.categoryData.childCategory[x]
+                      //       }
+                      //   }
+                      // }
                       this.addObj.showAddCategory = true;
-                      this.addObj.type = this.categoryData.type
+                      this.addObj.type = data.type
                       this.addObj.level = "3"
-                      this.addObj.levelName = obj.name;
-                      this.addObj.parentId = obj.id
+                      this.addObj.levelName = data.name;
+                      this.addObj.parentId = data.id
+                      this.addObj.title = "新增三级分类"
                       
                     }
                   }
                 },
-                "新增三级分类"
+                data.level<3?"新增三级分类":'新增四级分类'
               ),
               h(
                 "Button",
@@ -364,40 +370,19 @@ export default {
                   },
                   on: {
                     click: () => {
-                      let obj
-                      for (
-                        let x = 0;
-                        x < this.categoryData.length;
-                        x++
-                      ) {
-                        if (
-                          data.nodeKey == this.categoryData[x].nodeKey
-                        ) {
-                          obj = this.categoryData[x];
-                        }
-                      }
-                      if(!obj)
-                      {
-                          for(let x = 0;
-                        x < this.categoryData.childCategory.length;
-                        x++){
-                            if(data.nodeKey == this.categoryData.childCategory[x].nodeKey)
-                            {
-                              obj = this.categoryData.childCategory[x]
-                            }
-                        }
-                      }
-
-                      this.editObj.avatarUrl = obj.avatarUrl;
-                      this.editObj.status = obj.status; 
-                      this.editObj.name = obj.name;
-                      this.editObj.sort = obj.sort;
-                      this.editObj.isHot = obj.isHot?true:false;
-                      this.editObj.isRecommend = obj.isRecommend?true:false;
-                      this.editObj.level = obj.level
-                      this.editObj.id = obj.id;
-                      this.editObj.type = obj.type
+                      
+                      //console.log(obj)
+                      this.editObj.avatarUrl = data.avatarUrl;
+                      this.editObj.status = data.status; 
+                      this.editObj.name = data.name;
+                      this.editObj.sort = data.sort;
+                      this.editObj.isHot = data.isHot?true:false;
+                      this.editObj.isRecommend = data.isRecommend?true:false;
+                      this.editObj.level = data.level
+                      this.editObj.id = data.id;
+                      this.editObj.type = data.type
                       this.editObj.showEditCategory = true;
+                      this.editObj.title = "编辑二级类目"
                      
                     }
                   }
