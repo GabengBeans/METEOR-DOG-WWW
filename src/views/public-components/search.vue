@@ -59,6 +59,10 @@ export default {
           //this.$store.state.app.merchant_enter_search_info = obj
           this.$store.commit("GET_ORDER_STATISTICS_SEARCH_INFO", { time: obj});
         break
+        case "systemSettingSearch": 
+          //this.$store.state.app.merchant_enter_search_info = obj
+          this.$store.commit("GET_SYSTEM_SETTINGS_SEARCH_INFO", { data: obj,pageNo: 1 });
+        break
       }
     }
   }

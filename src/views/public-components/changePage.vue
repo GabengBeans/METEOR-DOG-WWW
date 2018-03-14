@@ -43,6 +43,14 @@ export default {
           //this.$store.state.app.merchant_enter_search_info = obj
           this.$store.commit("GET_AFTER_FEEDBACK_INFO", { data: this.$store.state.app.after_feedback_search_info, pageNo: index });
         break
+        case "systemSettingSearch": 
+          //this.$store.state.app.merchant_enter_search_info = obj
+          this.$store.commit("GET_SYSTEM_SETTINGS_SEARCH_INFO", { data: this.$store.state.app.system_settings_search_info, pageNo: index });
+        break
+         case "appList": 
+          //this.$store.state.app.merchant_enter_search_info = obj
+          this.$store.commit("GET_APP_SEARCH_INFO", { pageNo: index });
+        break
       }
     }
   }

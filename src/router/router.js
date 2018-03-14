@@ -56,7 +56,8 @@ export const otherRouter = {
     redirect: '/home',
     component: Main,
     children: [
-        { path: 'home', title: { i18n: 'home' }, name: 'home_index', component: resolve => { require(['@/views/home/home.vue'], resolve); } },
+        //{ path: 'home', title: { i18n: 'home' }, name: 'home_index', component: resolve => { require(['@/views/home/home.vue'], resolve); } },
+        { path: 'home', title: { i18n: 'home' }, name: 'home_index', component: resolve => { require(['@/views/statistics/statistics_transaction/statistics_transaction_index'], resolve); } },
         { path: 'ownspace', title: '个人中心', name: 'ownspace_index', component: resolve => { require(['@/views/own-space/own-space.vue'], resolve); } },
         { path: 'message', title: '消息中心', name: 'message_index', component: resolve => { require(['@/views/message/message.vue'], resolve); } },
         //用户
@@ -93,22 +94,22 @@ export const otherRouter = {
 
 // 作为Main组件的子页面展示并且在左侧菜单显示的路由写在appRouter里
 export const appRouter = [
-    { // b.第二种情况：有二级菜单
-        path: '/statistics', // 必填
-        icon: 'stats-bars', // 必填，同上
-        name: "statistics-transaction", // 必填，同上
-        title: '统计分析', // 必填，同上
-        access: 1,
-        component: Main, // 必填，同上
-        children: [ // 必填，同上
-            {
-                path: 'index', // 必填，同上的
-                name: 'statistics-transaction-index', // 必填，同上
-                title: '交易统计', // 必填，将显示在左侧菜单栏二级菜单
-                component: resolve => { require(['@/views/statistics/statistics_transaction/statistics_transaction_index'], resolve); }, // 必填
-            }
-        ]
-    },
+    // { // b.第二种情况：有二级菜单
+    //     path: '/statistics', // 必填
+    //     icon: 'stats-bars', // 必填，同上
+    //     name: "statistics-transaction", // 必填，同上
+    //     title: '统计分析', // 必填，同上
+    //     access: 1,
+    //     component: Main, // 必填，同上
+    //     children: [ // 必填，同上
+    //         {
+    //             path: 'index', // 必填，同上的
+    //             name: 'statistics-transaction-index', // 必填，同上
+    //             title: '交易统计', // 必填，将显示在左侧菜单栏二级菜单
+    //             component: resolve => { require(['@/views/statistics/statistics_transaction/statistics_transaction_index'], resolve); }, // 必填
+    //         }
+    //     ]
+    // },
     { // b.第二种情况：有二级菜单
         path: '/user', // 必填
         icon: 'ios-person', // 必填，同上
@@ -329,6 +330,54 @@ export const appRouter = [
                 name: 'after-merchant-enter', 
                 title: '商户管理', 
                 component: resolve => { require(['@/views/merchant/after_merchant_enter'], resolve); }, 
+            }
+        ]
+    },
+    {
+        path: '/system',
+        icon: 'gear-b',
+        name: 'system', 
+        title: '系统配置', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'system_settings', 
+                name: 'system-settings', 
+                title: '系统变量管理', 
+                component: resolve => { require(['@/views/system/system_settings/system_settings_index'], resolve); }, 
+            }
+        ]
+    },
+    {
+        path: '/web_IM',
+        icon: 'android-chat',
+        name: 'web-IM', 
+        title: 'IM', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'web_IM_index', 
+                name: 'web-IM-index', 
+                title: 'IM', 
+                component: resolve => { require(['@/views/error-page/404.vue'], resolve); }, 
+            }
+        ]
+    },
+    {
+        path: '/app',
+        icon: 'android-chat',
+        name: 'app', 
+        title: '资源管理', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'app_list', 
+                name: 'app_list_index', 
+                title: '资源管理', 
+                component: resolve => { require(['@/views/app/app_list/app_list_index'], resolve); }, 
             }
         ]
     },

@@ -137,6 +137,21 @@ const app = {
         order_statistics_search_info: {},
         order_statistics_search_result:{},
 
+        //系统配置
+        system_settings_search_info: {},
+        system_settings_page_info: {
+            currentPage: 1,
+            totalPage: 0
+        },
+        system_settings_search_result: [],
+
+        //app管理
+        app_search_info:{},
+        app_page_info:{
+            currentPage: 1,
+            totalPage: 0
+        },
+        app_search_result: [],
 
         cachePage: [],
         lang: '',
@@ -898,6 +913,64 @@ const app = {
                 //console.log(state.order_statistics_search_result)
             }).catch((error) => {
                 console.log(error)
+            })
+        },
+        //系统变量
+        GET_SYSTEM_SETTINGS_SEARCH_INFO(state,{data,pageNo}){
+            state.system_settings_search_info = data
+            Util.ajax({
+                method:"post",
+                url:base_uri.search_setting_info_for_page,
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
+                },
+                data:data
+            }).then(res=>{
+                //console.log(res)
+                if(res.data.success)
+                {
+                    state.system_settings_page_info.currentPage = res.data.data.page
+                    state.system_settings_page_info.totalPage = res.data.data.totalCount
+                    state.system_settings_search_result = res.data.data.items
+                    for(let x in res.data.data.items)
+                    {
+                        if(res.data.data.items[x].status)
+                        {
+                            state.system_settings_search_result[x].status = "有效"
+                        }else{
+                            state.system_settings_search_result[x].status = "无效"
+                        }
+                    }
+                }   
+            }).catch(error=>{
+                console.log(error)
+            })
+        },
+        //app管理
+        GET_APP_SEARCH_INFO(state,{data,pageNo})
+        {
+            Util.ajax({
+                method:"post",
+                url:base_uri.app_search_url,
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
+                },
+                data:data
+            }).then(res=>{
+                //console.log(res)
+                if(res.data.success)
+                {
+                    state.app_page_info.currentPage = res.data.data.page
+                    state.app_page_info.totalPage = res.data.data.totalCount
+                    state.app_search_result = res.data.data.items
+                    for(let x in res.data.data.items)
+                    {
+                        state.app_search_result[x].createTime = Util.formatDate(new Date(res.data.data.items[x].createTime),"yyyy-MM-dd hh:mm:ss")   
+                    }
+                }
+                console.log(state.app_search_result)
             })
         }
     }
