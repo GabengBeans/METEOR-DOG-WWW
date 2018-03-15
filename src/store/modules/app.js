@@ -335,6 +335,7 @@ const app = {
             state.pageOpenedList.push(tagObj);
             localStorage.pageOpenedList = JSON.stringify(state.pageOpenedList);
         },
+        //获取用户信息
         GET_USER_INFO(state, { data, pageNo }) {
             state.user_search_info = data
             Util.ajax({
@@ -346,7 +347,7 @@ const app = {
                 },
                 data: data
             }).then((response) => {
-                //console.log(response)
+                console.log(response)
                 state.user_page_info.currentPage = parseInt(response.data.data.page)
                 state.user_page_info.totalPage = parseInt(response.data.data.totalCount)
                 //console.log(typeof state.user_page_info.currentPage)

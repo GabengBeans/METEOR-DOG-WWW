@@ -58,10 +58,10 @@ export const otherRouter = {
     children: [
         //{ path: 'home', title: { i18n: 'home' }, name: 'home_index', component: resolve => { require(['@/views/home/home.vue'], resolve); } },
         { path: 'home', title: { i18n: 'home' }, name: 'home_index', component: resolve => { require(['@/views/statistics/statistics_transaction/statistics_transaction_index'], resolve); } },
-        { path: 'ownspace', title: '个人中心', name: 'ownspace_index', component: resolve => { require(['@/views/own-space/own-space.vue'], resolve); } },
+        { path: 'ownspace', title: '修改密码', name: 'ownspace_index', component: resolve => { require(['@/views/own-space/own-space.vue'], resolve); } },
         { path: 'message', title: '消息中心', name: 'message_index', component: resolve => { require(['@/views/message/message.vue'], resolve); } },
         //用户
-        { path: 'user-role/:id', title: '修改用户角色', name: 'user-role', component: resolve => { require(['@/views/user/modify_user_role/modify_user_role'], resolve) } },
+        //{ path: 'user-role/:id', title: '修改用户角色', name: 'user-role', component: resolve => { require(['@/views/user/modify_user_role/modify_user_role'], resolve) } },
         { path: 'user-edit/:id', title: '用户编辑', name: 'user-edit', component: resolve => { require(['@/views/user/user_edit/user_edit'], resolve) } },
         { path: 'user-detail/:id', title: '用户详情', name: 'user-detail', component: resolve => { require(['@/views/user/user_detail/user_detail'], resolve) } },
 
@@ -119,26 +119,26 @@ export const appRouter = [
         component: Main, // 必填，同上
         children: [ // 必填，同上
             {
-                path: 'index', // 必填，同上
+                path: 'user_query', // 必填，同上
                 icon: 'ios-list', // 必填，同上
-                name: 'user-index', // 必填，同上
+                name: 'user_query', // 必填，同上
                 title: '用户列表', // 必填，将显示在左侧菜单栏二级菜单
                 component: resolve => { require(['@/views/user/index'], resolve); }, // 必填
             }
         ]
     },
     {
-        path: '/request',
+        path: '/demand',
         icon: 'document-text',
-        name: 'request', 
+        name: 'demand', 
         title: '需求管理', 
         access: 1,
         component: Main, 
         children: [ 
             {
-                path: 'index', 
+                path: 'demand_audit', 
                 icon: 'document-text', 
-                name: 'request-index', 
+                name: 'demand_audit', 
                 title: '需求列表', 
                 component: resolve => { require(['@/views/request/index'], resolve); }, 
             }
@@ -153,9 +153,9 @@ export const appRouter = [
         component: Main, 
         children: [ 
             {
-                path: 'index', 
+                path: 'service_audit', 
                 icon: 'clipboard', 
-                name: 'service-index', 
+                name: 'service_audit', 
                 title: '服务列表', 
                 component: resolve => { require(['@/views/service/index'], resolve); }, 
             }
@@ -219,14 +219,14 @@ export const appRouter = [
         component: Main, 
         children: [ 
             {
-                path: 'order-demand-list', 
-                name: 'order-demand-list', 
+                path: 'order_request', 
+                name: 'order_request', 
                 title: '需求订单', 
                 component: resolve => { require(['@/views/order/order_demand_list/order_demand_list'], resolve); }, 
             },
             {
-                path: 'order-service-list', 
-                name: 'order-service-list', 
+                path: 'order_service', 
+                name: 'order_service', 
                 title: '服务订单', 
                 component: resolve => { require(['@/views/order/order_service_list/order_service_list'], resolve); }, 
             }
@@ -246,9 +246,9 @@ export const appRouter = [
         ]
     },
     {
-        path: '/cash',
+        path: '/balance',
         icon: 'cash',
-        name: 'cash', 
+        name: 'balance', 
         title: '结算管理', 
         access: 1,
         component: Main, 
@@ -282,8 +282,8 @@ export const appRouter = [
         component: Main, 
         children: [ 
             {
-                path: 'advert_new_list', 
-                name: 'advert-new-list', 
+                path: 'new_advert_list', 
+                name: 'new_advert_list', 
                 title: '广告列表', 
                 component: resolve => { require(['@/views/advert/advert_new_list/advert_new_list'], resolve); }, 
             },
@@ -304,94 +304,110 @@ export const appRouter = [
         component: Main, 
         children: [ 
             {
-                path: 'category-general', 
-                name: 'category-general', 
+                path: 'category_general', 
+                name: 'category_general', 
                 title: '类目维护', 
                 component: resolve => { require(['@/views/category/category_general/category_general_index'], resolve); }, 
             },
             {
-                path: 'category-tab-general', 
-                name: 'category-tab-general', 
+                path: 'category_tab_general', 
+                name: 'category_tab_general', 
                 title: '标签维护', 
                 component: resolve => { require(['@/views/category/category_tab_general/category_tab_general_index'], resolve); }, 
             }
         ]
     },
     {
-        path: '/merchant',
+        path: '/business',
         icon: 'person-stalker',
-        name: 'merchant', 
+        name: 'business', 
         title: '商户管理', 
         access: 1,
         component: Main, 
         children: [ 
             {
-                path: 'after-merchant-enter', 
-                name: 'after-merchant-enter', 
+                path: 'after_merchant_enter_list', 
+                name: 'after_merchant_enter_list', 
                 title: '商户管理', 
                 component: resolve => { require(['@/views/merchant/after_merchant_enter'], resolve); }, 
             }
         ]
     },
     {
-        path: '/system',
+        path: '/locked',
+        icon: 'locked',
+        name: 'locked', 
+        title: '权限管理', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'locked_user', 
+                name: 'locked-user', 
+                title: '权限管理', 
+                component: resolve => { require(['@/views/locked/locked_user/locked_user'], resolve); }, 
+            }
+        ]
+    },
+    {
+        path: '/sys',
         icon: 'gear-b',
-        name: 'system', 
+        name: 'sys', 
         title: '系统配置', 
         access: 1,
         component: Main, 
         children: [ 
             {
                 path: 'system_settings', 
-                name: 'system-settings', 
+                name: 'system_settings', 
                 title: '系统变量管理', 
                 component: resolve => { require(['@/views/system/system_settings/system_settings_index'], resolve); }, 
             }
         ]
     },
     {
-        path: '/web_IM',
+        path: '/im',
         icon: 'android-chat',
-        name: 'web-IM', 
+        name: 'im', 
         title: 'IM', 
         access: 1,
         component: Main, 
         children: [ 
             {
-                path: 'web_IM_index', 
-                name: 'web-IM-index', 
+                path: 'web-im', 
+                name: 'web-im', 
                 title: 'IM', 
                 component: resolve => { require(['@/views/error-page/404.vue'], resolve); }, 
             }
         ]
     },
     {
-        path: '/app',
+        path: '/resources',
         icon: 'android-chat',
-        name: 'app', 
+        name: 'resources', 
         title: '资源管理', 
         access: 1,
         component: Main, 
         children: [ 
             {
                 path: 'app_list', 
-                name: 'app_list_index', 
+                name: 'app_list', 
                 title: '资源管理', 
                 component: resolve => { require(['@/views/app/app_list/app_list_index'], resolve); }, 
             }
         ]
     },
     {
-        path: '/feedback',
+        path: '/after',
         icon: 'ios-telephone',
-        name: 'after-feedback', 
+        name: 'after', 
         title: '售后管理', 
         access: 1,
         component: Main, 
         children: [ 
             {
-                path: 'after-feedback-list', 
-                name: 'after-feedback-list', 
+                path: 'after_feedback_list', 
+                name: 'after_feedback_list', 
                 title: '用户反馈管理', 
                 component: resolve => { require(['@/views/after_feedback/after_feedback_list/after_feedback_list'], resolve); }, 
             }

@@ -97,7 +97,9 @@ export default {
     },
     handleSuccess(res, file) {
       this.$Message.destroy();
+      //console.log(res)
       this.uploadList.push(res.result.file.innerUrl);
+      //console.log(this.uploadList)
     },
     handleFormatError(file) {
       this.$Notice.warning({

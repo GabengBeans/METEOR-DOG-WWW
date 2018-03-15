@@ -68,17 +68,21 @@
           <b>{{data.modeTypeData}}</b>
         </div>
         <br>
-        <div class="user_detail_div">
+          <div class="user_detail_div">
+            <label class="from_label">需求区域:</label>
+            <b>{{data.area}}</b>
+          </div>
+        <br>
+        <!-- <div class="user_detail_div">
           <label class="from_label">需求位置:</label>
           <b>{{data.address}}</b>
-        </div>
-        <br>
-        <div class="user_detail_media">
+        </div> -->
+        <div class="user_detail_div">
           <label class="from_label">需求图片:</label>
           <UserEditImgList :change="false" :imgList="data.mediaImg"></UserEditImgList>
         </div>
         <br>
-        <div class="user_detail_media">
+        <div class="user_detail_div">
           <label class="from_label">需求视频:</label>
           <div class="demo-upload-list" v-if="data.mediaVideoImg">
             <template>
@@ -228,39 +232,14 @@ export default {
 </script>
 <style>
 .user_detail_div {
-  border-bottom: 1px solid rgb(219, 207, 207);
-}
-.user_detail_media {
- border-bottom: 1px solid rgb(219, 207, 207);
-}
-.from_label {
   margin-left: 3vw;
   font-size: 16px;
   font-weight: bold;
-  line-height: 16px;
-  display: inline-block;
-  min-width: 75px;
-  min-height: 16px;
+  width: 80vw;
+  border-bottom: 1px solid rgb(219, 207, 207);
 }
-.demo-upload-list {
-  display: inline-block;
-  min-width: 150px;
-  min-height: 150px;
-  width: 8vw;
-  height: 16vh;
-  text-align: center;
-  line-height: 60px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  overflow: hidden;
-  background: #fff;
-  position: relative;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  margin-right: 4px;
-}
-.demo-upload-list img {
-  width: 100%;
-  height: 100%;
+.from_label {
+  margin-left: 3vw;
 }
 </style>
 

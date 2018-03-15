@@ -19,9 +19,9 @@
             </Form>
         </Row>
         <Row :gutter='16'>
-            <Form label-position="right" :label-width="60">
+            <Form label-position="right" :label-width="70" ref="advert_new_add" :model="data" :rules="ruleValidate">
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
-                <FormItem label="广告名称">
+                <FormItem label="广告名称" prop="adName">
                     <Input clearable v-model="data.adName" />
                 </FormItem>
                 <FormItem label="上传">
@@ -76,22 +76,22 @@
                 </FormItem>
                 </Col>
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
-                <FormItem label="业务">
-                    <Input clearable v-model="data.businessId" />
+                <FormItem label="业务ID" prop="businessId">
+                    <Input  v-model="data.businessId" />
                 </FormItem>
                 </Col>
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
-                <FormItem label="业务类型">
+                <FormItem label="业务类型" prop="adType">
                     <Input clearable v-model="data.adType" />
                 </FormItem>
                 </Col>
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
-                <FormItem label="序号">
-                    <Input clearable v-model="data.adSort" />
+                <FormItem label="序号" prop="adSort">
+                    <Input v-model="data.adSort" />
                 </FormItem>
                 </Col>
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
-                <FormItem label="媒体类型">
+                <FormItem label="媒体类型" >
                     <Select v-model="data.mediaType">
                         <Option :value=1>图片</Option>
                         <Option :value=2>视频</Option>
@@ -113,6 +113,20 @@ export default {
       tags: [],
       level: "",
       names: [],
+      ruleValidate:{
+        adName: [
+                { required: true, message: '广告名称不能为空'}
+              ],
+        businessId: [
+                        { required: true, message: '业务ID不能为空'},
+                    ], 
+        adType:[
+          {required:true,message:"业务类型不能为空"}
+        ],
+        adSort:[
+          {required:true,message:"序号不能为空"}
+        ]
+      }
     };
   },
   computed: {
@@ -133,7 +147,7 @@ export default {
   },
   methods: {
     handleRemove(file) {
-      console.log(1111)
+      //console.log(1111)
       console.log(this.data.imgUrl)
       this.data.imgUrl = "";
     },

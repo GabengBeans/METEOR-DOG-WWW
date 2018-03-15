@@ -110,8 +110,14 @@
                         <UserEditImgList :change="true"  :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo"></UserEditImgList>
                     </div>
                     <br>
-
-                    <FormItem style=" border-bottom: 1px solid rgb(219, 207, 207); padding-bottom:1vh">
+                    <FormItem>
+                      <div class="user_detail_div">
+                        <label class="from_label">需求区域:</label>
+                        <Input clearable style="width: 10vw;min-width:100px;" v-model='data.area' />
+                      </div>
+                    </FormItem>
+                    <br>
+                    <!-- <FormItem style=" border-bottom: 1px solid rgb(219, 207, 207); padding-bottom:1vh">
                         <div>
                             <label class="from_label">需求位置:</label>
                             <AutoComplete clearable :value="data.address" @input="serach_place" style="width: 15vw;min-width:100px;">
@@ -123,7 +129,7 @@
                             </div>
                         </div>
                     </FormItem>
-                    <br><br>
+                    <br><br> -->
                     <div style="color:blue;font-size:22px;text-align:center">
                         需求审核
                     </div>
@@ -367,9 +373,6 @@ export default {
   border-bottom: 1px solid rgb(219, 207, 207);
 }
 .user_detail_media {
-  height: 18vh;
-  line-height: 18vh;
-  min-height: 180px;
   border-bottom: 1px solid rgb(219, 207, 207);
 }
 .from_label {

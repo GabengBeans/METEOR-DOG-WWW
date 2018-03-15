@@ -17,12 +17,12 @@
                     label-position="right"
                     :rules="inforValidate"
                 >
-                    <FormItem label="用户姓名：" prop="name">
+                    <FormItem label="用户：" >
                         <div style="display:inline-block;width:300px;">
-                            <Input v-model="userForm.name" ></Input>
+                           <b>{{name}}</b>
                         </div>
                     </FormItem>
-                    <FormItem label="用户手机：" prop="cellphone" >
+                    <!-- <FormItem label="用户手机：" prop="cellphone" >
                         <div style="display:inline-block;width:204px;">
                             <Input v-model="userForm.cellphone" @on-keydown="hasChangePhone"></Input>
                         </div>
@@ -38,20 +38,20 @@
                                 </div>
                             </div>
                         </div>
-                    </FormItem>
+                    </FormItem> -->
                     <FormItem label="公司：">
-                        <span>{{ userForm.company }}</span>
+                        <b>{{company}}</b>
                     </FormItem>
-                    <FormItem label="部门：">
+                    <!-- <FormItem label="部门：">
                         <span>{{ userForm.department }}</span>
-                    </FormItem>
+                    </FormItem> -->
                     <FormItem label="登录密码：">
                         <Button type="text" size="small" @click="showEditPassword">修改密码</Button>
                     </FormItem>
-                    <div>
+                    <!-- <div>
                         <Button type="text" style="width: 100px;" @click="cancelEditUserInfor">取消</Button>
                         <Button type="primary" style="width: 100px;" :loading="save_loading" @click="saveEdit">保存</Button>
-                    </div>
+                    </div> -->
                 </Form>
             </div>
         </Card>
@@ -77,6 +77,9 @@
 </template>
 
 <script>
+import Cookies from "js-cookie"
+import Util from "@/libs/util"
+import baseUri from "@/libs/base_uri"
 export default {
     name: 'ownspace_index',
     data () {
@@ -96,8 +99,9 @@ export default {
             }
         };
         return {
+            name:Cookies.get("user"),
+            company:"大恩德成",
             userForm: {
-                name: '',
                 cellphone: '',
                 company: '',
                 department: ''
@@ -171,6 +175,7 @@ export default {
         },
         showEditPassword () {
             this.editPasswordModal = true;
+            this.init()
         },
         cancelEditUserInfor () {
             this.$store.commit('removeTag', 'ownspace_index');
@@ -208,19 +213,47 @@ export default {
             this.editPasswordModal = false;
         },
         saveEditPass () {
-            this.$refs['editPasswordForm'].validate((valid) => {
-                if (valid) {
-                    this.savePassLoading = true;
-                    // you can write ajax request here
-                }
-            });
+             this.savePassLoading = true;
+            // this.$refs['editPasswordForm'].validate((valid) => {
+            //     if (valid) {
+            //         this.savePassLoading = true;
+            //         // you can write ajax request here
+            //     }
+            // });
+            let data = {
+                password:Cookies.get("password"),
+                newPassword:this.editPasswordForm.rePass,
+                userId:Cookies.get("userId"),
+            }
+            if(this.editPasswordForm.oldPass == Cookies.get("password"))
+            {
+                Util.ajax({
+                    method:"post",
+                    url:baseUri.admin_update_password_url,
+                    data:Util.formData(data)
+                }).then(res=>{
+                    if(res.data.success)
+                    {
+                        this.savePassLoading = false
+                        this.$Message.success("修改成功")
+                        this.editPasswordModal = false
+                        Cookies.set("password",this.editPasswordForm.rePass)
+                    }else{
+                        this.$Message.error("修改失败")
+                    }
+                }).catch(error=>{
+                    console.log(error)
+                })
+
+                
+            }else{
+                this.$Message.error("原密码错误")
+            }
         },
         init () {
-            this.userForm.name = 'Lison';
-            this.userForm.cellphone = '17712345678';
-            this.initPhone = '17712345678';
-            this.userForm.company = 'TalkingData';
-            this.userForm.department = '可视化部门';
+            this.editPasswordForm.oldPass = ""
+            this.editPasswordForm.newPass = ""
+            this.editPasswordForm.rePass = ""
         },
         cancelInputCodeBox () {
             this.inputCodeVisible = false;

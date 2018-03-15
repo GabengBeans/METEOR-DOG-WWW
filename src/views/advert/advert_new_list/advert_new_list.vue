@@ -45,7 +45,7 @@
         <AddAdverNew :data="addAdverNewdata"></AddAdverNew>
       </div>
       <div slot="footer">
-        <Button type="success" @click="addAdverNew">保存</Button>
+        <Button type="success" @click="addAdverNew('advert_new_add')">保存</Button>
         <Button type="error" @click="showAddAdvert=false">返回</Button>
       </div>
     </Modal>
@@ -179,7 +179,7 @@ export default {
       }
       this.showAddAdvert = true;
     },
-    addAdverNew: function() {
+    addAdverNew: function(name) {
       //console.log(this.addAdverNewdata);
       for (let x in this.addAdverNewdata) {
         if (!this.addAdverNewdata[x]) {

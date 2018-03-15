@@ -68,17 +68,22 @@
           <b>{{data.modeTypeData}}</b>
         </div>
         <br>
-        <div class="user_detail_div">
+         <div class="user_detail_div">
+          <label class="from_label">服务区域:</label>
+          <b>{{data.area}}</b>
+        </div>
+        <br>
+        <!-- <div class="user_detail_div">
           <label class="from_label">服务位置:</label>
           <b>{{data.address}}</b>
         </div>
-        <br>
-        <div class="user_detail_media">
+        <br> -->
+        <div class="user_detail_div">
           <label class="from_label">服务图片:</label>
           <UserEditImgList :change="false" :imgList="data.mediaImg"></UserEditImgList>
         </div>
         <br>
-        <div class="user_detail_media">
+        <div class="user_detail_div">
           <label class="from_label">服务视频:</label>
           <div class="demo-upload-list" v-if="data.mediaVideoImg">
             <template>
@@ -228,19 +233,14 @@ export default {
 </script>
 <style>
 .user_detail_div {
-  border-bottom: 1px solid rgb(219, 207, 207);
-}
-.user_detail_media {
+  margin-left: 3vw;
+  font-size: 16px;
+  font-weight: bold;
+  width: 80vw;
   border-bottom: 1px solid rgb(219, 207, 207);
 }
 .from_label {
   margin-left: 3vw;
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 16px;
-  display: inline-block;
-  min-width: 75px;
-  min-height: 16px;
 }
 
 </style>

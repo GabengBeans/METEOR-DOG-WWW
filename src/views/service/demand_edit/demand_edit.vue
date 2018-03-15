@@ -107,16 +107,22 @@
           <br>
           <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
             <label class="from_label">服务图片:</label>图片限制大小2M
-            <UserEditImgList :imgList="data.mediaImg" :upload="true"></UserEditImgList>
+            <UserEditImgList :change="true" :imgList="data.mediaImg" :upload="true"></UserEditImgList>
           </div>
           <br>
           <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
             <label class="from_label">服务视频:</label>视频限制大小200M
-            <UserEditImgList :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo" :upload="true"></UserEditImgList>
+            <UserEditImgList :change="true" :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo" :upload="true"></UserEditImgList>
           </div>
           <br>
-
-          <FormItem style=" border-bottom: 1px solid rgb(219, 207, 207); padding-bottom:1vh">
+          <FormItem>
+            <div class="user_detail_div">
+              <label class="from_label">服务区域:</label>
+              <Input clearable style="width: 10vw;min-width:100px;" v-model='data.area' />
+            </div>
+          </FormItem>
+          <br>
+          <!-- <FormItem style=" border-bottom: 1px solid rgb(219, 207, 207); padding-bottom:1vh">
             <div>
               <label class="from_label">服务位置:</label>
               <AutoComplete clearable :value="data.address" @input="serach_place" style="width: 15vw;min-width:100px;">
@@ -128,7 +134,7 @@
               </div>
             </div>
           </FormItem>
-          <br><br>
+          <br><br> -->
           <div style="color:blue;font-size:22px;text-align:center">
             服务审核
           </div>
@@ -415,9 +421,6 @@ export default {
   border-bottom: 1px solid rgb(219, 207, 207);
 }
 .user_detail_media {
-  height: 18vh;
-  line-height: 18vh;
-  min-height: 180px;
   border-bottom: 1px solid rgb(219, 207, 207);
 }
 .from_label {

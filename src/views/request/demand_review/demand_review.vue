@@ -68,11 +68,16 @@
           <b>{{data.modeTypeData}}</b>
         </div>
         <br>
-        <div class="user_detail_div">
+          <div class="user_detail_div">
+            <label class="from_label">需求区域:</label>
+            <b>{{data.area}}</b>
+          </div>
+        <br>
+        <!-- <div class="user_detail_div">
           <label class="from_label">需求位置:</label>
           <b>{{data.address}}</b>
         </div>
-        <br>
+        <br> -->
         <div class="user_detail_media">
           <label class="from_label">需求图片:</label>
           <div class="demo-upload-list" v-for="item in data.mediaImg" :key="item.key">
@@ -292,9 +297,6 @@ export default {
   border-bottom: 1px solid rgb(219, 207, 207);
 }
 .user_detail_media {
-  height: 18vh;
-  line-height: 18vh;
-  min-height: 180px;
   border-bottom: 1px solid rgb(219, 207, 207);
 }
 .from_label {
@@ -308,10 +310,8 @@ export default {
 }
 .demo-upload-list {
   display: inline-block;
-  min-width: 150px;
-  min-height: 150px;
-  width: 8vw;
-  height: 16vh;
+  width: 200px;
+  height: 200px;
   text-align: center;
   line-height: 60px;
   border: 1px solid transparent;

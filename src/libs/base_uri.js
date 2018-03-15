@@ -4,6 +4,8 @@ let base_uri = {
     //用户地址
     userLogin: "/admin/v1/oauth/token",
 
+    //password
+    admin_update_password_url :"/admin/v1/admin_user/update_password",
     //服务地址
     serviceList: "admin/v1/service/search_services_for_page",
     serviceDetail: "/admin/v1/service/detail/",

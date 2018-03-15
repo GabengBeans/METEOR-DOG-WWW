@@ -66,7 +66,7 @@
             <Button icon="ios-plus-empty" type="dashed" size="small" @click="handleAdd">添加标签</Button>
           </FormItem>
           <FormItem>
-            <label class="from_label">认证证书</label>
+            <label class="from_label">个人简介</label>
             <Input v-model="user_data.resumes[3].content" type="textarea" style="width: 15vw;min-width:100px;" :autosize="{minRows: 2,maxRows: 5}" />
           </FormItem>
           <FormItem>
@@ -80,6 +80,10 @@
           <FormItem>
             <label class="from_label">项目经验</label>
             <Input v-model="user_data.resumes[1].content" type="textarea" style="width: 15vw;min-width:100px;" :autosize="{minRows: 2,maxRows: 5}" />
+          </FormItem>
+          <FormItem>
+            <label class="from_label">认证证书</label>
+            <Input v-model="user_data.certificates[0].content" type="textarea" style="width: 15vw;min-width:100px;" :autosize="{minRows: 2,maxRows: 5}" />
           </FormItem>
         </Form>
         <label class="from_label">上传图片</label>图片不能大于2M
@@ -217,12 +221,18 @@ export default {
       this.user_data.avatarUrl = res.result.file.innerUrl;
     },
     saveInfo: function() {
-      console.log(this.resumeList);
+      //console.log(this.user_data);
       this.$Message.loading({
         content: "保存中...",
         duration: 0
       });
-      let data = {};
+      let imgList=[]
+      for(let x = 0;x<this.user_data.certificates[0].imageUrls.length;x++)
+      {
+        imgList.push(this.user_data.certificates[0].imageUrls[x])
+      }
+     
+      console.log(imgList)
       Util.ajax({
         method: "post",
         url: baseUri.user_edit_url,
@@ -242,13 +252,14 @@ export default {
           lat: this.user_data.addressLat,
           lon: this.user_data.addressLon,
           tagList: this.user_data.listTags,
-          certificate: this.user_data.certificates[0].imageUrls,
+          certificate:imgList,
+          certificateContent:this.user_data.certificates[0].content,
           resumeList: this.resumeList
         }
       }).then(response => {
         this.$Message.destroy();
         this.$Message.success("保存成功");
-        console.log(response.data);
+        //console.log(response.data);
       });
     }
   },
@@ -339,7 +350,7 @@ export default {
               //console.log(src_obj.certificates[0].imageUrls.replace(/[\[*\]]/g,'').split(','))
               //console.log(src_obj[x])
               new_obj.certificates[0].imageUrls = src_obj.certificates[0].imageUrls
-                .replace(/[\[*\]]/g, "")
+                .replace(/[\["*"\]]/g, "")
                 .split(",");
               //console.log(new_obj.certificates[0].imageUrl)
               // for (

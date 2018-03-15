@@ -69,6 +69,8 @@ export default {
                             }
                         }).then(resp => {
                             if(resp.data.success){
+                                console.log(resp)
+                                Cookies.set("userId",resp.data.data.userId)
                                 Cookies.set('user', obj.form.userName,);
                                 Cookies.set('password', obj.form.password);
                                 Cookies.set('token',resp.data.data.token,{ expires: 30, path: '' });
@@ -78,7 +80,7 @@ export default {
                                     name: 'home_index'
                                 });
                             }else{
-                                obj.closable(resp.data.msg);
+                                obj.closable("账户或密码错误");
                             }
 
                         }).catch(err => {
@@ -90,7 +92,7 @@ export default {
         closable: function(msg) {
             this.$Message.error({
                 content: msg,
-                duration: 10,
+                duration: 3,
                 closable: true
             });
         }
