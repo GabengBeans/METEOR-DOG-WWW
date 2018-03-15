@@ -254,7 +254,7 @@ export default {
             this.$Message.success("保存成功");
             this.$store.commit("GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO", {
               data: { level: this.searchConfig.level.value },
-              pageNo: 1
+              pageNo: this.$store.state.app.advert_position_public_page
             });
             this.showAddSubAdertBits = false;
           }else {

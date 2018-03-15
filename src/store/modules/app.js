@@ -13,6 +13,7 @@ const app = {
         },
         user_search_info: { "status": "-1" },//用户页搜索条件
         user_search_result: [],//用户页搜过结果
+        user_public_page:1,
 
         //需求公共状态
         request_page_info: {
@@ -21,6 +22,7 @@ const app = {
         },
         request_search_info: { "businessStatus": "0", "status": "-1" },
         request_search_result: [],
+        request_public_page:1,
 
         //服务公共状态
         service_page_info: {
@@ -29,6 +31,7 @@ const app = {
         },
         service_search_info: { "businessStatus": "0", "status": "-1" },
         service_search_result: [],
+        service_public_page:1,
 
         //需求订单公共状态
         order_demand_page_info: {
@@ -37,6 +40,7 @@ const app = {
         },
         order_demand_search_info: { "businessType": "2", "orderStatus": "0" },
         order_demand_search_result: [],
+        order_demand_public_page:1,
 
         //服务订单公共状态
         order_service_page_info: {
@@ -45,6 +49,7 @@ const app = {
         },
         order_service_search_info: { "businessType": "1", "orderStatus": "0" },
         order_service_search_result: [],
+        order_service_public_page:1,
 
         //资金流水公共状态
         cash_flow_search_info: { "chargeStatus": "-1", "tradeType": "0" },
@@ -53,6 +58,7 @@ const app = {
             totalPage: 0
         },
         cash_flow_search_result: [],
+        cash_flow_public_page:1,
 
         //保障金
         cash_refund_search_info: { "bondStatus": "-1" },
@@ -61,6 +67,7 @@ const app = {
             totalPage: 0
         },
         cash_refund_search_result: [],
+        cash_refund_public_page:1,
 
         //提现
         cash_withdraw_search_info: { "applyStatus": "-1" },
@@ -69,6 +76,7 @@ const app = {
             totalPage: 0
         },
         cash_withdraw_search_result: [],
+        cash_withdraw_public_page:1,
 
         //商户入驻
         merchant_enter_search_info: {},
@@ -77,6 +85,7 @@ const app = {
             totalPage: 0
         },
         merchant_enter_search_result: [],
+        merchant_enter_public_page:1,
 
         //广告
         advert_new_search_info: {},
@@ -85,6 +94,7 @@ const app = {
             totalPage: 0
         },
         advert_new_search_result: [],
+        advert_new_public_page:1,
 
         //广告位
         advert_position_search_info: {},
@@ -93,6 +103,7 @@ const app = {
             totalPage: 0
         },
         advert_position_search_result: [],
+        advert_position_public_page:1,
 
         //售后管理
         after_feedback_search_info: {},
@@ -101,6 +112,7 @@ const app = {
             totalPage: 0
         },
         after_feedback_search_result: [],
+        after_feedback_public_page:1,
 
         // 拓展用户--代理人
         expand_page_info: {
@@ -109,6 +121,7 @@ const app = {
         },
         expand_search_info: { "expandStatus": "-1" },
         expand_search_result: [],
+        
         // 拓展用户--返佣订单审核
         brokerage_order_info: {
             currentPage: 1,
@@ -144,6 +157,7 @@ const app = {
             totalPage: 0
         },
         system_settings_search_result: [],
+        system_settings_public_page:1,
 
         //app管理
         app_search_info:{},
@@ -152,6 +166,7 @@ const app = {
             totalPage: 0
         },
         app_search_result: [],
+        app_public_page:1,
 
         cachePage: [],
         lang: '',
@@ -338,6 +353,7 @@ const app = {
         //获取用户信息
         GET_USER_INFO(state, { data, pageNo }) {
             state.user_search_info = data
+            state.user_public_page = pageNo
             Util.ajax({
                 method: "post",
                 url: base_uri.user_search_for_page_url,
@@ -372,6 +388,7 @@ const app = {
         //需求信息
         GET_REQUEST_INFO(state, { data, pageNo }) {
             state.request_search_info = data
+            state.request_public_page = pageNo
             Util.ajax({
                 method: "post",
                 url: base_uri.demand_search_demands_for_page_url,
@@ -406,6 +423,7 @@ const app = {
         //服务信息
         GET_SERVICE_INFO(state, { data, pageNo }) {
             state.service_search_info = data
+            state.service_public_page = pageNo
             Util.ajax({
                 method: "post",
                 url: base_uri.service_search_services_page_url,
@@ -439,6 +457,7 @@ const app = {
         //需求订单
         GET_ORDER_DEMAND_INFO(state, { data, pageNo }) {
             state.order_demand_search_info = data
+            state.order_demand_public_page = pageNo
             //console.log(data)
             Util.ajax({
                 method: "post",
@@ -472,6 +491,7 @@ const app = {
         //服务订单
         GET_ORDER_SERVICE_INFO(state, { data, pageNo }) {
             state.order_service_search_info = data
+            state.order_service_public_page = pageNo
             //console.log(data)
             Util.ajax({
                 method: "post",
@@ -505,6 +525,7 @@ const app = {
         //拓展信息
         GET_EXPAND_INFO(state, { data, pageNo }) {
             state.expand_search_info = data
+            state.expand_public_page = pageNo            
             Util.ajax({
                 method: "post",
                 url: base_uri.extend_user_search_ex_userinfo_for_page,
@@ -539,7 +560,8 @@ const app = {
         },
         //资金信息
         GET_CASH_FLOW_INFO(state, { data, pageNo }) {
-            state.cash_flow_serch_info = data
+            state.cash_flow_search_info = data
+            state.cash_flow_public_page = pageNo                        
             Util.ajax({
                 method: "post",
                 url: base_uri.cash_search_account_log_url,
@@ -582,7 +604,8 @@ const app = {
         },
         //保障金退回
         GET_CASH_REFUND_INFO(state, { data, pageNo }) {
-            state.cash_flow_serch_info = data
+            state.cash_flow_search_info = data
+            state.cash_flow_public_page = pageNo                                    
             Util.ajax({
                 method: "post",
                 url: base_uri.account_search_bond_for_page_url,
@@ -618,6 +641,7 @@ const app = {
         //提现申请
         GET_CASH_WITHDRAW_INFO(state, { data, pageNo }) {
             state.cash_flow_serch_info = data
+            state.cash_flow_public_page = pageNo                                    
             Util.ajax({
                 method: "post",
                 url: base_uri.cash_search_withdraw_for_page_url,
@@ -653,6 +677,8 @@ const app = {
         //商户入住
         GET_MERCHANT_ENTER_INFO(state, { data, pageNo }) {
             state.merchant_enter_search_info = data
+            state.merchant_enter_public_page = pageNo                        
+            
             Util.ajax({
                 method: "post",
                 url: base_uri.search_business_info_for_page_url,
@@ -680,8 +706,10 @@ const app = {
                 console.log(error)
             })
         },
+        //拓展管理
         GET_BROKERAGE_ORDER_INFO(state, { data, pageNo }) {
-            state.brokerage_order_search_info = data
+            state.brokerage_order_search_info = data         
+            
             Util.ajax({
                 method: "post",
                 url: base_uri.brokerage_order_search_for_page,
@@ -715,8 +743,10 @@ const app = {
         //广告管理
         GET_ADVERT_NEW_INFO(state, { data, pageNo }) {
             state.advert_new_search_info = data
+            state.advert_new_public_page = pageNo                        
+            
             Util.ajax({
-                method: "post",
+                method: "post", 
                 url: base_uri.advert_query_advert_url,
                 params: {
                     pageNo: pageNo || 1,
@@ -745,6 +775,8 @@ const app = {
         //广告位管理
         GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO(state, { data, pageNo }) {
             state.advert_position_search_info = data
+            state.advert_position_public_page = pageNo                        
+            
             Util.ajax({
                 method: "post",
                 url: base_uri.advert_position_search_for_page_url,
@@ -778,6 +810,8 @@ const app = {
         //售后管理
         GET_AFTER_FEEDBACK_INFO(state, { data, pageNo }) {
             state.after_feedback_search_info = data
+            state.after_feedback_public_page = pageNo                        
+            
             Util.ajax({
                 method: "post",
                 url: base_uri.after_feedback_query_for_page,
@@ -919,6 +953,8 @@ const app = {
         //系统变量
         GET_SYSTEM_SETTINGS_SEARCH_INFO(state,{data,pageNo}){
             state.system_settings_search_info = data
+            state.system_settings_public_page = pageNo                        
+            
             Util.ajax({
                 method:"post",
                 url:base_uri.search_setting_info_for_page,
@@ -951,6 +987,8 @@ const app = {
         //app管理
         GET_APP_SEARCH_INFO(state,{data,pageNo})
         {
+            state.app_public_page = pageNo                        
+
             Util.ajax({
                 method:"post",
                 url:base_uri.app_search_url,

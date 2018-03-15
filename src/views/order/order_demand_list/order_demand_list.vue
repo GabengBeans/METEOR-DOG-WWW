@@ -20,7 +20,7 @@ export default {
   },
    created(){
        //console.log("初始化")
-      this.$store.commit("GET_ORDER_DEMAND_INFO",{data:this.$store.state.app.order_demand_search_info,pageNo:1})
+      this.$store.commit("GET_ORDER_DEMAND_INFO",{data:this.$store.state.app.order_demand_search_info,pageNo:this.$store.state.app.order_demand_public_page})
   }
 }
 </script>

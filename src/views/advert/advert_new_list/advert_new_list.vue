@@ -328,7 +328,7 @@ export default {
           this.btn = false;
           this.$store.commit("GET_ADVERT_NEW_INFO", {
             data: { level: this.level, positionId: this.id },
-            pageNo: 1
+            pageNo: this.$store.state.app.advert_new_public_page
           });
         } else {
           this.$Message.error("获取信息失败");

@@ -52,7 +52,7 @@ export default {
   created() {
     this.$store.commit("GET_SYSTEM_SETTINGS_SEARCH_INFO", {
       data: {},
-      pageNo: 1
+      pageNo: this.$store.state.app.system_settings_public_page
     });
   },
   methods: {

@@ -83,7 +83,7 @@ export default {
     Page
   },
   created() {
-    this.$store.commit("GET_APP_SEARCH_INFO", { data: {}, pageNo: 1 });
+    this.$store.commit("GET_APP_SEARCH_INFO", { data: {}, pageNo: this.$store.state.app.app_public_page });
   }
 };
 </script>

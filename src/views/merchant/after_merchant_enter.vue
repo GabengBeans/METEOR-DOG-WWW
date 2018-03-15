@@ -29,7 +29,7 @@ export default {
   created() {
     this.$store.commit("GET_MERCHANT_ENTER_INFO", {
       data: this.$store.state.app.merchant_enter_search_info,
-      pageNo: 1
+      pageNo: this.$store.state.app.merchant_enter_public_page
     });
   }
 };
