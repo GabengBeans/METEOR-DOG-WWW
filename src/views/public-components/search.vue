@@ -19,50 +19,85 @@
 <script>
 export default {
   name: "user_search",
-  props:["data","storeStatus"],
+  props: ["data", "storeStatus"],
   methods: {
     search: function() {
       let obj = {};
       for (let x in this.data) {
         if (this.data[x].value != "") {
-            obj[x] = this.data[x].value;
+          obj[x] = this.data[x].value;
         }
       }
-      console.log(obj)
-      switch(this.storeStatus){
-        case "cashFlow": 
+      //console.log(obj)
+      switch (this.storeStatus) {
+        case "cashFlow":
           //this.$store.state.app.cash_flow_search_info = obj
           this.$store.commit("GET_CASH_FLOW_INFO", { data: obj, pageNo: 1 });
-        break
-        case "cashRefund": 
-        //console.log(obj)
+          break;
+        case "cashRefund":
+          //console.log(obj)
           //this.$store.state.app.cash_refund_search_info = obj
           this.$store.commit("GET_CASH_REFUND_INFO", { data: obj, pageNo: 1 });
-        break
-        case "cashWithDraw": 
+          break;
+        case "cashWithDraw":
           //this.$store.state.app.cash_withdraw_search_info = obj
-          this.$store.commit("GET_CASH_WITHDRAW_INFO", { data: obj, pageNo: 1 });
-        break
-        case "afterMerchantEnter": 
+          this.$store.commit("GET_CASH_WITHDRAW_INFO", {
+            data: obj,
+            pageNo: 1
+          });
+          break;
+        case "afterMerchantEnter":
           //this.$store.state.app.merchant_enter_search_info = obj
-          this.$store.commit("GET_MERCHANT_ENTER_INFO", { data: obj, pageNo: 1 });
-        break
-        case "advertNewBits": 
+          this.$store.commit("GET_MERCHANT_ENTER_INFO", {
+            data: obj,
+            pageNo: 1
+          });
+          break;
+        case "advertNewBits":
           //this.$store.state.app.merchant_enter_search_info = obj
-          this.$store.commit("GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO", { data: obj, pageNo: 1 });
-        break
-        case "afterFeedBackListSearch": 
+          this.$store.commit("GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO", {
+            data: obj,
+            pageNo: 1
+          });
+          break;
+        case "afterFeedBackListSearch":
           //this.$store.state.app.merchant_enter_search_info = obj
-          this.$store.commit("GET_AFTER_FEEDBACK_INFO", { data: obj, pageNo:1 });
-        break
-        case "statisticsTransactionSearch": 
+          this.$store.commit("GET_AFTER_FEEDBACK_INFO", {
+            data: obj,
+            pageNo: 1
+          });
+          break;
+        case "statisticsTransactionSearch":
           //this.$store.state.app.merchant_enter_search_info = obj
-          this.$store.commit("GET_ORDER_STATISTICS_SEARCH_INFO", { time: obj});
-        break
-        case "systemSettingSearch": 
+          this.$store.commit("GET_ORDER_STATISTICS_SEARCH_INFO", { time: obj });
+          break;
+        case "systemSettingSearch":
           //this.$store.state.app.merchant_enter_search_info = obj
-          this.$store.commit("GET_SYSTEM_SETTINGS_SEARCH_INFO", { data: obj,pageNo: 1 });
-        break
+          this.$store.commit("GET_SYSTEM_SETTINGS_SEARCH_INFO", {
+            data: obj,
+            pageNo: 1
+          });
+          break;
+        case "user":
+          //this.$store.state.app.merchant_enter_search_info = obj
+          this.$store.commit("GET_USER_INFO", { data: obj, pageNo: 1 });
+          break;
+        case "request":
+          //this.$store.state.app.merchant_enter_search_info = obj
+          this.$store.commit("GET_REQUEST_INFO", { data: obj, pageNo: 1 });
+          break;
+        case "service":
+          //this.$store.state.app.merchant_enter_search_info = obj
+          this.$store.commit("GET_SERVICE_INFO", { data: obj, pageNo: 1 });
+          break;
+        case "orderService":
+          //this.$store.state.app.merchant_enter_search_info = obj
+          this.$store.commit("GET_ORDER_SERVICE_INFO", { data: obj, pageNo: 1 });
+          break;
+        case "orderDemand":
+          //this.$store.state.app.merchant_enter_search_info = obj
+          this.$store.commit("GET_ORDER_DEMAND_INFO", { data: obj, pageNo: 1 });
+          break;
       }
     }
   }

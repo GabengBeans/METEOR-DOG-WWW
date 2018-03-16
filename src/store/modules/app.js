@@ -363,7 +363,7 @@ const app = {
                 },
                 data: data
             }).then((response) => {
-                console.log(response)
+                //console.log(response)
                 state.user_page_info.currentPage = parseInt(response.data.data.page)
                 state.user_page_info.totalPage = parseInt(response.data.data.totalCount)
                 //console.log(typeof state.user_page_info.currentPage)
@@ -456,6 +456,7 @@ const app = {
         },
         //需求订单
         GET_ORDER_DEMAND_INFO(state, { data, pageNo }) {
+            Vue.set(data,'businessType','2')
             state.order_demand_search_info = data
             state.order_demand_public_page = pageNo
             //console.log(data)
@@ -490,6 +491,7 @@ const app = {
         },
         //服务订单
         GET_ORDER_SERVICE_INFO(state, { data, pageNo }) {
+            Vue.set(data,'businessType','1')
             state.order_service_search_info = data
             state.order_service_public_page = pageNo
             //console.log(data)
@@ -604,8 +606,8 @@ const app = {
         },
         //保障金退回
         GET_CASH_REFUND_INFO(state, { data, pageNo }) {
-            state.cash_flow_search_info = data
-            state.cash_flow_public_page = pageNo                                    
+            state.cash_refund_search_info = data
+            state.cash_refund_public_page = pageNo                                    
             Util.ajax({
                 method: "post",
                 url: base_uri.account_search_bond_for_page_url,
@@ -640,8 +642,8 @@ const app = {
         },
         //提现申请
         GET_CASH_WITHDRAW_INFO(state, { data, pageNo }) {
-            state.cash_flow_serch_info = data
-            state.cash_flow_public_page = pageNo                                    
+            state.cash_withdraw_search_info = data
+            state.cash_withdraw_public_page = pageNo                                    
             Util.ajax({
                 method: "post",
                 url: base_uri.cash_search_withdraw_for_page_url,

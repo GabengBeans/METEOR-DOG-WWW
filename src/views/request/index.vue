@@ -1,18 +1,25 @@
 <template>
     <div>
         <br><br>
-        <search></search>
+        <search :data="searchConfig" :storeStatus="status"></search>
         <br><br>
         <requestTable></requestTable>
         <br>
-        <requestPage></requestPage>
+        <requestPage :storeStatus="status" :currentPage="$store.state.app.request_page_info.currentPage" :totalPage="$store.state.app.request_page_info.totalPage"></requestPage>
     </div>
 </template>
 <script>
-import search from './search.vue'
+import config from "./config"
+import search from '@/views/public-components/search'
 import requestTable from './table.vue'
-import requestPage from "./request_change_page.vue"
+import requestPage from "@/views/public-components/changePage"
 export default {
+    data(){
+        return {
+            status:"request",
+            searchConfig:config.requestSearch
+        }
+    },
   components:{
       search,
       requestTable,
