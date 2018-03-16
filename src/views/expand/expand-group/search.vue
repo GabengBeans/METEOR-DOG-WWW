@@ -23,34 +23,12 @@ export default {
     return {
       data: {
         id: {
-          tagName: "代理人ID",
+          tagName: "组id",
           value: ""
         },
-        phone: {
-          tagName: "手机号",
+        groupName: {
+          tagName: "组名称",
           value: ""
-        },
-        nickname: {
-          tagName: "代理人",
-          value: ""
-        },
-        expandStatus: {
-          tagName: "有效状态",
-          value: "-1",
-          tag: {
-            op1: {
-              num: "-1",
-              value: "全部"
-            },
-            op2: {
-              num: "1",
-              value: "有效"
-            },
-            op3: {
-              num: "0",
-              value: "无效"
-            }
-          }
         }
       }
     };
@@ -71,8 +49,8 @@ export default {
         }
       }
       console.log(obj)
-      this.$store.state.app.expand_search_info = obj;
-      this.$store.commit("GET_EXPAND_INFO", { data: obj, pageNo: 1 });
+      this.$store.state.app.expand_group_search_info = obj;
+      this.$store.commit("GET_EXPAND_GROUP_INFO", { data: obj, pageNo: 1 });
     }
   }
 };

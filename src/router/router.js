@@ -88,7 +88,16 @@ export const otherRouter = {
         { path: 'expand-manager-edit/:id', title: '代理人编辑', name: 'expand-manager-edit', component: resolve => { require(['@/views/expand/expand-manager/expand-manager-edit/expand-manager-edit'], resolve) } },
         { path: 'expand-manager-review/:id', title: '代理人审核', name: 'expand-manager-review', component: resolve => { require(['@/views/expand/expand-manager/expand-manager-review/expand-manager-review'], resolve) } },
         // 拓展-返佣订单审核
-        { path: 'expand-order-audit-detail/:id', title: '返佣订单详情', name: 'expand-order-audit-detail', component: resolve => { require(['@/views/expand/expand-order-audit/expand-order-audit-detail/expand-order-audit-detail'], resolve) } }
+        { path: 'expand-order-audit-detail/:id', title: '返佣订单详情', name: 'expand-order-audit-detail', component: resolve => { require(['@/views/expand/expand-order-audit/expand-order-audit-detail/expand-order-audit-detail'], resolve) } },
+        // { path: 'expand-order-audit-review/:id', title: '返佣订单详情', name: 'expand-order-audit-review', component: resolve => { require(['@/views/expand/expand-order-audit/expand-order-audit-review/expand-order-audit-review'], resolve) } },
+        
+        // 拓展-佣金结算
+        { path: 'expand-charge-detail/:id', title: '佣金结算详情', name: 'expand-charge-detail', component: resolve => { require(['@/views/expand/expand-charge-list/expand-charge-detail/expand-charge-detail'], resolve) } },
+        { path: 'expand-charge-review/:id', title: '佣金结算审核', name: 'expand-charge-review', component: resolve => { require(['@/views/expand/expand-charge-list/expand-charge-review/expand-charge-review'], resolve) } },
+        // 拓展-代理组管理
+        { path: 'expand-group-edit/:id', title: '代理组编辑', name: 'expand-group-edit', component: resolve => { require(['@/views/expand/expand-group/expand-group-edit/expand-group-edit'], resolve) } },
+        
+        
     ]
 };
 
@@ -242,7 +251,8 @@ export const appRouter = [
         children: [
             { path: 'expand-manager', title: '代理人管理', name: 'expand-manager', icon: 'document', component: resolve => { require(['@/views/expand/expand-manager/index'], resolve); } },
             { path: 'expand-order-audit', title: '返佣订单审核', name: 'expand-order-audit', icon: 'document', component: resolve => { require(['@/views/expand/expand-order-audit/index'], resolve); } },
-            { path: 'expand-charge-list', title: '佣金结算', name: 'expand-charge-list', icon: 'document', component: resolve => { require(['@/views/expand/expand-charge-list/index'], resolve); } }            
+            { path: 'expand-charge-list', title: '佣金结算', name: 'expand-charge-list', icon: 'document', component: resolve => { require(['@/views/expand/expand-charge-list/index'], resolve); } },            
+            { path: 'expand-group', title: '代理组管理', name: 'expand-group', icon: 'document', component: resolve => { require(['@/views/expand/expand-group/index'], resolve); } }            
         ]
     },
     {

@@ -1,8 +1,8 @@
 <template>
 <div id='page'>
     <Page style='float:right;  margin-right:10px' 
-    :current="$store.state.app.brokerage_order_search_info.currentPage" 
-    :total="$store.state.app.brokerage_order_search_info.totalPage" 
+    :current="$store.state.app.brokerage_order_page_info.currentPage" 
+    :total="$store.state.app.brokerage_order_page_info.totalPage" 
     show-elevator @on-change = 'switch_page' >
     </Page>
 </div>
