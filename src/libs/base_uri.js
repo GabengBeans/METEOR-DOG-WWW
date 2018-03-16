@@ -4,12 +4,15 @@ let base_uri = {
     //用户地址
     userLogin: "/admin/v1/oauth/token",
 
-    //password
-    admin_update_password_url :"/admin/v1/admin_user/update_password",
     //服务地址
     serviceList: "admin/v1/service/search_services_for_page",
     serviceDetail: "/admin/v1/service/detail/",
     categoryList: "/admin/v1/categorys/query_two_level/",
+
+    //password
+    admin_update_password_url :"/admin/v1/admin_user/update_password",
+    //当前用户菜单查询
+    menu_query_url:"/admin/v1/menus/query_menus",
 
     //用户分页信息
     user_search_for_page_url: "/admin/v1/user/search_user_for_page",
@@ -67,7 +70,7 @@ let base_uri = {
     advert_position_delete_url: "/admin/v1/advert_position/delete_advert_position/",
     advert_position_detail_url: "/admin/v1/advert_position/detail/",
     advert_position_edit_url: "/admin/v1/advert_position/edit_advert_position/",
-    
+
     // 拓展管理信息
     // 代理人管理
     extend_user_search_ex_userinfo_for_page: "/admin/v1/extend_user/search_ex_userinfo_for_page",

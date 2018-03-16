@@ -9,6 +9,7 @@ import 'iview/dist/styles/iview.css';
 // import VueI18n from 'vue-i18n';
 import util from '@/libs/util';
 import BaiduMap from 'vue-baidu-map'
+import Cookies from "js-cookie"
 
 // Vue.use(VueI18n);
 Vue.use(iView);
@@ -24,6 +25,7 @@ new Vue({
         currentPageName: ''
     },
     mounted () {
+        console.log(Cookies.get("menus"))
         this.currentPageName = this.$route.name;
         // 显示打开的页面的列表
         this.$store.commit('setOpenedList');
@@ -34,8 +36,10 @@ new Vue({
         util.checkUpdate(this);
     },
     created () {
+        console.log("main.js运行")
         let tagsList = [];
         appRouter.map((item) => {
+            
             if (item.children.length <= 1) {
                 tagsList.push(item.children[0]);
             } else {

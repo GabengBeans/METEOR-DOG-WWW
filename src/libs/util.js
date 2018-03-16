@@ -3,14 +3,15 @@ import env from '../../build/env';
 import baseUri from './base_uri.js';
 import baseConfig from './base_config.js';
 import Cookies from "js-cookie"
+import Main from '@/views/Main.vue';
 
 let util = {
 
 };
 
 
-util.getConfigUri   = baseUri;
-util.getConfig      = baseConfig;
+util.getConfigUri = baseUri;
+util.getConfig = baseConfig;
 
 util.title = function (title) {
     title = title || '流星狗运营后台';
@@ -33,8 +34,8 @@ util.ajax.interceptors.request.use(
         //console.log("请求拦截器")
         const token = Cookies.get("token") //获取存储在本地的token
         config.headers = {
-            'token':token
-        };  
+            'token': token
+        };
         return config;
     }
 );
@@ -281,7 +282,7 @@ util.checkUpdate = function (vm) {
             vm.$router.push({
                 name: 'login'
             });
-    });
+        });
 
     // axios.get('https://api.github.com/repos/iview/iview-admin/releases/latest').then(res => {
     //     let version = res.data.tag_name;
@@ -296,52 +297,106 @@ util.checkUpdate = function (vm) {
     //     }
     // });
 };
-util.formatDate = function (date,fmt) {
-    if(/(y+)/.test(fmt)){
-    fmt = fmt.replace(RegExp.$1,(date.getFullYear()+'').substr(4-RegExp.$1.length));
+util.formatDate = function (date, fmt) {
+    if (/(y+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
     }
     let o = {
-    'M+':date.getMonth() + 1,
-    'd+':date.getDate(),
-    'h+':date.getHours(),
-    'm+':date.getMinutes(),
-    's+':date.getSeconds()
+        'M+': date.getMonth() + 1,
+        'd+': date.getDate(),
+        'h+': date.getHours(),
+        'm+': date.getMinutes(),
+        's+': date.getSeconds()
     };
-    
+
     // 遍历这个对象
-    for(let k in o){
-    if(new RegExp(`(${k})`).test(fmt)){
-     // console.log(`${k}`)
-     //console.log(RegExp.$1)
-     let str = o[k] + '';
-     fmt = fmt.replace(RegExp.$1,(RegExp.$1.length===1)?str:padLeftZero(str));
-    }
+    for (let k in o) {
+        if (new RegExp(`(${k})`).test(fmt)) {
+            // console.log(`${k}`)
+            //console.log(RegExp.$1)
+            let str = o[k] + '';
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : padLeftZero(str));
+        }
     }
     return fmt;
-   };
+};
 function padLeftZero(str) {
-    return ('00'+str).substr(str.length);
+    return ('00' + str).substr(str.length);
 }
 
-util.formData= function(data) {
+util.formData = function (data) {
     let formData = new FormData()
     for (let it in data) {
-     formData.append(it,data[it])
+        formData.append(it, data[it])
     }
     return formData;
-  }
-util.recursion =  function (obj,subName){
-    if(!obj)
-    {
+}
+util.recursion = function (obj, subName) {
+    if (!obj) {
         return false
-    }else{
-        for(let x=0;x<obj.length;x++)
-        {
+    } else {
+        for (let x = 0; x < obj.length; x++) {
             //Vue.set(obj[x],'expand',true)
             obj[x].expand = true
             obj[x].children = obj[x][subName]
-            util.recursion(obj[x].children,subName)
+            util.recursion(obj[x].children, subName)
         }
     }
 }
+util.createMenus = function (data) {
+    if(data == undefined){return new Array;}
+    let path = {
+        user_query: "@/views/user/index",
+        demand_audit: "@/views/request/index",
+        service_audit: "@/views/service/index",
+        statistics_transaction_list: "@/views/statistics/statistics_transaction/statistics_transaction_index",
+        order_request: "@/views/order/order_demand_list/order_demand_list",
+        order_service: "@/views/order/order_service_list/order_service_list",
+        expand_manage: "@/views/expand/expand-manager/index",
+        expand_order_audit: "@/views/expand/expand-order-audit/index",
+        expand_charge_list: "@/views/expand/expand-charge-list/index",
+        expand_group: "@/views/expand/expand-group/index",
+        cash_refund_list: "@/views/cash/cash_refund_list/cash_refund_list",
+        new_advert_list: "@/views/advert/advert_new_list/advert_new_list",
+        advert_list: "@/views/advert/advert_new_list/advert_new_list",
+        advert_new_bits_list: "@/views/advert/advert_new_bits_list/advert_new_bits_list",
+        category_general: "@/views/category/category_general/category_general_index",
+        category_tab_general: "@/views/category/category_tab_general/category_tab_general_index",
+        after_merchant_enter_list: "@/views/merchant/after_merchant_enter",
+        statistics_transaction_list: "@/views/statistics/statistics_transaction/statistics_transaction_index",
+        system_settings: "@/views/system/system_settings/system_settings_index",
+        web_im: "@/views/error-page/404.vue",
+        app_list: "@/views/app/app_list/app_list_index",
+        after_feedback_list: "@/views/after_feedback/after_feedback_list/after_feedback_list"
+    }
+    let menus = []
+    for (let i = 0; i < data.length; i++) {
+        menus.push({})
+    }
+
+    for (let i = 0; i < data.length; i++) {
+
+        menus[i].path = "/" + data[i].modelName
+        menus[i].icon = data[i].icon
+        menus[i].name = data[i].modelName
+        menus[i].title = data[i].name
+        menus[i].access = 1
+        menus[i].component = Main
+        menus[i].children = []
+        for (let j = 0; j < data[i].childResources.length; j++) {
+            menus[i].children.push({})
+        }
+        for (let j = 0; j < data[i].childResources.length; j++) {
+            menus[i].children[j].path = data[i].childResources[j].modelName
+            menus[i].children[j].name = data[i].childResources[j].modelName
+            menus[i].children[j].title = data[i].childResources[j].name
+            //menus[i].children[j].component = resolve => { require([path[data[i].childResources[j].modelName]], resolve); }
+        }
+
+    }
+    console.log(menus)
+    Cookies.set("menus", menus)
+    return menus
+}
+
 export default util;

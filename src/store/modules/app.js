@@ -776,7 +776,6 @@ const app = {
                 console.log(error)
             })
         },
-        
         //拓展管理
         GET_BROKERAGE_ORDER_INFO(state,{data,pageNo}){
             state.brokerage_order_search_info = data
