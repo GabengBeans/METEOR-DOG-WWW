@@ -5,6 +5,28 @@ import baseConfig from './base_config.js';
 import Cookies from "js-cookie"
 import Main from '@/views/Main.vue';
 
+import user_query from "@/views/user/index"
+import demand_audit from "@/views/request/index"
+import service_audit from "@/views/service/index"
+import order_request from "@/views/order/order_demand_list/order_demand_list"
+import order_service from "@/views/order/order_service_list/order_service_list"
+import expand_manage from "@/views/expand/expand-manager/index"
+import expand_order_audit from "@/views/expand/expand-order-audit/index"
+import expand_charge_list from "@/views/expand/expand-charge-list/index"
+import expand_group from "@/views/expand/expand-group/index"
+import cash_refund_list from "@/views/cash/cash_refund_list/cash_refund_list"
+import new_advert_list from "@/views/advert/advert_new_list/advert_new_list"
+import advert_list from "@/views/advert/advert_new_list/advert_new_list"
+import advert_new_bits_list from "@/views/advert/advert_new_bits_list/advert_new_bits_list"
+import category_general from "@/views/category/category_general/category_general_index"
+import category_tab_general from "@/views/category/category_tab_general/category_tab_general_index"
+import after_merchant_enter_list from "@/views/merchant/after_merchant_enter"
+import statistics_transaction_list from "@/views/statistics/statistics_transaction/statistics_transaction_index"
+import system_settings from "@/views/system/system_settings/system_settings_index"
+import web_im from "@/views/error-page/404.vue"
+import app_list from "@/views/app/app_list/app_list_index"
+import after_feedback_list from "@/views/after_feedback/after_feedback_list/after_feedback_list"
+
 let util = {
 
 };
@@ -12,7 +34,7 @@ let util = {
 
 util.getConfigUri = baseUri;
 util.getConfig = baseConfig;
-
+util.menus
 util.title = function (title) {
     title = title || '流星狗运营后台';
     window.document.title = title;
@@ -65,7 +87,7 @@ util.showThisRoute = function (itAccess, currentAccess) {
     }
 };
 
-util.getRouterObjByName = function (routers, name) {
+util.getRouterObjByName = function (routers, name) {    
     if (!name || !routers || !routers.length) {
         return null;
     }
@@ -94,8 +116,9 @@ util.handleTitle = function (vm, item) {
 util.setCurrentPath = function (vm, name) {
     let title = '';
     let isOtherRouter = false;
+    //console.log(vm.$store.state.app.routers)
     vm.$store.state.app.routers.forEach(item => {
-        if (item.children.length === 1) {
+        if (item.children && item.children.length === 1) {
             if (item.children[0].name === name) {
                 title = util.handleTitle(vm, item);
                 if (item.name === 'otherRouter') {
@@ -103,14 +126,17 @@ util.setCurrentPath = function (vm, name) {
                 }
             }
         } else {
-            item.children.forEach(child => {
-                if (child.name === name) {
-                    title = util.handleTitle(vm, child);
-                    if (item.name === 'otherRouter') {
-                        isOtherRouter = true;
+            if (item.children) {
+                item.children.forEach(child => {
+                    if (child.name === name) {
+                        title = util.handleTitle(vm, child);
+                        if (item.name === 'otherRouter') {
+                            isOtherRouter = true;
+                        }
                     }
-                }
-            });
+                });
+            }
+
         }
     });
     let currentPathArr = [];
@@ -137,19 +163,22 @@ util.setCurrentPath = function (vm, name) {
         ];
     } else {
         let currentPathObj = vm.$store.state.app.routers.filter(item => {
-            if (item.children.length <= 1) {
+            if (item.children && item.children.length <= 1) {
                 return item.children[0].name === name;
             } else {
-                let i = 0;
-                let childArr = item.children;
-                let len = childArr.length;
-                while (i < len) {
-                    if (childArr[i].name === name) {
-                        return true;
+                if (item.children) {
+                    let i = 0;
+                    let childArr = item.children;
+                    let len = childArr.length;
+                    while (i < len) {
+                        if (childArr[i].name === name) {
+                            return true;
+                        }
+                        i++;
                     }
-                    i++;
+                    return false;
                 }
-                return false;
+
             }
         })[0];
         if (currentPathObj.children.length <= 1 && currentPathObj.name === 'home') {
@@ -197,12 +226,12 @@ util.setCurrentPath = function (vm, name) {
         }
     }
     vm.$store.commit('setCurrentPath', currentPathArr);
-
     return currentPathArr;
 };
 
 util.openNewPage = function (vm, name, argu, query) {
     let pageOpenedList = vm.$store.state.app.pageOpenedList;
+    //console.log(pageOpenedList)
     let openedPageLen = pageOpenedList.length;
     let i = 0;
     let tagHasOpened = false;
@@ -238,6 +267,7 @@ util.openNewPage = function (vm, name, argu, query) {
             vm.$store.commit('increateTag', tag);
         }
     }
+    console.log("open")
     vm.$store.commit('setCurrentPageName', name);
 };
 
@@ -264,6 +294,7 @@ util.toDefaultPage = function (routers, name, route, next) {
 util.fullscreenEvent = function (vm) {
     vm.$store.commit('initCachepage');
     // 权限菜单过滤相关
+
     vm.$store.commit('updateMenulist');
     // 全屏相关
 };
@@ -343,31 +374,31 @@ util.recursion = function (obj, subName) {
         }
     }
 }
+
 util.createMenus = function (data) {
-    if(data == undefined){return new Array;}
+    if (data == undefined) { return new Array; }
     let path = {
-        user_query: "@/views/user/index",
-        demand_audit: "@/views/request/index",
-        service_audit: "@/views/service/index",
-        statistics_transaction_list: "@/views/statistics/statistics_transaction/statistics_transaction_index",
-        order_request: "@/views/order/order_demand_list/order_demand_list",
-        order_service: "@/views/order/order_service_list/order_service_list",
-        expand_manage: "@/views/expand/expand-manager/index",
-        expand_order_audit: "@/views/expand/expand-order-audit/index",
-        expand_charge_list: "@/views/expand/expand-charge-list/index",
-        expand_group: "@/views/expand/expand-group/index",
-        cash_refund_list: "@/views/cash/cash_refund_list/cash_refund_list",
-        new_advert_list: "@/views/advert/advert_new_list/advert_new_list",
-        advert_list: "@/views/advert/advert_new_list/advert_new_list",
-        advert_new_bits_list: "@/views/advert/advert_new_bits_list/advert_new_bits_list",
-        category_general: "@/views/category/category_general/category_general_index",
-        category_tab_general: "@/views/category/category_tab_general/category_tab_general_index",
-        after_merchant_enter_list: "@/views/merchant/after_merchant_enter",
-        statistics_transaction_list: "@/views/statistics/statistics_transaction/statistics_transaction_index",
-        system_settings: "@/views/system/system_settings/system_settings_index",
-        web_im: "@/views/error-page/404.vue",
-        app_list: "@/views/app/app_list/app_list_index",
-        after_feedback_list: "@/views/after_feedback/after_feedback_list/after_feedback_list"
+        'user_query': user_query,
+        'demand_audit': demand_audit,
+        'service_audit': service_audit,
+        'order_request': order_request,
+        'order_service': order_service,
+        'expand_manage': expand_manage,
+        'expand_order_audit': expand_order_audit,
+        'expand_charge_list': expand_charge_list,
+        'expand_group': expand_group,
+        'cash_refund_list': cash_refund_list,
+        'new_advert_list': new_advert_list,
+        'advert_list': advert_list,
+        'advert_new_bits_list': advert_new_bits_list,
+        'category_general': category_general,
+        'category_tab_general': category_tab_general,
+        'after_merchant_enter_list': after_merchant_enter_list,
+        'statistics_transaction_list': statistics_transaction_list,
+        'system_settings': system_settings,
+        'web_im': web_im,
+        'app_list': app_list,
+        'after_feedback_list': after_feedback_list
     }
     let menus = []
     for (let i = 0; i < data.length; i++) {
@@ -387,16 +418,42 @@ util.createMenus = function (data) {
             menus[i].children.push({})
         }
         for (let j = 0; j < data[i].childResources.length; j++) {
+            let tempPath = path[data[i].childResources[j].modelName]
             menus[i].children[j].path = data[i].childResources[j].modelName
             menus[i].children[j].name = data[i].childResources[j].modelName
             menus[i].children[j].title = data[i].childResources[j].name
-            //menus[i].children[j].component = resolve => { require([path[data[i].childResources[j].modelName]], resolve); }
+            menus[i].children[j].component = tempPath
         }
 
     }
-    console.log(menus)
-    Cookies.set("menus", menus)
+    //this.menus = menus//console.log(menus)
+    //console.log(this.menus)
     return menus
 }
 
 export default util;
+
+// let path = {
+//     user_query: "@/views/user/index",
+//     demand_audit: "@/views/request/index",
+//     service_audit: "@/views/service/index",
+//     statistics_transaction_list: "@/views/statistics/statistics_transaction/statistics_transaction_index",
+//     order_request: "@/views/order/order_demand_list/order_demand_list",
+//     order_service: "@/views/order/order_service_list/order_service_list",
+//     expand_manage: "@/views/expand/expand-manager/index",
+//     expand_order_audit: "@/views/expand/expand-order-audit/index",
+//     expand_charge_list: "@/views/expand/expand-charge-list/index",
+//     expand_group: "@/views/expand/expand-group/index",
+//     cash_refund_list: "@/views/cash/cash_refund_list/cash_refund_list",
+//     new_advert_list: "@/views/advert/advert_new_list/advert_new_list",
+//     advert_list: "@/views/advert/advert_new_list/advert_new_list",
+//     advert_new_bits_list: "@/views/advert/advert_new_bits_list/advert_new_bits_list",
+//     category_general: "@/views/category/category_general/category_general_index",
+//     category_tab_general: "@/views/category/category_tab_general/category_tab_general_index",
+//     after_merchant_enter_list: "@/views/merchant/after_merchant_enter",
+//     statistics_transaction_list: "@/views/statistics/statistics_transaction/statistics_transaction_index",
+//     system_settings: "@/views/system/system_settings/system_settings_index",
+//     web_im: "@/views/error-page/404.vue",
+//     app_list: "@/views/app/app_list/app_list_index",
+//     after_feedback_list: "@/views/after_feedback/after_feedback_list/after_feedback_list"
+// }

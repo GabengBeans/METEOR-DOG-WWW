@@ -4,8 +4,10 @@ import Cookies from 'js-cookie';
 import Vue from 'vue';
 import baseUri from '@/libs/base_uri'
 import base_uri from '../../libs/base_uri';
+
 const app = {
     state: {
+        ueser_menus_info:[],
         //用户公共状态
         user_page_info: {//用户页页码
             currentPage: 1,
@@ -217,6 +219,7 @@ const app = {
         updateMenulist(state) {
             let accessCode = parseInt(Cookies.get('access'));
             let menuList = [];
+            console.log("app.js")
             appRouter.forEach((item, index) => {
                 if (item.access !== undefined) {
                     if (Util.showThisRoute(item.access, accessCode)) {
@@ -258,6 +261,7 @@ const app = {
                     }
                 }
             });
+            //console.log(menuList)
             state.menuList = menuList;
         },
         changeMenuTheme(state, theme) {
@@ -341,6 +345,7 @@ const app = {
             state.currentPath = pathArr;
         },
         setCurrentPageName(state, name) {
+            //console.log("setName")
             state.currentPageName = name;
         },
         setAvator(state, path) {

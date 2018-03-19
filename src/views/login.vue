@@ -3,35 +3,35 @@
 </style>
 
 <template>
-    <div class="login" @keydown.enter="handleSubmit">
-        <div class="login-con">
-            <Card :bordered="false">
-                <p slot="title">
-                    <Icon type="log-in"></Icon>
-                    欢迎登录
-                </p>
-                <div class="form-con">
-                    <Form ref="loginForm" :model="form" :rules="rules">
-                        <FormItem prop="userName">
-                            <Input v-model="form.userName" placeholder="请输入用户名" />
-                            <span slot="prepend">
-                                <Icon :size="16" type="person"></Icon>
-                            </span>
-                        </FormItem>
-                        <FormItem prop="password">
-                            <Input type="password" v-model="form.password" placeholder="请输入密码" />
-                            <span slot="prepend">
-                                <Icon :size="14" type="locked"></Icon>
-                            </span>
-                        </FormItem>
-                        <FormItem>
-                            <Button @click="handleSubmit" type="primary" long>登录</Button>
-                        </FormItem>
-                    </Form>
-                </div>
-            </Card>
+  <div class="login" @keydown.enter="handleSubmit">
+    <div class="login-con">
+      <Card :bordered="false">
+        <p slot="title">
+          <Icon type="log-in"></Icon>
+          欢迎登录
+        </p>
+        <div class="form-con">
+          <Form ref="loginForm" :model="form" :rules="rules">
+            <FormItem prop="userName">
+              <Input v-model="form.userName" placeholder="请输入用户名" />
+              <span slot="prepend">
+                <Icon :size="16" type="person"></Icon>
+              </span>
+            </FormItem>
+            <FormItem prop="password">
+              <Input type="password" v-model="form.password" placeholder="请输入密码" />
+              <span slot="prepend">
+                <Icon :size="14" type="locked"></Icon>
+              </span>
+            </FormItem>
+            <FormItem>
+              <Button @click="handleSubmit" type="primary" long>登录</Button>
+            </FormItem>
+          </Form>
         </div>
+      </Card>
     </div>
+  </div>
 </template>
 
 <script>
@@ -82,14 +82,20 @@ export default {
                     url: baseUri.menu_query_url
                   })
                   .then(res => {
-                    console.log(res);
+                    //console.log(res);
                     if (res.data.success) {
-                        // console.log(res.data.data);return ;
-                        console.log(res.data.data);
-                        Cookies.set("menus",res.data.data)
-                        this.$store.commit('updateMenulist');
-                        console.log(Cookies.get("menus"));
-                        //console.log(util.createMenus(res.data.data))
+                      let menus = util.createMenus(res.data.data);
+                      //console.log(menus)
+                      //console.log(window.sessionStorage.menus)
+                      //console.log(menus);
+                      // obj.$router.addRoutes(menus);
+                      // let objs = obj.$router.options.routes.concat(menus);
+                      // obj.$router.options.routes = objs
+                      // obj.$store.state.app.routers = objs;
+                      //console.log(obj.$store.state.app.routers);
+                      //console.log(obj.$router.options.routes);
+                      //console.log("运行updataMenuslist" + menus);
+                      //this.$store.commit("updateMenulist");
                       obj.$router.push({
                         name: "home_index"
                       });
