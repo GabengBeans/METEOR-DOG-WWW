@@ -16,8 +16,6 @@ console.log("index.js运行")
 export const router = new VueRouter(RouterConfig);
 
 router.beforeEach((to, from, next) => {
-    console.log(to)
-    console.log(from)
     iView.LoadingBar.start();
     Util.title(to.meta.title);
     if (Cookies.get('locking') === '1' && to.name !== 'locking') { // 判断当前是否是锁定状态
@@ -58,11 +56,7 @@ router.beforeEach((to, from, next) => {
 });
 //console.log("22222222")
 router.afterEach((to) => {
-    console.log("openNewPage")
-    //console.log(to)
-    //console.log(router.app)
     Util.openNewPage(router.app, to.name, to.params, to.query);
     iView.LoadingBar.finish();
     window.scrollTo(0, 0);
-    console.log("hahah")
 });

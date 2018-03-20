@@ -267,7 +267,6 @@ util.openNewPage = function (vm, name, argu, query) {
             vm.$store.commit('increateTag', tag);
         }
     }
-    console.log("open")
     vm.$store.commit('setCurrentPageName', name);
 };
 
@@ -408,7 +407,7 @@ util.createMenus = function (data) {
     for (let i = 0; i < data.length; i++) {
 
         menus[i].path = "/" + data[i].modelName
-        menus[i].icon = data[i].icon
+        menus[i].icon = data[i].newIcon
         menus[i].name = data[i].modelName
         menus[i].title = data[i].name
         menus[i].access = 1

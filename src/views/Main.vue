@@ -135,7 +135,7 @@
                 //let messageCount = 3;
                 //this.messageCount = messageCount.toString();
                 this.checkTag(this.$route.name);
-                this.$store.commit('setMessageCount', 3);
+                //this.$store.commit('setMessageCount', 3);
             },
             toggleClick () {
                 this.shrink = !this.shrink;
@@ -149,11 +149,18 @@
                     });
                 } else if (name === 'loginout') {
                     // 退出登录
+                    if(window.sessionStorage.getItem("logoutStatus"))
+                    {
+                        window.sessionStorage.setItem("logoutStatus","")
+                        this.$router.go(0)
+                    }
                     this.$store.commit('logout', this);
                     this.$store.commit('clearOpenedSubmenu');
+                    window.sessionStorage.setItem("menus","")
                     this.$router.push({
                         name: 'login'
                     });
+                    
                 }
             },
             checkTag (name) {
@@ -184,7 +191,6 @@
         },
         watch: {
             '$route' (to) {
-                console.log(to)
                 this.$store.commit('setCurrentPageName', to.name);
                 //console.log("ok")
                 let pathArr = util.setCurrentPath(this, to.name);
@@ -202,9 +208,9 @@
             this.init();
         },
         created () {
-            //console.log(this.$router.options.routes)
             // 显示打开的页面的列表
             this.$store.commit('setOpenedList');
+           
         }
     };
 </script>

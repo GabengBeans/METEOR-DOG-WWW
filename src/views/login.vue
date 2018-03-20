@@ -84,21 +84,19 @@ export default {
                   .then(res => {
                     //console.log(res);
                     if (res.data.success) {
-                      let menus = util.createMenus(res.data.data);
-                      //console.log(menus)
-                      //console.log(window.sessionStorage.menus)
-                      //console.log(menus);
-                      // obj.$router.addRoutes(menus);
-                      // let objs = obj.$router.options.routes.concat(menus);
-                      // obj.$router.options.routes = objs
-                      // obj.$store.state.app.routers = objs;
-                      //console.log(obj.$store.state.app.routers);
-                      //console.log(obj.$router.options.routes);
-                      //console.log("运行updataMenuslist" + menus);
-                      //this.$store.commit("updateMenulist");
+                      window.sessionStorage.setItem("menus",JSON.stringify(res.data.data))
+                      window.sessionStorage.setItem("updataStatus",true)
+                      window.sessionStorage.setItem("logoutStatus",true)
+                      //console.log(res.data.data)
+                      
                       obj.$router.push({
                         name: "home_index"
                       });
+                      if(window.sessionStorage.getItem("updataStatus"))
+                      {
+                          window.sessionStorage.setItem("updataStatus","")
+                          this.$router.go(0)
+                      }
                     } else {
                     }
                   });
