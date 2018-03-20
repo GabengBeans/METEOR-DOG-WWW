@@ -1,5 +1,5 @@
 <template>
-  <div id='page'>
+  <div id='page' class="pager">
     <Page style='float:right;  margin-right:10px' :current="currentPage" :total="totalPage" show-elevator @on-change='switch_page'>
     </Page>
   </div>

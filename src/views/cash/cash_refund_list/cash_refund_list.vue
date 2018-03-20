@@ -1,10 +1,7 @@
 <template>
     <div>
-        <br><br>
         <search :data="searchConfig" :storeStatus="status"></search>
-        <br><br>
         <TableComponent :columns="columns" :data="$store.state.app.cash_refund_search_result"></TableComponent>
-        <br>
         <Page :storeStatus="status" :currentPage="$store.state.app.cash_refund_page_info.currentPage" :totalPage="$store.state.app.cash_refund_page_info.totalPage"></Page>
     </div>
 </template>

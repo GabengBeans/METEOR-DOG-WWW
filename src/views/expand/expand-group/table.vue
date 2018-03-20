@@ -1,12 +1,22 @@
 <template>
   <div id='user_table'>
+  		<div class="btns">
+          <i-button class="btn" type="primary" @click="handleNewGroup()">新增代理组</i-button>
+      </div>
       <Table style="min-width:800px;margin:0 16px;" 
       border stripe :columns="columns" :data="$store.state.app.expand_group_search_result">
       </Table>
   </div>
    
 </template>
-
+<style>
+  .btns{
+    margin: 0 30px 15px;
+  }
+  .btns .btn{
+    margin-right: 10px;
+  }
+</style>
 <script>
 import Util from '@/libs/util'
 import baseUri from '@/libs/base_uri'
@@ -63,7 +73,30 @@ export default {
                   },
                   on: {
                     click: () => {
-                      alert('暂未开发') 
+                      this.$Modal.confirm({
+                        title: "提示",
+                        content: '确定删除？',
+                        okText: "确定",
+                        cancelText: "取消",
+                        onOk: () => {
+                          let id = params.row.id;
+                          let data = {
+                              groupId: id,
+                          }
+                          Util.ajax({
+                            method:"post",
+                            url:baseUri.extend_group_delete_group,
+                            data: Util.formData(data)
+                          }).then((res) => {
+                            console.log(res.data)
+                            if(res.data.data == 'SUCCESS'){
+                              this.$Message.success('删除成功！')
+                            }else{
+                              this.$Message.error('删除失败！')
+                            }
+                          })
+                        }
+                      }) 
                     }
                   }
                 },
@@ -81,7 +114,7 @@ export default {
                   },
                   on: {
                     click: () => {
-                      alert('暂未开发')
+                      this.$router.push("/group_bind_expand/"+params.row.id)
                     }
                   }
                 },
@@ -99,7 +132,7 @@ export default {
                   },
                   on: {
                     click: () => {
-                      alert('暂未开发') 
+                      this.$router.push("/group_unbundling_expand/"+params.row.id) 
                     }
                   }
                 },
@@ -110,6 +143,11 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+  	handleNewGroup() {
+      this.$router.push("/expand-group-add/expand-group-add") 
+    }
   }
 };
 </script>

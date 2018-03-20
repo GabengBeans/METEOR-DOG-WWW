@@ -1,7 +1,6 @@
 <template>
   <div>
-    <br><br>
-    <Row :gutter='16'>
+    <Row :gutter='16' class="search" style="margin-left:0;margin-right:0;">
       <Form label-position="right" :label-width="60">
         <Col :xs='13' :sm='13' :md='8' :lg='5'>
         <FormItem style="min-width:60px" label="广告位">
@@ -21,12 +20,11 @@
       <Button style='margin-left:38px' type="primary" shape="circle" icon="ios-search" @click.native='search'>搜索</Button>
       <Button :disabled="btn" style='margin-left:38px' type="success" shape="circle" @click.native='addAdverNewBtn'>添加广告</Button>
     </Row>
-    <br><br>
     <TableComponent :columns="advertNewListColumns" :data="$store.state.app.advert_new_search_result"></TableComponent>
-    <br>
+    
     <Page :storeStatus="status" :currentPage="$store.state.app.advert_new_page_info.currentPage" :totalPage="$store.state.app.advert_new_page_info.totalPage"></Page>
     <Modal v-model="showAdvertEdit" width="80vw">
-      <p slot="header" style="color:#f60;text-align:center">
+      <p slot="header" style="color:#2d8cf0;text-align:center">
         <span>广告编辑</span>
       </p>
       <div style="text-align:center">
@@ -38,7 +36,7 @@
       </div>
     </Modal>
     <Modal v-model="showAddAdvert" width="80vw">
-      <p slot="header" style="color:#f60;text-align:center">
+      <p slot="header" style="color:#2d8cf0;text-align:center">
         <span>添加广告</span>
       </p>
       <div style="text-align:center">

@@ -1,11 +1,9 @@
 <template>
   <div v-if="show">
     <div id="user_edit" style="background:#eee">
-      <Card :bordered="false" style="height:85vh;overflow:auto;">
-        <Avatar :src="aliyun + user_data.avatarUrl" shape="square" style="width:6vw;height:6vw" />
-        <br><br>
-        <Tag color="blue" v-for="item in user_data.selfAuthInfos" :key="item.key" style="line-height:3vh;min-width:5vw;min-height:3vh;text-align:center;">{{item}}</Tag>
-        <br><br>
+      <Card :bordered="false">
+        <Avatar class="avatar" :src="aliyun + user_data.avatarUrl" shape="square"/>
+        <Tag class="tag-style" color="blue" v-for="item in user_data.selfAuthInfos" :key="item.key">{{item}}</Tag>
 
         <div class="user_detail_div">
           <label class="from_label">手机号</label>
@@ -49,7 +47,7 @@
         <br>
         <div class="user_detail_div">
           <label class="from_label">个人标签</label>
-          <Tag color="blue" v-for="item in user_data.listTags" :key="item.key" style="line-height:3vh;min-width:5vw;min-height:3vh;text-align:center;">{{item.lableName}}</Tag>
+          <Tag color="blue" v-for="item in user_data.listTags" :key="item.key">{{item.lableName}}</Tag>
         </div>
         <br>
         <div class="user_detail_div">
@@ -75,7 +73,7 @@
         <div class="user_detail_div">
           <label class="from_label">相关图片</label>
           <!-- <Avatar v-for="item in user_data.certificates[0].imageUrls" :src="aliyun + item" :key="item.key" shape="square"  style="width:8vw;height:8vw;margin-bottom:4px" /> -->
-          <UserEditImgList :change="false" :imgList="user_data.certificates[0].imageUrls"></UserEditImgList>
+          <UserEditImgList :change="true" :imgList="user_data.certificates[0].imageUrls"></UserEditImgList>
         </div>
         <br>
         <!-- <div class="user_detail_div">
@@ -287,17 +285,6 @@ export default {
 };
 </script>
 <style>
-.user_detail_div {
-  border-bottom: 1px solid rgb(219, 207, 207);
-}
-.from_label {
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 16px;
-  margin-right: 10px;
-  display: inline-block;
-  min-width: 75px;
-  min-height: 16px;
-}
+ @import "../../../styles/public.less";
 </style>
 

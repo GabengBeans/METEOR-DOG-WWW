@@ -79,17 +79,26 @@ let base_uri = {
     // 返佣订单审核
     brokerage_order_search_for_page:"/admin/v1/extend_manager/brokerage_order/search_for_page",
     brokerage_order_detail:"/admin/v1/extend_manager/brokerage_order/detail",
-    brokerage_order_audit:"/admin/v1/extend_manager/brokerage_order/audit",
+    brokerage_order_audit:"/admin/v1/extend_manager/brokerage_order/audit_compatible",
+    brokerage_order_batch_update_order: "/admin/v1/extend_manager/brokerage_order/batch_update_order",
 
     // 佣金结算
     brokerage_balance_search_for_page_url:"/admin/v1/extend_manager/brokerage_balance/search_for_page",
     brokerage_balance_detail_url: "/admin/v1/extend_manager/brokerage_balance/detail",
     brokerage_order_search_for_log_page_url: "/admin/v1/extend_manager/brokerage_order/search_for_log_page",
+    brokerage_balance_audit_url: "/admin/v1/extend_manager/brokerage_balance/audit",
+    brokerage_balance_batch_update_order: "/admin/v1/extend_manager/brokerage_balance/batch_update_order",
 
     // 代理组管理
     extend_group_search_ex_group_for_page: "/admin/v1/extend_group/search_ex_group_for_page",
     extend_group_detail:"/admin/v1/extend_group/detail",
     extend_group_update_group: "/admin/v1/extend_group/update_group",
+    extend_group_add_group: "/admin/v1/extend_group/add_group",    
+    extend_group_delete_group: "/admin/v1/extend_group/delete_group",
+    get_bind_expend_list_url:"/admin/v1/extend_user/get_bind_expend_list",//可绑定代理人列表
+    get_group_expend_list_url:"/admin/v1/extend_group/get_group_expend_list",//解绑代理人列表
+    extend_group_bind_expand_in_group: "/admin/v1/extend_group/bind_expand_in_group",//绑定到代理组
+    extend_group_unbundind_expand_in_group: "/admin/v1/extend_group/unbundind_expand_in_group",
 
     //售后管理
     after_feedback_query_for_page: "/admin/v1/after/feedback/search_feedback_for_page",

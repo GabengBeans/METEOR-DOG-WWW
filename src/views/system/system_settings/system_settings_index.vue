@@ -1,12 +1,8 @@
 <template>
     <div id="system_settings">
-        <br><br>
         <Search :data="data" :storeStatus="status"></Search>
-        <br>
-        <Button type="success" style="margin-left:16px" @click.native="showAddSystemFun()">新增系统变量</Button>
-        <br><br>
+        <Button type="primary" style="margin-left:16px" @click.native="showAddSystemFun()">新增系统变量</Button>
         <SystemTable></SystemTable>
-        <br>
         <Page :storeStatus="status" :currentPage="$store.state.app.system_settings_page_info.currentPage" :totalPage="$store.state.app.system_settings_page_info.totalPage"></Page>
         <Modal v-model="showAddSystem" width="360" @on-cancel="showAddSystem=false" @on-ok="addSystem()">
             <p slot="header" style="color:#f60;text-align:center">

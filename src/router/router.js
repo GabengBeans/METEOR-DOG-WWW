@@ -100,7 +100,10 @@ export const otherRouter = {
         { path: 'expand-charge-review/:id', title: '佣金结算审核', name: 'expand-charge-review', component: resolve => { require(['@/views/expand/expand-charge-list/expand-charge-review/expand-charge-review'], resolve) } },
         // 拓展-代理组管理
         { path: 'expand-group-edit/:id', title: '代理组编辑', name: 'expand-group-edit', component: resolve => { require(['@/views/expand/expand-group/expand-group-edit/expand-group-edit'], resolve) } },
-
+        { path: 'expand-group-add/:id', title: '新增代理组', name: 'expand-group-add', component: resolve => { require(['@/views/expand/expand-group/expand-group-add/expand-group-add'], resolve) } },
+        { path: 'group_bind_expand/:id', title: '绑定代理人', name: 'group_bind_expand', component: resolve => { require(['@/views/expand/expand-group/group_bind_expand/group_bind_expand'], resolve) } },
+        { path: 'group_unbundling_expand/:id', title: '解除绑定代理人', name: 'group_unbundling_expand', component: resolve => { require(['@/views/expand/expand-group/group_unbundling_expand/group_unbundling_expand'], resolve) } },
+        
 
     ]
 };

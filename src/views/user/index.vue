@@ -1,10 +1,7 @@
 <template>
     <div>
-        <br><br>
         <search :data="searchConfig" :storeStatus="status"></search>
-        <br><br>
         <userTable></userTable>
-        <br>
         <user-page :storeStatus="status" :currentPage="$store.state.app.user_page_info.currentPage" :totalPage="$store.state.app.user_page_info.totalPage" ></user-page>
     </div>
 </template>
