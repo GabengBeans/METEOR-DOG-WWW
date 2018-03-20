@@ -1,52 +1,38 @@
 <template>
   <div v-if="show">
     <div id="user_edit" style="background:#eee" v-if="show">
-      <Card :bordered="false" style="height:85vh;overflow:auto;">
+      <Card :bordered="false">
         <br>
         <Form>
-          <div style="color:blue;font-size:22px;text-align:center">
+          <div class="title-center">
             服务编辑
           </div>
-          <br>
-          <div class="user_detail_div">
-            <label class="from_label">用户ID:
-              <b>{{data.user.id}}</b>
-            </label>
-
-            <label class="from_label">姓名:
-              <b>{{data.user.nickname}}</b>
-            </label>
-
-            <label class="from_label">手机号:
-              <b>{{data.user.phone}}</b>
-            </label>
-
-            <label class="from_label">流星值:
-              <b>{{(parseInt(data.user.meteorScore)/10).toFixed(1)+"分"}}</b>
-            </label>
-
-            <label class="from_label">认证信息:
-              <Tag color="blue" v-for="item in data.user.selfAuthInfos" :key="item.key" style="line-height:20px;min-width:5vw;height:20px;text-align:center;">{{item}}</Tag>
-            </label>
-
-            <label class="from_label">个人标签:
-              <Tag color="blue" v-for="item in data.user.tags" :key="item.key" style="line-height:20px;min-width:5vw;height:20px;text-align:center;">{{item}}</Tag>
-            </label>
-          </div>
+          <div class="infos">
+          <Row class="row">
+            <Col span="6"><span>用户ID:</span>{{data.user.id}}</Col>
+            <Col span="6"><span>姓名:</span>{{data.user.nickname}}</Col>
+            <Col span="6"><span>手机号:</span>{{data.user.phone}}</Col>
+            <Col span="6"><span>流星值:</span>{{(parseInt(data.user.meteorScore)/10).toFixed(1)+"分"}}</Col>          
+          </Row>
+          <Row class="row">
+            <Col span="6"><span>认证信息:</span><Tag color="blue" v-for="item in data.user.selfAuthInfos" :key="item.key" class="tag-style">{{item}}</Tag></Col>
+            <Col span="18"><span>个人标签:</span><Tag color="blue" v-for="item in data.user.tags" :key="item.key" class="tag-style">{{item}}</Tag></Col>          
+          </Row>
+        </div>
           <br>
           <div class="user_detail_div">
             <label class="from_label">服务标题:</label>
-            <Input clearable style="width: 15vw;min-width:100px;" type="textarea" v-model='data.title' />
+            <Input clearable style="width: 40vw;min-width:100px;" type="textarea" v-model='data.title' />
           </div>
           <br>
           <div class="user_detail_div">
             <label class="from_label">服务介绍:</label>
-            <Input clearable style="width: 15vw;min-width:100px;" type="textarea" v-model='data.desc' />
+            <Input clearable style="width: 40vw;min-width:100px;" type="textarea" v-model='data.desc' />
           </div>
           <br>
           <div class="user_detail_div">
             <label class="from_label">服务限制:</label>
-            <Input clearable style="width: 15vw;min-width:100px;" type="textarea" v-model='data.restrictions' />
+            <Input clearable style="width: 40vw;min-width:100px;" type="textarea" v-model='data.restrictions' />
           </div>
           <br>
           <FormItem>
@@ -107,12 +93,12 @@
           <br>
           <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
             <label class="from_label">服务图片:</label>图片限制大小2M
-            <UserEditImgList :change="true" :imgList="data.mediaImg" :upload="true"></UserEditImgList>
+            <UserEditImgList class="image-style" :change="true" :imgList="data.mediaImg" :upload="true"></UserEditImgList>
           </div>
           <br>
           <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
             <label class="from_label">服务视频:</label>视频限制大小200M
-            <UserEditImgList :change="true" :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo" :upload="true"></UserEditImgList>
+            <UserEditImgList class="image-style" :change="true" :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo" :upload="true"></UserEditImgList>
           </div>
           <br>
           <FormItem>
@@ -135,7 +121,7 @@
             </div>
           </FormItem>
           <br><br> -->
-          <div style="color:blue;font-size:22px;text-align:center">
+          <div class="title-center">
             服务审核
           </div>
           <br><br>
@@ -415,22 +401,6 @@ export default {
 };
 </script>
 <style>
-.user_detail_div {
-  min-height: 60px;
-  padding-bottom: 1vh;
-  border-bottom: 1px solid rgb(219, 207, 207);
-}
-.user_detail_media {
-  border-bottom: 1px solid rgb(219, 207, 207);
-}
-.from_label {
-  margin-left: 3vw;
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 16px;
-  display: inline-block;
-  min-width: 75px;
-  min-height: 16px;
-}
+@import "../../../styles/public.less";
 </style>
 

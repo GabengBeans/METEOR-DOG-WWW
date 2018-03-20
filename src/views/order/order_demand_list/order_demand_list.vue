@@ -1,10 +1,7 @@
 <template>
     <div>
-        <br><br>
         <search :data="searchConfig" :storeStatus="status"></search>
-        <br><br>
         <OrderDemandTable></OrderDemandTable>
-        <br>
         <OrderDemandChangePage :storeStatus="status" :currentPage="$store.state.app.order_demand_page_info.currentPage" :totalPage="$store.state.app.order_demand_page_info.totalPage"></OrderDemandChangePage>
     </div>
 </template>

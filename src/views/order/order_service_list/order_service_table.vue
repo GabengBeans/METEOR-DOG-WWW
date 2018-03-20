@@ -1,5 +1,5 @@
 <template>
-  <div id='user_table'>
+  <div id='user_table' class="table">
     <Table style="min-width:800px;margin:0 16px;" border stripe :columns="columns" :data="$store.state.app.order_service_search_result">
     </Table>
     <Modal v-model="shwoDrawBack" @on-ok="handleOk" @on-cancel="handleCancel">

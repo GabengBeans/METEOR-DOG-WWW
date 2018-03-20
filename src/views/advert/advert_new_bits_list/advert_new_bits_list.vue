@@ -1,7 +1,7 @@
 <template>
     <div>
-        <br><br>
-        <Row :gutter='16'>
+      
+        <Row class="search" style="margin-left:0;margin-right:0;" :gutter='16'>
             <Form label-position="right" :label-width="60">
                 <Col :xs='13' :sm='13' :md='8' :lg='5'>
                 <FormItem style="min-width:60px" :label="searchConfig.level.tagName">
@@ -14,12 +14,11 @@
             <Button style='margin-left:38px' type="primary" shape="circle" icon="ios-search" @click.native='search'>搜索</Button>
             <Button type="success" shape="circle" style='margin-left:38px' @click.native="showAddSubAdertBits=true">添加子广告位</Button>
         </Row>
-        <br><br>
         <TableComponent :columns="advertNewBitsTableColumns" :data="$store.state.app.advert_position_search_result"></TableComponent>
-        <br>
+      
         <Page :storeStatus="status" :currentPage="$store.state.app.advert_position_page_info.currentPage" :totalPage="$store.state.app.advert_position_page_info.totalPage"></Page>
         <Modal v-model="showAddSubAdertBits" width="80vw">
-            <p slot="header" style="color:#f60;text-align:center">
+            <p slot="header" style="color:#2d8cf0;text-align:center">
                 <span>添加子广告位</span>
             </p>
             <div style="text-align:center">
@@ -31,7 +30,7 @@
             </div>
         </Modal>
         <Modal v-model="showEditSubAdertBits" width="80vw">
-            <p slot="header" style="color:#f60;text-align:center">
+            <p slot="header" style="color:#2d8cf0;text-align:center">
                 <span>编辑子广告位</span>
             </p>
             <div style="text-align:center">

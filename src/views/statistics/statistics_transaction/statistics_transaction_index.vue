@@ -1,12 +1,11 @@
 <template>
     <div>
-        <br><br>
         <Search :data="searchConfig" :storeStatus="status"></Search>
-        <br>
-        <Button type="success" style="margin-right:1vw" @click="searchData(-1)">近1天</Button >
-        <Button type="success" style="margin-right:1vw" @click="searchData(-7)">近7天</Button>
-        <Button type="success" @click="searchData(-30)">近30天</Button>
-        <br> <br>
+        <div class="btns">
+          <Button type="primary" style="margin-right:1vw" @click="searchData(-1)">近1天</Button >
+          <Button type="primary" style="margin-right:1vw" @click="searchData(-7)">近7天</Button>
+          <Button type="primary" @click="searchData(-30)">近30天</Button>
+        </div>
         <subComponent></subComponent>
     </div>
 </template>

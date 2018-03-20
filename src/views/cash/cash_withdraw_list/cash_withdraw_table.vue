@@ -1,5 +1,5 @@
 <template>
-    <div id='user_table'>
+    <div id='user_table' class="table">
         <Table style="min-width:800px;margin:0 16px;" border stripe :columns="cashWithDrawTableColumns" :data="$store.state.app.cash_withdraw_search_result">
         </Table>
         <Modal v-model="showDrawOk" @on-ok="handleOk" >

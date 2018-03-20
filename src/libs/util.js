@@ -14,6 +14,10 @@ import expand_manage from "@/views/expand/expand-manager/index"
 import expand_order_audit from "@/views/expand/expand-order-audit/index"
 import expand_charge_list from "@/views/expand/expand-charge-list/index"
 import expand_group from "@/views/expand/expand-group/index"
+
+import cash_flow_list from "@/views/cash/cash_flow_list/cash_flow_list"
+import cash_withdraw_list from "@/views/cash/cash_withdraw_list/cash_withdraw_list"
+
 import cash_refund_list from "@/views/cash/cash_refund_list/cash_refund_list"
 import new_advert_list from "@/views/advert/advert_new_list/advert_new_list"
 import advert_list from "@/views/advert/advert_new_list/advert_new_list"
@@ -386,6 +390,8 @@ util.createMenus = function (data) {
         'expand_order_audit': expand_order_audit,
         'expand_charge_list': expand_charge_list,
         'expand_group': expand_group,
+        'cash_flow_list':cash_flow_list,
+        'cash_withdraw_list': cash_withdraw_list,
         'cash_refund_list': cash_refund_list,
         'new_advert_list': new_advert_list,
         'advert_list': advert_list,

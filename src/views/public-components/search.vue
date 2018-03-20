@@ -1,8 +1,8 @@
 <template>
-  <div id='user_search'>
+  <div id='user_search' class="search">
     <Row :gutter='16'>
       <Form label-position="right" :label-width="60">
-        <Col :xs='13' :sm='13' :md='8' :lg='5' v-for="item in data" :key="item.key">
+        <Col :xs='13' :sm='13' :md='8' :lg='5' v-for="item in data" :key="item.key" style="height:57px;">
         <FormItem style="min-width:100px" :label="item.tagName">
           <Select v-model="item.value" v-if="item.tag">
             <Option v-for="item in item.tag" :key="item.key" :value="item.num">{{item.value}}</Option>
@@ -104,5 +104,5 @@ export default {
 };
 </script>
 <style>
-
+ @import "../../styles/public.less";
 </style>

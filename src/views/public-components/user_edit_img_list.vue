@@ -1,10 +1,10 @@
 <template>
-    <div style="margin-left:3vw;">
+    <div>
         <div class="demo-upload-list" v-if="videoUrl" >
            <template v-if="imgList">
                 <img :src="imgList">
                 <div class="demo-upload-list-cover">
-                    <Icon type="ios-eye-outline" @click.native="handleView(imgList)" style="margin-right:3vw"></Icon>
+                    <Icon type="ios-eye-outline" @click.native="handleView(imgList)" style="margin-right:10px"></Icon>
                     <Icon type="ios-trash-outline" @click.native="handleRemoveVideoImg(imgList)"></Icon>
                 </div>
            </template>
@@ -13,7 +13,7 @@
             <template v-if="item">
                 <img :src="aliyun + item">
                 <div class="demo-upload-list-cover" v-if="change">
-                    <Icon type="ios-eye-outline" @click.native="handleView(item)" style="margin-right:3vw"></Icon>
+                    <Icon type="ios-eye-outline" @click.native="handleView(item)" style="margin-right:10px"></Icon>
                     <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
                 </div>
             </template>
@@ -55,9 +55,9 @@
         multiple 
         type="drag" 
         action="https://lxg.91taogu.com/up/" 
-        style="display: inline-block;width:200px;">
-            <div style="width:198px;height:198px;line-height:198px;">
-                <Icon type="camera" size="40"></Icon>
+        style="display: inline-block;width:99px;">
+            <div style="height:99px;line-height:118px;">
+                <Icon type="camera" size="40" style="margin-top:10px;"></Icon>
             </div>
         </Upload>
         </template>
@@ -160,17 +160,17 @@ export default {
 <style>
 .demo-upload-list {
   display: inline-block;
-  width: 200px;
-  height: 200px; 
+  width: 100px;
+  height: 100px; 
   text-align: center;
-  line-height:200px;
-  border: 1px solid transparent;
+  line-height:60px;
+  /* border: 1px solid transparent; */
   border-radius: 4px;
   overflow: hidden;
   background: #fff;
   position: relative;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  margin-right: 4px;
+  margin-right: 10px;
 }
 .demo-upload-list img {
   width: 100%;
@@ -184,7 +184,7 @@ export default {
   left: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.6);
-  line-height: 200px;
+  line-height: 120px;
 }
 .demo-upload-list:hover .demo-upload-list-cover {
   display: block;

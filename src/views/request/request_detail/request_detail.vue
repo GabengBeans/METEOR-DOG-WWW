@@ -1,37 +1,23 @@
 <template>
   <div v-if="show">
     <div id="user_edit" style="background:#eee" v-if="show">
-      <Card :bordered="false" style="height:85vh;overflow:auto;">
-        <br>
-        <div class="user_detail_div">
-          <label class="from_label">用户ID:
-            <b>{{data.user.id}}</b>
-          </label>
-
-          <label class="from_label">姓名:
-            <b>{{data.user.nickname}}</b>
-          </label>
-
-          <label class="from_label">手机号:
-            <b>{{data.user.phone}}</b>
-          </label>
-
-          <label class="from_label">流星值:
-            <b>{{(parseInt(data.user.meteorScore)/10).toFixed(1)+"分"}}</b>
-          </label>
-
-          <label class="from_label">认证信息:
-            <Tag color="blue" v-for="item in data.user.selfAuthInfos" :key="item.key" style="line-height:20px;min-width:5vw;height:20px;text-align:center;">{{item}}</Tag>
-          </label>
-
-          <label class="from_label">个人标签:
-            <Tag color="blue" v-for="item in data.user.tags" :key="item.key" style="line-height:20px;min-width:5vw;height:20px;text-align:center;">{{item}}</Tag>
-          </label>
-        </div>
-        <br><br>
-        <div style="color:blue;font-size:22px;text-align:center">
+      <Card :bordered="false">
+        <div class="title-center">
           需求详情
         </div>
+        <div class="infos">
+          <Row class="row">
+            <Col span="6"><span>用户ID:</span>{{data.user.id}}</Col>
+            <Col span="6"><span>姓名:</span>{{data.user.nickname}}</Col>
+            <Col span="6"><span>手机号:</span>{{data.user.phone}}</Col>
+            <Col span="6"><span>流星值:</span>{{(parseInt(data.user.meteorScore)/10).toFixed(1)+"分"}}</Col>          
+          </Row>
+          <Row class="row">
+            <Col span="6"><span>认证信息:</span><Tag color="blue" v-for="item in data.user.selfAuthInfos" :key="item.key" class="tag-style">{{item}}</Tag></Col>
+            <Col span="18"><span>个人标签:</span><Tag color="blue" v-for="item in data.user.tags" :key="item.key" class="tag-style">{{item}}</Tag></Col>          
+          </Row>
+        </div>
+        
         <br>
         <div class="user_detail_div">
           <label class="from_label">需求标题:</label>
@@ -79,7 +65,7 @@
         </div> -->
         <div class="user_detail_div">
           <label class="from_label">需求图片:</label>
-          <UserEditImgList :change="false" :imgList="data.mediaImg"></UserEditImgList>
+          <UserEditImgList :change="true" :imgList="data.mediaImg"></UserEditImgList>
         </div>
         <br>
         <div class="user_detail_div">
@@ -231,15 +217,6 @@ export default {
 };
 </script>
 <style>
-.user_detail_div {
-  margin-left: 3vw;
-  font-size: 16px;
-  font-weight: bold;
-  width: 80vw;
-  border-bottom: 1px solid rgb(219, 207, 207);
-}
-.from_label {
-  margin-left: 3vw;
-}
+@import "../../../styles/public.less";
 </style>
 
