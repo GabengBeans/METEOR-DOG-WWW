@@ -145,6 +145,21 @@ const app = {
         },
         expand_group_search_info:{},
         expand_group_search_result: [],
+        // 拓展-代理组-绑定代理人
+        group_bind_page_info: {
+            currentPage: 1,
+            totalPage: 0
+        },
+        group_bind_search_info:{},
+        group_bind_search_result: [],
+        // 拓展-代理组-解绑代理人
+        group_unbundling_page_info: {
+            currentPage: 1,
+            totalPage: 0
+        },
+        group_unbundling_search_info:{},
+        group_unbundling_search_result: [],
+
 
         //类目管理
         category_search_result:{
@@ -631,6 +646,59 @@ const app = {
                 // for (let x in arr) {
 
                 // }
+            })
+        },
+        //绑定代理人
+        GET_GROUP_BIND_INFO(state, { data, pageNo }) {
+            state.group_bind_search_info = data
+            Util.ajax({
+                method:"post",
+                url:base_uri.get_bind_expend_list_url,
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
+                },
+                data:data
+            }).then((res) => {
+                console.log(res)
+                let arr = res.data.data.items;
+                state.group_bind_page_info.currentPage = parseInt(res.data.data.page)
+                state.group_bind_page_info.totalPage = parseInt(res.data.data.totalCount)
+                state.group_bind_search_result = arr
+                for(let x in arr) {
+                    if(arr[x].nickname){
+                        state.group_bind_search_result[x].nickname = arr[x].nickname
+                    }else{
+                        state.group_bind_search_result[x].nickname = '无'
+                    }
+                }
+            })
+        },
+        //解绑代理人
+        GET_GROUP_UNBUNDLING_INFO(state, { data, pageNo, groupId }) {
+            state.group_unbundling_search_info = data
+            Util.ajax({
+                method:"post",
+                url:base_uri.get_group_expend_list_url,
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10,
+                    groupId: groupId
+                },
+                data:data
+            }).then((res) => {
+                console.log(res)
+                let arr = res.data.data.items;
+                state.group_unbundling_page_info.currentPage = parseInt(res.data.data.page)
+                state.group_unbundling_page_info.totalPage = parseInt(res.data.data.totalCount)
+                state.group_unbundling_search_result = arr
+                for(let x in arr) {
+                    if(arr[x].nickname){
+                        state.group_unbundling_search_result[x].nickname = arr[x].nickname
+                    }else{
+                        state.group_unbundling_search_result[x].nickname = '无'
+                    }
+                }
             })
         },
         //资金信息
