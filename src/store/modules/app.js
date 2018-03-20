@@ -7,7 +7,7 @@ import base_uri from '../../libs/base_uri';
 
 const app = {
     state: {
-        temp_status:true,
+        temp_status: true,
         //用户公共状态
         user_page_info: {//用户页页码
             currentPage: 1,
@@ -15,7 +15,7 @@ const app = {
         },
         user_search_info: { "status": "-1" },//用户页搜索条件
         user_search_result: [],//用户页搜过结果
-        user_public_page:1,
+        user_public_page: 1,
 
         //需求公共状态
         request_page_info: {
@@ -24,7 +24,7 @@ const app = {
         },
         request_search_info: { "businessStatus": "0", "status": "-1" },
         request_search_result: [],
-        request_public_page:1,
+        request_public_page: 1,
 
         //服务公共状态
         service_page_info: {
@@ -33,7 +33,7 @@ const app = {
         },
         service_search_info: { "businessStatus": "0", "status": "-1" },
         service_search_result: [],
-        service_public_page:1,
+        service_public_page: 1,
 
         //需求订单公共状态
         order_demand_page_info: {
@@ -42,7 +42,7 @@ const app = {
         },
         order_demand_search_info: { "businessType": "2", "orderStatus": "0" },
         order_demand_search_result: [],
-        order_demand_public_page:1,
+        order_demand_public_page: 1,
 
         //服务订单公共状态
         order_service_page_info: {
@@ -51,7 +51,7 @@ const app = {
         },
         order_service_search_info: { "businessType": "1", "orderStatus": "0" },
         order_service_search_result: [],
-        order_service_public_page:1,
+        order_service_public_page: 1,
 
         //资金流水公共状态
         cash_flow_search_info: { "chargeStatus": "-1", "tradeType": "0" },
@@ -60,7 +60,7 @@ const app = {
             totalPage: 0
         },
         cash_flow_search_result: [],
-        cash_flow_public_page:1,
+        cash_flow_public_page: 1,
 
         //保障金
         cash_refund_search_info: { "bondStatus": "-1" },
@@ -69,7 +69,7 @@ const app = {
             totalPage: 0
         },
         cash_refund_search_result: [],
-        cash_refund_public_page:1,
+        cash_refund_public_page: 1,
 
         //提现
         cash_withdraw_search_info: { "applyStatus": "-1" },
@@ -78,7 +78,7 @@ const app = {
             totalPage: 0
         },
         cash_withdraw_search_result: [],
-        cash_withdraw_public_page:1,
+        cash_withdraw_public_page: 1,
 
         //商户入驻
         merchant_enter_search_info: {},
@@ -87,7 +87,7 @@ const app = {
             totalPage: 0
         },
         merchant_enter_search_result: [],
-        merchant_enter_public_page:1,
+        merchant_enter_public_page: 1,
 
         //广告
         advert_new_search_info: {},
@@ -96,7 +96,7 @@ const app = {
             totalPage: 0
         },
         advert_new_search_result: [],
-        advert_new_public_page:1,
+        advert_new_public_page: 1,
 
         //广告位
         advert_position_search_info: {},
@@ -105,7 +105,7 @@ const app = {
             totalPage: 0
         },
         advert_position_search_result: [],
-        advert_position_public_page:1,
+        advert_position_public_page: 1,
 
         //售后管理
         after_feedback_search_info: {},
@@ -114,7 +114,7 @@ const app = {
             totalPage: 0
         },
         after_feedback_search_result: [],
-        after_feedback_public_page:1,
+        after_feedback_public_page: 1,
 
         // 拓展用户--代理人
         expand_page_info: {
@@ -123,7 +123,7 @@ const app = {
         },
         expand_search_info: { "expandStatus": "-1" },
         expand_search_result: [],
-        
+
         // 拓展用户--返佣订单审核
         brokerage_order_page_info: {
             currentPage: 1,
@@ -136,35 +136,35 @@ const app = {
             currentPage: 1,
             totalPage: 0
         },
-        expand_charge_search_info:{},
+        expand_charge_search_info: {},
         expand_charge_search_result: [],
         // 拓展用户 -- 代理组管理
         expand_group_page_info: {
             currentPage: 1,
             totalPage: 0
         },
-        expand_group_search_info:{},
+        expand_group_search_info: {},
         expand_group_search_result: [],
 
         //类目管理
-        category_search_result:{
-            childCategory:[]
+        category_search_result: {
+            childCategory: []
         },
-        categorys_search_result:{
-            childCategory:[]
+        categorys_search_result: {
+            childCategory: []
         },
 
         //标签管理
-        category_tab_search_result:{
-           
+        category_tab_search_result: {
+
         },
-        categorys_tab_search_result:{
-            
+        categorys_tab_search_result: {
+
         },
 
         //统计
         order_statistics_search_info: {},
-        order_statistics_search_result:{},
+        order_statistics_search_result: {},
 
         //系统配置
         system_settings_search_info: {},
@@ -173,16 +173,25 @@ const app = {
             totalPage: 0
         },
         system_settings_search_result: [],
-        system_settings_public_page:1,
+        system_settings_public_page: 1,
 
         //app管理
-        app_search_info:{},
-        app_page_info:{
+        app_search_info: {},
+        app_page_info: {
             currentPage: 1,
             totalPage: 0
         },
         app_search_result: [],
-        app_public_page:1,
+        app_public_page: 1,
+
+        //权限管理
+        admin_user_search_info: {},
+        admin_user_page_info: {
+            currentPage: 1,
+            totalPage: 0
+        },
+        admin_user_search_result: [],
+        admin_user_public_page: 1,
 
         cachePage: [],
         lang: '',
@@ -212,7 +221,7 @@ const app = {
         messageCount: 0,
         dontCache: ['text-editor', 'artical-publish'] // 在这里定义你不想要缓存的页面的name属性值(参见路由配置router.js)
     },
-    mutations: {    
+    mutations: {
         setTagsList(state, list) {
             state.tagsList.push(...list);
         },
@@ -475,7 +484,7 @@ const app = {
         },
         //需求订单
         GET_ORDER_DEMAND_INFO(state, { data, pageNo }) {
-            Vue.set(data,'businessType','2')
+            Vue.set(data, 'businessType', '2')
             state.order_demand_search_info = data
             state.order_demand_public_page = pageNo
             //console.log(data)
@@ -510,7 +519,7 @@ const app = {
         },
         //服务订单
         GET_ORDER_SERVICE_INFO(state, { data, pageNo }) {
-            Vue.set(data,'businessType','1')
+            Vue.set(data, 'businessType', '1')
             state.order_service_search_info = data
             state.order_service_public_page = pageNo
             //console.log(data)
@@ -546,82 +555,80 @@ const app = {
         //拓展信息
         GET_EXPAND_INFO(state, { data, pageNo }) {
             state.expand_search_info = data
-            state.expand_public_page = pageNo            
+            state.expand_public_page = pageNo
             Util.ajax({
-                method:"post",
-                url:base_uri.extend_user_search_ex_userinfo_for_page,
-                params:{
-                    pageNo:pageNo || 1,
-                    pageSize:10
+                method: "post",
+                url: base_uri.extend_user_search_ex_userinfo_for_page,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
                 },
-                data:data
+                data: data
             }).then((res) => {
                 // console.log(res)
                 let arr = res.data.data.items;
                 // console.log(arr)
-                let status = ["无效","有效"];
+                let status = ["无效", "有效"];
                 state.expand_page_info.currentPage = parseInt(res.data.data.page)
                 state.expand_page_info.totalPage = parseInt(res.data.data.totalCount)
                 state.expand_search_result = arr
-                for(let x in arr) {   
+                for (let x in arr) {
                     let statusIndex = parseInt(state.expand_search_result[x].expandStatus)
-                    state.expand_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
-                    state.expand_search_result[x].tradeAmount = arr[x].tradeAmount*0.01
-                    if(arr[x].auditTime)
-                    {
-                        state.expand_search_result[x].auditTime = Util.formatDate(new Date(arr[x].auditTime),"yyyy-MM-dd hh:mm:ss")
-                    }else{
+                    state.expand_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
+                    state.expand_search_result[x].tradeAmount = arr[x].tradeAmount * 0.01
+                    if (arr[x].auditTime) {
+                        state.expand_search_result[x].auditTime = Util.formatDate(new Date(arr[x].auditTime), "yyyy-MM-dd hh:mm:ss")
+                    } else {
                         state.expand_search_result[x].auditTime = ''
-                    } 
+                    }
                     state.expand_search_result[x].expandStatus = status[statusIndex]
                 }
             })
         },
-        GET_EXPAND_CHARGE_INFO(state,{data,pageNo}){
+        GET_EXPAND_CHARGE_INFO(state, { data, pageNo }) {
             state.expand_charge_search_info = data
             Util.ajax({
-                method:"post",
-                url:base_uri.brokerage_balance_search_for_page_url,
-                params:{
-                    pageNo:pageNo || 1,
-                    pageSize:10
+                method: "post",
+                url: base_uri.brokerage_balance_search_for_page_url,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
                 },
-                data:data
+                data: data
             }).then((res) => {
                 let arr = res.data.data.items;
                 console.log(arr)
-                let balanceStatus = ["全部","已结算","未结算","待结算"];
+                let balanceStatus = ["全部", "已结算", "未结算", "待结算"];
                 state.expand_charge_page_info.currentPage = parseInt(res.data.data.page)
                 state.expand_charge_page_info.totalPage = parseInt(res.data.data.totalCount)
                 state.expand_charge_search_result = arr
-                for(let x in arr) {   
+                for (let x in arr) {
                     let balanceIndex = parseInt(state.expand_charge_search_result[x].balanceStatus)
-                    state.expand_charge_search_result[x].accountDay = Util.formatDate(new Date(arr[x].accountDay),"yyyy-MM-dd hh:mm:ss")
-                    state.expand_charge_search_result[x].tradeAmount = arr[x].tradeAmount*0.01
-                    state.expand_charge_search_result[x].platformServiceCharge = arr[x].platformServiceCharge*0.01                    
-                    state.expand_charge_search_result[x].balanceAmount = arr[x].balanceAmount*0.01                    
-                    state.expand_charge_search_result[x].reate = arr[x].reate*0.01                    
-                    
-                    if(arr[x].balanceTime)
-                    {
-                        state.expand_charge_search_result[x].balanceTime = Util.formatDate(new Date(arr[x].balanceTime),"yyyy-MM-dd hh:mm:ss")
-                    }else{
+                    state.expand_charge_search_result[x].accountDay = Util.formatDate(new Date(arr[x].accountDay), "yyyy-MM-dd hh:mm:ss")
+                    state.expand_charge_search_result[x].tradeAmount = arr[x].tradeAmount * 0.01
+                    state.expand_charge_search_result[x].platformServiceCharge = arr[x].platformServiceCharge * 0.01
+                    state.expand_charge_search_result[x].balanceAmount = arr[x].balanceAmount * 0.01
+                    state.expand_charge_search_result[x].reate = arr[x].reate * 0.01
+
+                    if (arr[x].balanceTime) {
+                        state.expand_charge_search_result[x].balanceTime = Util.formatDate(new Date(arr[x].balanceTime), "yyyy-MM-dd hh:mm:ss")
+                    } else {
                         state.expand_charge_search_result[x].balanceTime = ''
-                    } 
+                    }
                     state.expand_charge_search_result[x].balanceStatus = balanceStatus[balanceIndex]
                 }
             })
         },
-        GET_EXPAND_GROUP_INFO(state,{data,pageNo}){
+        GET_EXPAND_GROUP_INFO(state, { data, pageNo }) {
             state.expand_group_search_info = data
             Util.ajax({
-                method:"post",
-                url:base_uri.extend_group_search_ex_group_for_page,
-                params:{
-                    pageNo:pageNo || 1,
-                    pageSize:10
+                method: "post",
+                url: base_uri.extend_group_search_ex_group_for_page,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
                 },
-                data:data
+                data: data
             }).then((res) => {
                 console.log(res)
                 let arr = res.data.data.items;
@@ -636,7 +643,7 @@ const app = {
         //资金信息
         GET_CASH_FLOW_INFO(state, { data, pageNo }) {
             state.cash_flow_search_info = data
-            state.cash_flow_public_page = pageNo                        
+            state.cash_flow_public_page = pageNo
             Util.ajax({
                 method: "post",
                 url: base_uri.cash_search_account_log_url,
@@ -680,7 +687,7 @@ const app = {
         //保障金退回
         GET_CASH_REFUND_INFO(state, { data, pageNo }) {
             state.cash_refund_search_info = data
-            state.cash_refund_public_page = pageNo                                    
+            state.cash_refund_public_page = pageNo
             Util.ajax({
                 method: "post",
                 url: base_uri.account_search_bond_for_page_url,
@@ -716,7 +723,7 @@ const app = {
         //提现申请
         GET_CASH_WITHDRAW_INFO(state, { data, pageNo }) {
             state.cash_withdraw_search_info = data
-            state.cash_withdraw_public_page = pageNo                                    
+            state.cash_withdraw_public_page = pageNo
             Util.ajax({
                 method: "post",
                 url: base_uri.cash_search_withdraw_for_page_url,
@@ -752,8 +759,8 @@ const app = {
         //商户入住
         GET_MERCHANT_ENTER_INFO(state, { data, pageNo }) {
             state.merchant_enter_search_info = data
-            state.merchant_enter_public_page = pageNo                        
-            
+            state.merchant_enter_public_page = pageNo
+
             Util.ajax({
                 method: "post",
                 url: base_uri.search_business_info_for_page_url,
@@ -782,44 +789,42 @@ const app = {
             })
         },
         //拓展管理
-        GET_BROKERAGE_ORDER_INFO(state,{data,pageNo}){
+        GET_BROKERAGE_ORDER_INFO(state, { data, pageNo }) {
             state.brokerage_order_search_info = data
             Util.ajax({
-                method:"post",
-                url:base_uri.brokerage_order_search_for_page,
-                params:{
-                    pageNo:pageNo || 1,
-                    pageSize:10
+                method: "post",
+                url: base_uri.brokerage_order_search_for_page,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
                 },
-                data:data
+                data: data
             }).then((res) => {
                 // console.log(res)
                 let arr = res.data.data.items;
-                let businessStatus = ["全部","待审核","审核未通过","审核通过"];
+                let businessStatus = ["全部", "待审核", "审核未通过", "审核通过"];
                 state.brokerage_order_page_info.currentPage = parseInt(res.data.data.page)
                 state.brokerage_order_page_info.totalPage = parseInt(res.data.data.totalCount)
                 state.brokerage_order_search_result = arr
-                for(let x in arr) {
-                    let businessIndex = parseInt( state.brokerage_order_search_result[x].businessStatus)
-    
-                    state.brokerage_order_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
+                for (let x in arr) {
+                    let businessIndex = parseInt(state.brokerage_order_search_result[x].businessStatus)
+
+                    state.brokerage_order_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
                     state.brokerage_order_search_result[x].platformServiceCharge = arr[x].platformServiceCharge * 0.01;
                     state.brokerage_order_search_result[x].brokerage = arr[x].brokerage * 0.01;
                     state.brokerage_order_search_result[x].reate = arr[x].reate * 0.01;
-                    
-                    
-                    if(arr[x].accountDay)
-                    {
-                        state.brokerage_order_search_result[x].accountDay = Util.formatDate(new Date(arr[x].accountDay),"yyyy-MM-dd hh:mm:ss")
-                    }else{
+
+
+                    if (arr[x].accountDay) {
+                        state.brokerage_order_search_result[x].accountDay = Util.formatDate(new Date(arr[x].accountDay), "yyyy-MM-dd hh:mm:ss")
+                    } else {
                         state.brokerage_order_search_result[x].accountDay = ''
-                    } 
-                    if(arr[x].auditTime)
-                    {
-                        state.brokerage_order_search_result[x].auditTime = Util.formatDate(new Date(arr[x].auditTime),"yyyy-MM-dd hh:mm:ss")
-                    }else{
+                    }
+                    if (arr[x].auditTime) {
+                        state.brokerage_order_search_result[x].auditTime = Util.formatDate(new Date(arr[x].auditTime), "yyyy-MM-dd hh:mm:ss")
+                    } else {
                         state.brokerage_order_search_result[x].auditTime = ''
-                    } 
+                    }
                     state.brokerage_order_search_result[x].businessStatus = businessStatus[businessIndex]
                 }
             })
@@ -827,10 +832,10 @@ const app = {
         //广告管理
         GET_ADVERT_NEW_INFO(state, { data, pageNo }) {
             state.advert_new_search_info = data
-            state.advert_new_public_page = pageNo                        
-            
+            state.advert_new_public_page = pageNo
+
             Util.ajax({
-                method: "post", 
+                method: "post",
                 url: base_uri.advert_query_advert_url,
                 params: {
                     pageNo: pageNo || 1,
@@ -859,8 +864,8 @@ const app = {
         //广告位管理
         GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO(state, { data, pageNo }) {
             state.advert_position_search_info = data
-            state.advert_position_public_page = pageNo                        
-            
+            state.advert_position_public_page = pageNo
+
             Util.ajax({
                 method: "post",
                 url: base_uri.advert_position_search_for_page_url,
@@ -894,8 +899,8 @@ const app = {
         //售后管理
         GET_AFTER_FEEDBACK_INFO(state, { data, pageNo }) {
             state.after_feedback_search_info = data
-            state.after_feedback_public_page = pageNo                        
-            
+            state.after_feedback_public_page = pageNo
+
             Util.ajax({
                 method: "post",
                 url: base_uri.after_feedback_query_for_page,
@@ -918,92 +923,82 @@ const app = {
                             state.after_feedback_search_result[x].phone = ""
                         }
                     }
-                } 
+                }
             }).catch((error) => {
                 console.log(error)
             })
         },
 
         //类别管理
-        GET_CATEGORY_SEARCH_INFO(state,{businessType}){
+        GET_CATEGORY_SEARCH_INFO(state, { businessType }) {
             Util.ajax({
                 method: "get",
                 url: base_uri.category_search_url,
                 params: {
-                    businessType:businessType
+                    businessType: businessType
                 }
             }).then((response) => {
                 //console.log(response)
-                let obj =response.data.data.allCategory[0]
-                if(businessType==1) 
-                {
-                    if(response.data.success)
-                    {
-                    Util.recursion(response.data.data.allCategory,"childCategory")
-                    state.category_search_result = response.data.data.allCategory[0]
+                let obj = response.data.data.allCategory[0]
+                if (businessType == 1) {
+                    if (response.data.success) {
+                        Util.recursion(response.data.data.allCategory, "childCategory")
+                        state.category_search_result = response.data.data.allCategory[0]
                     }
-                    
-                }else if(businessType==2)
-                {
-                    if(response.data.success)
-                    {
-                        Util.recursion(response.data.data.allCategory,"childCategory")
+
+                } else if (businessType == 2) {
+                    if (response.data.success) {
+                        Util.recursion(response.data.data.allCategory, "childCategory")
                         state.categorys_search_result = response.data.data.allCategory[0]
                     }
                 }
-                
+
             }).catch((error) => {
                 console.log(error)
             })
         },
         //标签管理
-        GET_LABEL_LIST_SEARCH_INFO(state,{lableType}){
+        GET_LABEL_LIST_SEARCH_INFO(state, { lableType }) {
             Util.ajax({
                 method: "get",
                 url: base_uri.label_search_label_list_url,
                 params: {
-                    lableType:lableType
+                    lableType: lableType
                 }
             }).then((response) => {
                 //console.log(response)
-                if(lableType==1) 
-                {
-                    if(response.data.success)
-                    {
+                if (lableType == 1) {
+                    if (response.data.success) {
                         let levelName = []
-                        for(let x=0;x<response.data.data.allLabels.length;x++)
-                        {
+                        for (let x = 0; x < response.data.data.allLabels.length; x++) {
                             let obj = {}
                             obj.name = response.data.data.allLabels[x].name
                             obj.id = response.data.data.allLabels[x].id
                             levelName.push(obj)
                         }
-                       Util.recursion(response.data.data.allLabels,"childLableVos")
-                       Vue.set(state.category_tab_search_result,"allLabels",response.data.data.allLabels)
-                       //console.log(state.category_tab_search_result.allLabels instanceof Array)
-                       Vue.set(state.category_tab_search_result,"tabName","买家")
-                       Vue.set(state.category_tab_search_result,"levelName",levelName)
-                       Vue.set(state.category_tab_search_result,"labelType","1")
-                       //console.log(state.category_tab_search_result)
+                        Util.recursion(response.data.data.allLabels, "childLableVos")
+                        Vue.set(state.category_tab_search_result, "allLabels", response.data.data.allLabels)
+                        //console.log(state.category_tab_search_result.allLabels instanceof Array)
+                        Vue.set(state.category_tab_search_result, "tabName", "买家")
+                        Vue.set(state.category_tab_search_result, "levelName", levelName)
+                        Vue.set(state.category_tab_search_result, "labelType", "1")
+                        //console.log(state.category_tab_search_result)
                     }
-                    
-                }else if(lableType==2)
-                {
-                    if(response.data.success)
-                    {
+
+                } else if (lableType == 2) {
+                    if (response.data.success) {
                         let levelName = []
-                        for(let x=0;x<response.data.data.allLabels.length;x++)
-                        {
+                        for (let x = 0; x < response.data.data.allLabels.length; x++) {
                             let obj = {}
                             obj.name = response.data.data.allLabels[x].name
                             obj.id = response.data.data.allLabels[x].id
                             levelName.push(obj)
                         }
-                        Util.recursion(response.data.data.allLabels,"childLableVos")
-                        Vue.set(state.categorys_tab_search_result,"allLabels",response.data.data.allLabels)
-                        Vue.set(state.categorys_tab_search_result,"tabName","卖家")
-                        Vue.set(state.categorys_tab_search_result,"levelName",levelName)
-                        Vue.set(state.categorys_tab_search_result,"labelType","2")
+                        Util.recursion(response.data.data.allLabels, "childLableVos")
+                        Vue.set(state.categorys_tab_search_result, "allLabels", response.data.data.allLabels)
+                        Vue.set(state.categorys_tab_search_result, "tabName", "卖家")
+                        Vue.set(state.categorys_tab_search_result, "levelName", levelName)
+                        Vue.set(state.categorys_tab_search_result, "labelType", "2")
                     }
                 }
                 //console.log(state.category_tab_search_result)
@@ -1012,22 +1007,21 @@ const app = {
             })
         },
         //统计
-        GET_ORDER_STATISTICS_SEARCH_INFO(state,{time}){
+        GET_ORDER_STATISTICS_SEARCH_INFO(state, { time }) {
             Util.ajax({
                 method: "post",
                 url: base_uri.order_statistics_query,
-                data:time
+                data: time
             }).then((response) => {
-                
-                if(response.data.success)
-                {
-                    
+
+                if (response.data.success) {
+
                     // for(let x in response.data.data)
                     //  {
                     //      Vue.set(state.order_statistics_search_result,x,parseInt(response.data.data[x]))
                     //  }
                     state.order_statistics_search_result = response.data.data
-                  
+
                 }
                 //console.log(state.order_statistics_search_result)
             }).catch((error) => {
@@ -1035,65 +1029,91 @@ const app = {
             })
         },
         //系统变量
-        GET_SYSTEM_SETTINGS_SEARCH_INFO(state,{data,pageNo}){
+        GET_SYSTEM_SETTINGS_SEARCH_INFO(state, { data, pageNo }) {
             state.system_settings_search_info = data
-            state.system_settings_public_page = pageNo                        
-            
+            state.system_settings_public_page = pageNo
+
             Util.ajax({
-                method:"post",
-                url:base_uri.search_setting_info_for_page,
-                params:{
-                    pageNo:pageNo || 1,
-                    pageSize:10
+                method: "post",
+                url: base_uri.search_setting_info_for_page,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
                 },
-                data:data
-            }).then(res=>{
+                data: data
+            }).then(res => {
                 //console.log(res)
-                if(res.data.success)
-                {
+                if (res.data.success) {
                     state.system_settings_page_info.currentPage = res.data.data.page
                     state.system_settings_page_info.totalPage = res.data.data.totalCount
                     state.system_settings_search_result = res.data.data.items
-                    for(let x in res.data.data.items)
-                    {
-                        if(res.data.data.items[x].status)
-                        {
+                    for (let x in res.data.data.items) {
+                        if (res.data.data.items[x].status) {
                             state.system_settings_search_result[x].status = "有效"
-                        }else{
+                        } else {
                             state.system_settings_search_result[x].status = "无效"
                         }
                     }
-                }   
-            }).catch(error=>{
+                }
+            }).catch(error => {
                 console.log(error)
             })
         },
         //app管理
-        GET_APP_SEARCH_INFO(state,{data,pageNo})
-        {
-            state.app_public_page = pageNo                        
+        GET_APP_SEARCH_INFO(state, { data, pageNo }) {
+            state.app_public_page = pageNo
 
             Util.ajax({
-                method:"post",
-                url:base_uri.app_search_url,
-                params:{
-                    pageNo:pageNo || 1,
-                    pageSize:10
+                method: "post",
+                url: base_uri.app_search_url,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
                 },
-                data:data
-            }).then(res=>{
+                data: data
+            }).then(res => {
                 //console.log(res)
-                if(res.data.success)
-                {
+                if (res.data.success) {
                     state.app_page_info.currentPage = res.data.data.page
                     state.app_page_info.totalPage = res.data.data.totalCount
                     state.app_search_result = res.data.data.items
-                    for(let x in res.data.data.items)
-                    {
-                        state.app_search_result[x].createTime = Util.formatDate(new Date(res.data.data.items[x].createTime),"yyyy-MM-dd hh:mm:ss")   
+                    for (let x in res.data.data.items) {
+                        state.app_search_result[x].createTime = Util.formatDate(new Date(res.data.data.items[x].createTime), "yyyy-MM-dd hh:mm:ss")
                     }
                 }
-                console.log(state.app_search_result)
+                //console.log(state.app_search_result)
+            })
+        },
+        GET_SEARCH_ADIMIN_USER_INFO(state, { data, pageNo }) {
+            state.admin_user_search_info = data
+            state.admin_user_public_page = pageNo
+            Util.ajax({
+                method: "post",
+                url: base_uri.search_admin_user_info,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
+                },
+                data: data
+            }).then(res => {
+                //console.log(res)
+                if (res.data.success) {
+                    //console.log(res.data.data.items)
+                    state.admin_user_page_info.currentPage = res.data.data.page
+                    state.admin_user_page_info.totalPage = res.data.data.totalCount
+                    let statusArr = ["无效", "有效"]
+                    state.admin_user_search_result= []
+                    for (let x in res.data.data.items) {
+                        //state.admin_user_search_result[x] = res.data.data.items[x]
+                        Vue.set(state.admin_user_search_result, x, res.data.data.items[x])
+                        for (let y in res.data.data.items[x]) {
+                            if (y == "status") {
+                                state.admin_user_search_result[x].status = statusArr[res.data.data.items[x][y]]
+                            }
+                        }
+                    }
+                    //console.log(state.admin_user_search_result)
+                }
             })
         }
     }

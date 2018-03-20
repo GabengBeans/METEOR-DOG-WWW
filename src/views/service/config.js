@@ -5,7 +5,7 @@ config.serviceSearch = {
         value: ""
       },
       title: {
-        tagName: "需求标题",
+        tagName: "服务标题",
         value: ""
       },
 

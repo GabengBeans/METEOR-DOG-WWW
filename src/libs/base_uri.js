@@ -116,7 +116,18 @@ let base_uri = {
 
     //资源管理
     app_search_url:"/admin/v1/resources/app/search_for_page",
-    app_add_url:"/admin/v1/resources/app/add"
+    app_add_url:"/admin/v1/resources/app/add",
+
+    //权限管理
+    search_admin_user_info:"/admin/v1/admin_user/search_admin_user_info_for_page",
+    disable_admin_user_url:"/admin/v1/admin_user/disable_admin_user",
+    enabling_admin_user_url:"/admin/v1/admin_user/enabling_admin_user",
+    admin_user_detail_url:"/admin/v1/admin_user/detail",
+    find_grant_admin_role_url:"/admin/v1/admin_user/find_grant_admin_role",
+    get_roleList_url:"/admin/v1/admin_user/roleList",
+    edit_admin_user_url:"/admin/v1/admin_user/edit_admin_user",
+    grant_admin_role_url:"/admin/v1/admin_user/grant_admin_role",
+    add_admin_user:"/admin/v1/admin_user/add_admin_user"
 };
 
 export default base_uri;

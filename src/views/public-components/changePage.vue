@@ -107,6 +107,13 @@ export default {
             pageNo: index
           });
           break;
+        case "lockedUser":
+          //this.$store.state.app.merchant_enter_search_info = obj
+          this.$store.commit("GET_SEARCH_ADIMIN_USER_INFO", {
+            data: this.$store.state.app.admin_user_search_info,
+            pageNo: index
+          });
+          break;
       }
     }
   }

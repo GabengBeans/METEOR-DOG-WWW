@@ -309,8 +309,8 @@ export const otherRouter = {
 //             {
 //                 path: 'locked_user', 
 //                 name: 'locked-user', 
-//                 title: '权限管理', 
-//                 component: resolve => { require(['@/views/locked/locked_user/locked_user'], resolve); }, 
+//                 title: '用户角色管理', 
+//                 component: resolve => { require(['@/views/locked/locked_user/locked_user_list'], resolve); }, 
 //             }
 //         ]
 //     },
@@ -380,7 +380,6 @@ export const otherRouter = {
 //     },
 
 // ];
-console.log("router.jsjsjsjsjs")
 let menus = []
 if (window.sessionStorage.getItem("menus")) {
     let serializeMenus = JSON.parse(window.sessionStorage.getItem("menus"))
