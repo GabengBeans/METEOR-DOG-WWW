@@ -128,6 +128,7 @@ let base_uri = {
     app_add_url:"/admin/v1/resources/app/add",
 
     //权限管理
+        //用户角色管理
     search_admin_user_info:"/admin/v1/admin_user/search_admin_user_info_for_page",
     disable_admin_user_url:"/admin/v1/admin_user/disable_admin_user",
     enabling_admin_user_url:"/admin/v1/admin_user/enabling_admin_user",
@@ -136,7 +137,17 @@ let base_uri = {
     get_roleList_url:"/admin/v1/admin_user/roleList",
     edit_admin_user_url:"/admin/v1/admin_user/edit_admin_user",
     grant_admin_role_url:"/admin/v1/admin_user/grant_admin_role",
-    add_admin_user:"/admin/v1/admin_user/add_admin_user"
+    add_admin_user:"/admin/v1/admin_user/add_admin_user",
+        //角色管理
+    search_admin_role_info:"/admin/v1/admin_role/search_admin_role_info_for_page",
+    disable_admin_role_url:"/admin/v1/admin_role/disable_admin_role",
+    enabling_admin_role_url:"/admin/v1/admin_role/enabling_admin_role",
+    admin_role_detail_url:"/admin/v1/admin_role/detail",
+    find_grant_admin_resource_url:"/admin/v1/admin_role/find_grant_admin_resource",
+    add_admin_role_url:"/admin/v1/admin_role/add_admin_role",
+    edit_grant_admin_resource_url:"/admin/v1/admin_role/grant_admin_resource",
+        //资源管理
+    search_admin_resource_list:"/admin/v1/admin_resource/search_admin_resource_list"
 };
 
 export default base_uri;

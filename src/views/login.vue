@@ -87,7 +87,7 @@ export default {
                       window.sessionStorage.setItem("menus",JSON.stringify(res.data.data))
                       window.sessionStorage.setItem("updataStatus",true)
                       window.sessionStorage.setItem("logoutStatus",true)
-                      //console.log(res.data.data)
+                      console.log(res.data.data)
                       
                       obj.$router.push({
                         name: "home_index"

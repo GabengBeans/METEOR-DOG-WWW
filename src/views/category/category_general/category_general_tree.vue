@@ -323,30 +323,6 @@ export default {
                   },
                   on: {
                     click: () => {
-                      // let obj
-                      // for (
-                      //   let x = 0;
-                      //   x < this.categoryData.length;
-                      //   x++
-                      // ) {
-                      //   if (
-                      //     data.nodeKey == this.categoryData[x].nodeKey
-                      //   ) {
-                      //     obj = this.categoryData[x];
-                      //   }
-                      // }
-
-                      // if(!obj)
-                      // {
-                      //     for(let x = 0;
-                      //   x < this.categoryData.childCategory.length;
-                      //   x++){
-                      //       if(data.nodeKey == this.categoryData.childCategory[x].nodeKey)
-                      //       {
-                      //         obj = this.categoryData.childCategory[x]
-                      //       }
-                      //   }
-                      // }
                       this.addObj.showAddCategory = true;
                       this.addObj.type = data.type
                       this.addObj.level = "3"

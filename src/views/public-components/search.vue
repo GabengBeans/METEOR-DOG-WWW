@@ -92,7 +92,10 @@ export default {
           break;
         case "orderService":
           //this.$store.state.app.merchant_enter_search_info = obj
-          this.$store.commit("GET_ORDER_SERVICE_INFO", { data: obj, pageNo: 1 });
+          this.$store.commit("GET_ORDER_SERVICE_INFO", {
+            data: obj,
+            pageNo: 1
+          });
           break;
         case "orderDemand":
           //this.$store.state.app.merchant_enter_search_info = obj
@@ -100,7 +103,17 @@ export default {
           break;
         case "lockedUser":
           //this.$store.state.app.merchant_enter_search_info = obj
-          this.$store.commit("GET_SEARCH_ADIMIN_USER_INFO", { data: obj, pageNo: 1 });
+          this.$store.commit("GET_SEARCH_ADIMIN_USER_INFO", {
+            data: obj,
+            pageNo: 1
+          });
+          break;
+        case "lockedRole":
+          //this.$store.state.app.merchant_enter_search_info = obj
+          this.$store.commit("GET_SEARCH_ADIMIN_ROLE_INFO", {
+            data: obj,
+            pageNo: 1
+          });
           break;
       }
     }
@@ -108,5 +121,5 @@ export default {
 };
 </script>
 <style>
- @import "../../styles/public.less";
+@import "../../styles/public.less";
 </style>

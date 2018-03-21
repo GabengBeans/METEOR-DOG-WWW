@@ -366,15 +366,22 @@ util.formData = function (data) {
     }
     return formData;
 }
-util.recursion = function (obj, subName) {
+util.recursion = function (obj, subName,detail) {
     if (!obj) {
         return false
     } else {
         for (let x = 0; x < obj.length; x++) {
-            //Vue.set(obj[x],'expand',true)
-            obj[x].expand = true
+            //Vue.set(obj[x],'expand',true)、
+            if(subName == "childAdminResources" && detail)
+            {
+                obj[x].disabled  = true
+            }
+            if(detail)
+            {
+                obj[x].expand = true
+            }
             obj[x].children = obj[x][subName]
-            util.recursion(obj[x].children, subName)
+            util.recursion(obj[x].children, subName,detail)
         }
     }
 }
@@ -436,7 +443,16 @@ util.createMenus = function (data) {
     //console.log(this.menus)
     return menus
 }
-
+util.unique = function unique(array){ 
+    var n = []; //一个新的临时数组 
+    //遍历当前数组 
+    for(var i = 0; i < array.length; i++){ 
+    //如果当前数组的第i已经保存进了临时数组，那么跳过， 
+    //否则把当前项push到临时数组里面 
+    if (n.indexOf(array[i]) == -1) n.push(array[i]); 
+    } 
+    return n; 
+  }
 export default util;
 
 // let path = {

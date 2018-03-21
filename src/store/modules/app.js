@@ -199,7 +199,7 @@ const app = {
         app_search_result: [],
         app_public_page: 1,
 
-        //权限管理
+        //权限管理-用户管理
         admin_user_search_info: {},
         admin_user_page_info: {
             currentPage: 1,
@@ -207,6 +207,22 @@ const app = {
         },
         admin_user_search_result: [],
         admin_user_public_page: 1,
+        //权限管理-角色管理
+        admin_role_search_info: {},
+        admin_role_page_info: {
+            currentPage: 1,
+            totalPage: 0
+        },
+        admin_role_search_result: [],
+        admin_role_public_page: 1,
+        //权限管理-资源管理
+        admin_resource_search_info: {},
+        admin_resource_page_info: {
+            currentPage: 1,
+            totalPage: 0
+        },
+        admin_resource_search_result: [],
+        admin_resource_public_page: 1,
 
         cachePage: [],
         lang: '',
@@ -1182,6 +1198,49 @@ const app = {
                     }
                     //console.log(state.admin_user_search_result)
                 }
+            })
+        },
+        GET_SEARCH_ADIMIN_ROLE_INFO(state, { data, pageNo }) {
+            console.log(data)
+            state.admin_role_search_info = data
+            state.admin_role_public_page = pageNo
+            Util.ajax({
+                method: "post",
+                url: base_uri.search_admin_role_info,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
+                },
+                data: data
+            }).then(res => {
+                console.log(res)
+                if (res.data.success) {
+                    //console.log(res.data.data.items)
+                    state.admin_role_page_info.currentPage = res.data.data.page
+                    state.admin_role_page_info.totalPage = res.data.data.totalCount
+                    let statusArr = ["无效", "有效"]
+                    state.admin_role_search_result= []
+                    for (let x in res.data.data.items) {
+                        Vue.set(state.admin_role_search_result, x, res.data.data.items[x])
+                        for (let y in res.data.data.items[x]) {
+                            if (y == "status") {
+                                state.admin_role_search_result[x].status = statusArr[res.data.data.items[x][y]]
+                            }
+                        }
+                    }
+                    console.log(state.admin_role_search_result)
+                }
+            })
+        },
+        GET_SEARCH_ADIMIN_RESOURCE_INFO(state) {
+            Util.ajax({
+                method: "get",
+                url: base_uri.search_admin_resource_list,
+            }).then(res => {
+                let obj = res.data.data.allLabels
+                Util.recursion(obj,"childAdminResources",false)
+                console.log(obj)
+                state.admin_resource_search_result = obj
             })
         }
     }

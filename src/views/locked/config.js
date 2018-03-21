@@ -33,4 +33,28 @@ config.lockedUserSearch = {
         }
     }
 }
+config.lockedRoleSearch = {
+    roleName: {
+        tagName: "角色名称",
+        value: ""
+    },
+    status: {
+        tagName: "状态",
+        value: "-1",
+        tag: {
+            op1: {
+                num: "-1",
+                value: "全部"
+            },
+            op2: {
+                num: "1",
+                value: "有效"
+            },
+            op3: {
+                num: "0",
+                value: "无效"
+            }
+        }
+    }
+}
 export default config

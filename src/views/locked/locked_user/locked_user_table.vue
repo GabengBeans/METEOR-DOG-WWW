@@ -1,41 +1,57 @@
 <template>
-    <div id='user_table'>
-        <Table style="min-width:800px;margin:0 16px;" border stripe :columns="columns" :data="$store.state.app.admin_user_search_result">
-        </Table>
-        <Modal v-model="showUserDetail" width="360">
-            <p slot="header" style="color:#f60;text-align:center">
-                <span>用户详情</span>
-            </p>
-            <div style="text-align:center">
-                <UserDetail :data="userDataDetail"></UserDetail>
-            </div>
-            <div slot="footer">
-                <Button type="success" size="large" long @click="showUserDetail = false">确定</Button>
-            </div>
-        </Modal>
-        <Modal v-model="showUserEdit" width="360">
-            <p slot="header" style="color:#f60;text-align:center">
-                <span>用户编辑</span>
-            </p>
-            <div>
-                <UserEdit :data="userDataEidt" :roleList="roleList"></UserEdit>
-            </div>
-            <div slot="footer">
-                <Button type="error" size="large" @click="showUserEdit = false">取消</Button>
-                <Button type="success" size="large" @click="editUserRole()">确定</Button>
-            </div>
-        </Modal>
-    </div>
+  <div id='user_table' class="table">
+    <Button type="success" style="margin-left:16px" @click="showAddAdmin=true">添加管理员</Button>
+    <br><br>
+    <Table style="min-width:800px;margin:0 16px;" border stripe :columns="columns" :data="$store.state.app.admin_user_search_result">
+    </Table>
+    <Modal v-model="showAddAdmin" width="360">
+      <p slot="header" style="color:#f60;text-align:center">
+        <span>添加管理员</span>
+      </p>
+      <div style="text-align:center">
+        <UserAdd :data="userDataAdd" :roleList="roleList"></UserAdd>
+      </div>
+      <div slot="footer">
+        <Button type="error" size="large" @click="showAddAdmin = false">取消</Button>
+        <Button type="success" size="large" @click="addAdminUser()">确定</Button>
+      </div>
+    </Modal>
+    <Modal v-model="showUserDetail" width="360">
+      <p slot="header" style="color:#f60;text-align:center">
+        <span>用户详情</span>
+      </p>
+      <div style="text-align:center">
+        <UserDetail :data="userDataDetail"></UserDetail>
+      </div>
+      <div slot="footer">
+        <Button type="success" size="large" long @click="showUserDetail = false">确定</Button>
+      </div>
+    </Modal>
+    <Modal v-model="showUserEdit" width="360">
+      <p slot="header" style="color:#f60;text-align:center">
+        <span>用户分配角色</span>
+      </p>
+      <div>
+        <UserEdit :data="userDateEdit" :roleList="roleList"></UserEdit>
+      </div>
+      <div slot="footer">
+        <Button type="error" size="large" @click="showUserEdit = false">取消</Button>
+        <Button type="success" size="large" @click="editUserRole()">确定</Button>
+      </div>
+    </Modal>
+  </div>
 </template>
 <script>
 import axios from "axios";
 import Util from "@/libs/util";
 import baseUri from "@/libs/base_uri";
 import Cookies from "js-cookie";
+import UserAdd from "./locked_user_add";
 import UserDetail from "./locked_user_detail";
 import UserEdit from "./locked_user_edit";
 export default {
   components: {
+    UserAdd,
     UserDetail,
     UserEdit
   },
@@ -43,10 +59,20 @@ export default {
   data() {
     return {
       roleList: [],
-      userDataEidt: {},
+      userDataAdd: {
+        nickname: "",
+        realname: "",
+        username: "",
+        password: "123456",
+        phone: "",
+        mail: "",
+        status: 1
+      },
+      userDateEdit: {},
       userDataDetail: {},
       showUserDetail: false,
       showUserEdit: false,
+      showAddAdmin: false,
       columns: [
         {
           title: "用户ID",
@@ -222,7 +248,7 @@ export default {
                               for (let x in detail) {
                                 if (x == "createTime") {
                                   this.$set(
-                                    this.userDataEidt,
+                                    this.userDateEdit,
                                     x,
                                     Util.formatDate(
                                       new Date(detail.createTime),
@@ -231,7 +257,7 @@ export default {
                                   );
                                 } else if (x == "updateTime") {
                                   this.$set(
-                                    this.userDataEidt,
+                                    this.userDateEdit,
                                     x,
                                     Util.formatDate(
                                       new Date(detail.updateTime),
@@ -241,35 +267,33 @@ export default {
                                 } else if (x == "status") {
                                   let statusArr = ["无效", "有效"];
                                   this.$set(
-                                    this.userDataEidt,
+                                    this.userDateEdit,
                                     x,
                                     statusArr[detail[x]]
                                   );
                                 } else {
-                                  this.$set(this.userDataEidt, x, detail[x]);
+                                  this.$set(this.userDateEdit, x, detail[x]);
                                 }
                               }
                               if (role && role.id) {
-                                this.$set(this.userDataEidt, "roleId", role.id);
+                                this.$set(this.userDateEdit, "roleId", role.id);
                               } else {
                                 this.$set(
-                                  this.userDataEidt,
-                                  "level",
-                                  "未分配角色"
+                                  this.userDateEdit,
+                                  "roleId",
+                                  ""
                                 );
                               }
                             }
                           })
-                        )
-                    //     .catch(error);
-                    //   {
-                    //     this.$Message.error("请求错误，请联系管理员");
-                    //     console.log(error);
-                    //   }
+                        ).catch(error=>{
+                          this.$Message.error("请求错误，请联系管理员");
+                          console.log(error);
+                        })
                     }
                   }
                 },
-                "编辑"
+                "分配角色"
               ),
               // ]
               // ),
@@ -354,12 +378,12 @@ export default {
                               }
                             }
                           })
-                        )
-                    //     .catch(error);
-                    //   {
-                    //     this.$Message.error("请求错误，请联系管理员");
-                    //     console.log(error);
-                    //   }
+                        );
+                      //     .catch(error);
+                      //   {
+                      //     this.$Message.error("请求错误，请联系管理员");
+                      //     console.log(error);
+                      //   }
                     }
                   }
                 },
@@ -373,18 +397,21 @@ export default {
   },
   methods: {
     editUserRole() {
-      //console.log(this.userDataEidt);
-      let This = this
-      //edit_admin_user_url
-      //grant_admin_role_url
+      console.log(this.userDateEdit)
+      if(!(this.userDateEdit.nickname && this.userDateEdit.roleId && this.userDateEdit.username))
+      {
+         this.$Message.error("请补全信息")
+         return
+      }
+      let This = this;
       function editAdminUser() {
         return Util.ajax({
           method: "post",
           url: baseUri.edit_admin_user_url,
           data: {
-            id: This.userDataEidt.id,
-            nickname: This.userDataEidt.nickname,
-            username: This.userDataEidt.username
+            id: This.userDateEdit.id,
+            nickname: This.userDateEdit.nickname,
+            username: This.userDateEdit.username
           }
         });
       }
@@ -393,27 +420,55 @@ export default {
           method: "post",
           url: baseUri.grant_admin_role_url,
           params: {
-            adminUserId: This.userDataEidt.id,
-            roleId: This.userDataEidt.roleId
+            adminUserId: This.userDateEdit.id,
+            roleId: This.userDateEdit.roleId
           }
         });
       }
-      axios
-        .all([editAdminUser(), grantAdminRole()])
-        .then(axios.spread((res1, res2) => {
-            if(res1.data.success && res2.data.success)
-            {
-                This.showUserEdit = false
-                This.$Message.success("保存成功")
-            }else{
-                 This.$Message.error("保存失败")
-            }
-        }))
-    //     .catch(error)
-    //   {
-    //     This.$Message.error("请求错误，请联系管理员");
-    //     console.log(error);
-    //   }
+      axios.all([editAdminUser(), grantAdminRole()]).then(
+        axios.spread((res1, res2) => {
+          if (res1.data.success && res2.data.success) {
+            This.showUserEdit = false;
+            this.$store.commit("GET_SEARCH_ADIMIN_USER_INFO", {
+              data: this.$store.state.app.admin_user_search_info,
+              pageNo: this.$store.state.app.admin_user_public_page
+            });
+            This.$Message.success("保存成功");
+          }
+        })
+      ).catch(error=>{
+           This.$Message.error("保存失败");
+           console.log(error)
+      })
+    },
+    addAdminUser() {
+      for(let x in this.userDataAdd)
+      {
+        if(this.userDataAdd[x]=="")
+        {
+          this.$Message.error("请补全信息")
+          return
+        }
+      }
+      Util.ajax({
+        method: "post",
+        url: baseUri.add_admin_user,
+        data: this.userDataAdd
+      })
+        .then(res => {
+          if (res.data.success) {
+            this.showAddAdmin = false;
+            this.$store.commit("GET_SEARCH_ADIMIN_USER_INFO", {
+              data: this.$store.state.app.admin_user_search_info,
+              pageNo: this.$store.state.app.admin_user_public_page
+            });
+            this.$Message.success("添加成功");
+          }
+        })
+        .catch(error => {
+          this.$Message.error("添加失败，请联系管理员");
+          console.log(error);
+        });
     }
   }
 };
