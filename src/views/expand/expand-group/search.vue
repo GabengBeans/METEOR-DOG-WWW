@@ -48,7 +48,7 @@ export default {
           obj[x] = this.data[x].value;
         }
       }
-      console.log(obj)
+      //console.log(obj)
       this.$store.state.app.expand_group_search_info = obj;
       this.$store.commit("GET_EXPAND_GROUP_INFO", { data: obj, pageNo: 1 });
     }

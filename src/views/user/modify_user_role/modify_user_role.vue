@@ -28,7 +28,7 @@ export default {
         }
     },
     created(){
-        console.log(Cookies.get("token"))
+        //console.log(Cookies.get("token"))
       Util.ajax({
           method:'get',
           url:baseUri.user_detail_url,

@@ -208,9 +208,9 @@ export default {
       }
     },
     select(selection,row) {
-      console.log(row.balanceOrderNo)
+      //console.log(row.balanceOrderNo)
       this.ids.push(row.balanceOrderNo)
-      console.log(this.ids)
+      //console.log(this.ids)
     },
     selectAll(selection) {
       for(let x in selection) {
@@ -234,7 +234,7 @@ export default {
               ids: ids
             }
           }).then(res => {
-            console.log(res)
+            //console.log(res)
             if(res.data.success){
               this.$Message.success("批量审核成功！");
             }else {

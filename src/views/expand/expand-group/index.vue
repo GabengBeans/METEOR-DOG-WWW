@@ -16,7 +16,7 @@
       requestPage
     },
     created(){
-      console.log(this.$store.state.app.expand_group_search_info)
+      //console.log(this.$store.state.app.expand_group_search_info)
       this.$store.commit("GET_EXPAND_GROUP_INFO",{data:this.$store.state.app.expand_group_search_info,pageNo:1})
     }
   }

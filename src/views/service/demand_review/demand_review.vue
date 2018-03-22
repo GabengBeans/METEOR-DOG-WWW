@@ -146,7 +146,7 @@ export default {
   },
   methods: {
     handleView(name) {
-      console.log(name);
+      //console.log(name);
       this.imgName = name;
       this.visible = true;
     },
@@ -168,7 +168,7 @@ export default {
         data: Util.formData(data)
       })
         .then(response => {
-          console.log(response);
+          //console.log(response);
           if (response.data.success) {
              this.modalShow = true;
           } else {
@@ -189,7 +189,7 @@ export default {
         businessStatus: 5,
         refuseReason: this.refuseReason
       };
-      console.log(data)
+      //console.log(data)
       Util.ajax({
         method: "post",
         url: baseUri.service_audit_url,

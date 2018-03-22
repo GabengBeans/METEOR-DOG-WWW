@@ -236,7 +236,7 @@ export default {
               ids: ids
             }
           }).then(res => {
-            console.log(res)
+            //console.log(res)
             if(res.data.success){
               this.$Message.success("批量审核成功！");
             }else {

@@ -196,7 +196,7 @@ export default {
         } else {
           this.user_data.listTags.push({ lableName: this.tags, id: "-1" });
           this.tags = "";
-          console.log(this.user_data.listTags);
+          //console.log(this.user_data.listTags);
         }
       }
     },
@@ -230,7 +230,7 @@ export default {
         imgList.push(this.user_data.certificates[0].imageUrls[x])
       }
      
-      console.log(imgList)
+      //console.log(imgList)
       Util.ajax({
         method: "post",
         url: baseUri.user_edit_url,
@@ -317,7 +317,7 @@ export default {
     axios.all([getUserInfo(), getAttentionUser(), getInviterUsers()]).then(
       axios.spread((response, response1, response2) => {
         //console.log(response)
-        console.log(Cookies.get("token"));
+        //console.log(Cookies.get("token"));
         let src_obj = response.data.data;
         let new_obj = {};
         let inviter_arr = [];

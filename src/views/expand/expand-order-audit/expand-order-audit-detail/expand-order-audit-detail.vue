@@ -70,7 +70,7 @@ export default {
       }
     }).then(res => {
         let obj = res.data.data;
-        console.log(obj)
+        //console.log(obj)
         for (let x in obj) {
             if(x == 'accountDay' || x == 'auditTime'){
                 this.data[x] = Util.formatDate(

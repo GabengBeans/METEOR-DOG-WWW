@@ -140,7 +140,7 @@ export default {
         data: Util.formData(data)
       })
         .then(response => {
-          console.log(response);
+          //console.log(response);
           if (response.data.success) {
             this.$Message.success("退款成功");
             let obj = this.$store.state.app.order_demand_search_result;
@@ -154,7 +154,7 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error);
+          (error);
         });
     },
     handleCancel() {

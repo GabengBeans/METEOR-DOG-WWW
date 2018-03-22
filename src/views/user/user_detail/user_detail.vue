@@ -202,8 +202,8 @@ export default {
     }
     axios.all([getUserInfo(), getAttentionUser(), getInviterUsers()]).then(
       axios.spread((response, response1, response2) => {
-        console.log(response);
-        console.log(Cookies.get("token"));
+        //console.log(response);
+        //console.log(Cookies.get("token"));
         let src_obj = response.data.data;
         let new_obj = {};
         let inviter_arr = [];
@@ -270,7 +270,7 @@ export default {
         //   vm.inviter_arr = inviter_arr
         // })
         //console.log(new_obj.listTags)
-        console.log(new_obj);
+        //console.log(new_obj);
         this.user_data = new_obj;
         this.attention_arr = attention_arr;
         this.inviter_arr = inviter_arr;

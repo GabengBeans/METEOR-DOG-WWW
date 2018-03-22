@@ -10,7 +10,7 @@
         </FormItem>
         </Col>
         <Col :xs='13' :sm='13' :md='8' :lg='5'>
-        <FormItem style="min-width:60px" label="子广告位" >
+        <FormItem style="min-width:60px" label="子广告位">
           <Select v-model="id">
             <Option v-for="item in name" :key="item.key" :value="item.id">{{item.positionName}}</Option>
           </Select>
@@ -21,7 +21,7 @@
       <Button :disabled="btn" style='margin-left:38px' type="success" shape="circle" @click.native='addAdverNewBtn'>添加广告</Button>
     </Row>
     <TableComponent :columns="advertNewListColumns" :data="$store.state.app.advert_new_search_result"></TableComponent>
-    
+
     <Page :storeStatus="status" :currentPage="$store.state.app.advert_new_page_info.currentPage" :totalPage="$store.state.app.advert_new_page_info.totalPage"></Page>
     <Modal v-model="showAdvertEdit" width="80vw">
       <p slot="header" style="color:#2d8cf0;text-align:center">
@@ -62,9 +62,9 @@ export default {
     return {
       btn: true,
       addAdverNewdata: {
-        adName:"",
-        mediaType:1,
-        imgUrl:""
+        adName: "",
+        mediaType: 1,
+        imgUrl: ""
       },
       showAdvertEdit: false,
       showAddAdvert: false,
@@ -165,13 +165,13 @@ export default {
       let obj = {};
       obj.level = this.level;
       obj.positionId = this.id;
+      console.log(obj);
       this.$store.commit("GET_ADVERT_NEW_INFO", { data: obj, pageNo: 1 });
     },
     addAdverNewBtn: function() {
       for (let x in this.addAdverNewdata) {
-        if (x == "positionId"  || x== "mediaType" || x=="imgUrl") {
-          
-        }else{
+        if (x == "positionId" || x == "mediaType" || x == "imgUrl") {
+        } else {
           this.addAdverNewdata[x] = "";
         }
       }
@@ -265,9 +265,9 @@ export default {
     }
   },
   computed: {
+    //如果此次与上次的name的length是一样的，则不刷新子广告位
     name: function() {
       let arr = [];
-      //console.log(this.level)
       if (this.level) {
         for (let x = 0; x < this.names.length; x++) {
           if (this.level == this.names[x].level) {
@@ -276,11 +276,6 @@ export default {
         }
         this.id = arr[0].id;
       }
-       //console.log(arr)
-      // if (arr.length) {
-        
-      // }
-      //console.log(this.id)
       return arr;
     }
   },
@@ -302,7 +297,7 @@ export default {
           let objName = [];
           let objNames = [];
           let arr = res.data.data;
-          let subArr
+          let subArr;
           for (let x = 0; x < arr.length; x++) {
             objLevel[x] = {};
             //objLevel[x].id = arr[x].id
@@ -320,9 +315,12 @@ export default {
             }
           }
           this.tags = objLevel;
+          console.log(this.tags);
           this.names = objNames;
+          console.log(this.names);
           this.id = objNames[0].id;
           this.level = objLevel[0].level;
+          console.log(this.level);
           this.btn = false;
           this.$store.commit("GET_ADVERT_NEW_INFO", {
             data: { level: this.level, positionId: this.id },

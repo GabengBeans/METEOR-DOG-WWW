@@ -77,12 +77,12 @@ export default {
         data: Util.formData(data)
       })
         .then(response => {
-          console.log(response);
+          //console.log(response);
           if (response.data.success) {
-            console.log("已审核");
+            //console.log("已审核");
             this.modalShow = true;
           } else {
-            console.log("审核失败");
+            //console.log("审核失败");
             this.modalShow = true;
           }
         })
@@ -101,12 +101,12 @@ export default {
         data: Util.formData(data)
       })
         .then(response => {
-          console.log(response);
+          //console.log(response);
           if (response.data.success) {
-            console.log("已审核");
+            //console.log("已审核");
             this.modalShow = true;
           } else {
-            console.log("审核失败");
+            //console.log("审核失败");
             this.modalShow = true;
           }
         })
@@ -151,7 +151,7 @@ export default {
       .then(response => {
         if (response.data.success) {
           let obj = response.data.data;
-          console.log(obj);
+          //console.log(obj);
           for (let x in obj) {
             if (x == "isService") {
               if (obj[x] == 1) {

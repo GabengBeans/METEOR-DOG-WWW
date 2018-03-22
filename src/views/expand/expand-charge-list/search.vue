@@ -86,7 +86,7 @@ export default {
       for (let x in this.data) {
         if (this.data[x].value != "") {
           if (x == "startAccountDay" || x == "endAccountDay" || x == "startBalanceTime" || x == "endBalanceTime") {
-            console.log(this.data[x].value)
+            //console.log(this.data[x].value)
             obj[x] = new Date(this.data[x].value).getTime();
           } else {
             obj[x] = this.data[x].value;
@@ -94,7 +94,7 @@ export default {
           // obj[x] = this.data[x].value;
         }
       }
-      console.log(obj)
+      //console.log(obj)
       this.$store.state.app.expand_charge_search_info = obj;
       this.$store.commit("GET_EXPAND_CHARGE_INFO", { data: obj, pageNo: 1 });
     }
