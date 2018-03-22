@@ -147,7 +147,12 @@ let base_uri = {
     add_admin_role_url:"/admin/v1/admin_role/add_admin_role",
     edit_grant_admin_resource_url:"/admin/v1/admin_role/grant_admin_resource",
         //资源管理
-    search_admin_resource_list:"/admin/v1/admin_resource/search_admin_resource_list"
+    search_admin_resource_list:"/admin/v1/admin_resource/search_admin_resource_list",
+    disable_admin_resource_url:"/admin/v1/admin_resource/disable_admin_resource",
+    enabling_admin_resource_url:"/admin/v1/admin_resource/enabling_admin_resource",
+    resource_detail_url:"/admin/v1/admin_resource/detail",
+    update_admin_resource_url:"/admin/v1/admin_resource/update_admin_resource",
+    add_admin_resource_url:"/admin/v1/admin_resource/add_admin_resource"
 };
 
 export default base_uri;

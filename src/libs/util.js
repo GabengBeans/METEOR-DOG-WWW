@@ -30,6 +30,9 @@ import system_settings from "@/views/system/system_settings/system_settings_inde
 import web_im from "@/views/error-page/404.vue"
 import app_list from "@/views/app/app_list/app_list_index"
 import after_feedback_list from "@/views/after_feedback/after_feedback_list/after_feedback_list"
+import locked_user_list from "@/views/locked/locked_user/locked_user_list"
+import locked_role_list from "@/views/locked/locked_role/locked_role_list"
+import locked_resource_index from "@/views/locked/locked_resource/locked_resource_index"
 
 let util = {
 
@@ -411,7 +414,10 @@ util.createMenus = function (data) {
         'system_settings': system_settings,
         'web_im': web_im,
         'app_list': app_list,
-        'after_feedback_list': after_feedback_list
+        'after_feedback_list': after_feedback_list,
+        'locked_user_list':locked_user_list,
+        'locked_role_list':locked_role_list,
+        'locked_resource_index':locked_resource_index
     }
     let menus = []
     for (let i = 0; i < data.length; i++) {
