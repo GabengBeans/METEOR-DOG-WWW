@@ -12,7 +12,7 @@ const RouterConfig = {
     //mode: 'hash',
     routes: routers
 };
-console.log("index.js运行")
+//console.log("index.js运行")
 export const router = new VueRouter(RouterConfig);
 
 router.beforeEach((to, from, next) => {

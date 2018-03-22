@@ -399,7 +399,7 @@ let menus = []
 if (window.sessionStorage.getItem("menus")) {
     let serializeMenus = JSON.parse(window.sessionStorage.getItem("menus"))
     menus = Util.createMenus(serializeMenus)
-    console.log(menus)
+    //console.log(menus)
 }
 
 export const appRouter = menus
