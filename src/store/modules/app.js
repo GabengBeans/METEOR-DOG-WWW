@@ -606,7 +606,7 @@ const app = {
                 for (let x in arr) {
                     let statusIndex = parseInt(state.expand_search_result[x].expandStatus)
                     state.expand_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
-                    state.expand_search_result[x].tradeAmount = arr[x].tradeAmount * 0.01
+                    state.expand_search_result[x].tradeAmount = (arr[x].tradeAmount * 0.01).toFixed(2)
                     if (arr[x].auditTime) {
                         state.expand_search_result[x].auditTime = Util.formatDate(new Date(arr[x].auditTime), "yyyy-MM-dd hh:mm:ss")
                     } else {
@@ -635,11 +635,11 @@ const app = {
                 state.expand_charge_search_result = arr
                 for (let x in arr) {
                     let balanceIndex = parseInt(state.expand_charge_search_result[x].balanceStatus)
-                    state.expand_charge_search_result[x].accountDay = Util.formatDate(new Date(arr[x].accountDay), "yyyy-MM-dd hh:mm:ss")
-                    state.expand_charge_search_result[x].tradeAmount = arr[x].tradeAmount * 0.01
-                    state.expand_charge_search_result[x].platformServiceCharge = arr[x].platformServiceCharge * 0.01
-                    state.expand_charge_search_result[x].balanceAmount = arr[x].balanceAmount * 0.01
-                    state.expand_charge_search_result[x].reate = arr[x].reate * 0.01
+                    state.expand_charge_search_result[x].accountDay = Util.formatDate(new Date(arr[x].accountDay), "yyyy-MM-dd")
+                    state.expand_charge_search_result[x].tradeAmount = (arr[x].tradeAmount * 0.01).toFixed(2)
+                    state.expand_charge_search_result[x].platformServiceCharge = (arr[x].platformServiceCharge * 0.01).toFixed(2)
+                    state.expand_charge_search_result[x].balanceAmount = (arr[x].balanceAmount * 0.01).toFixed(2)
+                    state.expand_charge_search_result[x].reate = (arr[x].reate * 0.01).toFixed(2)
 
                     if (arr[x].balanceTime) {
                         state.expand_charge_search_result[x].balanceTime = Util.formatDate(new Date(arr[x].balanceTime), "yyyy-MM-dd hh:mm:ss")
@@ -872,7 +872,7 @@ const app = {
                 console.log(error)
             })
         },
-        //拓展管理
+        //拓展管理-返佣订单审核
         GET_BROKERAGE_ORDER_INFO(state, { data, pageNo }) {
             state.brokerage_order_search_info = data
             Util.ajax({
@@ -894,13 +894,13 @@ const app = {
                     let businessIndex = parseInt(state.brokerage_order_search_result[x].businessStatus)
 
                     state.brokerage_order_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
-                    state.brokerage_order_search_result[x].platformServiceCharge = arr[x].platformServiceCharge * 0.01;
-                    state.brokerage_order_search_result[x].brokerage = arr[x].brokerage * 0.01;
-                    state.brokerage_order_search_result[x].reate = arr[x].reate * 0.01;
+                    state.brokerage_order_search_result[x].platformServiceCharge = (arr[x].platformServiceCharge * 0.01).toFixed(2);
+                    state.brokerage_order_search_result[x].brokerage = (arr[x].brokerage * 0.01).toFixed(2);
+                    state.brokerage_order_search_result[x].reate = (arr[x].reate * 0.01).toFixed(2);
 
 
                     if (arr[x].accountDay) {
-                        state.brokerage_order_search_result[x].accountDay = Util.formatDate(new Date(arr[x].accountDay), "yyyy-MM-dd hh:mm:ss")
+                        state.brokerage_order_search_result[x].accountDay = Util.formatDate(new Date(arr[x].accountDay), "yyyy-MM-dd")
                     } else {
                         state.brokerage_order_search_result[x].accountDay = ''
                     }

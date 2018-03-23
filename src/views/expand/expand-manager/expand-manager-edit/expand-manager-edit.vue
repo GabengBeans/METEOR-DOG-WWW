@@ -112,7 +112,7 @@ export default {
             "yyyy-MM-dd hh:mm:ss"
           );
         }else if(x == 'reate'){
-          this.data[x] = obj[x] * 0.01;
+          this.data[x] = (obj[x] * 0.01).toFixed(2);
         }else{
           this.data[x] = obj[x];
         }  

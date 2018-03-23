@@ -9,7 +9,7 @@
             <i-col class="item" span="6"><span class="weight">结算状态：</span>{{data.balanceStatus}}</i-col>
           </Row>
           <Row>
-            <i-col class="item" span="6"><span class="weight">交易完成日：</span>{{data.createTime}}</i-col>
+            <i-col class="item" span="6"><span class="weight">交易完成日：</span>{{data.accountDay}}</i-col>
             <i-col class="item" span="6"><span class="weight">交易笔数：</span>{{data.tradeCount}}</i-col>
             <i-col class="item" span="6"><span class="weight">交易金额：</span>{{(data.tradeAmount*0.01).toFixed(2)}} 元</i-col>
             <i-col class="item" span="6"><span class="weight">结算生成时间：</span>{{data.createTime}}</i-col>
@@ -123,7 +123,7 @@ export default {
         vm.expand_charge_page_info.totalPage = parseInt(res.data.data.totalCount)
         vm.data1 = arr;
         for (let x in arr) {
-          vm.data1[x].accountDay = Util.formatDate(new Date(arr[x].accountDay),"yyyy-MM-dd hh:mm:ss");
+          vm.data1[x].accountDay = Util.formatDate(new Date(arr[x].accountDay),"yyyy-MM-dd");
           vm.data1[x].serviceCharge = (arr[x].serviceCharge * 0.01).toFixed(2)
           vm.data1[x].platformServiceCharge = (arr[x].platformServiceCharge * 0.01).toFixed(2)
           vm.data1[x].reate = (arr[x].reate * 0.01).toFixed(2)
@@ -150,10 +150,15 @@ export default {
       let obj = res.data.data;
       this.balanceOrderNo = obj.balanceOrderNo
       for (let x in obj) {
-        if(x == 'createTime' || x == 'updateTime' || x == 'balanceTime' || x == 'accountDay'){
+        if(x == 'createTime' || x == 'updateTime' || x == 'balanceTime'){
           this.data[x] = Util.formatDate(
             new Date(obj[x]),
             "yyyy-MM-dd hh:mm:ss"
+          );
+        }else if(x == 'accountDay'){
+          this.data[x] = Util.formatDate(
+            new Date(obj[x]),
+            "yyyy-MM-dd"
           );
         }else if(x == 'balanceStatus') {
           if(obj[x] == 1) {

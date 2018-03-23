@@ -11,7 +11,7 @@
           <Row>
             <i-col class="item" span="6"><span class="weight">拓展码：</span>{{data.inviterCode}}</i-col>
             <i-col class="item" span="6"><span class="weight">拓展状态：</span>{{data.expandStatus == 1 ? '有效' : '无效'}}</i-col>
-            <i-col class="item" span="6"><span class="weight">佣金返点：</span>{{data.reate*0.01}}</i-col>
+            <i-col class="item" span="6"><span class="weight">佣金返点：</span>{{(data.reate*0.01).toFixed(2)}}</i-col>
             <i-col class="item" span="6"><span class="weight">结算周期：</span>T + {{data.settlementPeriod}}</i-col>
           </Row>
           <Row>
@@ -133,12 +133,12 @@ export default {
             "yyyy-MM-dd hh:mm:ss"
           );
         }else if(x == 'tradeAmount' || x == 'brokerage'){
-          this.data[x] = obj[x] * 0.01;
+          this.data[x] = (obj[x] * 0.01).toFixed(2);
         }else if(x == 'all'){
           // console.log(obj[x])
           this.data[x] = obj[x];
-          this.data[x].tradeAmount = obj[x].tradeAmount * 0.01;
-          this.data[x].brokerage = obj[x].brokerage * 0.01;          
+          this.data[x].tradeAmount = (obj[x].tradeAmount * 0.01).toFixed(2);
+          this.data[x].brokerage = (obj[x].brokerage * 0.01).toFixed(2);          
         } else{
           this.data[x] = obj[x];
         }  

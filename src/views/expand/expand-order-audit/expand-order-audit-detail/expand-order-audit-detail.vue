@@ -11,12 +11,12 @@
           <Row>
             <i-col class="item" span="6"><span class="weight">服务者：</span>{{data.providerName}}</i-col>
             <i-col class="item" span="6"><span class="weight">服务手机号：</span>{{data.serviceProviderPhone}}</i-col>
-            <i-col class="item" span="6"><span class="weight">服务金额：</span>{{data.serviceCharge*0.01}} 元</i-col>
-            <i-col class="item" span="6"><span class="weight">平台服务费：</span>{{data.platformServiceCharge*0.01}} 元</i-col>
+            <i-col class="item" span="6"><span class="weight">服务金额：</span>{{(data.serviceCharge*0.01).toFixed(2)}} 元</i-col>
+            <i-col class="item" span="6"><span class="weight">平台服务费：</span>{{(data.platformServiceCharge*0.01).toFixed(2)}} 元</i-col>
           </Row>
           <Row>
-            <i-col class="item" span="6"><span class="weight">佣金返点：</span>{{data.reate*0.01}}</i-col>
-            <i-col class="item" span="6"><span class="weight">佣金：</span>{{data.brokerage*0.01}} 元</i-col>
+            <i-col class="item" span="6"><span class="weight">佣金返点：</span>{{(data.reate*0.01).toFixed(2)}}</i-col>
+            <i-col class="item" span="6"><span class="weight">佣金：</span>{{(data.brokerage*0.01).toFixed(2)}} 元</i-col>
           </Row>
           <div class="audit-info">
               <Row>
@@ -75,7 +75,7 @@ export default {
             if(x == 'accountDay' || x == 'auditTime'){
                 this.data[x] = Util.formatDate(
                     new Date(obj[x]),
-                    "yyyy-MM-dd hh:mm:ss"
+                    "yyyy-MM-dd"
                 );
             }else if(x == 'businessStatus'){
                 if(obj[x] == 1){

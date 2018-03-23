@@ -17,6 +17,7 @@
   </div>
 </template>
 <script>
+import Util from '@/libs/util';
 export default {
   name: "user_search",
   data() {
@@ -86,8 +87,7 @@ export default {
       for (let x in this.data) {
         if (this.data[x].value != "") {
           if (x == "startAccountDay" || x == "endAccountDay" || x == "startBalanceTime" || x == "endBalanceTime") {
-            console.log(this.data[x].value)
-            obj[x] = new Date(this.data[x].value).getTime();
+            obj[x] = Util.formatDate(new Date(this.data[x].value), "yyyy-MM-dd")            
           } else {
             obj[x] = this.data[x].value;
           }

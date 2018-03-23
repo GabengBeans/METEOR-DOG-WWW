@@ -76,6 +76,9 @@ let base_uri = {
     extend_user_search_ex_userinfo_for_page: "/admin/v1/extend_user/search_ex_userinfo_for_page",
     extend_user_detail_url: "/admin/v1/extend_user/detail",
     extend_user_edit_extend_user: "/admin/v1/extend_user/edit_extend_user",
+    expand_people_template_url: "http://dedc-statics.oss-cn-beijing.aliyuncs.com/files/expand-people.xls", // 下载代理人模板地址
+    extend_user_import_url: "/admin/v1/extend_user/import", // 代理人导入地址
+    extend_user_export_url: "/admin/v1/extend_user/expand_people_export",   // 代理人导出地址
     // 返佣订单审核
     brokerage_order_search_for_page:"/admin/v1/extend_manager/brokerage_order/search_for_page",
     brokerage_order_detail:"/admin/v1/extend_manager/brokerage_order/detail",
