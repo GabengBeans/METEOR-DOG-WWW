@@ -165,7 +165,7 @@ export default {
       let obj = {};
       obj.level = this.level;
       obj.positionId = this.id;
-      console.log(obj);
+      //console.log(obj);
       this.$store.commit("GET_ADVERT_NEW_INFO", { data: obj, pageNo: 1 });
     },
     addAdverNewBtn: function() {

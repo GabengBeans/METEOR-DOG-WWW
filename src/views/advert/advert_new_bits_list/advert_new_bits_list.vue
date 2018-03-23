@@ -5,13 +5,12 @@
             <Form label-position="right" :label-width="60">
                 <Col :xs='13' :sm='13' :md='8' :lg='5'>
                 <FormItem style="min-width:60px" :label="searchConfig.level.tagName">
-                    <Select v-model="searchConfig.level.value">
+                    <Select v-model="searchConfig.level.value" @on-change="search(searchConfig.level.value)">
                         <Option v-for="item in searchConfig.level.tag" :key="item.key" :value="item.num">{{item.value}}</Option>
                     </Select>
                 </FormItem>
                 </Col>
             </Form>
-            <Button style='margin-left:38px' type="primary" shape="circle" icon="ios-search" @click.native='search'>搜索</Button>
             <Button type="success" shape="circle" style='margin-left:38px' @click.native="showAddSubAdertBits=true">添加子广告位</Button>
         </Row>
         <TableComponent :columns="advertNewBitsTableColumns" :data="$store.state.app.advert_position_search_result"></TableComponent>
@@ -166,12 +165,9 @@ export default {
     };
   },
   methods: {
-    search() {
-      let obj = {};
-      for (let x in this.searchConfig) {
-        if (this.searchConfig[x].value != "") {
-          obj[x] = this.searchConfig[x].value;
-        }
+    search(level) {
+      let obj = {
+        level:level
       }
       this.$store.commit("GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO", {
         data: obj,
