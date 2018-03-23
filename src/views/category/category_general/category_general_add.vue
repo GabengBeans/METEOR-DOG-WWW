@@ -95,7 +95,7 @@ export default {
         })
     },
     handleSuccess(res) {
-      console.log(res);
+      //console.log(res);
       this.data.avatarUrl = res.result.file.outUrl;
       //console.log(this.data.imgUrl)
     },

@@ -16,7 +16,7 @@
       requestPage
     },
     created(){
-      console.log(this.$store.state.app.group_unbundling_search_info)
+      //console.log(this.$store.state.app.group_unbundling_search_info)
       this.$store.commit("GET_GROUP_UNBUNDLING_INFO",{data:this.$store.state.app.group_unbundling_search_info,pageNo:1,groupId:this.$route.params.id})
     }
   }

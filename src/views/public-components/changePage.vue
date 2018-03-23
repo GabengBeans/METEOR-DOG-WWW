@@ -10,7 +10,7 @@ export default {
   props: ["storeStatus", "currentPage", "totalPage"],
   methods: {
     switch_page: function(index) {
-      console.log(this.storeStatus);
+      //console.log(this.storeStatus);
       switch (this.storeStatus) {
         case "cashFlow":
           //console.log(index)

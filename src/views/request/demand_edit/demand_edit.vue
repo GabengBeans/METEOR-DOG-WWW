@@ -267,7 +267,7 @@ export default {
       });
     },
     handleView(name) {
-      console.log(name);
+      //console.log(name);
       this.imgName = name;
       this.visible = true;
     },
@@ -299,7 +299,7 @@ export default {
       .all([getDemandDetail(), getTwoLevel()])
       .then(
         axios.spread((response, response1) => {
-             console.log(response);
+             //console.log(response);
           //   console.log(response1)
           let obj = response.data.data;
           for (let x in obj) {
