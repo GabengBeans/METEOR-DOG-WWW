@@ -65,7 +65,7 @@
         </div> -->
         <div class="user_detail_div">
           <label class="from_label">需求图片:</label>
-          <UserEditImgList :change="true" :imgList="data.mediaImg"></UserEditImgList>
+          <UserEditImgList :change="true" :imgList="data.mediaImg" :detail="detail"></UserEditImgList>
         </div>
         <br>
         <div class="user_detail_div">
@@ -114,6 +114,7 @@ import UserEditImgList from "@/views/public-components/user_edit_img_list";
 export default {
   data() {
     return {
+      detail:true,
       aliyun: baseUri.oss_url,
       show: false,
       data: {},

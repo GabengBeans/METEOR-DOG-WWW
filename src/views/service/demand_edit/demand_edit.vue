@@ -97,7 +97,7 @@
           </div>
           <br>
           <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
-            <label class="from_label">服务视频:</label>视频限制大小200M
+            <label class="from_label">服务视频:</label>
             <UserEditImgList class="image-style" :change="true" :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo" :upload="true"></UserEditImgList>
           </div>
           <br>

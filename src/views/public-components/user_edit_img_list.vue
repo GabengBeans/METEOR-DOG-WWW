@@ -5,7 +5,7 @@
                 <img :src="imgList">
                 <div class="demo-upload-list-cover">
                     <Icon type="ios-eye-outline" @click.native="handleView(imgList)" style="margin-right:10px"></Icon>
-                    <Icon type="ios-trash-outline" @click.native="handleRemoveVideoImg(imgList)"></Icon>
+                    <!-- <Icon type="ios-trash-outline" @click.native="handleRemoveVideoImg(imgList)"></Icon> -->
                 </div>
            </template>
         </div>
@@ -14,7 +14,7 @@
                 <img :src="aliyun + item">
                 <div class="demo-upload-list-cover" v-if="change">
                     <Icon type="ios-eye-outline" @click.native="handleView(item)" style="margin-right:10px"></Icon>
-                    <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
+                    <Icon v-if="!detail" type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
                 </div>
             </template>
         </div>
@@ -81,7 +81,7 @@ export default {
       uploadList: []
     };
   },
-  props: ["imgList","videoUrl","upload","change"],
+  props: ["imgList","videoUrl","upload","change","detail"],
   methods: {
     handleView(name) {
       this.imgName = name;
