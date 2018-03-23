@@ -219,7 +219,13 @@ export default {
       this.user_data.avatarUrl = res.result.file.innerUrl;
     },
     saveInfo: function() {
-      //console.log(this.user_data);
+      if(this.user_data.certificates[0].imageUrls.length>8)
+      {
+        this.$Notice.warning({
+          title: "最多上传8张图片"
+        });
+        return
+      }
       this.$Message.loading({
         content: "保存中...",
         duration: 0

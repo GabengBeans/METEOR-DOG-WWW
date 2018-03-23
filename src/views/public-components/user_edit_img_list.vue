@@ -127,7 +127,7 @@ export default {
     },
     handleBeforeUpload(file) {
       this.$Message.destroy()
-      const check = this.uploadList.length < 8;
+      const check = this.uploadList.length< 8;
       if (!check) {
         this.$Notice.warning({
           title: "最多上传8张图片"

@@ -237,6 +237,13 @@ export default {
       return true;
     },
     saveEdit: function() {
+      if(this.data.mediaImg.length>8)
+      {
+        this.$Notice.warning({
+          title: "最多上传8张图片"
+        });
+        return
+      }
       if (this.beforeSaveEditValidate()) {
         this.$Message.loading({
           content: "保存中...",
