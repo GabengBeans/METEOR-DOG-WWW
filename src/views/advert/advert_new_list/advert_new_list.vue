@@ -213,6 +213,7 @@ export default {
             });
             this.showAddAdvert = false;
           } else {
+            this.$Message.destroy()
             this.$Message.erros("保存失败，请联系管理员");
           }
         })
@@ -256,6 +257,7 @@ export default {
             });
             this.showAdvertEdit = false;
           } else {
+            this.$Message.destroy()
             this.$Message.error("保存失败，请联系管理员");
           }
         })

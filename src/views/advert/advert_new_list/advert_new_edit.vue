@@ -110,6 +110,7 @@ export default {
       this.data.videoId = res.result.fiel.videoId
     },
     handleFormatError(file) {
+        this.$Message.destroy()
       this.$Notice.warning({
        title: "文件格式错误",
         desc:
@@ -119,6 +120,7 @@ export default {
       });
     },
     handleVideoFormatError(file) {
+        this.$Message.destroy()
       this.$Notice.warning({
         title: "视频格式错误",
         desc:
@@ -126,15 +128,16 @@ export default {
           file.name +
           " 格式错误，请上传MP4格式."
       });
-      this.$Message.destroy()
     },
     handleMaxSize(file) {
+        this.$Message.destroy()
       this.$Notice.warning({
         title: "内容过大",
         desc: "图片" + file.name + "超过2M的限制."
       });
     },
     handleVideoMaxSize(file) {
+        this.$Message.destroy()
       this.$Notice.warning({
         title: "内容过大",
         desc: "视频" + file.name + "超过200M的限制."

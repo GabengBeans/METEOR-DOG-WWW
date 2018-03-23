@@ -6,7 +6,7 @@
                     'type':'user'
                   }" action="https://lxg.91taogu.com/up/">
           <p class="tip" style="margin-left:20px;">点击图片更换头像</p>
-          <Avatar :src="aliyun + user_data.avatarUrl" shape="square" class="avatar"/>
+          <Avatar :src="aliyun + user_data.avatarUrl" shape="square" class="avatar" />
         </Upload>
         <div style="display:inline-block;">
           <Tag color="blue" v-for="item in user_data.selfAuthInfos" :key="item.key" class="tag-style">{{item}}</Tag>
@@ -49,7 +49,7 @@
         </Form>
 
         <div>
-          <BMapComponent style="width:95%;margin:0 auto;"  :lat="user_data.addressLat" :lon="user_data.addressLon" :keyword="user_data.address"></BMapComponent>
+          <BMapComponent style="width:95%;margin:0 auto;" :lat="user_data.addressLat" :lon="user_data.addressLon" :keyword="user_data.address"></BMapComponent>
         </div>
         <br>
         <Form>
@@ -224,12 +224,15 @@ export default {
         content: "保存中...",
         duration: 0
       });
-      let imgList=[]
-      for(let x = 0;x<this.user_data.certificates[0].imageUrls.length;x++)
-      {
-        imgList.push(this.user_data.certificates[0].imageUrls[x])
+      let imgList = [];
+      for (
+        let x = 0;
+        x < this.user_data.certificates[0].imageUrls.length;
+        x++
+      ) {
+        imgList.push(this.user_data.certificates[0].imageUrls[x]);
       }
-     
+
       //console.log(imgList)
       Util.ajax({
         method: "post",
@@ -250,15 +253,21 @@ export default {
           lat: this.user_data.addressLat,
           lon: this.user_data.addressLon,
           tagList: this.user_data.listTags,
-          certificate:imgList,
-          certificateContent:this.user_data.certificates[0].content,
+          certificate: imgList,
+          certificateContent: this.user_data.certificates[0].content,
           resumeList: this.resumeList
         }
-      }).then(response => {
-        this.$Message.destroy();
-        this.$Message.success("保存成功");
-        //console.log(response.data);
-      });
+      }).then(res => {
+        if (res.data.success) {
+          this.$Message.destroy();
+          this.$Message.success("保存成功");
+        } else {
+          this.$Message.destroy();
+          this.$Message.success("保存失败");
+        }
+      }).catch(err=>{
+        console.log(err)
+      })
     }
   },
   computed: {
@@ -403,6 +412,6 @@ export default {
 };
 </script>
 <style>
- @import "../../../styles/public.less";
+@import "../../../styles/public.less";
 </style>
 

@@ -102,6 +102,7 @@ export default {
       //console.log(this.uploadList)
     },
     handleFormatError(file) {
+      this.$Message.destroy()
       this.$Notice.warning({
         title: "The file format is incorrect",
         desc:
@@ -111,18 +112,21 @@ export default {
       });
     },
     handleMaxSize(file) {
+      this.$Message.destroy()
       this.$Notice.warning({
         title: "内容过大",
         desc: "图片" + file.name + "超过2M的限制."
       });
     },
      handleMaxSizeVideo(file) {
+       this.$Message.destroy()
       this.$Notice.warning({
         title: "内容过大",
         desc: "视频" + file.name + "超过200M的限制."
       });
     },
     handleBeforeUpload(file) {
+      this.$Message.destroy()
       const check = this.uploadList.length < 8;
       if (!check) {
         this.$Notice.warning({
@@ -137,6 +141,7 @@ export default {
       return check;
     },
     handleBeforeUploadVideo(file){
+      this.$Message.destroy()
       const check = this.uploadList.length <=1;
       if (!check) {
         this.$Notice.warning({

@@ -166,6 +166,7 @@ export default {
           this.show = true;
           this.$Message.destroy();
         } else {
+          this.$Message.destroy()
           this.$Message.error("读取失败");
         }
       })
