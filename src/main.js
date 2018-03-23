@@ -30,12 +30,12 @@ new Vue({
         // 显示打开的页面的列表
         this.$store.commit('setOpenedList');
         this.$store.commit('initCachepage');
-        console.log("Main.vue执行")
+        //console.log("Main.vue执行")
         this.$store.commit('updateMenulist')
         util.checkUpdate(this);
     },
     created() {
-        console.log("main.js运行")
+        //console.log("main.js运行")
         let tagsList = [];
         //let menus = JSON.parse(window.sessionStorage.menus)
        // console.log("created" + menus)

@@ -24,7 +24,7 @@ export default {
     userPage
   },
   created() {
-    console.log("user页")
+    //console.log("user页")
     this.$store.commit("GET_USER_INFO", {
       data: this.$store.state.app.user_search_info,
       pageNo: this.$store.state.app.user_public_page

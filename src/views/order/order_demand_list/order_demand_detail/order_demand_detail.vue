@@ -83,7 +83,7 @@ export default {
       })
       .then(response => {
         if (response.data.success) {
-          console.log(response);
+          //console.log(response);
           let obj = response.data.data;
           let orderStatus = [
             "全部",

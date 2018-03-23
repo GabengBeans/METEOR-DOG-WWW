@@ -148,7 +148,7 @@ export default {
   methods: {
     handleRemove(file) {
       //console.log(1111)
-      console.log(this.data.imgUrl)
+      (this.data.imgUrl)
       this.data.imgUrl = "";
     },
     handleSuccess(res, file) {
@@ -157,7 +157,7 @@ export default {
         this.$Message.destroy();
         this.$Message.success("图片上传成功");
         this.data.imgUrl = res.result.file.outUrl;
-        console.log(this.data.imgUrl)
+        //console.log(this.data.imgUrl)
       }
     },
     handleVideoSuccess(res, file) {

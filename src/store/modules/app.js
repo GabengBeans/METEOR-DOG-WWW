@@ -259,7 +259,7 @@ const app = {
         updateMenulist(state) {
             let accessCode = parseInt(Cookies.get('access'));
             let menuList = [];
-            console.log("app.js")
+            //console.log("app.js")
             appRouter.forEach((item, index) => {
                 if (item.access !== undefined) {
                     if (Util.showThisRoute(item.access, accessCode)) {
@@ -388,9 +388,9 @@ const app = {
             //console.log("setName")
             state.currentPageName = name;
         },
-        setAvator(state, path) {
-            localStorage.avatorImgPath = path;
-        },
+        // setAvator(state, path) {
+        //     localStorage.avatorImgPath = "../../images/logo-min.png";
+        // },
         switchLang(state, lang) {
             state.lang = lang;
             Vue.config.lang = lang;

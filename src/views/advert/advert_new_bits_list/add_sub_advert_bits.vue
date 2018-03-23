@@ -1,6 +1,6 @@
 <template>
     <div class="addSubAdvertBits">
-        <Form label-position="right" :label-width="80" :rules="ruleValidate">
+        <Form label-position="right" :label-width="80">
             <Row>
                 <Col :xs='13' :sm='13' :md='8' :lg='6'>
                 <FormItem label="资源位名称">
@@ -34,12 +34,6 @@ export default {
   props: ["data", "selectData"],
   data() {
     return {
-      ruleValidate: {
-        userId: [
-          { required: true, message: "用户ID不能为空", trigger: "blur" },
-          { type: "number", message: "只能输入数字", trigger: "blur" }
-        ]
-      }
     };
   }
 };

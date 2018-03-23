@@ -88,7 +88,7 @@ export default {
                             url:baseUri.extend_group_delete_group,
                             data: Util.formData(data)
                           }).then((res) => {
-                            console.log(res.data)
+                            //console.log(res.data)
                             if(res.data.data == 'SUCCESS'){
                               this.$Message.success('删除成功！')
                             }else{

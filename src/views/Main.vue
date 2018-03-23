@@ -47,7 +47,7 @@
                                     <DropdownItem name="loginout" divided>退出登录</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
-                            <Avatar :src="avatorPath" style="background: #619fe7;margin-left: 10px;"></Avatar>
+                            <img src="../images/logo-min.png" style="margin-left: 10px;display:inline;border-radius:50%;width:30px;height:30px"/>
                         </Row>
                     </div>
                 </div>
@@ -141,7 +141,7 @@
                 this.shrink = !this.shrink;
             },
             handleClickUserDropdown (name) {
-                console.log("handleClickUserDropdown")
+                //console.log("handleClickUserDropdown")
                 if (name === 'ownSpace') {
                     util.openNewPage(this, 'ownspace_index');
                     this.$router.push({
@@ -214,3 +214,8 @@
         }
     };
 </script>
+<style>
+/* div{
+    borderr
+} */
+</style>

@@ -34,7 +34,7 @@ export default {
       this.data.showEditCategory = false;
     },
     handleOk() {
-      console.log(this.data)
+      //console.log(this.data)
       Util.ajax({
         method: "post",
         url: baseUri.label_update_label_url,

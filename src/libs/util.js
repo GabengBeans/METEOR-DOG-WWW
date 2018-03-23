@@ -62,7 +62,7 @@ util.ajax.interceptors.request.use(
     config => {
         //console.log("请求拦截器")
         const token = Cookies.get("token") //获取存储在本地的token
-        console.log(token)
+        //console.log(token)
         config.headers = {
             'token': token
         };

@@ -55,16 +55,16 @@ export default {
   },
   methods: {
     select(selection,row) {
-      console.log(row)
+      //console.log(row)
       this.ids.push(row.id)
-      console.log(this.ids)
+      //console.log(this.ids)
       
     },
     selectAll(selection) {
       for(let x in selection) {
         this.ids.push(selection[x].id)
       }
-      console.log(this.ids)
+      //console.log(this.ids)
     },
     bindInGroup() {
       this.$Modal.confirm({
@@ -83,7 +83,7 @@ export default {
               expandIds:ids
             }
           }).then(res => {
-            console.log(res)
+            //console.log(res)
             if(res.data.success){
               this.$Message.success("绑定成功！");
             }else {

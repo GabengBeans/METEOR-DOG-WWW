@@ -97,13 +97,13 @@ export default {
       this.data.imgUrl = "";
     },
     handleSuccess(res, file) {
-      console.log(res);
+      //console.log(res);
       this.$Message.destroy();
       this.$Message.success("上传成功");
       this.data.imgUrl = res.result.file.outUrl;
     },
     handleVideoSuccess(res, file) {
-      console.log(res);
+      //console.log(res);
       this.$Message.destroy();
       this.$Message.success("上传成功");
       this.data.imgUrl = res.result.file.outUrl;

@@ -45,7 +45,7 @@ export default {
           obj[x] = this.data[x].value;
         }
       }
-      console.log(obj)
+      //console.log(obj)
       this.$store.state.app.group_unbundling_search_info = obj;
       this.$store.commit("GET_GROUP_UNBUNDLING_INFO", { data: obj, pageNo: 1 , groupId:this.$route.params.id});
     }

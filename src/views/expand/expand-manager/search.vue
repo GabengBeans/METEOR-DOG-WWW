@@ -70,7 +70,7 @@ export default {
           obj[x] = this.data[x].value;
         }
       }
-      console.log(obj)
+      //console.log(obj)
       this.$store.state.app.expand_search_info = obj;
       this.$store.commit("GET_EXPAND_INFO", { data: obj, pageNo: 1 });
     }

@@ -17,6 +17,9 @@
           <FormItem style="font-size:16px" label="资源ID：">
             <b>{{resourceDetailData.id}}</b>
           </FormItem>
+          <FormItem style="font-size:16px" label="排序：">
+            <b>{{resourceDetailData.orderNum}}</b>
+          </FormItem>
           <FormItem label="资源名称：">
             <b>{{resourceDetailData.name}}</b>
           </FormItem>
@@ -43,6 +46,9 @@
           <!-- <FormItem label="父级资源名称：">
             <Input clearable v-model="resourceEditData.name" />
           </FormItem> -->
+          <FormItem label="排序：">
+            <Input clearable v-model="resourceEditData.orderNum" />
+          </FormItem>
           <FormItem label="资源名称：">
             <Input clearable v-model="resourceEditData.name" />
           </FormItem>

@@ -72,11 +72,11 @@ export default {
       }
     }).then(res => {
         let obj = res.data.data;
-        console.log(obj)
+        //console.log(obj)
         for (let x in obj) {
           this.data[x] = obj[x];
         }
-        console.log(this.data.groupName)
+        //console.log(this.data.groupName)
       this.show = true;
       this.$Message.destroy();
     });
