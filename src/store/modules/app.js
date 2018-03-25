@@ -755,7 +755,10 @@ const app = {
                     let paymentType = parseInt(arr[x].paymentType)
                     let status = parseInt(arr[x].status)
                     //let statusIndex = parseInt(state.service_search_result[x].status)
-                    state.cash_flow_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
+                    if(arr[x].createTime)
+                    {
+                        state.cash_flow_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")     
+                    }
                     state.cash_flow_search_result[x].chargeStatus = chargeStatusArr[chargeStatus]
                     state.cash_flow_search_result[x].tradeType = tradeTypeArr[tradeType]
                     state.cash_flow_search_result[x].amount = parseInt(arr[x].amount) / 100 + "元"
