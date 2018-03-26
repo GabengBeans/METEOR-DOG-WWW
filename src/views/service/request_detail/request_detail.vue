@@ -173,6 +173,7 @@ export default {
       .then(response => {
         //console.log(response.data.data);
         let obj = response.data.data;
+        console.log(obj)
         let priceType = ["", "每次", "每小时", "每天", "每件"];
         let priceIndex = parseInt(obj.priceType);
         for (let x in obj) {
