@@ -30,6 +30,13 @@ export default {
             lockScreenBack.style.boxShadow = '0 0 0 ' + this.lockScreenSize + 'px #667aa6 inset';
             this.showUnlock = true;
             Cookies.set('last_page_name', this.$route.name); // 本地存储锁屏之前打开的页面以便解锁后打开
+            //console.log(this.$route )
+            if(this.$route.params.id)
+            {
+                 Cookies.set("last_page_data",this.$route.params.id)
+            }else{
+                Cookies.set("last_page_data",'') 
+            }
             setTimeout(() => {
                 lockScreenBack.style.transition = 'all 0s';
                 this.$router.push({

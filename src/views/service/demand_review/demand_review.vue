@@ -1,37 +1,24 @@
 <template>
   <div v-if="show">
     <div id="user_edit" style="background:#eee" v-if="show">
-      <Card :bordered="false" style="height:85vh;overflow:auto;">
-        <br>
-        <div class="user_detail_div">
-          <label class="from_label">用户ID:
-            <b>{{data.user.id}}</b>
-          </label>
-
-          <label class="from_label">姓名:
-            <b>{{data.user.nickname}}</b>
-          </label>
-
-          <label class="from_label">手机号:
-            <b>{{data.user.phone}}</b>
-          </label>
-
-          <label class="from_label">流星值:
-            <b>{{(parseInt(data.user.meteorScore)/10).toFixed(1)+"分"}}</b>
-          </label>
-
-          <label class="from_label">认证信息:
-            <Tag color="blue" v-for="item in data.user.selfAuthInfos" :key="item.key" style="line-height:20px;min-width:5vw;height:20px;text-align:center;">{{item}}</Tag>
-          </label>
-
-          <label class="from_label">个人标签:
-            <Tag color="blue" v-for="item in data.user.tags" :key="item.key" style="line-height:20px;min-width:5vw;height:20px;text-align:center;">{{item}}</Tag>
-          </label>
-        </div>
-        <br><br>
-        <div style="color:blue;font-size:22px;text-align:center">
+      <Card :bordered="false">
+        <div class="title-center">
           服务详情
         </div>
+        <div class="infos">
+          <Row class="row">
+            <Col span="6"><span>用户ID:</span>{{data.user.id}}</Col>
+            <Col span="6"><span>姓名:</span>{{data.user.nickname}}</Col>
+            <Col span="6"><span>手机号:</span>{{data.user.phone}}</Col>
+            <Col span="6"><span>流星值:</span>{{(parseInt(data.user.meteorScore)/10).toFixed(1)+"分"}}</Col>          
+          </Row>
+          <Row class="row">
+            <Col span="6"><span>认证信息:</span><Tag color="blue" v-for="item in data.user.selfAuthInfos" :key="item.key" class="tag-style">{{item}}</Tag></Col>
+            <Col span="18"><span>个人标签:</span><Tag color="blue" v-for="item in data.user.tags" :key="item.key" class="tag-style">{{item}}</Tag></Col>          
+          </Row>
+        </div>
+        
+        
         <br>
         <div class="user_detail_div">
           <label class="from_label">服务标题:</label>
@@ -69,10 +56,15 @@
         </div>
         <br>
         <div class="user_detail_div">
+          <label class="from_label">服务区域:</label>
+          <b>{{data.area}}</b>
+        </div>
+          <br>
+        <!-- <div class="user_detail_div">
           <label class="from_label">服务位置:</label>
           <b>{{data.address}}</b>
         </div>
-        <br>
+        <br> -->
         <div class="user_detail_media">
           <label class="from_label">服务图片:</label>
           <div class="demo-upload-list" v-for="item in data.mediaImg" :key="item.key">
@@ -122,7 +114,7 @@
         <br><br>
       </Card>
       <Modal v-model="modalShow" @on-cancel="closePage()">
-        <p slot="header" style="color:#f60;text-align:center"></p>
+        <p slot="header" style="color:#2d8cf0;text-align:center"></p>
         <div style="font-size:20px;text-align:center">
           <b>已审核</b>
         </div>
@@ -154,7 +146,7 @@ export default {
   },
   methods: {
     handleView(name) {
-      console.log(name);
+      //console.log(name);
       this.imgName = name;
       this.visible = true;
     },
@@ -176,7 +168,7 @@ export default {
         data: Util.formData(data)
       })
         .then(response => {
-          console.log(response);
+          //console.log(response);
           if (response.data.success) {
              this.modalShow = true;
           } else {
@@ -197,10 +189,12 @@ export default {
         businessStatus: 5,
         refuseReason: this.refuseReason
       };
-      Utile.ajax
-        .post(baseUri.service_audit_url, {
-          data: Util.formData(data)
-        })
+      //console.log(data)
+      Util.ajax({
+        method: "post",
+        url: baseUri.service_audit_url,
+        data: Util.formData(data)
+      })
         .then(response => {
           if (response.data.success) {
             this.$Message.success("已审核");
@@ -290,39 +284,19 @@ export default {
 };
 </script>
 <style>
-.user_detail_div {
-  border-bottom: 1px solid rgb(219, 207, 207);
-}
-.user_detail_media {
-  height: 18vh;
-  line-height: 18vh;
-  min-height: 180px;
-  border-bottom: 1px solid rgb(219, 207, 207);
-}
-.from_label {
-  margin-left: 3vw;
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 16px;
-  display: inline-block;
-  min-width: 75px;
-  min-height: 16px;
-}
+@import "../../../styles/public.less";
 .demo-upload-list {
   display: inline-block;
-  min-width: 150px;
-  min-height: 150px;
-  width: 8vw;
-  height: 16vh;
+  width: 100px;
+  height: 100px;
   text-align: center;
   line-height: 60px;
-  border: 1px solid transparent;
   border-radius: 4px;
   overflow: hidden;
   background: #fff;
   position: relative;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  margin-right: 4px;
+  margin-right: 10px;
 }
 .demo-upload-list img {
   width: 100%;

@@ -1,9 +1,9 @@
 <template>
   <div v-if="show">
     <div id="user_edit" style="background:#eee" v-if="show">
-      <Card :bordered="false" style="height:85vh;overflow:auto;">
+      <Card :bordered="false">
         <br>
-        <div style="color:blue;font-size:22px;text-align:center">
+        <div class="title-center">
           需求订单退款申请
         </div>
         <br><br>
@@ -77,12 +77,12 @@ export default {
         data: Util.formData(data)
       })
         .then(response => {
-          console.log(response);
+          //console.log(response);
           if (response.data.success) {
-            console.log("已审核");
+            //console.log("已审核");
             this.modalShow = true;
           } else {
-            console.log("审核失败");
+            //console.log("审核失败");
             this.modalShow = true;
           }
         })
@@ -101,12 +101,12 @@ export default {
         data: Util.formData(data)
       })
         .then(response => {
-          console.log(response);
+          //console.log(response);
           if (response.data.success) {
-            console.log("已审核");
+            //console.log("已审核");
             this.modalShow = true;
           } else {
-            console.log("审核失败");
+            //console.log("审核失败");
             this.modalShow = true;
           }
         })
@@ -151,7 +151,7 @@ export default {
       .then(response => {
         if (response.data.success) {
           let obj = response.data.data;
-          console.log(obj);
+          //console.log(obj);
           for (let x in obj) {
             if (x == "isService") {
               if (obj[x] == 1) {
@@ -166,6 +166,7 @@ export default {
           this.show = true;
           this.$Message.destroy();
         } else {
+          this.$Message.destroy()
           this.$Message.error("读取失败");
         }
       })
@@ -176,16 +177,5 @@ export default {
 };
 </script>
 <style>
-.user_detail_div {
-  border-bottom: 1px solid rgb(219, 207, 207);
-}
-.from_label {
-  margin-left: 3vw;
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 16px;
-  display: inline-block;
-  min-width: 75px;
-  min-height: 16px;
-}
+@import "../../../../styles/public.less";
 </style>

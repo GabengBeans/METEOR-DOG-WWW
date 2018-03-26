@@ -11,12 +11,12 @@
           <Row>
             <i-col class="item" span="6"><span class="weight">服务者：</span>{{data.providerName}}</i-col>
             <i-col class="item" span="6"><span class="weight">服务手机号：</span>{{data.serviceProviderPhone}}</i-col>
-            <i-col class="item" span="6"><span class="weight">服务金额：</span>{{data.serviceCharge*0.01}} 元</i-col>
-            <i-col class="item" span="6"><span class="weight">平台服务费：</span>{{data.platformServiceCharge*0.01}} 元</i-col>
+            <i-col class="item" span="6"><span class="weight">服务金额：</span>{{(data.serviceCharge*0.01).toFixed(2)}} 元</i-col>
+            <i-col class="item" span="6"><span class="weight">平台服务费：</span>{{(data.platformServiceCharge*0.01).toFixed(2)}} 元</i-col>
           </Row>
           <Row>
-            <i-col class="item" span="6"><span class="weight">佣金返点：</span>{{data.reate*0.01}}</i-col>
-            <i-col class="item" span="6"><span class="weight">佣金：</span>{{data.brokerage*0.01}} 元</i-col>
+            <i-col class="item" span="6"><span class="weight">佣金返点：</span>{{(data.reate*0.01).toFixed(2)}}</i-col>
+            <i-col class="item" span="6"><span class="weight">佣金：</span>{{(data.brokerage*0.01).toFixed(2)}} 元</i-col>
           </Row>
           <div class="audit-info">
               <Row>
@@ -70,12 +70,12 @@ export default {
       }
     }).then(res => {
         let obj = res.data.data;
-        console.log(obj)
+        //console.log(obj)
         for (let x in obj) {
             if(x == 'accountDay' || x == 'auditTime'){
                 this.data[x] = Util.formatDate(
                     new Date(obj[x]),
-                    "yyyy-MM-dd hh:mm:ss"
+                    "yyyy-MM-dd"
                 );
             }else if(x == 'businessStatus'){
                 if(obj[x] == 1){
@@ -90,27 +90,7 @@ export default {
             }
             
         }
-    //   let obj = res.data.data;
-    //   // console.log(obj)
-    //   for (let x in obj) {
-    //     if(x == 'createTime' || x == 'updateTime'){
-    //       this.data[x] = Util.formatDate(
-    //         new Date(obj[x]),
-    //         "yyyy-MM-dd hh:mm:ss"
-    //       );
-    //     }else if(x == 'tradeAmount' || x == 'brokerage'){
-    //       this.data[x] = obj[x] * 0.01;
-    //     }else if(x == 'all'){
-    //       // console.log(obj[x])
-    //       this.data[x] = obj[x];
-    //       this.data[x].tradeAmount = obj[x].tradeAmount * 0.01;
-    //       this.data[x].brokerage = obj[x].brokerage * 0.01;          
-    //     } else{
-    //       this.data[x] = obj[x];
-    //     }  
-    //   }
-    //   this.data1[0] = this.data.all;
-    //   this.data2[0] = this.data;
+
       this.show = true;
       this.$Message.destroy();
     });

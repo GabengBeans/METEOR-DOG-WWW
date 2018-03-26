@@ -1,18 +1,16 @@
 <template>
   <div v-if="show">
     <div id="user_edit" style="background:#eee">
-      <Card :bordered="false" style="height:85vh;overflow:auto;">
-        <Upload :before-upload="handleBeforeUpload" :show-upload-list="false" :on-success="handleSuccess" :data="{
+      <Card :bordered="false">
+        <Upload style="display:inline-block;" :before-upload="handleBeforeUpload" :show-upload-list="false" :on-success="handleSuccess" :data="{
                     'type':'user'
                   }" action="https://lxg.91taogu.com/up/">
-          <p>点击图片更换头像</p>
-          <Avatar :src="aliyun + user_data.avatarUrl" shape="square" style="width:6vw;height:6vw" />
+          <p class="tip" style="margin-left:20px;">点击图片更换头像</p>
+          <Avatar :src="aliyun + user_data.avatarUrl" shape="square" class="avatar" />
         </Upload>
-        <br>
-        <div>
-          <Tag color="blue" v-for="item in user_data.selfAuthInfos" :key="item.key" style="line-height:3vh;min-width:5vw;min-height:3vh;text-align:center;">{{item}}</Tag>
+        <div style="display:inline-block;">
+          <Tag color="blue" v-for="item in user_data.selfAuthInfos" :key="item.key" class="tag-style">{{item}}</Tag>
         </div>
-        <br>
         <Form>
           <FormItem>
             <label class="from_label">手机号</label>
@@ -51,7 +49,7 @@
         </Form>
 
         <div>
-          <BMapComponent :lat="user_data.addressLat" :lon="user_data.addressLon" :keyword="user_data.address"></BMapComponent>
+          <BMapComponent style="width:95%;margin:0 auto;" :lat="user_data.addressLat" :lon="user_data.addressLon" :keyword="user_data.address"></BMapComponent>
         </div>
         <br>
         <Form>
@@ -62,30 +60,34 @@
           <FormItem>
             <label class="from_label">个人标签</label>
             <Input style="width: 5vw;min-width:100px;" v-model='tags' />
-            <Tag closable @on-close="handleClose" color="blue" v-for="item in user_data.listTags" :key="item.key" :name="item.lableName" style="line-height:3vh;min-width:5vw;min-height:3vh;text-align:center;">{{item.lableName}}</Tag>
+            <Tag closable @on-close="handleClose" color="blue" v-for="item in user_data.listTags" :key="item.key" :name="item.lableName" class="tag-style">{{item.lableName}}</Tag>
             <Button icon="ios-plus-empty" type="dashed" size="small" @click="handleAdd">添加标签</Button>
           </FormItem>
           <FormItem>
-            <label class="from_label">认证证书</label>
-            <Input v-model="user_data.resumes[3].content" type="textarea" style="width: 15vw;min-width:100px;" :autosize="{minRows: 2,maxRows: 5}" />
+            <label class="from_label">个人简介</label>
+            <Input v-model="user_data.resumes[3].content" type="textarea" style="width: 40vw;min-width:100px;" :autosize="{minRows: 2,maxRows: 5}" />
           </FormItem>
           <FormItem>
             <label class="from_label">职业经历</label>
-            <Input v-model="user_data.resumes[0].content" type="textarea" style="width: 15vw;min-width:100px;" :autosize="{minRows: 2,maxRows: 5}" />
+            <Input v-model="user_data.resumes[0].content" type="textarea" style="width: 40vw;min-width:100px;" :autosize="{minRows: 2,maxRows: 5}" />
           </FormItem>
           <FormItem>
             <label class="from_label">教育背景</label>
-            <Input v-model="user_data.resumes[2].content" type="textarea" style="width: 15vw;min-width:100px;" :autosize="{minRows: 2,maxRows: 5}" />
+            <Input v-model="user_data.resumes[2].content" type="textarea" style="width: 40vw;min-width:100px;" :autosize="{minRows: 2,maxRows: 5}" />
           </FormItem>
           <FormItem>
             <label class="from_label">项目经验</label>
-            <Input v-model="user_data.resumes[1].content" type="textarea" style="width: 15vw;min-width:100px;" :autosize="{minRows: 2,maxRows: 5}" />
+            <Input v-model="user_data.resumes[1].content" type="textarea" style="width: 40vw;min-width:100px;" :autosize="{minRows: 2,maxRows: 5}" />
+          </FormItem>
+          <FormItem>
+            <label class="from_label">认证证书</label>
+            <Input v-model="user_data.certificates[0].content" type="textarea" style="width: 40vw;min-width:100px;" :autosize="{minRows: 2,maxRows: 5}" />
           </FormItem>
         </Form>
         <label class="from_label">上传图片</label>图片不能大于2M
-        <UserEditImgList :imgList="user_data.certificates[0].imageUrls" :upload="true"></UserEditImgList>
-        <div style="text-align:center;border-top:1px solid gray;border-bottom:1px solid gray;padding:1vh">
-          <Button type="error" @click.native="saveInfo">保存</Button>
+        <UserEditImgList class="image-style" :change="true" :imgList="user_data.certificates[0].imageUrls" :upload="true"></UserEditImgList>
+        <div style="text-align:center;">
+          <Button class="btn-group" type="success" @click.native="saveInfo">保存修改</Button>
         </div>
         <div>
           <Tabs value="name1">
@@ -194,7 +196,7 @@ export default {
         } else {
           this.user_data.listTags.push({ lableName: this.tags, id: "-1" });
           this.tags = "";
-          console.log(this.user_data.listTags);
+          //console.log(this.user_data.listTags);
         }
       }
     },
@@ -217,12 +219,27 @@ export default {
       this.user_data.avatarUrl = res.result.file.innerUrl;
     },
     saveInfo: function() {
-      console.log(this.resumeList);
+      if(this.user_data.certificates[0].imageUrls.length>8)
+      {
+        this.$Notice.warning({
+          title: "最多上传8张图片"
+        });
+        return
+      }
       this.$Message.loading({
         content: "保存中...",
         duration: 0
       });
-      let data = {};
+      let imgList = [];
+      for (
+        let x = 0;
+        x < this.user_data.certificates[0].imageUrls.length;
+        x++
+      ) {
+        imgList.push(this.user_data.certificates[0].imageUrls[x]);
+      }
+
+      //console.log(imgList)
       Util.ajax({
         method: "post",
         url: baseUri.user_edit_url,
@@ -242,14 +259,21 @@ export default {
           lat: this.user_data.addressLat,
           lon: this.user_data.addressLon,
           tagList: this.user_data.listTags,
-          certificate: this.user_data.certificates[0].imageUrls,
+          certificate: imgList,
+          certificateContent: this.user_data.certificates[0].content,
           resumeList: this.resumeList
         }
-      }).then(response => {
-        this.$Message.destroy();
-        this.$Message.success("保存成功");
-        console.log(response.data);
-      });
+      }).then(res => {
+        if (res.data.success) {
+          this.$Message.destroy();
+          this.$Message.success("保存成功");
+        } else {
+          this.$Message.destroy();
+          this.$Message.success("保存失败");
+        }
+      }).catch(err=>{
+        console.log(err)
+      })
     }
   },
   computed: {
@@ -308,7 +332,7 @@ export default {
     axios.all([getUserInfo(), getAttentionUser(), getInviterUsers()]).then(
       axios.spread((response, response1, response2) => {
         //console.log(response)
-        console.log(Cookies.get("token"));
+        //console.log(Cookies.get("token"));
         let src_obj = response.data.data;
         let new_obj = {};
         let inviter_arr = [];
@@ -339,7 +363,7 @@ export default {
               //console.log(src_obj.certificates[0].imageUrls.replace(/[\[*\]]/g,'').split(','))
               //console.log(src_obj[x])
               new_obj.certificates[0].imageUrls = src_obj.certificates[0].imageUrls
-                .replace(/[\[*\]]/g, "")
+                .replace(/[\["*"\]]/g, "")
                 .split(",");
               //console.log(new_obj.certificates[0].imageUrl)
               // for (
@@ -394,14 +418,6 @@ export default {
 };
 </script>
 <style>
-.from_label {
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 16px;
-  margin-right: 10px;
-  display: inline-block;
-  min-width: 75px;
-  min-height: 16px;
-}
+@import "../../../styles/public.less";
 </style>
 

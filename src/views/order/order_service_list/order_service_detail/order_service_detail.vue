@@ -1,9 +1,9 @@
 <template>
   <div v-if="show">
     <div id="user_edit" style="background:#eee" v-if="show">
-      <Card :bordered="false" style="height:85vh;overflow:auto;">
+      <Card :bordered="false">
         <br>
-        <div style="color:blue;font-size:22px;text-align:center">
+        <div class="title-center">
           服务订单详情
         </div>
         <br><br>
@@ -84,7 +84,7 @@ export default {
       })
       .then(response => {
         if (response.data.success) {
-          console.log(response);
+          //console.log(response);
           let obj = response.data.data;
           let orderStatus = [
             "全部",
@@ -115,6 +115,7 @@ export default {
           this.show = true;
           this.$Message.destroy();
         } else {
+          this.$Message.destroy()
           this.$Message.error("读取失败");
         }
       })
@@ -125,16 +126,5 @@ export default {
 };
 </script>
 <style>
-.user_detail_div {
-  border-bottom: 1px solid rgb(219, 207, 207);
-}
-.from_label {
-  margin-left: 3vw;
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 16px;
-  display: inline-block;
-  min-width: 75px;
-  min-height: 16px;
-}
+@import "../../../../styles/public.less";
 </style>

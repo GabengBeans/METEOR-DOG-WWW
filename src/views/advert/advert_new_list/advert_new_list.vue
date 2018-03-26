@@ -1,7 +1,6 @@
 <template>
   <div>
-    <br><br>
-    <Row :gutter='16'>
+    <Row :gutter='16' class="search" style="margin-left:0;margin-right:0;">
       <Form label-position="right" :label-width="60">
         <Col :xs='13' :sm='13' :md='8' :lg='5'>
         <FormItem style="min-width:60px" label="广告位">
@@ -11,7 +10,7 @@
         </FormItem>
         </Col>
         <Col :xs='13' :sm='13' :md='8' :lg='5'>
-        <FormItem style="min-width:60px" label="子广告位" v-if="name">
+        <FormItem style="min-width:60px" label="子广告位">
           <Select v-model="id">
             <Option v-for="item in name" :key="item.key" :value="item.id">{{item.positionName}}</Option>
           </Select>
@@ -21,12 +20,11 @@
       <Button style='margin-left:38px' type="primary" shape="circle" icon="ios-search" @click.native='search'>搜索</Button>
       <Button :disabled="btn" style='margin-left:38px' type="success" shape="circle" @click.native='addAdverNewBtn'>添加广告</Button>
     </Row>
-    <br><br>
     <TableComponent :columns="advertNewListColumns" :data="$store.state.app.advert_new_search_result"></TableComponent>
-    <br>
+
     <Page :storeStatus="status" :currentPage="$store.state.app.advert_new_page_info.currentPage" :totalPage="$store.state.app.advert_new_page_info.totalPage"></Page>
     <Modal v-model="showAdvertEdit" width="80vw">
-      <p slot="header" style="color:#f60;text-align:center">
+      <p slot="header" style="color:#2d8cf0;text-align:center">
         <span>广告编辑</span>
       </p>
       <div style="text-align:center">
@@ -38,14 +36,14 @@
       </div>
     </Modal>
     <Modal v-model="showAddAdvert" width="80vw">
-      <p slot="header" style="color:#f60;text-align:center">
+      <p slot="header" style="color:#2d8cf0;text-align:center">
         <span>添加广告</span>
       </p>
       <div style="text-align:center">
         <AddAdverNew :data="addAdverNewdata"></AddAdverNew>
       </div>
       <div slot="footer">
-        <Button type="success" @click="addAdverNew">保存</Button>
+        <Button type="success" @click="addAdverNew('advert_new_add')">保存</Button>
         <Button type="error" @click="showAddAdvert=false">返回</Button>
       </div>
     </Modal>
@@ -63,7 +61,11 @@ export default {
   data() {
     return {
       btn: true,
-      addAdverNewdata: {},
+      addAdverNewdata: {
+        adName: "",
+        mediaType: 1,
+        imgUrl: ""
+      },
       showAdvertEdit: false,
       showAddAdvert: false,
       advertDetail: {},
@@ -163,18 +165,20 @@ export default {
       let obj = {};
       obj.level = this.level;
       obj.positionId = this.id;
+      //console.log(obj);
       this.$store.commit("GET_ADVERT_NEW_INFO", { data: obj, pageNo: 1 });
     },
     addAdverNewBtn: function() {
       for (let x in this.addAdverNewdata) {
-        if (x != "positionId") {
+        if (x == "positionId" || x == "mediaType" || x == "imgUrl") {
+        } else {
           this.addAdverNewdata[x] = "";
         }
       }
       this.showAddAdvert = true;
     },
-    addAdverNew: function() {
-      console.log(this.addAdverNewdata);
+    addAdverNew: function(name) {
+      //console.log(this.addAdverNewdata);
       for (let x in this.addAdverNewdata) {
         if (!this.addAdverNewdata[x]) {
           this.$Message.error("请补全信息");
@@ -209,6 +213,7 @@ export default {
             });
             this.showAddAdvert = false;
           } else {
+            this.$Message.destroy()
             this.$Message.erros("保存失败，请联系管理员");
           }
         })
@@ -252,6 +257,7 @@ export default {
             });
             this.showAdvertEdit = false;
           } else {
+            this.$Message.destroy()
             this.$Message.error("保存失败，请联系管理员");
           }
         })
@@ -261,6 +267,7 @@ export default {
     }
   },
   computed: {
+    //如果此次与上次的name的length是一样的，则不刷新子广告位
     name: function() {
       let arr = [];
       if (this.level) {
@@ -269,8 +276,6 @@ export default {
             arr.push(this.names[x]);
           }
         }
-      }
-      if (arr.length) {
         this.id = arr[0].id;
       }
       return arr;
@@ -294,12 +299,13 @@ export default {
           let objName = [];
           let objNames = [];
           let arr = res.data.data;
+          let subArr;
           for (let x = 0; x < arr.length; x++) {
             objLevel[x] = {};
             //objLevel[x].id = arr[x].id
             objLevel[x].positionName = arr[x].positionName;
             objLevel[x].level = arr[x].level;
-            let subArr = arr[x];
+            subArr = arr[x];
             //console.log(subArr)
             for (let y = 0; y < subArr.subPositionResults.length; y++) {
               objName[y] = {};
@@ -311,13 +317,16 @@ export default {
             }
           }
           this.tags = objLevel;
+          console.log(this.tags);
           this.names = objNames;
+          console.log(this.names);
           this.id = objNames[0].id;
           this.level = objLevel[0].level;
+          console.log(this.level);
           this.btn = false;
           this.$store.commit("GET_ADVERT_NEW_INFO", {
             data: { level: this.level, positionId: this.id },
-            pageNo: 1
+            pageNo: this.$store.state.app.advert_new_public_page
           });
         } else {
           this.$Message.error("获取信息失败");

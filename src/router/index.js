@@ -9,10 +9,10 @@ Vue.use(VueRouter);
 
 // 路由配置
 const RouterConfig = {
-    // mode: 'history',
+    //mode: 'hash',
     routes: routers
 };
-
+//console.log("index.js运行")
 export const router = new VueRouter(RouterConfig);
 
 router.beforeEach((to, from, next) => {
@@ -36,7 +36,9 @@ router.beforeEach((to, from, next) => {
                 name: 'home_index'
             });
         } else {
+            //let menus = JSON.parse(window.sessionStorage.menus)
             const curRouterObj = Util.getRouterObjByName([otherRouter, ...appRouter], to.name);
+            //console.log(curRouterObj)
             if (curRouterObj && curRouterObj.access !== undefined) { // 需要判断权限的路由
                 if (curRouterObj.access === parseInt(Cookies.get('access'))) {
                     Util.toDefaultPage([otherRouter, ...appRouter], to.name, router, next); // 如果在地址栏输入的是一级菜单则默认打开其第一个二级菜单的页面
@@ -52,7 +54,7 @@ router.beforeEach((to, from, next) => {
         }
     }
 });
-
+//console.log("22222222")
 router.afterEach((to) => {
     Util.openNewPage(router.app, to.name, to.params, to.query);
     iView.LoadingBar.finish();

@@ -1,12 +1,12 @@
 <template>
-    <div id='user_table'>
-        <Table style="min-width:800px;margin:0 16px;" border stripe :columns="cashFlowTableColumns" :data="$store.state.app.cash_flow_search_result">
-        </Table>
-    </div>
+  <div id='user_table' class="table">
+    <Table style="min-width:800px;margin:0 16px;" border stripe :columns="cashFlowTableColumns" :data="$store.state.app.cash_flow_search_result" >
+    </Table>
+  </div>
 
 </template>
 <script>
-import expandRow from "./table_expand"
+import expandRow from "./table_expand";
 export default {
   name: "user_table",
   data() {
@@ -56,24 +56,24 @@ export default {
           key: "tradeType"
         },
         {
-            title: "交易金额",
-            key: "amount"
+          title: "交易金额",
+          key: "amount"
         },
         {
-            title: "收入\支出",
-            key: "isIncoming"
+          title: "收入支出",
+          key: "isIncoming"
         },
         {
-            title: "支付方式",
-            key: "paymentType"
+          title: "支付方式",
+          key: "paymentType"
         },
         {
-            title: "支出方",
-            key: "fromUserName"
+          title: "支出方",
+          key: "fromUserName"
         },
         {
-            title: "接收方",
-            key: "toUserName"
+          title: "接收方",
+          key: "toUserName"
         },
         // {
         //     title: "系统订单号",
@@ -84,8 +84,8 @@ export default {
         //     key: "createTime"
         // },
         {
-            title: "数据状态",
-            key: "status"
+          title: "数据状态",
+          key: "status"
         }
       ]
     };

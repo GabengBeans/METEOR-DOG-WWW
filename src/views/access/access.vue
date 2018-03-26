@@ -66,6 +66,7 @@ export default {
                 this.accessCode = 0;
                 Cookies.set('access', 0);
             }
+            //let menus = JSON.parse(window.sessionStorage.menus)
             this.$store.commit('updateMenulist');
         }
     }

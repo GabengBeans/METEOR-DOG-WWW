@@ -2,12 +2,12 @@
   <div id='user_search'>
     <Row :gutter='16'>
       <Form label-position="right" :label-width="60">
-        <Col :xs='13' :sm='13' :md='8' :lg='5' v-for="item in data" :key="item.key">
+        <Col :xs='13' :sm='13' :md='8' :lg='5' v-for="item in data" :key="item.key" style="height:57px;">
         <FormItem style="min-width:100px" :label="item.tagName">
           <Select v-model="item.value" v-if="item.tag">
             <Option v-for="item in item.tag" :key="item.key" :value="item.num">{{item.value}}</Option>
           </Select>
-          <DatePicker v-else-if="item.data" v-model="item.value" type="date" placeholder="请选择日期"></DatePicker>
+          <DatePicker style="width:100%;" v-else-if="item.data" v-model="item.value" type="date" placeholder="请选择日期"></DatePicker>
           <Input clearable v-model="item.value" v-else />
         </FormItem>
         </Col>
@@ -17,12 +17,13 @@
   </div>
 </template>
 <script>
+import Util from '@/libs/util';
 export default {
   name: "user_search",
   data() {
     return {
       data: {
-        orderNo: {
+        balanceOrderNo: {
           tagName: "订单号",
           value: ""
         },
@@ -30,27 +31,12 @@ export default {
           tagName: "手机号",
           value: ""
         },
-
-        userName: {
-          tagName: "昵称",
+        extendUsername: {
+          tagName: "代理人",
           value: ""
         },
-        title: {
-          tagName: "需求标题",
-          value: ""
-        },
-        beginCreateTime: {
-          tagName: "下单日期",
-          value: "",
-          data: "1"
-        },
-        endCreateTime: {
-          tagName: "截止日期",
-          value: "",
-          data: "1"
-        },
-        orderStatus: {
-          tagName: "订单状态",
+        balanceStatus: {
+          tagName: "结算状态",
           value: "0",
           tag: {
             op1: {
@@ -59,42 +45,39 @@ export default {
             },
             op2: {
               num: "1",
-              value: "待支付"
+              value: "已结算"
             },
             op3: {
               num: "2",
-              value: "待服务"
+              value: "未结算"
             },
             op4: {
               num: "3",
-              value: "已完成"
-            },
-            op5: {
-              num: "4",
-              value: "已取消"
-            },
-            op6: {
-              num: "5",
-              value: "申请退款"
-            },
-            op7: {
-              num: "6",
-              value: "退款成功"
-            },
-            op8: {
-              num: "7",
-              value: "退款失败"
-            },
-            op9: {
-              num: "9",
-              value: "已付款"
-            },
-            op10: {
-              num: "8",
-              value: "已过期"
+              value: "待结算"
             }
           }
         },
+        startAccountDay: {
+          tagName: "交易日期",
+          value: "",
+          data: "1"
+        },
+        endAccountDay: {
+          tagName: "至",
+          value: "",
+          data: "1"
+        },
+        startBalanceTime: {
+          tagName: "结算时间",
+          value: "",
+          data: "2"
+        },
+        endBalanceTime: {
+          tagName: "至",
+          value: "",
+          data: "2"
+        },
+       
       }
     };
   },
@@ -102,14 +85,18 @@ export default {
     search: function() {
       let obj = {};
       for (let x in this.data) {
-        obj.businessType = '1'
         if (this.data[x].value != "") {
+          if (x == "startAccountDay" || x == "endAccountDay" || x == "startBalanceTime" || x == "endBalanceTime") {
+            obj[x] = Util.formatDate(new Date(this.data[x].value), "yyyy-MM-dd")            
+          } else {
             obj[x] = this.data[x].value;
+          }
+          // obj[x] = this.data[x].value;
         }
       }
       //console.log(obj)
-      this.$store.state.app.order_service_search_info = obj;
-      this.$store.commit("GET_ORDER_SERVICE_INFO", { data: obj, pageNo: 1 });
+      this.$store.state.app.expand_charge_search_info = obj;
+      this.$store.commit("GET_EXPAND_CHARGE_INFO", { data: obj, pageNo: 1 });
     }
   }
 };

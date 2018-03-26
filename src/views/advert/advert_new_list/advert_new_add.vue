@@ -1,7 +1,7 @@
 <template>
-    <div class="advertNewDetail">
+    <div class="advertNewDetails">
         <Row :gutter='16'>
-            <Form label-position="right" :label-width="60">
+            <Form label-position="right" :label-width="60" >
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
                 <FormItem style="min-width:60px" label="广告位">
                     <Select v-model="level">
@@ -19,12 +19,20 @@
             </Form>
         </Row>
         <Row :gutter='16'>
-            <Form label-position="right" :label-width="60">
+            <Form label-position="right" :label-width="70" ref="advert_new_add" :model="data" :rules="ruleValidate">
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
-                <FormItem label="广告名称">
+                <FormItem label="广告名称" prop="adName">
                     <Input clearable v-model="data.adName" />
                 </FormItem>
                 <FormItem label="上传">
+                  <template v-if="data.imgUrl" >
+                      <div class="demo-upload-lists">
+                        <img :src="data.imgUrl" />
+                          <div class="demo-upload-list-covers">
+                            <Icon type="ios-trash-outline" @click.native="handleRemove(data.imgUrl)"></Icon>
+                          </div>
+                      </div>
+                    </template>
                     <template v-if="data.mediaType==1">
                         <template v-if="!data.imgUrl">
                             图片大小限制2M
@@ -36,25 +44,16 @@
                             :on-format-error="handleFormatError" 
                             :on-exceeded-size="handleMaxSize" 
                             :before-upload="handleBeforeUpload" 
-                            :data="{
-                              'type':'user'
-                            }" 
+                            :data="{'type':'user'}" 
                             action="https://lxg.91taogu.com/up/">
-                                <div>
-                                    <Icon type="camera" size="40"></Icon>
-                                </div>
+                            <div>
+                                <Icon type="camera" size="40"></Icon>
+                            </div>
                             </Upload>
                         </template>
                     </template>
-                     <template v-if="data.imgUrl">
-                            <div class="demo-upload-lists">
-                                <img :src="data.imgUrl">
-                                <div class="demo-upload-list-covers">
-                                    <Icon type="ios-trash-outline" @click.native="handleRemove(data.imgUrl)"></Icon>
-                                </div>
-                            </div>
-                        </template>
-                    <template v-else-if="data.mediaType==2">
+                    
+                    <template v-if="data.mediaType==2">
                         <template v-if="!data.imgUrl">
                             视频大小限制200M
                             <Upload ref="upload" 
@@ -65,35 +64,34 @@
                             :on-format-error="handleVideoFormatError" 
                             :on-exceeded-size="handleVideoMaxSize" 
                             :before-upload="handleVideoBeforeUpload" 
-                            :data="{
-                        'type':'user'
-                    }" action="https://lxg.91taogu.com/up/">
-                                <div>
-                                    <Icon type="camera" size="40"></Icon>
-                                </div>
+                            :data="{'type':'user'}" 
+                            action="https://lxg.91taogu.com/up/">
+                            <div>
+                              <Icon type="camera" size="40"></Icon>
+                            </div>
                             </Upload>
                         </template>
                     </template>
-                   
+                    
                 </FormItem>
                 </Col>
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
-                <FormItem label="业务">
-                    <Input clearable v-model="data.businessId" />
+                <FormItem label="业务ID" prop="businessId">
+                    <Input  v-model="data.businessId" />
                 </FormItem>
                 </Col>
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
-                <FormItem label="业务类型">
+                <FormItem label="业务类型" prop="adType">
                     <Input clearable v-model="data.adType" />
                 </FormItem>
                 </Col>
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
-                <FormItem label="序号">
-                    <Input clearable v-model="data.adSort" />
+                <FormItem label="序号" prop="adSort">
+                    <Input v-model="data.adSort" />
                 </FormItem>
                 </Col>
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
-                <FormItem label="媒体类型">{{data.mediaType}}
+                <FormItem label="媒体类型" >
                     <Select v-model="data.mediaType">
                         <Option :value=1>图片</Option>
                         <Option :value=2>视频</Option>
@@ -108,13 +106,27 @@
 import Util from "@/libs/util"
 import baseUri from "@/libs/base_uri"
 export default {
-  name: "advertNewDetail",
+  name: "advertNewDetails",
   props: ["data"],
   data() {
     return {
       tags: [],
       level: "",
       names: [],
+      ruleValidate:{
+        adName: [
+                { required: true, message: '广告名称不能为空'}
+              ],
+        businessId: [
+                        { required: true, message: '业务ID不能为空'},
+                    ], 
+        adType:[
+          {required:true,message:"业务类型不能为空"}
+        ],
+        adSort:[
+          {required:true,message:"序号不能为空"}
+        ]
+      }
     };
   },
   computed: {
@@ -134,13 +146,9 @@ export default {
     }
   },
   methods: {
-    handleView(name) {
-      this.imgName = name;
-      this.visible = true;
-    },
     handleRemove(file) {
-      console.log(1111)
-      console.log(this.data.imgUrl)
+      //console.log(1111)
+      (this.data.imgUrl)
       this.data.imgUrl = "";
     },
     handleSuccess(res, file) {
@@ -149,7 +157,7 @@ export default {
         this.$Message.destroy();
         this.$Message.success("图片上传成功");
         this.data.imgUrl = res.result.file.outUrl;
-        console.log(this.data.imgUrl)
+        //console.log(this.data.imgUrl)
       }
     },
     handleVideoSuccess(res, file) {
@@ -159,6 +167,7 @@ export default {
       this.data.videoId = res.result.fiel.videoId
     },
     handleFormatError(file) {
+      this.$Message.destroy()
       this.$Notice.warning({
         title: "文件格式错误",
         desc:
@@ -168,6 +177,7 @@ export default {
       });
     },
     handleVideoFormatError(file) {
+      this.$Message.destroy()
       this.$Notice.warning({
         title: "视频格式错误",
         desc:
@@ -177,24 +187,28 @@ export default {
       });
     },
     handleMaxSize(file) {
+      this.$Message.destroy()
       this.$Notice.warning({
         title: "内容过大",
         desc: "图片" + file.name + "超过2M的限制."
       });
     },
     handleVideoMaxSize(file) {
+      this.$Message.destroy()
       this.$Notice.warning({
         title: "内容过大",
         desc: "视频" + file.name + "超过200M的限制."
       });
     },
     handleBeforeUpload(file) {
+      this.$Message.destroy()
       this.$Message.loading({
         content: "正在上传...",
         duration: 0
       });
     },
      handleVideoBeforeUpload(file) {
+       this.$Message.destroy()
       this.$Message.loading({
         content: "正在上传...",
         duration: 0

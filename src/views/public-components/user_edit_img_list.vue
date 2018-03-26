@@ -4,17 +4,17 @@
            <template v-if="imgList">
                 <img :src="imgList">
                 <div class="demo-upload-list-cover">
-                    <Icon type="ios-eye-outline" @click.native="handleView(imgList)" style="margin-right:3vw"></Icon>
-                    <Icon type="ios-trash-outline" @click.native="handleRemoveVideoImg(imgList)"></Icon>
+                    <Icon type="ios-eye-outline" @click.native="handleView(imgList)" style="margin-right:10px"></Icon>
+                    <!-- <Icon type="ios-trash-outline" @click.native="handleRemoveVideoImg(imgList)"></Icon> -->
                 </div>
            </template>
         </div>
         <div class="demo-upload-list" v-else v-for="item in uploadList" :key="item.key">
             <template v-if="item">
                 <img :src="aliyun + item">
-                <div class="demo-upload-list-cover">
-                    <Icon type="ios-eye-outline" @click.native="handleView(item)" style="margin-right:3vw"></Icon>
-                    <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
+                <div class="demo-upload-list-cover" v-if="change">
+                    <Icon type="ios-eye-outline" @click.native="handleView(item)" style="margin-right:10px"></Icon>
+                    <Icon v-if="!detail" type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
                 </div>
             </template>
         </div>
@@ -55,9 +55,9 @@
         multiple 
         type="drag" 
         action="https://lxg.91taogu.com/up/" 
-        style="display: inline-block;width:200px;">
-            <div style="min-width:198px;min-height:198px;line-height:198px;width:10vw;height:20vh">
-                <Icon type="camera" size="40"></Icon>
+        style="display: inline-block;width:99px;">
+            <div style="height:99px;line-height:118px;">
+                <Icon type="camera" size="40" style="margin-top:10px;"></Icon>
             </div>
         </Upload>
         </template>
@@ -81,7 +81,7 @@ export default {
       uploadList: []
     };
   },
-  props: ["imgList","videoUrl","upload"],
+  props: ["imgList","videoUrl","upload","change","detail"],
   methods: {
     handleView(name) {
       this.imgName = name;
@@ -97,9 +97,12 @@ export default {
     },
     handleSuccess(res, file) {
       this.$Message.destroy();
+      //console.log(res)
       this.uploadList.push(res.result.file.innerUrl);
+      //console.log(this.uploadList)
     },
     handleFormatError(file) {
+      this.$Message.destroy()
       this.$Notice.warning({
         title: "The file format is incorrect",
         desc:
@@ -109,19 +112,22 @@ export default {
       });
     },
     handleMaxSize(file) {
+      this.$Message.destroy()
       this.$Notice.warning({
         title: "内容过大",
         desc: "图片" + file.name + "超过2M的限制."
       });
     },
      handleMaxSizeVideo(file) {
+       this.$Message.destroy()
       this.$Notice.warning({
         title: "内容过大",
         desc: "视频" + file.name + "超过200M的限制."
       });
     },
     handleBeforeUpload(file) {
-      const check = this.uploadList.length < 8;
+      this.$Message.destroy()
+      const check = this.uploadList.length< 8;
       if (!check) {
         this.$Notice.warning({
           title: "最多上传8张图片"
@@ -135,6 +141,7 @@ export default {
       return check;
     },
     handleBeforeUploadVideo(file){
+      this.$Message.destroy()
       const check = this.uploadList.length <=1;
       if (!check) {
         this.$Notice.warning({
@@ -158,19 +165,17 @@ export default {
 <style>
 .demo-upload-list {
   display: inline-block;
-  min-width: 200px;
-  min-height: 200px; 
-  width: 10vw;
-  height: 20vh;
+  width: 100px;
+  height: 100px; 
   text-align: center;
-  line-height: 60px;
-  border: 1px solid transparent;
+  line-height:60px;
+  /* border: 1px solid transparent; */
   border-radius: 4px;
   overflow: hidden;
   background: #fff;
   position: relative;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  margin-right: 4px;
+  margin-right: 10px;
 }
 .demo-upload-list img {
   width: 100%;
@@ -184,7 +189,7 @@ export default {
   left: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.6);
-  line-height: 200px;
+  line-height: 120px;
 }
 .demo-upload-list:hover .demo-upload-list-cover {
   display: block;

@@ -2,7 +2,7 @@
   <div id='user_search'>
     <Row :gutter='16'>
       <Form label-position="right" :label-width="60">
-        <Col :xs='13' :sm='13' :md='8' :lg='5' v-for="item in data" :key="item.key">
+        <Col :xs='13' :sm='13' :md='8' :lg='5' v-for="item in data" :key="item.key" style="height:57px;">
         <FormItem style="min-width:100px" :label="item.tagName">
           <Select v-model="item.value" v-if="item.tag">
             <Option v-for="item in item.tag" :key="item.key" :value="item.num">{{item.value}}</Option>
@@ -60,16 +60,17 @@ export default {
       let obj = {};
       for (let x in this.data) {
         if (this.data[x].value != "") {
-          if (x == "beginCreateTime") {
-            obj[x] = new Date(this.data[x].value).getTime();
-          } else if (x == "endCreateTime") {
-            obj[x] = new Date(this.data[x].value).getTime();
-          } else {
-            obj[x] = this.data[x].value;
-          }
+          // if (x == "beginCreateTime") {
+          //   obj[x] = new Date(this.data[x].value).getTime();
+          // } else if (x == "endCreateTime") {
+          //   obj[x] = new Date(this.data[x].value).getTime();
+          // } else {
+          //   obj[x] = this.data[x].value;
+          // }
+          obj[x] = this.data[x].value;
         }
       }
-      console.log(obj)
+      //console.log(obj)
       this.$store.state.app.expand_search_info = obj;
       this.$store.commit("GET_EXPAND_INFO", { data: obj, pageNo: 1 });
     }

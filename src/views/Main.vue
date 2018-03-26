@@ -32,7 +32,7 @@
                 <div class="header-avator-con">
                     <full-screen v-model="isFullScreen" @on-change="fullscreenChange"></full-screen>
                     <lock-screen></lock-screen>
-                    <message-tip v-model="mesCount"></message-tip>
+                    <!-- <message-tip v-model="mesCount"></message-tip> -->
                     <theme-switch></theme-switch>
 
                     <div class="user-dropdown-menu-con">
@@ -43,11 +43,11 @@
                                     <Icon type="arrow-down-b"></Icon>
                                 </a>
                                 <DropdownMenu slot="list">
-                                    <DropdownItem name="ownSpace">个人中心</DropdownItem>
+                                    <DropdownItem name="ownSpace">修改密码</DropdownItem>
                                     <DropdownItem name="loginout" divided>退出登录</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
-                            <Avatar :src="avatorPath" style="background: #619fe7;margin-left: 10px;"></Avatar>
+                            <img src="../images/logo-min.png" style="margin-left: 10px;display:inline;border-radius:50%;width:30px;height:30px"/>
                         </Row>
                     </div>
                 </div>
@@ -99,6 +99,7 @@
                 return this.$store.state.app.menuList;
             },
             pageTagsList () {
+                //console.log("pageTagesList")
                 return this.$store.state.app.pageOpenedList; // 打开的页面的页面对象
             },
             currentPath () {
@@ -122,21 +123,25 @@
         },
         methods: {
             init () {
+                //let menus = JSON.parse(window.sessionStorage.menus)
+                //console.log(this.$route.name)
                 let pathArr = util.setCurrentPath(this, this.$route.name);
+
                 this.$store.commit('updateMenulist');
                 if (pathArr.length >= 2) {
                     this.$store.commit('addOpenSubmenu', pathArr[1].name);
                 }
                 this.userName = Cookies.get('user');
-                let messageCount = 3;
-                this.messageCount = messageCount.toString();
+                //let messageCount = 3;
+                //this.messageCount = messageCount.toString();
                 this.checkTag(this.$route.name);
-                this.$store.commit('setMessageCount', 3);
+                //this.$store.commit('setMessageCount', 3);
             },
             toggleClick () {
                 this.shrink = !this.shrink;
             },
             handleClickUserDropdown (name) {
+                //console.log("handleClickUserDropdown")
                 if (name === 'ownSpace') {
                     util.openNewPage(this, 'ownspace_index');
                     this.$router.push({
@@ -144,20 +149,28 @@
                     });
                 } else if (name === 'loginout') {
                     // 退出登录
+                    if(window.sessionStorage.getItem("logoutStatus"))
+                    {
+                        window.sessionStorage.setItem("logoutStatus","")
+                        this.$router.go(0)
+                    }
                     this.$store.commit('logout', this);
                     this.$store.commit('clearOpenedSubmenu');
+                    window.sessionStorage.setItem("menus","")
                     this.$router.push({
                         name: 'login'
                     });
+                    
                 }
             },
             checkTag (name) {
+                //console.log("checkTag")
                 let openpageHasTag = this.pageTagsList.some(item => {
                     if (item.name === name) {
                         return true;
                     }
                 });
-                if (!openpageHasTag) { //  解决关闭当前标签后再点击回退按钮会退到当前页时没有标签的问题
+                if (!openpageHasTag) { //  解决关闭当前标签后再点击按钮会退到当前页时没有标签的问题
                     util.openNewPage(this, name, this.$route.params || {}, this.$route.query || {});
                 }
             },
@@ -179,6 +192,7 @@
         watch: {
             '$route' (to) {
                 this.$store.commit('setCurrentPageName', to.name);
+                //console.log("ok")
                 let pathArr = util.setCurrentPath(this, to.name);
                 if (pathArr.length > 2) {
                     this.$store.commit('addOpenSubmenu', pathArr[1].name);
@@ -186,9 +200,9 @@
                 this.checkTag(to.name);
                 localStorage.currentPageName = to.name;
             },
-            lang () {
-                util.setCurrentPath(this, this.$route.name); // 在切换语言时用于刷新面包屑
-            }
+            // lang () {
+            //     util.setCurrentPath(this, this.$route.name); // 在切换语言时用于刷新面包屑
+            // }
         },
         mounted () {
             this.init();
@@ -196,6 +210,12 @@
         created () {
             // 显示打开的页面的列表
             this.$store.commit('setOpenedList');
+           
         }
     };
 </script>
+<style>
+/* div{
+    borderr
+} */
+</style>

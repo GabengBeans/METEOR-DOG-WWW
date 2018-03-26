@@ -1,25 +1,23 @@
 <template>
     <div>
-        <br><br>
-        <Row :gutter='16'>
+      
+        <Row class="search" style="margin-left:0;margin-right:0;" :gutter='16'>
             <Form label-position="right" :label-width="60">
                 <Col :xs='13' :sm='13' :md='8' :lg='5'>
                 <FormItem style="min-width:60px" :label="searchConfig.level.tagName">
-                    <Select v-model="searchConfig.level.value">
+                    <Select v-model="searchConfig.level.value" @on-change="search(searchConfig.level.value)">
                         <Option v-for="item in searchConfig.level.tag" :key="item.key" :value="item.num">{{item.value}}</Option>
                     </Select>
                 </FormItem>
                 </Col>
             </Form>
-            <Button style='margin-left:38px' type="primary" shape="circle" icon="ios-search" @click.native='search'>搜索</Button>
             <Button type="success" shape="circle" style='margin-left:38px' @click.native="showAddSubAdertBits=true">添加子广告位</Button>
         </Row>
-        <br><br>
         <TableComponent :columns="advertNewBitsTableColumns" :data="$store.state.app.advert_position_search_result"></TableComponent>
-        <br>
+      
         <Page :storeStatus="status" :currentPage="$store.state.app.advert_position_page_info.currentPage" :totalPage="$store.state.app.advert_position_page_info.totalPage"></Page>
         <Modal v-model="showAddSubAdertBits" width="80vw">
-            <p slot="header" style="color:#f60;text-align:center">
+            <p slot="header" style="color:#2d8cf0;text-align:center">
                 <span>添加子广告位</span>
             </p>
             <div style="text-align:center">
@@ -31,15 +29,15 @@
             </div>
         </Modal>
         <Modal v-model="showEditSubAdertBits" width="80vw">
-            <p slot="header" style="color:#f60;text-align:center">
+            <p slot="header" style="color:#2d8cf0;text-align:center">
                 <span>编辑子广告位</span>
             </p>
             <div style="text-align:center">
                 <AddSubAdvertBits :data="editSubAdvertBitsData" :selectData="searchConfig"></AddSubAdvertBits>
             </div>
             <div slot="footer">
-                <Button type="success" @click.native="addSubAdertBits">保存</Button>
-                <Button type="error" @click="showAddSubAdertBits=false">返回</Button>
+                <Button type="success" @click.native="EditSubAdertBits">保存</Button>
+                <Button type="error" @click="showEditSubAdertBits=false">返回</Button>
             </div>
         </Modal>
     </div>
@@ -106,7 +104,7 @@ export default {
                               advertPositionId:params.row.id
                           }
                       }).then((res)=>{
-                          console.log(res)
+                          //console.log(res)
                           if(res.data.success)
                           {
                               this.editSubAdvertBitsData = res.data.data
@@ -167,17 +165,54 @@ export default {
     };
   },
   methods: {
-    search() {
-      let obj = {};
-      for (let x in this.searchConfig) {
-        if (this.searchConfig[x].value != "") {
-          obj[x] = this.searchConfig[x].value;
-        }
+    search(level) {
+      let obj = {
+        level:level
       }
       this.$store.commit("GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO", {
         data: obj,
         pageNo: 1
       });
+    },
+    EditSubAdertBits(){
+        for (let x in this.editSubAdvertBitsData) {
+        if (!this.editSubAdvertBitsData[x]) {
+          this.$Message.error("请补全信息");
+          return false;
+        }
+      }
+      let data = {
+          positionName:this.editSubAdvertBitsData.positionName,
+          id:this.editSubAdvertBitsData.id,
+          userId:this.editSubAdvertBitsData.userId,
+          level:this.editSubAdvertBitsData.level,
+          adSort:this.editSubAdvertBitsData.adSort
+      }
+      this.$Message.loading({
+        content: "保存中...",
+        duration: 0
+      });
+      Util.ajax({
+        method:"post",
+        url:baseUri.advert_position_edit_url,
+        data:Util.formData(data)
+      }).then(res=>{
+        if (res.data.data == "SUCCESS") {
+            this.$Message.destroy();
+            this.$Message.success("更新成功");
+            this.$store.commit("GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO", {
+              data: { level: this.searchConfig.level.value },
+              pageNo: 1
+            });
+            this.showEditSubAdertBits = false;
+          }else {
+            this.$Message.destroy();
+            this.$Message.error("更新失败,请检查填写信息");
+          }
+      })
+      .catch(error => {
+          console.log(error);
+        });
     },
     addSubAdertBits: function() {
       for (let x in this.addSubAdvertBitsData) {
@@ -208,13 +243,13 @@ export default {
         data: Util.formData(data)
       })
         .then(res => {
-          console.log(res);
+          //console.log(res);
           if (res.data.data == "SUCCESS") {
             this.$Message.destroy();
             this.$Message.success("保存成功");
             this.$store.commit("GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO", {
               data: { level: this.searchConfig.level.value },
-              pageNo: 1
+              pageNo: this.$store.state.app.advert_position_public_page
             });
             this.showAddSubAdertBits = false;
           }else {

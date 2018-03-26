@@ -1,52 +1,38 @@
 <template>
     <div v-if="show">
         <div id="user_edit" style="background:#eee" v-if="show">
-            <Card :bordered="false" style="height:85vh;overflow:auto;">
+            <Card :bordered="false">
                 <br>
                 <Form>
-                    <div style="color:blue;font-size:22px;text-align:center">
+                    <div class="title-center">
                         需求编辑
                     </div>
-                    <br>
-                    <div class="user_detail_div">
-                        <label class="from_label">用户ID:
-                            <b>{{data.user.id}}</b>
-                        </label>
-
-                        <label class="from_label">姓名:
-                            <b>{{data.user.nickname}}</b>
-                        </label>
-
-                        <label class="from_label">手机号:
-                            <b>{{data.user.phone}}</b>
-                        </label>
-
-                        <label class="from_label">流星值:
-                            <b>{{(parseInt(data.user.meteorScore)/10).toFixed(1)+"分"}}</b>
-                        </label>
-
-                        <label class="from_label">认证信息:
-                            <Tag color="blue" v-for="item in data.user.selfAuthInfos" :key="item.key" style="line-height:20px;min-width:5vw;height:20px;text-align:center;">{{item}}</Tag>
-                        </label>
-
-                        <label class="from_label">个人标签:
-                            <Tag color="blue" v-for="item in data.user.tags" :key="item.key" style="line-height:20px;min-width:5vw;height:20px;text-align:center;">{{item}}</Tag>
-                        </label>
+                    <div class="infos">
+                      <Row class="row">
+                        <Col span="6"><span>用户ID:</span>{{data.user.id}}</Col>
+                        <Col span="6"><span>姓名:</span>{{data.user.nickname}}</Col>
+                        <Col span="6"><span>手机号:</span>{{data.user.phone}}</Col>
+                        <Col span="6"><span>流星值:</span>{{(parseInt(data.user.meteorScore)/10).toFixed(1)+"分"}}</Col>          
+                      </Row>
+                      <Row class="row">
+                        <Col span="6"><span>认证信息:</span><Tag color="blue" v-for="item in data.user.selfAuthInfos" :key="item.key" class="tag-style">{{item}}</Tag></Col>
+                        <Col span="18"><span>个人标签:</span><Tag color="blue" v-for="item in data.user.tags" :key="item.key" class="tag-style">{{item}}</Tag></Col>          
+                      </Row>
                     </div>
                     <br>
                     <div class="user_detail_div">
                         <label class="from_label">需求标题:</label>
-                        <Input clearable style="width: 15vw;min-width:100px;" type="textarea" v-model='data.title' />
+                        <Input clearable style="width: 40vw;min-width:100px;" type="textarea" v-model='data.title' />
                     </div>
                     <br>
                     <div class="user_detail_div">
                         <label class="from_label">需求介绍:</label>
-                        <Input clearable style="width: 15vw;min-width:100px;" type="textarea" v-model='data.desc' />
+                        <Input clearable style="width: 40vw;min-width:100px;" type="textarea" v-model='data.desc' />
                     </div>
                     <br>
                     <div class="user_detail_div">
                         <label class="from_label">需求限制:</label>
-                        <Input clearable style="width: 15vw;min-width:100px;" type="textarea" v-model='data.restrictions' />
+                        <Input clearable style="width: 40vw;min-width:100px;" type="textarea" v-model='data.restrictions' />
                     </div>
                     <br>
                     <FormItem>
@@ -102,16 +88,22 @@
                     <br>
                     <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
                         <label class="from_label">需求图片:</label>图片限制大小2M
-                        <UserEditImgList :imgList="data.mediaImg" :upload="true"></UserEditImgList>
+                        <UserEditImgList class="image-style" :change="true" :imgList="data.mediaImg" :upload="true"></UserEditImgList>
                     </div>
                     <br>
                     <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
-                        <label class="from_label">需求视频:</label>视频限制大小200M
-                        <UserEditImgList :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo"></UserEditImgList>
+                        <label class="from_label">需求视频:</label>
+                        <UserEditImgList class="image-style" :change="true"  :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo"></UserEditImgList>
                     </div>
                     <br>
-
-                    <FormItem style=" border-bottom: 1px solid rgb(219, 207, 207); padding-bottom:1vh">
+                    <FormItem>
+                      <div class="user_detail_div">
+                        <label class="from_label">需求区域:</label>
+                        <Input clearable style="width: 10vw;min-width:100px;" v-model='data.area' />
+                      </div>
+                    </FormItem>
+                    <br>
+                    <!-- <FormItem style=" border-bottom: 1px solid rgb(219, 207, 207); padding-bottom:1vh">
                         <div>
                             <label class="from_label">需求位置:</label>
                             <AutoComplete clearable :value="data.address" @input="serach_place" style="width: 15vw;min-width:100px;">
@@ -123,8 +115,8 @@
                             </div>
                         </div>
                     </FormItem>
-                    <br><br>
-                    <div style="color:blue;font-size:22px;text-align:center">
+                    <br><br> -->
+                    <div class="title-center">
                         需求审核
                     </div>
                     <br><br>
@@ -209,6 +201,13 @@ export default {
       return true
     },
     saveEdit: function() {
+      if(this.data.mediaImg.length>8)
+      {
+        this.$Notice.warning({
+          title: "最多上传8张图片"
+        });
+        return
+      }
       if (this.beforeSaveEditValidate()) {
         this.$Message.loading({
             content:"保存中...",
@@ -275,7 +274,7 @@ export default {
       });
     },
     handleView(name) {
-      console.log(name);
+      //console.log(name);
       this.imgName = name;
       this.visible = true;
     },
@@ -307,7 +306,7 @@ export default {
       .all([getDemandDetail(), getTwoLevel()])
       .then(
         axios.spread((response, response1) => {
-             console.log(response);
+             //console.log(response);
           //   console.log(response1)
           let obj = response.data.data;
           for (let x in obj) {
@@ -361,55 +360,6 @@ export default {
 };
 </script>
 <style>
-.user_detail_div {
-  min-height: 60px;
-  padding-bottom: 1vh;
-  border-bottom: 1px solid rgb(219, 207, 207);
-}
-.user_detail_media {
-  height: 18vh;
-  line-height: 18vh;
-  min-height: 180px;
-  border-bottom: 1px solid rgb(219, 207, 207);
-}
-.from_label {
-  margin-left: 3vw;
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 16px;
-  display: inline-block;
-  min-width: 75px;
-  min-height: 16px;
-}
-.demo-upload-list {
-  display: inline-block;
-  min-width: 150px;
-  min-height: 150px;
-  width: 8vw;
-  height: 16vh;
-  text-align: center;
-  line-height: 60px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  overflow: hidden;
-  background: #fff;
-  position: relative;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  margin-right: 4px;
-}
-.demo-upload-list img {
-  width: 100%;
-  height: 100%;
-}
-.demo-upload-list-cover {
-  display: none;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.6);
-  line-height: 200px;
-}
+@import "../../../styles/public.less";
 </style>
 

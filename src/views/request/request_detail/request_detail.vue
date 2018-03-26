@@ -1,37 +1,23 @@
 <template>
   <div v-if="show">
     <div id="user_edit" style="background:#eee" v-if="show">
-      <Card :bordered="false" style="height:85vh;overflow:auto;">
-        <br>
-        <div class="user_detail_div">
-          <label class="from_label">用户ID:
-            <b>{{data.user.id}}</b>
-          </label>
-
-          <label class="from_label">姓名:
-            <b>{{data.user.nickname}}</b>
-          </label>
-
-          <label class="from_label">手机号:
-            <b>{{data.user.phone}}</b>
-          </label>
-
-          <label class="from_label">流星值:
-            <b>{{(parseInt(data.user.meteorScore)/10).toFixed(1)+"分"}}</b>
-          </label>
-
-          <label class="from_label">认证信息:
-            <Tag color="blue" v-for="item in data.user.selfAuthInfos" :key="item.key" style="line-height:20px;min-width:5vw;height:20px;text-align:center;">{{item}}</Tag>
-          </label>
-
-          <label class="from_label">个人标签:
-            <Tag color="blue" v-for="item in data.user.tags" :key="item.key" style="line-height:20px;min-width:5vw;height:20px;text-align:center;">{{item}}</Tag>
-          </label>
-        </div>
-        <br><br>
-        <div style="color:blue;font-size:22px;text-align:center">
+      <Card :bordered="false">
+        <div class="title-center">
           需求详情
         </div>
+        <div class="infos">
+          <Row class="row">
+            <Col span="6"><span>用户ID:</span>{{data.user.id}}</Col>
+            <Col span="6"><span>姓名:</span>{{data.user.nickname}}</Col>
+            <Col span="6"><span>手机号:</span>{{data.user.phone}}</Col>
+            <Col span="6"><span>流星值:</span>{{(parseInt(data.user.meteorScore)/10).toFixed(1)+"分"}}</Col>          
+          </Row>
+          <Row class="row">
+            <Col span="6"><span>认证信息:</span><Tag color="blue" v-for="item in data.user.selfAuthInfos" :key="item.key" class="tag-style">{{item}}</Tag></Col>
+            <Col span="18"><span>个人标签:</span><Tag color="blue" v-for="item in data.user.tags" :key="item.key" class="tag-style">{{item}}</Tag></Col>          
+          </Row>
+        </div>
+        
         <br>
         <div class="user_detail_div">
           <label class="from_label">需求标题:</label>
@@ -68,24 +54,21 @@
           <b>{{data.modeTypeData}}</b>
         </div>
         <br>
-        <div class="user_detail_div">
+          <div class="user_detail_div">
+            <label class="from_label">需求区域:</label>
+            <b>{{data.area}}</b>
+          </div>
+        <br>
+        <!-- <div class="user_detail_div">
           <label class="from_label">需求位置:</label>
           <b>{{data.address}}</b>
-        </div>
-        <br>
-        <div class="user_detail_media">
+        </div> -->
+        <div class="user_detail_div">
           <label class="from_label">需求图片:</label>
-          <div class="demo-upload-list" v-for="item in data.mediaImg" :key="item.key">
-            <template v-if="item">
-              <img :src="aliyun + item" @click="handleView(item)" />
-            </template>
-            <Modal title="展示大图" v-model="visible">
-              <img :src="aliyun + imgName" v-if="visible" style="width: 100%">
-            </Modal>
-          </div>
+          <UserEditImgList :change="true" :imgList="data.mediaImg" :detail="detail"></UserEditImgList>
         </div>
         <br>
-        <div class="user_detail_media">
+        <div class="user_detail_div">
           <label class="from_label">需求视频:</label>
           <div class="demo-upload-list" v-if="data.mediaVideoImg">
             <template>
@@ -127,9 +110,11 @@
 import Util from "@/libs/util";
 import Cookies from "js-cookie";
 import baseUri from "@/libs/base_uri";
+import UserEditImgList from "@/views/public-components/user_edit_img_list";
 export default {
   data() {
     return {
+      detail:true,
       aliyun: baseUri.oss_url,
       show: false,
       data: {},
@@ -144,7 +129,7 @@ export default {
   },
   methods: {
     handleView(name) {
-      console.log(name);
+      //console.log(name);
       this.imgName = name;
       this.visible = true;
     },
@@ -226,47 +211,13 @@ export default {
         this.show = true;
         this.$Message.destroy();
       });
+  },
+  components:{
+    UserEditImgList
   }
 };
 </script>
 <style>
-.user_detail_div {
-  border-bottom: 1px solid rgb(219, 207, 207);
-}
-.user_detail_media {
-  height: 18vh;
-  line-height: 18vh;
-  min-height: 180px;
-  border-bottom: 1px solid rgb(219, 207, 207);
-}
-.from_label {
-  margin-left: 3vw;
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 16px;
-  display: inline-block;
-  min-width: 75px;
-  min-height: 16px;
-}
-.demo-upload-list {
-  display: inline-block;
-  min-width: 150px;
-  min-height: 150px;
-  width: 8vw;
-  height: 16vh;
-  text-align: center;
-  line-height: 60px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  overflow: hidden;
-  background: #fff;
-  position: relative;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  margin-right: 4px;
-}
-.demo-upload-list img {
-  width: 100%;
-  height: 100%;
-}
+@import "../../../styles/public.less";
 </style>
 

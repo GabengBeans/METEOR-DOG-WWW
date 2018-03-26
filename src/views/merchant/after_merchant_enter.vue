@@ -1,10 +1,7 @@
 <template>
     <div>
-        <br><br>
         <search :data="searchConfig" :storeStatus="status"></search>
-        <br><br>
         <TableComponent :columns="columns" :data="$store.state.app.merchant_enter_search_result"></TableComponent>
-        <br>
         <Page :storeStatus="status" :currentPage="$store.state.app.merchant_enter_page_info.currentPage" :totalPage="$store.state.app.merchant_enter_page_info.totalPage"></Page>
     </div>
 </template>
@@ -29,7 +26,7 @@ export default {
   created() {
     this.$store.commit("GET_MERCHANT_ENTER_INFO", {
       data: this.$store.state.app.merchant_enter_search_info,
-      pageNo: 1
+      pageNo: this.$store.state.app.merchant_enter_public_page
     });
   }
 };
