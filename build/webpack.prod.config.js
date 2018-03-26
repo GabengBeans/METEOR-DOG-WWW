@@ -19,7 +19,7 @@ fs.open('./build/env.js', 'w', function(err, fd) {
 module.exports = merge(webpackBaseConfig, {
     devtool: '#eval-source-map',
     output: {
-        publicPath: 'http://39.106.51.236/admin_n/',  // 修改 https://iv...admin 这部分为你的服务器域名
+        publicPath: 'http://shootingstargo.com/admin_n/',  // 修改 https://iv...admin 这部分为你的服务器域名
         filename: '[name].[hash].js',
         chunkFilename: '[name].[hash].chunk.js'
     },
