@@ -4,8 +4,8 @@ let base_config = {
     //测试服务器地址
     testUrl: 'http://39.106.51.236:8822',
     //生产服务器地址
-    //proUrl: 'http://39.106.51.236:8822',
-    proUrl:'http://47.94.12.50:8824',
+    proUrl: 'http://39.106.51.236:8822',
+    //proUrl:'http://47.94.12.50:8824',
     //阿里图片服务器地址
     imgUrl: 'http://dedc-statics.oss-cn-beijing.aliyuncs.com',
     //百度地图地址
