@@ -195,7 +195,8 @@ export default {
       })
         .then(response => {
           if (response.data.success) {
-            this.$Message.success("已审核");
+            this.modalShow = true;
+            //this.$Message.success("已审核");
           } else {
             this.$Message.success("审核失败");
           }

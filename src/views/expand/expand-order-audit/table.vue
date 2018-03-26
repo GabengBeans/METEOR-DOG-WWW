@@ -3,6 +3,7 @@
       <Table @on-select="select" @on-select-all="selectAll" highlight-row  style="min-width:800px;margin:0 16px;" 
       border stripe :columns="columns" :data="$store.state.app.brokerage_order_search_result">
       </Table>
+      <br>
       <div class="btns">
         <i-button class="btn" type="primary" @click="batchPass()">批量通过</i-button>
         <i-button class="btn" type="primary" @click="batchNotPass()">批量不通过</i-button>      
