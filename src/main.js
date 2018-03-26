@@ -35,6 +35,7 @@ new Vue({
         util.checkUpdate(this);
     },
     created() {
+        console.log(this.$store.state.app.menuList)
         //console.log("main.js运行")
         let tagsList = [];
         //let menus = JSON.parse(window.sessionStorage.menus)

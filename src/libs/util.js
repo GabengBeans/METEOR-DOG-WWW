@@ -47,13 +47,12 @@ util.title = function (title) {
     window.document.title = title;
 };
 
-console.log(util.getConfig.devUrl);
 const ajaxUrl = env === 'development'
     ? util.getConfig.devUrl
     : env === 'production'
         ? util.getConfig.proUrl
         : util.getConfig.testUrl
-
+console.log(ajaxUrl)
 util.ajax = axios.create({
     baseURL: ajaxUrl,
     timeout: util.getConfig.ajaxOutTime,
@@ -427,7 +426,7 @@ util.createMenus = function (data) {
     for (let i = 0; i < data.length; i++) {
 
         menus[i].path = "/" + data[i].modelName
-        menus[i].icon = data[i].newIcon
+        menus[i].icon = data[i].newIcon?data[i].newIcon:data[i].icon
         menus[i].name = data[i].modelName
         menus[i].title = data[i].name
         menus[i].access = 1
