@@ -42,8 +42,8 @@ export default {
   data() {
     return {
       form: {
-        userName: "admin",
-        password: "superman"
+        userName: "",
+        password: ""
       },
       rules: {
         userName: [
@@ -96,6 +96,7 @@ export default {
                       {
                           window.sessionStorage.setItem("updataStatus","")
                           this.$router.go(0)
+                          Cookies.set("timer",1)
                       }
                     } else {
                     }

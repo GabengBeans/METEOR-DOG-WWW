@@ -49,7 +49,7 @@ export default {
 
   data() {
     return {
-      uploadUrl: baseConfig.devUrl + baseUri.extend_user_import_url,
+      uploadUrl: baseConfig.proUrl + baseUri.extend_user_import_url,
       headers:{
         token: Cookies.get("token")
       },
@@ -169,7 +169,7 @@ export default {
     handleExport() {
       let dataform = {};
       dataform = this.$store.state.app.expand_search_info   
-      window.open(baseConfig.devUrl + baseUri.extend_user_export_url + "?jsonStr=" + encodeURIComponent(JSON.stringify(dataform)))
+      window.open(baseConfig.proUrl + baseUri.extend_user_export_url + "?jsonStr=" + encodeURIComponent(JSON.stringify(dataform)))
     }
   }
 };
