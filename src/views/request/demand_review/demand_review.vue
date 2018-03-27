@@ -7,17 +7,27 @@
         </div>
         <div class="infos">
           <Row class="row">
-            <Col span="6"><span>用户ID:</span>{{data.user.id}}</Col>
-            <Col span="6"><span>姓名:</span>{{data.user.nickname}}</Col>
-            <Col span="6"><span>手机号:</span>{{data.user.phone}}</Col>
-            <Col span="6"><span>流星值:</span>{{(parseInt(data.user.meteorScore)/10).toFixed(1)+"分"}}</Col>          
+            <Col span="6">
+            <span>用户ID:</span>{{data.user.id}}</Col>
+            <Col span="6">
+            <span>姓名:</span>{{data.user.nickname}}</Col>
+            <Col span="6">
+            <span>手机号:</span>{{data.user.phone}}</Col>
+            <Col span="6">
+            <span>流星值:</span>{{(parseInt(data.user.meteorScore)/10).toFixed(1)+"分"}}</Col>
           </Row>
           <Row class="row">
-            <Col span="6"><span>认证信息:</span><Tag color="blue" v-for="item in data.user.selfAuthInfos" :key="item.key" class="tag-style">{{item}}</Tag></Col>
-            <Col span="18"><span>个人标签:</span><Tag color="blue" v-for="item in data.user.tags" :key="item.key" class="tag-style">{{item}}</Tag></Col>          
+            <Col span="6">
+            <span>认证信息:</span>
+            <Tag color="blue" v-for="item in data.user.selfAuthInfos" :key="item.key" class="tag-style">{{item}}</Tag>
+            </Col>
+            <Col span="18">
+            <span>个人标签:</span>
+            <Tag color="blue" v-for="item in data.user.tags" :key="item.key" class="tag-style">{{item}}</Tag>
+            </Col>
           </Row>
         </div>
-        
+
         <br>
         <div class="user_detail_div">
           <label class="from_label">需求标题:</label>
@@ -54,10 +64,10 @@
           <b>{{data.modeTypeData}}</b>
         </div>
         <br>
-          <div class="user_detail_div">
-            <label class="from_label">需求区域:</label>
-            <b>{{data.area}}</b>
-          </div>
+        <div class="user_detail_div">
+          <label class="from_label">需求区域:</label>
+          <b>{{data.area}}</b>
+        </div>
         <br>
         <!-- <div class="user_detail_div">
           <label class="from_label">需求位置:</label>
@@ -240,41 +250,53 @@ export default {
       })
       .then(response => {
         //console.log(response.data.data);
-        let obj = response.data.data;
-        let priceType = ["", "每次", "每小时", "每天", "每件"];
-        let priceIndex = parseInt(obj.priceType);
-        for (let x in obj) {
-          if (x == "expireTime") {
-            this.data[x] = Util.formatDate(
-              new Date(obj[x]),
-              "yyyy-MM-dd hh:mm:ss"
-            );
-          } else if (x == "price") {
-            this.data[x] =
-              (parseInt(obj[x]) / 100).toFixed(2) + "/" + priceType[priceIndex];
-          } else if (x == "updateTime") {
-            this.data[x] = Util.formatDate(
-              new Date(obj[x]),
-              "yyyy-MM-dd hh:mm:ss"
-            );
-          } else if (x == "mediaList") {
-            this.data.mediaImg = [];
-            for (let y in obj[x]) {
-              //console.log(obj.mediaList[y])
-              if (obj.mediaList[y].mediaType == 1) {
-                this.data.mediaImg.push(obj.mediaList[y].mediaUrl);
-              } else if (obj.mediaList[y].mediaType == 2) {
-                this.data.mediaVideoImg = obj.mediaList[y].videoPhotoUrl;
-                this.data.mediaVideo = obj.mediaList[y].videoPlayUrl;
+        if (response.data.success) {
+          let obj = response.data.data;
+          let priceType = ["", "每次", "每小时", "每天", "每件", "自定义"];
+          let priceIndex = parseInt(obj.priceType);
+          for (let x in obj) {
+            if (x == "expireTime") {
+              this.data[x] = Util.formatDate(
+                new Date(obj[x]),
+                "yyyy-MM-dd hh:mm:ss"
+              );
+            } else if (x == "price") {
+              if (priceType[priceIndex] === "自定义") {
+                this.data[x] =
+                  (parseInt(obj[x]) / 100).toFixed(2) + "/" + obj.unitName;
+              } else {
+                this.data[x] =
+                  (parseInt(obj[x]) / 100).toFixed(2) +
+                  "/" +
+                  priceType[priceIndex];
               }
+            } else if (x == "updateTime") {
+              this.data[x] = Util.formatDate(
+                new Date(obj[x]),
+                "yyyy-MM-dd hh:mm:ss"
+              );
+            } else if (x == "mediaList") {
+              this.data.mediaImg = [];
+              for (let y in obj[x]) {
+                //console.log(obj.mediaList[y])
+                if (obj.mediaList[y].mediaType == 1) {
+                  this.data.mediaImg.push(obj.mediaList[y].mediaUrl);
+                } else if (obj.mediaList[y].mediaType == 2) {
+                  this.data.mediaVideoImg = obj.mediaList[y].videoPhotoUrl;
+                  this.data.mediaVideo = obj.mediaList[y].videoPlayUrl;
+                }
+              }
+            } else {
+              this.data[x] = obj[x];
             }
-          } else {
-            this.data[x] = obj[x];
           }
+          //console.log(this.data.mediaVideoImg)
+          this.show = true;
+          this.$Message.destroy();
+        } else {
+          this.$Message.destroy();
+          this.$Message.error("读取失败");
         }
-        //console.log(this.data.mediaVideoImg)
-        this.show = true;
-        this.$Message.destroy();
       });
   }
 };
