@@ -198,6 +198,13 @@ export default {
         this.$Message.error("服务标题不能为空");
         return false;
       }
+      if (this.data.desc.length > 1000) {
+        this.$Message.error("服务介绍字数不能超过1000字");
+        return false;
+      } else if (this.data.desc.length <= 0) {
+        this.$Message.error("服务介绍不能为空");
+        return false;
+      }
       return true
     },
     saveEdit: function() {
