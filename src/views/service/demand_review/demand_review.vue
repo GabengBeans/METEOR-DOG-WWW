@@ -104,7 +104,7 @@
           <b>{{data.refuseReason}}</b>
         </div>
         <br><br>
-        <div style="text-align:center">
+        <div style="text-align:center"  v-if="data.businessStatus=='2'" >
           <Button type="success" @click="reviewSuccess()">通　过</Button>
           <Button type="error" @click="showUnder()">不通过</Button>
           <Modal v-model="underVisible" title="请输入不通过原因" @on-ok="reviewFail()">
