@@ -234,7 +234,7 @@ export default {
               //console.log(src_obj.certificates[0].imageUrls.replace(/[\[*\]]/g,'').split(','))
               //console.log(src_obj[x])
               new_obj.certificates[0].imageUrls = src_obj.certificates[0].imageUrls
-                .replace(/[\[*\]]/g, "")
+                .replace(/[\["*"\]]/g, "")
                 .split(",");
             } else {
               new_obj.certificates = [{}];

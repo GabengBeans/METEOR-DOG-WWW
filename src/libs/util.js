@@ -33,6 +33,7 @@ import after_feedback_list from "@/views/after_feedback/after_feedback_list/afte
 import locked_user_list from "@/views/locked/locked_user/locked_user_list"
 import locked_role_list from "@/views/locked/locked_role/locked_role_list"
 import locked_resource_index from "@/views/locked/locked_resource/locked_resource_index"
+import audit_operation_index from "@/views/audit_operation/audit_operation_index/audit_operation_index"
 
 let util = {
 
@@ -416,7 +417,9 @@ util.createMenus = function (data) {
         'after_feedback_list': after_feedback_list,
         'locked_user_list':locked_user_list,
         'locked_role_list':locked_role_list,
-        'locked_resource_index':locked_resource_index
+        'locked_resource_index':locked_resource_index,
+        'audit_operation_index':audit_operation_index
+
     }
     let menus = []
     for (let i = 0; i < data.length; i++) {

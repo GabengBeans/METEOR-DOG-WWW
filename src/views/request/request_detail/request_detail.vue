@@ -170,7 +170,7 @@ export default {
         }
       })
       .then(response => {
-        //console.log(response.data.data);
+        console.log(response.data.data);
         if (response.data.success) {
           let obj = response.data.data;
           let priceType = ["", "每次", "每小时", "每天", "每件", "自定义"];

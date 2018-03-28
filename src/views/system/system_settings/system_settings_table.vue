@@ -39,6 +39,10 @@ export default {
       showEidtPage: false,
       columns: [
         {
+          title:"父KEY",
+          key:"parentkey"
+        },
+        {
           title: "键",
           key: "key"
         },
