@@ -163,7 +163,7 @@ export default {
   methods: {
     search: function() {
       let obj = {};
-      obj.level = this.level;
+      //obj.level = this.level;
       obj.positionId = this.id;
       //console.log(obj);
       this.$store.commit("GET_ADVERT_NEW_INFO", { data: obj, pageNo: 1 });
@@ -325,7 +325,7 @@ export default {
           console.log(this.level);
           this.btn = false;
           this.$store.commit("GET_ADVERT_NEW_INFO", {
-            data: { level: this.level, positionId: this.id },
+            data: {positionId: this.id },
             pageNo: this.$store.state.app.advert_new_public_page
           });
         } else {
