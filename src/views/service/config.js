@@ -23,7 +23,7 @@ config.serviceSearch = {
           },
           op2: {
             num: "1",
-            value: "待发布"
+            value: "编辑中"
           },
           op3: {
             num: "2",
