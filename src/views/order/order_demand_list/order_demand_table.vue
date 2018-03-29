@@ -27,11 +27,13 @@ export default {
         },
         {
           title: "需求标题",
-          key: "title"
+          key: "title",
+          ellipsis:"false"
         },
         {
           title: "需求者",
-          key: "demander"
+          key: "demander",
+          ellipsis:"false"
         },
         {
           title: "需求价格",
