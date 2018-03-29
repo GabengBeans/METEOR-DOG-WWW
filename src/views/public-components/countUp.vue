@@ -45,7 +45,7 @@ export default {
             default: 0
         },
         endVal: {
-            type: Number,
+            type: "",
             required: true
         },
         decimals: {

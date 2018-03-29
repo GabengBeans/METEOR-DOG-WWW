@@ -1112,11 +1112,6 @@ const app = {
             }).then((response) => {
 
                 if (response.data.success) {
-
-                    // for(let x in response.data.data)
-                    //  {
-                    //      Vue.set(state.order_statistics_search_result,x,parseInt(response.data.data[x]))
-                    //  }
                     state.order_statistics_search_result = response.data.data
 
                 }
