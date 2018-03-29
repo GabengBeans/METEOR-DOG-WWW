@@ -397,7 +397,7 @@ export default {
                 this.data[x] = parseInt(obj.priceType);
               } else if (x == "updateTime") {
                 this.data[x] = Util.formatDate(
-                  new Date(obj[x]),
+                  new Date(obj[x]), 
                   "yyyy-MM-dd hh:mm:ss"
                 );
               } else if (x == "mediaList") {

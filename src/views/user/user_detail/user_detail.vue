@@ -177,7 +177,9 @@ export default {
     });
     let This = this;
     function getUserInfo() {
-      return Util.ajax.get(baseUri.user_detail_url, {
+      return Util.ajax({
+        method: "get",
+        url: baseUri.user_detail_url,
         params: {
           userId: This.$route.params.id
         }
@@ -185,7 +187,9 @@ export default {
     }
     function getAttentionUser() {
       //console.log(user_search_attention_users_for_page_url)
-      return Util.ajax.get(baseUri.user_search_attention_users_for_page_url, {
+      return Util.ajax({
+        method: "get",
+        url: baseUri.user_search_attention_users_for_page_url,
         params: {
           userId: This.$route.params.id,
           pageNo: 1,
@@ -194,7 +198,9 @@ export default {
       });
     }
     function getInviterUsers() {
-      return Util.ajax.post(baseUri.user_search_for_page_url, {
+      return Util.ajax({
+        method: "post",
+        url: baseUri.user_search_for_page_url,
         data: {
           inviterId: This.$route.params.id
         }
