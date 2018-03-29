@@ -277,7 +277,7 @@ export default {
           content: "保存中...",
           duration: 0
         });
-        let mediaVideo = [];
+        let mediaVideo
         let price = parseInt(this.data.price) * 100;
         let modeType = "[" + this.data.modeType + "]";
         let deposit = parseInt(this.data.deposit) * 100;
@@ -285,9 +285,9 @@ export default {
         let validDays = "[" + this.data.validDays + "]";
         let periodTypes = "[" + this.data.periodTypes + "]";
         if (!this.data.mediaVideo) {
-          mediaVideo = "[]";
+          mediaVideo = "";
         } else {
-          mediaVideo = "[" + this.data.mediaVideo + "]";
+          mediaVideo =this.data.mediaVideo;
         }
         let data = {
           address: this.data.address || "",

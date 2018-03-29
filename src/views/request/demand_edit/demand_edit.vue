@@ -243,15 +243,15 @@ export default {
           content: "保存中...",
           duration: 0
         });
-        let mediaVideo = [];
+        let mediaVideo
         let modeType = "[" + this.data.modeType + "]";
         console.log(modeType);
         let price = parseInt(this.data.price) * 100;
         let validDays = "[" + this.data.validDays + "]";
         if (!this.data.mediaVideo) {
-          mediaVideo = [];
+          mediaVideo = "";
         } else {
-          mediaVideo = [this.data.mediaVideo];
+          mediaVideo = this.data.mediaVideo;
         }
         let data = {
           address: this.data.address || "",
@@ -331,7 +331,7 @@ export default {
 
     axios.all([getDemandDetail(), getTwoLevel()]).then(
       axios.spread((response, response1) => {
-        //console.log(response);
+        console.log(response);
         if (response.data.success && response1.data.success) {
           let obj = response.data.data;
           for (let x in obj) {
