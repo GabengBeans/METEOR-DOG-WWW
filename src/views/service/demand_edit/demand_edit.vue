@@ -69,7 +69,7 @@
           <FormItem>
             <div class="user_detail_div">
               <label class="from_label">服务价格:</label>
-              <Input clearable style="width: 10vw;min-width:100px;" v-model='data.price' />
+              <Input clearable style="width: 6vw;min-width:100px;" v-model='data.price' />
               <Select v-model="data.priceType" style="width:80px" @on-change="showUnitName(data.priceType)">
                 <Option v-for="item in priceType" :value="item.type" :key="item.value">{{ item.name }}</Option>
               </Select>
@@ -77,13 +77,13 @@
             </div>
           </FormItem>
           <br>
-          <FormItem>
-            <div class="user_detail_div">
+          <FormItem v-if="!parseInt(data.price)==0">
+            <div class="user_detail_div" >
               <label class="from_label">服务定金:</label>
-              <Input clearable style="width: 10vw;min-width:100px;" v-model='data.deposit' />
+              <Input clearable style="width: 6vw;min-width:100px;" v-model='data.deposit' />
             </div>
+             <br>
           </FormItem>
-          <br>
           <FormItem>
             <div class="user_detail_div">
               <label class="from_label">服务方式:</label>
@@ -92,6 +92,7 @@
                 <Checkbox label=2>线下服务</Checkbox>
               </CheckboxGroup>
             </div>
+            <br>
           </FormItem>
           <FormItem>
             <div class="user_detail_div">
@@ -100,8 +101,8 @@
                 <Checkbox v-for="item in periods" :label="item.type" :key="item.key">{{item.name}}</Checkbox>
               </CheckboxGroup>
             </div>
+            <br>
           </FormItem>
-          <br>
           <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
             <label class="from_label">服务图片:</label>图片限制大小2M
             <UserEditImgList class="image-style" :change="true" :imgList="data.mediaImg" :upload="true"></UserEditImgList>
@@ -263,15 +264,29 @@ export default {
         this.$Message.error("服务介绍不能为空");
         return false;
       }
-      return true;
-    },
-    saveEdit: function() {
       if (this.data.mediaImg.length > 8) {
         this.$Notice.warning({
           title: "最多上传8张图片"
         });
-        return;
+        return false;
       }
+      if(parseInt(this.data.price)<0 || parseInt(this.data.price)>0 && parseInt(this.data.price)<5)
+      {
+        this.$Notice.warning({
+          title: "服务价格只能为0元，或者大于5元"
+        });
+        return false;
+      }
+      if(this.data.price.toString().indexOf(".")!=-1)
+      {
+        this.$Notice.warning({
+          title: "服务价格不能输入小数"
+        });
+        return false;
+      }
+      return true;
+    },
+    saveEdit: function() {
       if (this.beforeSaveEditValidate()) {
         this.$Message.loading({
           content: "保存中...",
@@ -324,7 +339,7 @@ export default {
           })
           .catch(error => {
             this.$Message.destroy();
-            console.log(error);
+            //console.log(error);
           });
       }
     },
@@ -433,7 +448,7 @@ export default {
             }
             this.levelData = response1.data.data;
             //console.log(this.levelData)
-            //console.log(this.data.mediaVideoImg);
+            console.log(this.data);
             this.showUnitNames = this.data.priceType == 5 ? true : false;
             this.show = true;
             this.$Message.destroy();

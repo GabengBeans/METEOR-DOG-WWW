@@ -69,7 +69,7 @@
           <FormItem>
             <div class="user_detail_div">
               <label class="from_label">出价:</label>
-              <Input clearable style="width: 10vw;min-width:100px;" v-model='data.price' />
+              <Input clearable style="width: 6vw;min-width:100px;" v-model='data.price' />
               <Select v-model="data.priceType" style="width:80px" @on-change="showUnitName(data.priceType)">
                 <Option v-for="item in priceType" :value="item.type" :key="item.value">{{ item.name }}</Option>
               </Select>
@@ -229,15 +229,29 @@ export default {
         this.$Message.error("服务介绍不能为空");
         return false;
       }
-      return true;
-    },
-    saveEdit: function() {
       if (this.data.mediaImg.length > 8) {
         this.$Notice.warning({
           title: "最多上传8张图片"
         });
-        return;
+        return false;
       }
+      if(parseInt(this.data.price)<0 || parseInt(this.data.price)>0 && parseInt(this.data.price)<5)
+      {
+        this.$Notice.warning({
+          title: "服务价格只能为0元，或者大于5元"
+        });
+        return false;
+      }
+      if(this.data.price.toString().indexOf(".")!=-1)
+      {
+        this.$Notice.warning({
+          title: "服务价格不能输入小数"
+        });
+        return false;
+      }
+      return true;
+    },
+    saveEdit: function() {
       if (this.beforeSaveEditValidate()) {
         this.$Message.loading({
           content: "保存中...",
@@ -245,7 +259,7 @@ export default {
         });
         let mediaVideo
         let modeType = "[" + this.data.modeType + "]";
-        console.log(modeType);
+        //console.log(modeType);
         let price = parseInt(this.data.price) * 100;
         let validDays = "[" + this.data.validDays + "]";
         if (!this.data.mediaVideo) {
@@ -269,7 +283,7 @@ export default {
           validDays:'[]',
           videoList: mediaVideo
         };
-        console.log(data);
+        //console.log(data);
         Util.ajax({
           method: "post",
           url: baseUri.demand_update_url,
@@ -331,7 +345,7 @@ export default {
 
     axios.all([getDemandDetail(), getTwoLevel()]).then(
       axios.spread((response, response1) => {
-        console.log(response);
+        //console.log(response);
         if (response.data.success && response1.data.success) {
           let obj = response.data.data;
           for (let x in obj) {
@@ -382,7 +396,7 @@ export default {
           }
           this.levelData = response1.data.data;
           //console.log(this.levelData)
-          //console.log(this.data.mediaVideoImg);
+          //console.log(this.data);
           this.showUnitNames = this.data.priceType == 5 ? true : false;
           this.show = true;
           this.$Message.destroy();
