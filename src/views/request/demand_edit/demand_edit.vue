@@ -86,7 +86,7 @@
               </CheckboxGroup>
             </div>
           </FormItem>
-          <FormItem>
+          <!-- <FormItem>
             <div class="user_detail_div">
               <label class="from_label">有效天数:</label>
               <Select v-model="data.validDays" style="width:100px">
@@ -96,7 +96,7 @@
                 <Option value=4>60天</Option>
               </Select>
             </div>
-          </FormItem>
+          </FormItem> -->
           <br>
           <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
             <label class="from_label">需求图片:</label>图片限制大小2M
@@ -266,7 +266,7 @@ export default {
           priceType: this.data.priceType,
           restrictions: this.data.restrictions || "无",
           title: this.data.title,
-          validDays: validDays,
+          validDays:'[]',
           videoList: mediaVideo
         };
         console.log(data);

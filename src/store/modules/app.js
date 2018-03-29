@@ -1136,6 +1136,7 @@ const app = {
             }).then(res => {
                 //console.log(res)
                 if (res.data.success) {
+                    //console.log(res)
                     state.system_settings_page_info.currentPage = res.data.data.page
                     state.system_settings_page_info.totalPage = res.data.data.totalCount
                     state.system_settings_search_result = res.data.data.items
@@ -1209,7 +1210,7 @@ const app = {
             })
         },
         GET_SEARCH_ADIMIN_ROLE_INFO(state, { data, pageNo }) {
-            console.log(data)
+            //console.log(data)
             state.admin_role_search_info = data
             state.admin_role_public_page = pageNo
             Util.ajax({
@@ -1221,7 +1222,7 @@ const app = {
                 },
                 data: data
             }).then(res => {
-                console.log(res)
+                //console.log(res)
                 if (res.data.success) {
                     //console.log(res.data.data.items)
                     state.admin_role_page_info.currentPage = res.data.data.page
@@ -1236,7 +1237,7 @@ const app = {
                             }
                         }
                     }
-                    console.log(state.admin_role_search_result)
+                    //console.log(state.admin_role_search_result)
                 }
             })
         },
@@ -1247,7 +1248,7 @@ const app = {
             }).then(res => {
                 let obj = res.data.data.allLabels
                 Util.recursion(obj, "childAdminResources", false)
-                console.log(obj)
+                //console.log(obj)
                 state.admin_resource_search_result = obj
             })
         },

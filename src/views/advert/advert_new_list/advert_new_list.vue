@@ -317,12 +317,12 @@ export default {
             }
           }
           this.tags = objLevel;
-          console.log(this.tags);
+          //console.log(this.tags);
           this.names = objNames;
-          console.log(this.names);
+          //console.log(this.names);
           this.id = objNames[0].id;
           this.level = objLevel[0].level;
-          console.log(this.level);
+          //console.log(this.level);
           this.btn = false;
           this.$store.commit("GET_ADVERT_NEW_INFO", {
             data: {positionId: this.id },
