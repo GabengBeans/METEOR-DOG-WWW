@@ -139,7 +139,7 @@ export default {
                           if (res.data.data == "SUCCESS") {
                             this.$Message.success("删除成功");
                             this.$store.commit("GET_ADVERT_NEW_INFO", {
-                              data: { level: this.level, positionId: this.id },
+                              data: { positionId: this.id },
                               pageNo: 1
                             });
                           } else {
@@ -208,7 +208,7 @@ export default {
             this.$Message.destroy();
             this.$Message.success("保存成功");
             this.$store.commit("GET_ADVERT_NEW_INFO", {
-              data: { level: this.level, positionId: this.id },
+              data: { positionId: this.id },
               pageNo: 1
             });
             this.showAddAdvert = false;
@@ -222,13 +222,14 @@ export default {
         });
     },
     saveAdverNew: function() {
-      for (let x in this.advertDetail) {
-        //console.log(this.advertDetail[x])
-        if (!this.advertDetail[x]) {
-          this.$Message.error("请补全信息");
-          return false;
-        }
-      }
+      // console.log(this.advertDetail)
+      // for (let x in this.advertDetail) {
+      //   //console.log(this.advertDetail[x])
+      //   if (!this.advertDetail[x]) {
+      //     this.$Message.error("请补全信息");
+      //     return false;
+      //   }
+      // }
       let data = {
         adName: this.advertDetail.adName,
         id: this.advertDetail.id,
@@ -252,7 +253,7 @@ export default {
             this.$Message.destroy();
             this.$Message.success("保存成功");
             this.$store.commit("GET_ADVERT_NEW_INFO", {
-              data: { level: this.level, positionId: this.id },
+              data: { positionId: this.id },
               pageNo: 1
             });
             this.showAdvertEdit = false;

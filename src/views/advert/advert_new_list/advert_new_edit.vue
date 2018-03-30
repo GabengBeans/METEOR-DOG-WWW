@@ -69,7 +69,7 @@
                 </Col>
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
                 <FormItem label="序号">
-                    <Input clearable v-model="data.creator"></Input>
+                    <Input clearable v-model="data.adSort"></Input>
                 </FormItem>
                 </Col>
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
