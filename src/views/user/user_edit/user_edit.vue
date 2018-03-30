@@ -11,79 +11,91 @@
         <div style="display:inline-block;">
           <Tag color="blue" v-for="item in user_data.selfAuthInfos" :key="item.key" class="tag-style">{{item}}</Tag>
         </div>
-        <Form>
-          <FormItem>
-            <label class="from_label">手机号</label>
-            <Input clearable style="width: 15vw;min-width:100px;" v-model='user_data.phone' />
-          </FormItem>
-          <FormItem>
-            <label class="from_label">真实姓名</label>
-            <Input clearable style="width: 15vw;min-width:100px;" v-model='user_data.realname' />
-          </FormItem>
-          <FormItem>
-            <label class="from_label">性别</label>
-            <Select v-model="user_data.sex" style="width:15vw; min-width:100px;">
-              <Option :value="1">男</Option>
-              <Option :value="2">女</Option>
-              <Option :value="3">不详</Option>
-            </Select>
-          </FormItem>
-          <FormItem>
-            <label class="from_label">昵称</label>
-            <Input clearable style="width: 15vw;min-width:100px;" v-model='user_data.nickname' />
-          </FormItem>
-          <FormItem>
-            <label class="from_label">流星值</label>
-            <span>{{user_data.meteorScore}}</span>
-          </FormItem>
-          <FormItem>
-            <label class="from_label">余额</label>
-            <span>{{user_data.account.amount}}</span>
-          </FormItem>
-          <FormItem>
-            <label class="from_label">住址</label>
-            <AutoComplete clearable :value="user_data.address" @input="serach_place" style="width: 15vw;min-width:100px;">
-              <Option v-for="item in arr" :value="item" :key="item.key"></Option>
-            </AutoComplete>
-          </FormItem>
-        </Form>
-
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">手机号</label>
+          <Input clearable style="width: 15vw;min-width:100px;" v-model='user_data.phone' />
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">真实姓名</label>
+          <Input clearable style="width: 15vw;min-width:100px;" v-model='user_data.realname' />
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">性别</label>
+          <Select v-model="user_data.sex" style="width:15vw; min-width:100px;">
+            <Option :value="1">男</Option>
+            <Option :value="2">女</Option>
+            <Option :value="3">不详</Option>
+          </Select>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">昵称</label>
+          <Input clearable style="width: 15vw;min-width:100px;" v-model='user_data.nickname' />
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">流星值</label>
+          <span>{{user_data.meteorScore}}</span>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">余额</label>
+          <span>{{user_data.account.amount}}</span>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">住址</label>
+          <AutoComplete clearable :value="user_data.address" @input="serach_place" style="width: 15vw;min-width:100px;">
+            <Option v-for="item in arr" :value="item" :key="item.key"></Option>
+          </AutoComplete>
+        </div>
+        <br>
         <div>
           <BMapComponent style="width:95%;margin:0 auto;" :lat="user_data.addressLat" :lon="user_data.addressLon" :keyword="user_data.address"></BMapComponent>
         </div>
         <br>
-        <Form>
-          <FormItem>
+        
+          <div class="user_detail_div">
             <label class="from_label">推荐人ID</label>
             <span>{{user_data.inviterId}}</span>
-          </FormItem>
-          <FormItem>
+          </div>
+          <br>
+          <div class="user_detail_div">
             <label class="from_label">个人标签</label>
-            <Input style="width: 5vw;min-width:100px;" v-model='tags' />
+            <Input style="width: 5vw;min-width:100px;margin-right:1vw" v-model='tags' />
             <Tag closable @on-close="handleClose" color="blue" v-for="item in user_data.listTags" :key="item.key" :name="item.lableName" class="tag-style">{{item.lableName}}</Tag>
             <Button icon="ios-plus-empty" type="dashed" size="small" @click="handleAdd">添加标签</Button>
-          </FormItem>
-          <FormItem>
+          </div>
+          <br>
+          <div class="user_detail_div">
             <label class="from_label">个人简介</label>
             <Input v-model="user_data.resumes[3].content" type="textarea" style="width: 40vw;min-width:100px;" :autosize="{minRows: 2,maxRows: 5}" />
-          </FormItem>
-          <FormItem>
+          </div>
+          <br>
+          <div class="user_detail_div">
             <label class="from_label">职业经历</label>
             <Input v-model="user_data.resumes[0].content" type="textarea" style="width: 40vw;min-width:100px;" :autosize="{minRows: 2,maxRows: 5}" />
-          </FormItem>
-          <FormItem>
+          </div>
+          <br>
+          <div class="user_detail_div">
             <label class="from_label">教育背景</label>
             <Input v-model="user_data.resumes[2].content" type="textarea" style="width: 40vw;min-width:100px;" :autosize="{minRows: 2,maxRows: 5}" />
-          </FormItem>
-          <FormItem>
+          </div>
+          <br>
+          <div class="user_detail_div">
             <label class="from_label">项目经验</label>
             <Input v-model="user_data.resumes[1].content" type="textarea" style="width: 40vw;min-width:100px;" :autosize="{minRows: 2,maxRows: 5}" />
-          </FormItem>
-          <FormItem>
+          </div>
+          <br>
+          <div class="user_detail_div">
             <label class="from_label">认证证书</label>
             <Input v-model="user_data.certificates[0].content" type="textarea" style="width: 40vw;min-width:100px;" :autosize="{minRows: 2,maxRows: 5}" />
-          </FormItem>
-        </Form>
+          </div>
+          <br>
+
         <label class="from_label">上传图片</label>图片不能大于2M
         <UserEditImgList class="image-style" :change="true" :imgList="user_data.certificates[0].imageUrls" :upload="true"></UserEditImgList>
         <div style="text-align:center;">
@@ -219,12 +231,11 @@ export default {
       this.user_data.avatarUrl = res.result.file.innerUrl;
     },
     saveInfo: function() {
-      if(this.user_data.certificates[0].imageUrls.length>8)
-      {
+      if (this.user_data.certificates[0].imageUrls.length > 8) {
         this.$Notice.warning({
           title: "最多上传8张图片"
         });
-        return
+        return;
       }
       this.$Message.loading({
         content: "保存中...",
@@ -263,17 +274,19 @@ export default {
           certificateContent: this.user_data.certificates[0].content,
           resumeList: this.resumeList
         }
-      }).then(res => {
-        if (res.data.success) {
-          this.$Message.destroy();
-          this.$Message.success("保存成功");
-        } else {
-          this.$Message.destroy();
-          this.$Message.success("保存失败");
-        }
-      }).catch(err=>{
-        console.log(err)
       })
+        .then(res => {
+          if (res.data.success) {
+            this.$Message.destroy();
+            this.$Message.success("保存成功");
+          } else {
+            this.$Message.destroy();
+            this.$Message.success("保存失败");
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   computed: {
@@ -306,7 +319,9 @@ export default {
     });
     let This = this;
     function getUserInfo() {
-      return Util.ajax.get(baseUri.user_detail_url, {
+      return Util.ajax({
+        method: "get",
+        url: baseUri.user_detail_url,
         params: {
           userId: This.$route.params.id
         }
@@ -314,7 +329,9 @@ export default {
     }
     function getAttentionUser() {
       //console.log(user_search_attention_users_for_page_url)
-      return Util.ajax.get(baseUri.user_search_attention_users_for_page_url, {
+      return Util.ajax({
+        method: "get",
+        url: baseUri.user_search_attention_users_for_page_url,
         params: {
           userId: This.$route.params.id,
           pageNo: 1,
@@ -323,7 +340,9 @@ export default {
       });
     }
     function getInviterUsers() {
-      return Util.ajax.post(baseUri.user_search_for_page_url, {
+      return Util.ajax({
+        method: "post",
+        url: baseUri.user_search_for_page_url,
         data: {
           inviterId: This.$route.params.id
         }
@@ -355,25 +374,13 @@ export default {
               }
             }
           } else if (x == "certificates") {
-            //console.log(src_obj.certificates[0].imageUrls)
             if (
               src_obj.certificates[0] &&
               src_obj.certificates[0].imageUrls.length > 2
             ) {
-              //console.log(src_obj.certificates[0].imageUrls.replace(/[\[*\]]/g,'').split(','))
-              //console.log(src_obj[x])
               new_obj.certificates[0].imageUrls = src_obj.certificates[0].imageUrls
                 .replace(/[\["*"\]]/g, "")
                 .split(",");
-              //console.log(new_obj.certificates[0].imageUrl)
-              // for (
-              //   let i = 0;
-              //   i < new_obj.certificates[0].imageUrls.length;
-              //   i++
-              // ) {
-              //   new_obj.certificates[0].imageUrls[i] =
-              //     baseUri.oss_url+ new_obj.certificates[0].imageUrls[i];
-              // }
             } else if (x == "listTags") {
             } else {
               new_obj.certificates = [{}];
@@ -397,12 +404,6 @@ export default {
             "yyyy-MM-dd hh:mm:ss"
           );
         }
-        // next(vm =>{
-        //   vm.show = true
-        //   vm.user_data = new_obj
-        //   vm.attention_arr = attention_arr
-        //   vm.inviter_arr = inviter_arr
-        // })
         //console.log(new_obj.listTags)
         this.user_data = new_obj;
         this.attention_arr = attention_arr;

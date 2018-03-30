@@ -178,6 +178,22 @@ export const otherRouter = {
 //         ]
 //     },
 //     {
+//         path: '/audit_operation',
+//         icon: 'ios-pie',
+//         name: 'audit_operation', 
+//         title: '数据统计', 
+//         access: 1,
+//         component: Main, 
+//         children: [ 
+//             {
+//                 path: 'audit_operation_index', 
+//                 name: 'audit_operation_index', 
+//                 title: '审核统计', 
+//                 component: resolve => { require(['@/views/audit_operation/audit_operation_index/audit_operation_index'], resolve); }, 
+//             }
+//         ]
+//     },
+//     {
 //         path: '/order',
 //         icon: 'ios-copy',
 //         name: 'order', 

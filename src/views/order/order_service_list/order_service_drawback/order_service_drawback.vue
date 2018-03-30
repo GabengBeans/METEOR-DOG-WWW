@@ -151,7 +151,7 @@ export default {
       .then(response => {
         if (response.data.success) {
           let obj = response.data.data;
-          console.log(obj);
+          //console.log(obj);
           for (let x in obj) {
             if (x == "isService") {
               if (obj[x] == 1) {

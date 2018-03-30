@@ -171,45 +171,57 @@ export default {
       })
       .then(response => {
         //console.log(response.data.data);
-        let obj = response.data.data;
-        let priceType = ["", "每次", "每小时", "每天", "每件"];
-        let priceIndex = parseInt(obj.priceType);
-        for (let x in obj) {
-          if (x == "expireTime") {
-            this.data[x] = Util.formatDate(
-              new Date(obj[x]),
-              "yyyy-MM-dd hh:mm:ss"
-            );
-          } else if (x == "price") {
-            this.data[x] =
-              (parseInt(obj[x]) / 100).toFixed(2) + "/" + priceType[priceIndex];
-          } else if (x == "updateTime") {
-            this.data[x] = Util.formatDate(
-              new Date(obj[x]),
-              "yyyy-MM-dd hh:mm:ss"
-            );
-          } else if (x == "mediaList") {
-            this.data.mediaImg = [];
-            for (let y in obj[x]) {
-              //console.log(obj.mediaList[y])
-              if (obj.mediaList[y].mediaType == 1) {
-                this.data.mediaImg.push(obj.mediaList[y].mediaUrl);
-              } else if (obj.mediaList[y].mediaType == 2) {
-                this.data.mediaVideoImg = obj.mediaList[y].videoPhotoUrl;
-                this.data.mediaVideo = obj.mediaList[y].videoPlayUrl;
+        if (response.data.success) {
+          let obj = response.data.data;
+          let priceType = ["", "每次", "每小时", "每天", "每件", "自定义"];
+          let priceIndex = parseInt(obj.priceType);
+          for (let x in obj) {
+            if (x == "expireTime") {
+              this.data[x] = Util.formatDate(
+                new Date(obj[x]),
+                "yyyy-MM-dd hh:mm:ss"
+              );
+            } else if (x == "price") {
+              if (priceType[priceIndex] === "自定义") {
+                this.data[x] =
+                  (parseInt(obj[x]) / 100).toFixed(2) + "/" + obj.unitName;
+              } else {
+                this.data[x] =
+                  (parseInt(obj[x]) / 100).toFixed(2) +
+                  "/" +
+                  priceType[priceIndex];
               }
+            } else if (x == "updateTime") {
+              this.data[x] = Util.formatDate(
+                new Date(obj[x]),
+                "yyyy-MM-dd hh:mm:ss"
+              );
+            } else if (x == "mediaList") {
+              this.data.mediaImg = [];
+              for (let y in obj[x]) {
+                //console.log(obj.mediaList[y])
+                if (obj.mediaList[y].mediaType == 1) {
+                  this.data.mediaImg.push(obj.mediaList[y].mediaUrl);
+                } else if (obj.mediaList[y].mediaType == 2) {
+                  this.data.mediaVideoImg = obj.mediaList[y].videoPhotoUrl;
+                  this.data.mediaVideo = obj.mediaList[y].videoPlayUrl;
+                }
+              }
+            } else {
+              this.data[x] = obj[x];
             }
-          } else {
-            this.data[x] = obj[x];
           }
+          //console.log(this.data.mediaVideoImg)
+          this.btn =
+            this.data.status == "1" && this.data.businessStatus == "3"
+              ? true
+              : false;
+          this.show = true;
+          this.$Message.destroy();
+        }else{
+          this.$Message.destroy();
+          this.$Message.error("获取失败")
         }
-        //console.log(this.data.mediaVideoImg)
-        this.btn =
-          this.data.status == "1" && this.data.businessStatus == "3"
-            ? true
-            : false;
-        this.show = true;
-        this.$Message.destroy();
       });
   },
   components:{

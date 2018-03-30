@@ -121,6 +121,13 @@ export default {
             pageNo: index
           });
           break;
+          case "audit_operation":
+          //this.$store.state.app.merchant_enter_search_info = obj
+          this.$store.commit("GET_AUDIT_OPERATION_INFO", {
+            data: this.$store.state.app.audit_operation_search_info,
+            pageNo: index
+          });
+          break;
       }
     }
   }

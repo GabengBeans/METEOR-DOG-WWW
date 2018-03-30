@@ -163,7 +163,7 @@ export default {
   methods: {
     search: function() {
       let obj = {};
-      obj.level = this.level;
+      //obj.level = this.level;
       obj.positionId = this.id;
       //console.log(obj);
       this.$store.commit("GET_ADVERT_NEW_INFO", { data: obj, pageNo: 1 });
@@ -317,15 +317,15 @@ export default {
             }
           }
           this.tags = objLevel;
-          console.log(this.tags);
+          //console.log(this.tags);
           this.names = objNames;
-          console.log(this.names);
+          //console.log(this.names);
           this.id = objNames[0].id;
           this.level = objLevel[0].level;
-          console.log(this.level);
+          //console.log(this.level);
           this.btn = false;
           this.$store.commit("GET_ADVERT_NEW_INFO", {
-            data: { level: this.level, positionId: this.id },
+            data: {positionId: this.id },
             pageNo: this.$store.state.app.advert_new_public_page
           });
         } else {

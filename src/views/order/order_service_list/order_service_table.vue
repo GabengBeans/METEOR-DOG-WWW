@@ -27,11 +27,13 @@ export default {
         },
         {
           title: "服务标题",
-          key: "title"
+          key: "title",
+          ellipsis:"false"
         },
         {
           title: "服务者",
-          key: "servant"
+          key: "servant",
+          ellipsis:"false"
         },
         {
           title: "服务价格",

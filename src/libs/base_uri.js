@@ -155,7 +155,11 @@ let base_uri = {
     enabling_admin_resource_url:"/admin/v1/admin_resource/enabling_admin_resource",
     resource_detail_url:"/admin/v1/admin_resource/detail",
     update_admin_resource_url:"/admin/v1/admin_resource/update_admin_resource",
-    add_admin_resource_url:"/admin/v1/admin_resource/add_admin_resource"
+    add_admin_resource_url:"/admin/v1/admin_resource/add_admin_resource",
+
+    //审核统计
+    get_adminUserLis_url:"/admin/v1/audit_operation_log/adminUserList",
+    search_audit_operation_log_for_page_url:"/admin/v1/audit_operation_log/search_audit_operation_log_for_page"
 };
 
 export default base_uri;

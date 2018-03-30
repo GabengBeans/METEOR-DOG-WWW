@@ -10,6 +10,9 @@
             </p>
             <div style="text-align:center">
                 <Form :label-width="40" label-position="left">
+                    <FormItem label="父KEY">
+                        <Input clearable v-model="SystemData.parentkey" />
+                    </FormItem>
                     <FormItem label="键">
                         <Input clearable v-model="SystemData.key" />
                     </FormItem>
@@ -54,6 +57,7 @@ export default {
   methods: {
       showAddSystemFun(){
           this.showAddSystem = true
+          this.SystemData.parentkey = ""
           this.SystemData.key = ""
           this.SystemData.value = ""
           this.SystemData.description = ""
@@ -63,6 +67,7 @@ export default {
             method: "post",
             url: baseUri.add_setting_url,
             data: {
+            parentkey:this.SystemData.parentkey,
             key: this.SystemData.key,
             value: this.SystemData.value,
             description: this.SystemData.description

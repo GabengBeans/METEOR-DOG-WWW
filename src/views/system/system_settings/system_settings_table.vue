@@ -1,26 +1,29 @@
 <template>
-    <div id='user_table' class="table">
-        <Table style="min-width:800px;margin:0 16px;" border stripe :columns="columns" :data="$store.state.app.system_settings_search_result">
-        </Table>
-        <Modal v-model="showEidtPage" width="360" @on-cancel="showEidtPage=false" @on-ok="editSystem()">
-            <p slot="header" style="color:#f60;text-align:center">
-                <span>编辑系统变量</span>
-            </p>
-            <div style="text-align:center">
-                <Form :label-width="40" label-position="left">
-                    <FormItem label="键">
-                        <Input clearable v-model="SystemData.key" />
-                    </FormItem>
-                    <FormItem label="值">
-                        <Input clearable v-model="SystemData.value" />
-                    </FormItem>
-                    <FormItem label="描述">
-                        <Input clearable v-model="SystemData.description" />
-                    </FormItem>
-                </Form>
-            </div>
-        </Modal>
-    </div>
+  <div id='user_table' class="table">
+    <Table style="min-width:800px;margin:0 16px;" border stripe :columns="columns" :data="$store.state.app.system_settings_search_result">
+    </Table>
+    <Modal v-model="showEidtPage" width="360" @on-cancel="showEidtPage=false" @on-ok="editSystem()">
+      <p slot="header" style="color:#f60;text-align:center">
+        <span>编辑系统变量</span>
+      </p>
+      <div style="text-align:center">
+        <Form :label-width="40" label-position="left">
+          <FormItem label="父KEY">
+            <Input clearable v-model="SystemData.parentkey" />
+          </FormItem>
+          <FormItem label="键">
+            <Input clearable v-model="SystemData.key" />
+          </FormItem>
+          <FormItem label="值">
+            <Input clearable v-model="SystemData.value" />
+          </FormItem>
+          <FormItem label="描述">
+            <Input clearable v-model="SystemData.description" />
+          </FormItem>
+        </Form>
+      </div>
+    </Modal>
+  </div>
 </template>
 <script>
 import Util from "@/libs/util";
@@ -38,6 +41,10 @@ export default {
       },
       showEidtPage: false,
       columns: [
+        {
+          title: "父KEY",
+          key: "parentkey"
+        },
         {
           title: "键",
           key: "key"
@@ -73,6 +80,7 @@ export default {
                   on: {
                     click: () => {
                       this.showEidtPage = true;
+                      this.SystemData.parentkey = params.row.parentkey;
                       this.SystemData.key = params.row.key;
                       this.SystemData.value = params.row.value;
                       this.SystemData.description = params.row.description;
@@ -88,31 +96,32 @@ export default {
                   props: {
                     type: "success",
                     size: "small",
-                    disabled:params.row.status=="有效"?true:false
+                    disabled: params.row.status == "有效" ? true : false
                   },
                   style: {
                     marginRight: "5px"
                   },
                   on: {
                     click: () => {
-                        let data = {
-                            settingId:params.row.id
-                        }
-                       Util.ajax({
-                           method:"post",
-                           url:baseUri.enabling_setting_url,
-                           data:Util.formData(data)
-                       }).then(res=>{
-                           if(res.data.success)
-                           {
-                               params.row.status = "有效"
-                               this.$Message.success("启用成功")
-                           }else{
-                               this.$Message.success("启用失败")
-                           }
-                       }).catch(error=>{
-                           console.log(error)
-                       })
+                      let data = {
+                        settingId: params.row.id
+                      };
+                      Util.ajax({
+                        method: "post",
+                        url: baseUri.enabling_setting_url,
+                        data: Util.formData(data)
+                      })
+                        .then(res => {
+                          if (res.data.success) {
+                            params.row.status = "有效";
+                            this.$Message.success("启用成功");
+                          } else {
+                            this.$Message.success("启用失败");
+                          }
+                        })
+                        .catch(error => {
+                          console.log(error);
+                        });
                     }
                   }
                 },
@@ -124,28 +133,29 @@ export default {
                   props: {
                     type: "error",
                     size: "small",
-                    disabled:params.row.status=="无效"?true:false
+                    disabled: params.row.status == "无效" ? true : false
                   },
                   on: {
                     click: () => {
-                       let data = {
-                            settingId:params.row.id
-                        }
-                       Util.ajax({
-                           method:"post",
-                           url:baseUri.delete_setting_url,
-                           data:Util.formData(data)
-                       }).then(res=>{
-                           if(res.data.success)
-                           {
-                               params.row.status = "无效"
-                               this.$Message.success("禁用成功")
-                           }else{
-                               this.$Message.success("禁用失败")
-                           }
-                       }).catch(error=>{
-                           console.log(error)
-                       })
+                      let data = {
+                        settingId: params.row.id
+                      };
+                      Util.ajax({
+                        method: "post",
+                        url: baseUri.delete_setting_url,
+                        data: Util.formData(data)
+                      })
+                        .then(res => {
+                          if (res.data.success) {
+                            params.row.status = "无效";
+                            this.$Message.success("禁用成功");
+                          } else {
+                            this.$Message.success("禁用失败");
+                          }
+                        })
+                        .catch(error => {
+                          console.log(error);
+                        });
                     }
                   }
                 },
@@ -163,6 +173,7 @@ export default {
         method: "post",
         url: baseUri.edit_setting_url,
         data: {
+          parentkey:this.SystemData.parentkey,
           key: this.SystemData.key,
           value: this.SystemData.value,
           description: this.SystemData.description,

@@ -150,14 +150,14 @@ const app = {
             currentPage: 1,
             totalPage: 0
         },
-        group_bind_search_info:{},
+        group_bind_search_info: {},
         group_bind_search_result: [],
         // 拓展-代理组-解绑代理人
         group_unbundling_page_info: {
             currentPage: 1,
             totalPage: 0
         },
-        group_unbundling_search_info:{},
+        group_unbundling_search_info: {},
         group_unbundling_search_result: [],
 
 
@@ -223,6 +223,16 @@ const app = {
         },
         admin_resource_search_result: [],
         admin_resource_public_page: 1,
+
+        //审核统计
+        audit_operation:{},
+        audit_operation_search_info: {},
+        audit_operation_page_info: {
+            currentPage: 1,
+            totalPage: 0
+        },
+        audit_operation_search_result: [],
+        audit_operation_public_page: 1,
 
         cachePage: [],
         lang: '',
@@ -428,7 +438,7 @@ const app = {
                 //console.log(typeof state.user_page_info.currentPage)
                 let arr = response.data.data.items
                 state.user_search_result = response.data.data.items
-                //console.log(arr)
+                //console.log(state.user_search_result)
                 for (let x in arr) {
                     if (arr[x].status == '1') {
                         state.user_search_result[x].status = '正常'
@@ -459,11 +469,12 @@ const app = {
             }).then((response) => {
                 //console.log(response)
                 let arr = response.data.data.items
-                let businessStatus = ["全部", "待发布", "审核中", "已发布", "已过期", "审核未通过", "取消发布"]
+                let businessStatus = ["全部", "编辑中", "审核中", "已发布", "已过期", "审核未通过", "取消发布"]
                 let status = ["无效", "有效"]
                 state.request_page_info.currentPage = parseInt(response.data.data.page)
                 state.request_page_info.totalPage = parseInt(response.data.data.totalCount)
                 state.request_search_result = response.data.data.items
+                //console.log(response.data.data.items[6].id)
                 for (let x in arr) {
                     let businessIndex = parseInt(state.request_search_result[x].businessStatus)
                     let statusIndex = parseInt(state.request_search_result[x].status)
@@ -494,7 +505,7 @@ const app = {
             }).then((response) => {
                 //console.log(response)
                 let arr = response.data.data.items
-                let businessStatus = ["全部", "待发布", "审核中", "已发布", "已过期", "审核未通过", "取消发布"]
+                let businessStatus = ["全部", "编辑中", "审核中", "已发布", "已过期", "审核未通过", "取消发布"]
                 let status = ["无效", "有效"]
                 state.service_page_info.currentPage = parseInt(response.data.data.page)
                 state.service_page_info.totalPage = parseInt(response.data.data.totalCount)
@@ -675,23 +686,23 @@ const app = {
         GET_GROUP_BIND_INFO(state, { data, pageNo }) {
             state.group_bind_search_info = data
             Util.ajax({
-                method:"post",
-                url:base_uri.get_bind_expend_list_url,
-                params:{
-                    pageNo:pageNo || 1,
-                    pageSize:10
+                method: "post",
+                url: base_uri.get_bind_expend_list_url,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
                 },
-                data:data
+                data: data
             }).then((res) => {
                 console.log(res)
                 let arr = res.data.data.items;
                 state.group_bind_page_info.currentPage = parseInt(res.data.data.page)
                 state.group_bind_page_info.totalPage = parseInt(res.data.data.totalCount)
                 state.group_bind_search_result = arr
-                for(let x in arr) {
-                    if(arr[x].nickname){
+                for (let x in arr) {
+                    if (arr[x].nickname) {
                         state.group_bind_search_result[x].nickname = arr[x].nickname
-                    }else{
+                    } else {
                         state.group_bind_search_result[x].nickname = '无'
                     }
                 }
@@ -701,24 +712,24 @@ const app = {
         GET_GROUP_UNBUNDLING_INFO(state, { data, pageNo, groupId }) {
             state.group_unbundling_search_info = data
             Util.ajax({
-                method:"post",
-                url:base_uri.get_group_expend_list_url,
-                params:{
-                    pageNo:pageNo || 1,
-                    pageSize:10,
+                method: "post",
+                url: base_uri.get_group_expend_list_url,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10,
                     groupId: groupId
                 },
-                data:data
+                data: data
             }).then((res) => {
                 console.log(res)
                 let arr = res.data.data.items;
                 state.group_unbundling_page_info.currentPage = parseInt(res.data.data.page)
                 state.group_unbundling_page_info.totalPage = parseInt(res.data.data.totalCount)
                 state.group_unbundling_search_result = arr
-                for(let x in arr) {
-                    if(arr[x].nickname){
+                for (let x in arr) {
+                    if (arr[x].nickname) {
                         state.group_unbundling_search_result[x].nickname = arr[x].nickname
-                    }else{
+                    } else {
                         state.group_unbundling_search_result[x].nickname = '无'
                     }
                 }
@@ -755,9 +766,8 @@ const app = {
                     let paymentType = parseInt(arr[x].paymentType)
                     let status = parseInt(arr[x].status)
                     //let statusIndex = parseInt(state.service_search_result[x].status)
-                    if(arr[x].createTime)
-                    {
-                        state.cash_flow_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")     
+                    if (arr[x].createTime) {
+                        state.cash_flow_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
                     }
                     state.cash_flow_search_result[x].chargeStatus = chargeStatusArr[chargeStatus]
                     state.cash_flow_search_result[x].tradeType = tradeTypeArr[tradeType]
@@ -1102,11 +1112,6 @@ const app = {
             }).then((response) => {
 
                 if (response.data.success) {
-
-                    // for(let x in response.data.data)
-                    //  {
-                    //      Vue.set(state.order_statistics_search_result,x,parseInt(response.data.data[x]))
-                    //  }
                     state.order_statistics_search_result = response.data.data
 
                 }
@@ -1131,6 +1136,7 @@ const app = {
             }).then(res => {
                 //console.log(res)
                 if (res.data.success) {
+                    //console.log(res)
                     state.system_settings_page_info.currentPage = res.data.data.page
                     state.system_settings_page_info.totalPage = res.data.data.totalCount
                     state.system_settings_search_result = res.data.data.items
@@ -1189,7 +1195,7 @@ const app = {
                     state.admin_user_page_info.currentPage = res.data.data.page
                     state.admin_user_page_info.totalPage = res.data.data.totalCount
                     let statusArr = ["无效", "有效"]
-                    state.admin_user_search_result= []
+                    state.admin_user_search_result = []
                     for (let x in res.data.data.items) {
                         //state.admin_user_search_result[x] = res.data.data.items[x]
                         Vue.set(state.admin_user_search_result, x, res.data.data.items[x])
@@ -1204,7 +1210,7 @@ const app = {
             })
         },
         GET_SEARCH_ADIMIN_ROLE_INFO(state, { data, pageNo }) {
-            console.log(data)
+            //console.log(data)
             state.admin_role_search_info = data
             state.admin_role_public_page = pageNo
             Util.ajax({
@@ -1216,13 +1222,13 @@ const app = {
                 },
                 data: data
             }).then(res => {
-                console.log(res)
+                //console.log(res)
                 if (res.data.success) {
                     //console.log(res.data.data.items)
                     state.admin_role_page_info.currentPage = res.data.data.page
                     state.admin_role_page_info.totalPage = res.data.data.totalCount
                     let statusArr = ["无效", "有效"]
-                    state.admin_role_search_result= []
+                    state.admin_role_search_result = []
                     for (let x in res.data.data.items) {
                         Vue.set(state.admin_role_search_result, x, res.data.data.items[x])
                         for (let y in res.data.data.items[x]) {
@@ -1231,7 +1237,7 @@ const app = {
                             }
                         }
                     }
-                    console.log(state.admin_role_search_result)
+                    //console.log(state.admin_role_search_result)
                 }
             })
         },
@@ -1241,9 +1247,44 @@ const app = {
                 url: base_uri.search_admin_resource_list,
             }).then(res => {
                 let obj = res.data.data.allLabels
-                Util.recursion(obj,"childAdminResources",false)
-                console.log(obj)
+                Util.recursion(obj, "childAdminResources", false)
+                //console.log(obj)
                 state.admin_resource_search_result = obj
+            })
+        },
+        GET_AUDIT_OPERATION_INFO(state, { data, pageNo }) {
+            state.audit_operation_search_info = data
+            state.audit_operation_public_page = pageNo
+            Util.ajax({
+                method: "post",
+                url: base_uri.search_audit_operation_log_for_page_url,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
+                },
+                data: data
+            }).then(res => {
+                if (res.data.success) {
+                    state.audit_operation = res.data.data
+                    state.audit_operation_page_info.currentPage = res.data.data.pageAuditOperationLogResult.page
+                    state.audit_operation_page_info.totalPage = res.data.data.pageAuditOperationLogResult.totalCount
+                    let obj = res.data.data.pageAuditOperationLogResult.items
+                    state.audit_operation_search_result= obj
+                    for (let x=0;x<obj.length;x++) {
+                        for (let y in obj[x]) {
+                            //console.log(y)
+                            if (y == "bussinessTime" || y == "opertateTime") {
+                                let time = Util.formatDate(new Date(obj[x][y]),"yyyy-MM-dd hh:mm:ss")
+                                state.audit_operation_search_result[x][y] = time
+                            } 
+                        }
+
+                    }
+                    //console.log(state.audit_operation_search_result)
+                }
+            })
+            .catch(err => {
+                console.log(err)
             })
         }
     }
