@@ -117,7 +117,7 @@ export default {
         case "lockedRole":
           //this.$store.state.app.merchant_enter_search_info = obj
           this.$store.commit("GET_SEARCH_ADIMIN_ROLE_INFO", {
-            data: this.$store.state.app.admin_user_search_info,
+            data: this.$store.state.app.admin_role_search_info,
             pageNo: index
           });
           break;

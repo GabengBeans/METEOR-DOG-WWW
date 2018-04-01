@@ -7,18 +7,21 @@
         <span>编辑系统变量</span>
       </p>
       <div style="text-align:center">
-        <Form :label-width="40" label-position="left">
-          <FormItem label="父KEY">
-            <Input clearable v-model="SystemData.parentkey" />
+        <Form :label-width="60" label-position="left">
+          <FormItem label="父KEY：">
+            <span>{{SystemData.parentkey}}</span>
+            <!-- <Input clearable v-model="SystemData.parentkey" /> -->
           </FormItem>
-          <FormItem label="键">
-            <Input clearable v-model="SystemData.key" />
+          <FormItem label="键：">
+            <span>{{SystemData.key}}</span>
+            <!-- <Input clearable v-model="SystemData.key" /> -->
           </FormItem>
-          <FormItem label="值">
+          <FormItem label="值：">
             <Input clearable v-model="SystemData.value" />
           </FormItem>
-          <FormItem label="描述">
-            <Input clearable v-model="SystemData.description" />
+          <FormItem label="描述：">
+            <span>{{SystemData.description}}</span>
+            <!-- <Input clearable v-model="SystemData.description" /> -->
           </FormItem>
         </Form>
       </div>
