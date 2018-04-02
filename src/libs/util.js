@@ -370,7 +370,7 @@ util.formData = function (data) {
     return formData;
 }
 util.recursion = function (obj, subName,detail) {
-    if (!obj) {
+    if (!obj.length) {
         return false
     } else {
         for (let x = 0; x < obj.length; x++) {

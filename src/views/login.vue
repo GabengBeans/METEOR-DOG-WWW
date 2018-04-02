@@ -75,7 +75,7 @@ export default {
                 //   "setAvator",
                 //   "../images/logo-min.png"
                 // );
-                Cookies.set("access", 1);
+                //Cookies.set("access", 1);
                 util
                   .ajax({
                     method: "get",
