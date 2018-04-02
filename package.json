@@ -1,6 +1,6 @@
 {
-  "name": "流星狗运营管理系统",
-  "version": "1.0",
+  "name": "shootingstardog",
+  "version": "1.0.0",
   "description": "a management bases on iview",
   "main": "index.js",
   "scripts": {
