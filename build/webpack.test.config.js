@@ -76,7 +76,7 @@ module.exports = merge(webpackBaseConfig, {
             ]
         }),
         new HtmlWebpackPlugin({
-            //title: 'iView admin v' + package.version,
+            title: '流星狗运营管理系统(测试)' + package.version,
             //favicon: './td_icon.ico',
             filename: './index.html',
             // filename: './index.ejs',

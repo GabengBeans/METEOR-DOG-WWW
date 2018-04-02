@@ -1,6 +1,6 @@
 {
-  "name": "iview-admin",
-  "version": "1.2.3",
+  "name": "流星狗运营管理系统",
+  "version": "1.0",
   "description": "a management bases on iview",
   "main": "index.js",
   "scripts": {
