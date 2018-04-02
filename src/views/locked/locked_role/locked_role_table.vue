@@ -175,7 +175,8 @@ export default {
                 {
                   props: {
                     type: "primary",
-                    size: "small"
+                    size: "small",
+                    disabled: params.row.status == "无效" ? true : false
                   },
                   style: {
                     marginRight: "5px"
@@ -205,7 +206,7 @@ export default {
                         .then(
                           axios.spread((res1, res2) => {
                             // console.log(res1);
-                            console.log(res2);
+                            //console.log(res2);
                             if (res1.data.success && res2.data.success) {
                               this.showRoleEdit = true;
                               let edit = res1.data.data;
@@ -273,7 +274,8 @@ export default {
                 {
                   props: {
                     type: "info",
-                    size: "small"
+                    size: "small",
+                    disabled: params.row.status == "无效" ? true : false
                   },
                   on: {
                     click: () => {

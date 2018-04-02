@@ -18,7 +18,7 @@ export default {
         }
     },
   created() {
-    this.$store.commit("GET_SEARCH_ADIMIN_ROLE_INFO",{data:this.$store.state.app.admin_role_search_info,pageNo:this.$store.state.app.admin_user_public_page})
+    this.$store.commit("GET_SEARCH_ADIMIN_ROLE_INFO",{data:this.$store.state.app.admin_role_search_info,pageNo:this.$store.state.app.admin_role_public_page})
   },
   components:{
     Search,

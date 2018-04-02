@@ -30,6 +30,10 @@
           </Form>
         </div>
       </Card>
+      <Modal v-model="showBrowser" @on-ok="showBrowser=false" :mask-closable="false">
+        <p slot="header"></p>
+        <p style="text-align:center;font-size:20px">建议使用谷歌浏览器</p>
+      </Modal>
     </div>
   </div>
 </template>
@@ -43,14 +47,15 @@ export default {
     return {
       form: {
         userName: "",
-        password: ""
+        password: "",
       },
       rules: {
         userName: [
           { required: true, message: "账号不能为空", trigger: "blur" }
         ],
         password: [{ required: true, message: "密码不能为空", trigger: "blur" }]
-      }
+      },
+      showBrowser: false
     };
   },
   methods: {
@@ -84,19 +89,21 @@ export default {
                   .then(res => {
                     //console.log(res);
                     if (res.data.success) {
-                      window.sessionStorage.setItem("menus",JSON.stringify(res.data.data))
-                      window.sessionStorage.setItem("updataStatus",true)
-                      window.sessionStorage.setItem("logoutStatus",true)
+                      window.sessionStorage.setItem(
+                        "menus",
+                        JSON.stringify(res.data.data)
+                      );
+                      window.sessionStorage.setItem("updataStatus", true);
+                      window.sessionStorage.setItem("logoutStatus", true);
                       //console.log(res.data.data)
-                      
+
                       obj.$router.push({
                         name: "home_index"
                       });
-                      if(window.sessionStorage.getItem("updataStatus"))
-                      {
-                          window.sessionStorage.setItem("updataStatus","")
-                          this.$router.go(0)
-                          //Cookies.set("timer",1)
+                      if (window.sessionStorage.getItem("updataStatus")) {
+                        window.sessionStorage.setItem("updataStatus", "");
+                        this.$router.go(0);
+                        //Cookies.set("timer",1)
                       }
                     } else {
                     }
@@ -117,6 +124,19 @@ export default {
         duration: 3,
         closable: true
       });
+    }
+  },
+  created() {
+    let browser = {
+      versions: (function() {
+        let u = navigator.userAgent;
+        return {
+          webKit: u.indexOf("AppleWebKit") > -1 //苹果、谷歌内核
+        };
+      })()
+    };
+    if (!browser.versions.webKit) {
+      this.showBrowser = true;
     }
   }
 };

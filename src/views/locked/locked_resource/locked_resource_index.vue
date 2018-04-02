@@ -55,6 +55,16 @@
           <FormItem label="资源模块名称：">
             <Input clearable v-model="resourceEditData.modelName" />
           </FormItem>
+          <FormItem label="图标：">
+            <!-- <Input clearable v-model="resourceEditData.newIcon" /> -->
+            <Select v-model="resourceEditData.newIcon" style="width:200px">
+              <Option v-for="item in icons" :value="item" 　:key="item.key">
+                <Icon size="20" :type="item" />　{{item}}
+              </Option>
+            </Select>
+            {{"　"}}
+            <Icon :type="resourceEditData.newIcon" size="20" />
+          </FormItem>
           <!-- <FormItem label="创建时间：">
             <Input clearable v-model="resourceDetailData.createTime" />
           </FormItem>
@@ -82,6 +92,9 @@
           <FormItem label="资源模块名称：">
             <Input clearable v-model="reseourceAddData.modelName" />
           </FormItem>
+          <FormItem label="图标：">
+            <Input clearable v-model="reseourceAddData.newIcon" />
+          </FormItem>
         </Form>
         <br>
         <div style="text-align:center">
@@ -95,9 +108,11 @@
 <script>
 import Util from "@/libs/util";
 import baseUri from "@/libs/base_uri";
+import config from "../config";
 export default {
   data() {
     return {
+      icons: [],
       showResourceAdd: false,
       showResourceDetail: false,
       showResourceEdit: false,
@@ -114,6 +129,7 @@ export default {
   },
   created() {
     this.$store.commit("GET_SEARCH_ADIMIN_RESOURCE_INFO");
+    this.icons = config.icons;
   },
   methods: {
     showAddOne() {
@@ -130,7 +146,8 @@ export default {
         data: {
           parentId: this.reseourceAddData.parentId,
           modelName: this.reseourceAddData.modelName,
-          name: this.reseourceAddData.name
+          name: this.reseourceAddData.name,
+          newIcon: this.reseourceAddData.newIcon
         }
       })
         .then(res => {
@@ -155,7 +172,8 @@ export default {
           id: this.resourceEditData.id,
           modelName: this.resourceEditData.modelName,
           name: this.resourceEditData.name,
-          orderNum: this.resourceEditData.orderNum
+          orderNum: this.resourceEditData.orderNum,
+          newIcon: this.reseourceAddData.newIcon
         }
       })
         .then(res => {

@@ -20,6 +20,10 @@ export default {
         {
           title: "上传时间",
           key: "createTime"
+        },
+        {
+          title: "描述",
+          key: "description"
         }
       ]
     };

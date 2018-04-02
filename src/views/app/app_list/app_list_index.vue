@@ -19,6 +19,9 @@
                             <Button type="ghost" icon="ios-cloud-upload-outline">选择文件</Button>
                         </Upload>
                     </FormItem>
+                    <FormItem label="描述">
+                        <Input type="textarea" clearable v-model="appData.description" />
+                    </FormItem>
                 </Form>
             </div>
         </Modal>
@@ -49,13 +52,17 @@ export default {
       //this.file.appUrl =
     },
     addApps() {
-      this.showAddApp = true;
-      this.appData.appVersion = "";
+      for(let x in this.appData)
+      {
+        this.appData[x] = ''
+      }
+      this.showAddApp = true
     },
     saveApp() {
       let data = {
         appVersion: this.appData.appVersion,
-        appUrl: this.appData.appUrl
+        appUrl: this.appData.appUrl,
+        description:this.appData.description
       };
       Util.ajax({
         method: "post",

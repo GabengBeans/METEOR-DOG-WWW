@@ -93,6 +93,10 @@ export default {
           key: "status"
         },
         {
+          title:"用户角色",
+          key:"roleName"
+        },
+        {
           title: "操作",
           key: "phone",
           width: 300,
