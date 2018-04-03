@@ -27,7 +27,7 @@
         <br>
         <div class="user_detail_div">
           <label class="from_label">下单者:</label>
-          <b>{{data.servant}}</b>
+          <b>{{data.demander}}</b>
         </div>
         <br>
         <div class="user_detail_div">
