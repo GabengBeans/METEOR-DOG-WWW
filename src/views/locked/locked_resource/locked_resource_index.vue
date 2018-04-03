@@ -93,7 +93,11 @@
             <Input clearable v-model="reseourceAddData.modelName" />
           </FormItem>
           <FormItem label="图标：">
-            <Input clearable v-model="reseourceAddData.newIcon" />
+            <Select v-model="reseourceAddData.newIcon" style="width:200px">
+              <Option v-for="item in icons" :value="item" 　:key="item.key">
+                <Icon size="20" :type="item" />　{{item}}
+              </Option>
+            </Select>
           </FormItem>
         </Form>
         <br>
@@ -173,7 +177,7 @@ export default {
           modelName: this.resourceEditData.modelName,
           name: this.resourceEditData.name,
           orderNum: this.resourceEditData.orderNum,
-          newIcon: this.reseourceAddData.newIcon
+          newIcon: this.resourceEditData.newIcon
         }
       })
         .then(res => {

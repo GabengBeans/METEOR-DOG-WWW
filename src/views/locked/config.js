@@ -81,6 +81,25 @@ config.icons = [
     "person-stalker",
     "network",
     "locked",
-    "ios-pie"
+    "ios-pie",
+    "help-buoy",
+    "search",
+    "gear-b",
+    "star",
+    "trash-a",
+    "scissors",
+    "paper-airplane",
+    "link",
+    "upload",
+    "cloud",
+    "calendar",
+    "pinpoint",
+    "pin",
+    "key",
+    "unlocked",
+    "map",
+    "mouse",
+    "soup-can",
+    "coffee"
 ]
 export default config

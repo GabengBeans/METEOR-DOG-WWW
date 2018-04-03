@@ -24,6 +24,10 @@ export default {
         {
           title: "描述",
           key: "description"
+        },
+        {
+          title: "强制更新",
+          key: "updateStatus"
         }
       ]
     };
