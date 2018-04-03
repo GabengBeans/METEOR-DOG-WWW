@@ -15,7 +15,7 @@
         <br>
         <div class="user_detail_div">
           <label class="from_label">需求者:</label>
-          <b>{{data.userName}}</b>
+          <b>{{data.demander}}</b>
 
         </div>
         <br>
@@ -27,7 +27,7 @@
         <br>
         <div class="user_detail_div">
           <label class="from_label">下单者:</label>
-          <b>{{data.demander}}</b>
+          <b>{{data.userName}}</b>
         </div>
         <br>
         <div class="user_detail_div">

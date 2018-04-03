@@ -23,7 +23,7 @@ export default {
           ellipsis:"false"
         },
         {
-          title: "商户/姓名/昵称",
+          title: "昵称",
           key: "nickname",
           ellipsis:"false"
         },
