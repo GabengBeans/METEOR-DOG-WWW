@@ -3,13 +3,16 @@
     <Tree :data="data"  :render="renderContent"></Tree>
     <AddCategory :data="addObj" :categoryData="categoryData" ></AddCategory>
     <EditCategory :data="editObj" ></EditCategory>
+    <BindTags :data="bindTags"></BindTags>
   </div>
 </template>
 <script>
 import AddCategory from "./category_general_add";
 import EditCategory from "./category_general_edit";
+import BindTags from "./category_bind_tags"
 import Util from "@/libs/util";
 import baseUri from "@/libs/base_uri";
+import axios from "axios"
 export default {
   props: ["categoryData"],
   data() {
@@ -42,6 +45,10 @@ export default {
         avatarUrl: "",
         parentId: "",
         type: ""
+      },
+      bindTags:{
+        showBindTags:false,
+        id:''
       },
       data: [
         {
@@ -196,7 +203,38 @@ export default {
                         }),
                         on: {
                           click: () => {
-                            console.log(data)
+                            let This = this
+                            function getBuyTags(){
+                              return Util.ajax({
+                                method:"get",
+                                url:baseUri.search_bind_label_list,
+                                params:{
+                                  lableType:1,
+                                  categoryId:This.categoryData.id
+                                }
+                              })
+                            }
+                            function getSellTags(){
+                              return Util.ajax({
+                                method:"get",
+                                url:baseUri.search_bind_label_list,
+                                params:{
+                                  lableType:2,
+                                  categoryId:This.categoryData.id
+                                }
+                              })
+                            }
+                            axios.all([getBuyTags(),getSellTags()])
+                            .then(axios.spread((resBuy,resSell)=>{
+                              if(resBuy.data.success && resSell.data.success)
+                              {
+                                console.log(resBuy)
+                                console.log(resSell)
+                              }
+                              
+                            }))
+                            // this.bindTags.showBindTags= true
+                            // this.bindTags.id = this.categoryData.id
                           }
                         }
                       },
@@ -391,7 +429,8 @@ export default {
                   }),
                   on: {
                     click: () => {
-                     console.log(data)
+                     this.bindTags.showBindTags= true
+                    this.bindTags.id = this.data.id
                     }
                   }
                 },
@@ -437,7 +476,8 @@ export default {
   },
   components: {
     AddCategory,
-    EditCategory
+    EditCategory,
+    BindTags
   }
 };
 </script>
