@@ -1,4 +1,6 @@
 let base_uri = {
+    //图片上传地址
+    img_upload_url:"https://lxg.91taogu.com/up/",
     //阿里云图片地址
     oss_url: "http://dedc-statics.oss-cn-beijing.aliyuncs.com/",
     //用户地址
@@ -72,7 +74,6 @@ let base_uri = {
     advert_position_edit_url: "/admin/v1/advert_position/edit_advert_position/",
 
     // 拓展管理信息
-    // 代理人管理
     extend_user_search_ex_userinfo_for_page: "/admin/v1/extend_user/search_ex_userinfo_for_page",
     extend_user_detail_url: "/admin/v1/extend_user/detail",
     extend_user_edit_extend_user: "/admin/v1/extend_user/edit_extend_user",
@@ -115,6 +116,7 @@ let base_uri = {
     label_add_lable_url: "/admin/v1/lables/add_lable/",
     label_update_label_url: "/admin/v1/lables/update_label/",
     label_delete_label_url: "/admin/v1/lables/delete_label/",
+    search_bind_label_list:"/admin/v1/categorys/search_bind_label_list",
 
     //统计页
     order_statistics_query: "/admin/v1/order_statistics/query_statistics",

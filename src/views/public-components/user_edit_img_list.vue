@@ -33,7 +33,7 @@
           'type':'user'
           }"
         type="drag" 
-        action="https://lxg.91taogu.com/up/" 
+        :action="imgUrl" 
         style="display: inline-block;width:200px;">
             <div style="width: 198px;height:198px;line-height: 198px;">
                 <Icon type="camera" size="40"></Icon>
@@ -54,7 +54,7 @@
           }"
         multiple 
         type="drag" 
-        action="https://lxg.91taogu.com/up/" 
+        :action="imgUrl" 
         style="display: inline-block;width:99px;">
             <div style="height:99px;line-height:118px;">
                 <Icon type="camera" size="40" style="margin-top:10px;"></Icon>
@@ -75,6 +75,7 @@ import baseUri from "@/libs/base_uri";
 export default {
   data() {
     return {
+      imgUrl:baseUri.img_upload_url,
       aliyun: baseUri.oss_url,
       imgName: "",
       visible: false,

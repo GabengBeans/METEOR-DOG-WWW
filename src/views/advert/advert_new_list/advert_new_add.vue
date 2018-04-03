@@ -45,7 +45,7 @@
                             :on-exceeded-size="handleMaxSize" 
                             :before-upload="handleBeforeUpload" 
                             :data="{'type':'user'}" 
-                            action="https://lxg.91taogu.com/up/">
+                            :action="imgUrl">
                             <div>
                                 <Icon type="camera" size="40"></Icon>
                             </div>
@@ -65,7 +65,7 @@
                             :on-exceeded-size="handleVideoMaxSize" 
                             :before-upload="handleVideoBeforeUpload" 
                             :data="{'type':'user'}" 
-                            action="https://lxg.91taogu.com/up/">
+                            :action="imgUrl">
                             <div>
                               <Icon type="camera" size="40"></Icon>
                             </div>
@@ -110,6 +110,7 @@ export default {
   props: ["data"],
   data() {
     return {
+      imgUrl:baseUri.img_upload_url,
       tags: [],
       level: "",
       names: [],

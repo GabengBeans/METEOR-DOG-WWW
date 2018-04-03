@@ -196,7 +196,7 @@ export default {
                         }),
                         on: {
                           click: () => {
-                            //this.remove(root, node, data);
+                            console.log(data)
                           }
                         }
                       },
@@ -391,7 +391,7 @@ export default {
                   }),
                   on: {
                     click: () => {
-                      //this.remove(root, node, data);
+                     console.log(data)
                     }
                   }
                 },
