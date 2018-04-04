@@ -103,322 +103,323 @@ export const otherRouter = {
         { path: 'expand-group-add/:id', title: '新增代理组', name: 'expand-group-add', component: resolve => { require(['@/views/expand/expand-group/expand-group-add/expand-group-add'], resolve) } },
         { path: 'group_bind_expand/:id', title: '绑定代理人', name: 'group_bind_expand', component: resolve => { require(['@/views/expand/expand-group/group_bind_expand/group_bind_expand'], resolve) } },
         { path: 'group_unbundling_expand/:id', title: '解除绑定代理人', name: 'group_unbundling_expand', component: resolve => { require(['@/views/expand/expand-group/group_unbundling_expand/group_unbundling_expand'], resolve) } },
-        
+        //商户入驻
+        { path: 'after-merchant-enter-addnew', title: '新增企业IP', name: 'after-merchant-enter-addnew', component: resolve => { require(['@/views/merchant/after_merchant_enter_addnew'], resolve) } },
 
     ]
 };
 
 //作为Main组件的子页面展示并且在左侧菜单显示的路由写在appRouter里
-// export const appRouter = [
-//     { // b.第二种情况：有二级菜单
-//         path: '/statistics', // 必填
-//         icon: 'stats-bars', // 必填，同上
-//         name: "statistic", // 必填，同上
-//         title: '统计分析', // 必填，同上
-//         access: 1,
-//         component: Main, // 必填，同上
-//         children: [ // 必填，同上
-//             {
-//                 path: 'index', // 必填，同上的
-//                 name: 'statistics_transaction_list', // 必填，同上
-//                 title: '交易统计', // 必填，将显示在左侧菜单栏二级菜单
-//                 component: resolve => { require(['@/views/statistics/statistics_transaction/statistics_transaction_index'], resolve); }, // 必填
-//             }
-//         ]
-//     },
-//     { // b.第二种情况：有二级菜单
-//         path: '/user', // 必填
-//         icon: 'ios-person', // 必填，同上
-//         name: 'user', // 必填，同上
-//         title: '用户管理', // 必填，同上
-//         access: 1,
-//         component: Main, // 必填，同上
-//         children: [ // 必填，同上
-//             {
-//                 path: 'user_query', // 必填，同上
-//                 icon: 'ios-list', // 必填，同上
-//                 name: 'user_query', // 必填，同上
-//                 title: '用户列表', // 必填，将显示在左侧菜单栏二级菜单
-//                 component: resolve => { require(['@/views/user/index'], resolve); }, // 必填
-//             }
-//         ]
-//     },
-//     {
-//         path: '/demand',
-//         icon: 'document-text',
-//         name: 'demand', 
-//         title: '需求管理', 
-//         access: 1,
-//         component: Main, 
-//         children: [ 
-//             {
-//                 path: 'demand_audit', 
-//                 icon: 'document-text', 
-//                 name: 'demand_audit', 
-//                 title: '需求列表', 
-//                 component: resolve => { require(['@/views/request/index'], resolve); }, 
-//             }
-//         ]
-//     },
-//     {
-//         path: '/service',
-//         icon: 'clipboard',
-//         name: 'service', 
-//         title: '服务管理', 
-//         access: 1,
-//         component: Main, 
-//         children: [ 
-//             {
-//                 path: 'service_audit', 
-//                 icon: 'clipboard', 
-//                 name: 'service_audit', 
-//                 title: '服务列表', 
-//                 component: resolve => { require(['@/views/service/index'], resolve); }, 
-//             }
-//         ]
-//     },
-//     {
-//         path: '/audit_operation',
-//         icon: 'ios-pie',
-//         name: 'audit_operation', 
-//         title: '数据统计', 
-//         access: 1,
-//         component: Main, 
-//         children: [ 
-//             {
-//                 path: 'audit_operation_index', 
-//                 name: 'audit_operation_index', 
-//                 title: '审核统计', 
-//                 component: resolve => { require(['@/views/audit_operation/audit_operation_index/audit_operation_index'], resolve); }, 
-//             }
-//         ]
-//     },
-//     {
-//         path: '/order',
-//         icon: 'ios-copy',
-//         name: 'order', 
-//         title: '订单管理', 
-//         access: 1,
-//         component: Main, 
-//         children: [ 
-//             {
-//                 path: 'order_request', 
-//                 name: 'order_request', 
-//                 title: '需求订单', 
-//                 component: resolve => { require(['@/views/order/order_demand_list/order_demand_list'], resolve); }, 
-//             },
-//             {
-//                 path: 'order_service', 
-//                 name: 'order_service', 
-//                 title: '服务订单', 
-//                 component: resolve => { require(['@/views/order/order_service_list/order_service_list'], resolve); }, 
-//             }
-//         ]
-//     },
-//     {
-//         path: '/expand',
-//         icon: 'network',
-//         name: 'expand',
-//         title: '拓展管理',
-//         access: 1,
-//         component: Main,
-//         children: [
-//             { path: 'expand_manage', title: '代理人管理', name: 'expand_manage', icon: 'document', component: resolve => { require(['@/views/expand/expand-manager/index'], resolve); } },
-//             { path: 'expand_order_audit', title: '返佣订单审核', name: 'expand_order_audit', icon: 'document', component: resolve => { require(['@/views/expand/expand-order-audit/index'], resolve); } },
-//             { path: 'expand_charge_list', title: '佣金结算', name: 'expand_charge_list', icon: 'document', component: resolve => { require(['@/views/expand/expand-charge-list/index'], resolve); } },            
-//             { path: 'expand_group', title: '代理组管理', name: 'expand_group', icon: 'document', component: resolve => { require(['@/views/expand/expand-group/index'], resolve); } }            
-//         ]
-//     },
-//     {
-//         path: '/balance',
-//         icon: 'cash',
-//         name: 'balance', 
-//         title: '结算管理', 
-//         access: 1,
-//         component: Main, 
-//         children: [ 
-//             {
-//                 path: 'cash_flow_list', 
-//                 name: 'cash_flow_list',     
-//                 title: '资金流水', 
-//                 component: resolve => { require(['@/views/cash/cash_flow_list/cash_flow_list'], resolve); }, 
-//             },
-//             {
-//                 path: 'cash_withdraw_list', 
-//                 name: 'cash_withdraw_list', 
-//                 title: '提现申请', 
-//                 component: resolve => { require(['@/views/cash/cash_withdraw_list/cash_withdraw_list'], resolve); }, 
-//             },
-//             {
-//                 path: 'cash_refund_list', 
-//                 name: 'cash_refund_list', 
-//                 title: '保障金退还', 
-//                 component: resolve => { require(['@/views/cash/cash_refund_list/cash_refund_list'], resolve); }, 
-//             }
-//         ]
-//     },
-//     {
-//         path: '/advert',
-//         icon: 'images',
-//         name: 'advert', 
-//         title: '广告管理', 
-//         access: 1,
-//         component: Main, 
-//         children: [ 
-//             {
-//                 path: 'new_advert_list', 
-//                 name: 'new_advert_list', 
-//                 title: '广告列表', 
-//                 component: resolve => { require(['@/views/advert/advert_new_list/advert_new_list'], resolve); }, 
-//             },
-//             {
-//                 path: 'advert_new_bits_list', 
-//                 name: 'advert_new_bits_list', 
-//                 title: '广告位列表', 
-//                 component: resolve => { require(['@/views/advert/advert_new_bits_list/advert_new_bits_list'], resolve); }, 
-//             }
-//         ]
-//     },
-//     {
-//         path: '/category',
-//         icon: 'compose',
-//         name: 'category', 
-//         title: '类目管理', 
-//         access: 1,
-//         component: Main, 
-//         children: [ 
-//             {
-//                 path: 'category_general', 
-//                 name: 'category_general', 
-//                 title: '类目维护', 
-//                 component: resolve => { require(['@/views/category/category_general/category_general_index'], resolve); }, 
-//             },
-//             {
-//                 path: 'category_tab_general', 
-//                 name: 'category_tab_general', 
-//                 title: '标签维护', 
-//                 component: resolve => { require(['@/views/category/category_tab_general/category_tab_general_index'], resolve); }, 
-//             }
-//         ]
-//     },
-//     {
-//         path: '/business',
-//         icon: 'person-stalker',
-//         name: 'business', 
-//         title: '商户管理', 
-//         access: 1,
-//         component: Main, 
-//         children: [ 
-//             {
-//                 path: 'after_merchant_enter_list', 
-//                 name: 'after_merchant_enter_list', 
-//                 title: '商户管理', 
-//                 component: resolve => { require(['@/views/merchant/after_merchant_enter'], resolve); }, 
-//             }
-//         ]
-//     },
-//     {
-//         path: '/locked',
-//         icon: 'locked',
-//         name: 'locked', 
-//         title: '权限管理', 
-//         access: 1,
-//         component: Main, 
-//         children: [ 
-//             {
-//                 path: 'locked_user', 
-//                 name: 'locked-user', 
-//                 title: '用户管理', 
-//                 component: resolve => { require(['@/views/locked/locked_user/locked_user_list'], resolve); }, 
-//             },
-//             {
-//                 path: 'locked_role', 
-//                 name: 'locked-role', 
-//                 title: '角色管理', 
-//                 component: resolve => { require(['@/views/locked/locked_role/locked_role_list'], resolve); }, 
-//             },
-//             {
-//                 path: 'locked_resource', 
-//                 name: 'locked_resource', 
-//                 title: '资源管理', 
-//                 component: resolve => { require(['@/views/locked/locked_resource/locked_resource_index'], resolve); }, 
-//             }
-//         ]
-//     },
-//     {
-//         path: '/sys',
-//         icon: 'gear-b',
-//         name: 'sys', 
-//         title: '系统配置', 
-//         access: 1,
-//         component: Main, 
-//         children: [ 
-//             {
-//                 path: 'system_settings', 
-//                 name: 'system_settings', 
-//                 title: '系统变量管理', 
-//                 component: resolve => { require(['@/views/system/system_settings/system_settings_index'], resolve); }, 
-//             }
-//         ]
-//     },
-//     {
-//         path: '/im',
-//         icon: 'android-chat',
-//         name: 'im', 
-//         title: 'IM', 
-//         access: 1,
-//         component: Main, 
-//         children: [ 
-//             {
-//                 path: 'web-im', 
-//                 name: 'web-im', 
-//                 title: 'IM', 
-//                 component: resolve => { require(['@/views/error-page/404.vue'], resolve); }, 
-//             }
-//         ]
-//     },
-//     {
-//         path: '/resources',
-//         icon: 'android-chat',
-//         name: 'resources', 
-//         title: '资源管理', 
-//         access: 1,
-//         component: Main, 
-//         children: [ 
-//             {
-//                 path: 'app_list', 
-//                 name: 'app_list', 
-//                 title: '资源管理', 
-//                 component: resolve => { require(['@/views/app/app_list/app_list_index'], resolve); }, 
-//             }
-//         ]
-//     },
-//     {
-//         path: '/after',
-//         icon: 'ios-telephone',
-//         name: 'after', 
-//         title: '售后管理', 
-//         access: 1,
-//         component: Main, 
-//         children: [ 
-//             {
-//                 path: 'after_feedback_list', 
-//                 name: 'after_feedback_list', 
-//                 title: '用户反馈管理', 
-//                 component: resolve => { require(['@/views/after_feedback/after_feedback_list/after_feedback_list'], resolve); }, 
-//             }
-//         ]
-//     },
+export const appRouter = [
+    { // b.第二种情况：有二级菜单
+        path: '/statistics', // 必填
+        icon: 'stats-bars', // 必填，同上
+        name: "statistic", // 必填，同上
+        title: '统计分析', // 必填，同上
+        access: 1,
+        component: Main, // 必填，同上
+        children: [ // 必填，同上
+            {
+                path: 'index', // 必填，同上的
+                name: 'statistics_transaction_list', // 必填，同上
+                title: '交易统计', // 必填，将显示在左侧菜单栏二级菜单
+                component: resolve => { require(['@/views/statistics/statistics_transaction/statistics_transaction_index'], resolve); }, // 必填
+            }
+        ]
+    },
+    { // b.第二种情况：有二级菜单
+        path: '/user', // 必填
+        icon: 'ios-person', // 必填，同上
+        name: 'user', // 必填，同上
+        title: '用户管理', // 必填，同上
+        access: 1,
+        component: Main, // 必填，同上
+        children: [ // 必填，同上
+            {
+                path: 'user_query', // 必填，同上
+                icon: 'ios-list', // 必填，同上
+                name: 'user_query', // 必填，同上
+                title: '用户列表', // 必填，将显示在左侧菜单栏二级菜单
+                component: resolve => { require(['@/views/user/index'], resolve); }, // 必填
+            }
+        ]
+    },
+    {
+        path: '/demand',
+        icon: 'document-text',
+        name: 'demand', 
+        title: '需求管理', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'demand_audit', 
+                icon: 'document-text', 
+                name: 'demand_audit', 
+                title: '需求列表', 
+                component: resolve => { require(['@/views/request/index'], resolve); }, 
+            }
+        ]
+    },
+    {
+        path: '/service',
+        icon: 'clipboard',
+        name: 'service', 
+        title: '服务管理', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'service_audit', 
+                icon: 'clipboard', 
+                name: 'service_audit', 
+                title: '服务列表', 
+                component: resolve => { require(['@/views/service/index'], resolve); }, 
+            }
+        ]
+    },
+    {
+        path: '/audit_operation',
+        icon: 'ios-pie',
+        name: 'audit_operation', 
+        title: '数据统计', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'audit_operation_index', 
+                name: 'audit_operation_index', 
+                title: '审核统计', 
+                component: resolve => { require(['@/views/audit_operation/audit_operation_index/audit_operation_index'], resolve); }, 
+            }
+        ]
+    },
+    {
+        path: '/order',
+        icon: 'ios-copy',
+        name: 'order', 
+        title: '订单管理', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'order_request', 
+                name: 'order_request', 
+                title: '需求订单', 
+                component: resolve => { require(['@/views/order/order_demand_list/order_demand_list'], resolve); }, 
+            },
+            {
+                path: 'order_service', 
+                name: 'order_service', 
+                title: '服务订单', 
+                component: resolve => { require(['@/views/order/order_service_list/order_service_list'], resolve); }, 
+            }
+        ]
+    },
+    {
+        path: '/expand',
+        icon: 'network',
+        name: 'expand',
+        title: '拓展管理',
+        access: 1,
+        component: Main,
+        children: [
+            { path: 'expand_manage', title: '代理人管理', name: 'expand_manage', icon: 'document', component: resolve => { require(['@/views/expand/expand-manager/index'], resolve); } },
+            { path: 'expand_order_audit', title: '返佣订单审核', name: 'expand_order_audit', icon: 'document', component: resolve => { require(['@/views/expand/expand-order-audit/index'], resolve); } },
+            { path: 'expand_charge_list', title: '佣金结算', name: 'expand_charge_list', icon: 'document', component: resolve => { require(['@/views/expand/expand-charge-list/index'], resolve); } },            
+            { path: 'expand_group', title: '代理组管理', name: 'expand_group', icon: 'document', component: resolve => { require(['@/views/expand/expand-group/index'], resolve); } }            
+        ]
+    },
+    {
+        path: '/balance',
+        icon: 'cash',
+        name: 'balance', 
+        title: '结算管理', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'cash_flow_list', 
+                name: 'cash_flow_list',     
+                title: '资金流水', 
+                component: resolve => { require(['@/views/cash/cash_flow_list/cash_flow_list'], resolve); }, 
+            },
+            {
+                path: 'cash_withdraw_list', 
+                name: 'cash_withdraw_list', 
+                title: '提现申请', 
+                component: resolve => { require(['@/views/cash/cash_withdraw_list/cash_withdraw_list'], resolve); }, 
+            },
+            {
+                path: 'cash_refund_list', 
+                name: 'cash_refund_list', 
+                title: '保障金退还', 
+                component: resolve => { require(['@/views/cash/cash_refund_list/cash_refund_list'], resolve); }, 
+            }
+        ]
+    },
+    {
+        path: '/advert',
+        icon: 'images',
+        name: 'advert', 
+        title: '广告管理', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'new_advert_list', 
+                name: 'new_advert_list', 
+                title: '广告列表', 
+                component: resolve => { require(['@/views/advert/advert_new_list/advert_new_list'], resolve); }, 
+            },
+            {
+                path: 'advert_new_bits_list', 
+                name: 'advert_new_bits_list', 
+                title: '广告位列表', 
+                component: resolve => { require(['@/views/advert/advert_new_bits_list/advert_new_bits_list'], resolve); }, 
+            }
+        ]
+    },
+    {
+        path: '/category',
+        icon: 'compose',
+        name: 'category', 
+        title: '类目管理', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'category_general', 
+                name: 'category_general', 
+                title: '类目维护', 
+                component: resolve => { require(['@/views/category/category_general/category_general_index'], resolve); }, 
+            },
+            {
+                path: 'category_tab_general', 
+                name: 'category_tab_general', 
+                title: '标签维护', 
+                component: resolve => { require(['@/views/category/category_tab_general/category_tab_general_index'], resolve); }, 
+            }
+        ]
+    },
+    {
+        path: '/business',
+        icon: 'person-stalker',
+        name: 'business', 
+        title: '商户管理', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'after_merchant_enter_list', 
+                name: 'after_merchant_enter_list', 
+                title: '商户管理', 
+                component: resolve => { require(['@/views/merchant/after_merchant_enter'], resolve); }, 
+            }
+        ]
+    },
+    {
+        path: '/locked',
+        icon: 'locked',
+        name: 'locked', 
+        title: '权限管理', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'locked_user', 
+                name: 'locked-user', 
+                title: '用户管理', 
+                component: resolve => { require(['@/views/locked/locked_user/locked_user_list'], resolve); }, 
+            },
+            {
+                path: 'locked_role', 
+                name: 'locked-role', 
+                title: '角色管理', 
+                component: resolve => { require(['@/views/locked/locked_role/locked_role_list'], resolve); }, 
+            },
+            {
+                path: 'locked_resource', 
+                name: 'locked_resource', 
+                title: '资源管理', 
+                component: resolve => { require(['@/views/locked/locked_resource/locked_resource_index'], resolve); }, 
+            }
+        ]
+    },
+    {
+        path: '/sys',
+        icon: 'gear-b',
+        name: 'sys', 
+        title: '系统配置', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'system_settings', 
+                name: 'system_settings', 
+                title: '系统变量管理', 
+                component: resolve => { require(['@/views/system/system_settings/system_settings_index'], resolve); }, 
+            }
+        ]
+    },
+    {
+        path: '/im',
+        icon: 'android-chat',
+        name: 'im', 
+        title: 'IM', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'web-im', 
+                name: 'web-im', 
+                title: 'IM', 
+                component: resolve => { require(['@/views/error-page/404.vue'], resolve); }, 
+            }
+        ]
+    },
+    {
+        path: '/resources',
+        icon: 'android-chat',
+        name: 'resources', 
+        title: '资源管理', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'app_list', 
+                name: 'app_list', 
+                title: '资源管理', 
+                component: resolve => { require(['@/views/app/app_list/app_list_index'], resolve); }, 
+            }
+        ]
+    },
+    {
+        path: '/after',
+        icon: 'ios-telephone',
+        name: 'after', 
+        title: '售后管理', 
+        access: 1,
+        component: Main, 
+        children: [ 
+            {
+                path: 'after_feedback_list', 
+                name: 'after_feedback_list', 
+                title: '用户反馈管理', 
+                component: resolve => { require(['@/views/after_feedback/after_feedback_list/after_feedback_list'], resolve); }, 
+            }
+        ]
+    },
 
-// ];
-let menus = []
-if (window.sessionStorage.getItem("menus")) {
-    let serializeMenus = JSON.parse(window.sessionStorage.getItem("menus"))
-    menus = Util.createMenus(serializeMenus)
-    //console.log(menus)
-}
+];
+// let menus = []
+// if (window.sessionStorage.getItem("menus")) {
+//     let serializeMenus = JSON.parse(window.sessionStorage.getItem("menus"))
+//     menus = Util.createMenus(serializeMenus)
+//     //console.log(menus)
+// }
 
-export const appRouter = menus
+// export const appRouter = menus
 
 // 所有上面定义的路由都要写在下面的routers里
 export const routers = [

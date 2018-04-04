@@ -418,8 +418,7 @@ util.createMenus = function (data) {
         'locked_user_list':locked_user_list,
         'locked_role_list':locked_role_list,
         'locked_resource_index':locked_resource_index,
-        'audit_operation_index':audit_operation_index
-
+        'audit_operation_index':audit_operation_index,
     }
     let menus = []
     for (let i = 0; i < data.length; i++) {
