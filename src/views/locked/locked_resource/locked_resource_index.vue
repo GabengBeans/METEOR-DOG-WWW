@@ -58,7 +58,7 @@
           <FormItem label="图标：">
             <!-- <Input clearable v-model="resourceEditData.newIcon" /> -->
             <Select v-model="resourceEditData.newIcon" style="width:200px">
-              <Option v-for="item in icons" :value="item" 　:key="item.key">
+              <Option v-for="item in icons" :value="item" :key="item.key" >
                 <Icon size="20" :type="item" />　{{item}}
               </Option>
             </Select>
@@ -94,7 +94,7 @@
           </FormItem>
           <FormItem label="图标：">
             <Select v-model="reseourceAddData.newIcon" style="width:200px">
-              <Option v-for="item in icons" :value="item" 　:key="item.key">
+              <Option v-for="item in icons" :value="item" :key="item.key">
                 <Icon size="20" :type="item" />　{{item}}
               </Option>
             </Select>
