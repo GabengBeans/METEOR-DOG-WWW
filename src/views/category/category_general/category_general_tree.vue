@@ -3,7 +3,9 @@
     <Tree :data="data"  :render="renderContent"></Tree>
     <AddCategory :data="addObj" :categoryData="categoryData" ></AddCategory>
     <EditCategory :data="editObj" ></EditCategory>
-    <BindTags :data="bindTags"></BindTags>
+    <template v-if="allBuyTags.allLabels && allSellTags.allLabels">
+    <BindTags :data="bindTags" :buyDataTags="allBuyTags" :sellDataTags="allSellTags"></BindTags>
+    </template>
   </div>
 </template>
 <script>
@@ -50,6 +52,8 @@ export default {
         showBindTags:false,
         id:''
       },
+      allBuyTags:{},
+      allSellTags:{},
       data: [
         {
           expand: true,
@@ -203,6 +207,12 @@ export default {
                         }),
                         on: {
                           click: () => {
+                            this.allBuyTags={}
+                            this.allSellTags={}
+                            this.$Message.loading({
+                              content:"请求中...",
+                              duration:0
+                            })
                             let This = this
                             function getBuyTags(){
                               return Util.ajax({
@@ -228,13 +238,67 @@ export default {
                             .then(axios.spread((resBuy,resSell)=>{
                               if(resBuy.data.success && resSell.data.success)
                               {
-                                console.log(resBuy)
-                                console.log(resSell)
+                                // console.log(resBuy)
+                                // console.log(resSell)
+                                let levelNameBuy = []
+                                for (let x = 0; x < resBuy.data.data.length; x++) {
+                                    let obj = {}
+                                    obj.name = resBuy.data.data[x].name
+                                    obj.id = resBuy.data.data[x].id
+                                    levelNameBuy.push(obj)
+                                }
+                                Util.recursion(resBuy.data.data, "childLableVos")
+                                this.$set(this.allBuyTags, "allLabels", resBuy.data.data)
+                                console.log(this.allBuyTags.allLabels)
+                                for(let x=0;x<this.allBuyTags.allLabels.length;x++)
+                                {
+                                  for(let y=0;y<this.allBuyTags.allLabels[x].children.length;y++)
+                                  {
+                                    if(this.allBuyTags.allLabels[x].children[y].isBind)
+                                    {
+                                      this.$set(this.allBuyTags.allLabels[x].children[y],"checked",true)
+                                    }else{
+                                      this.$set(this.allBuyTags.allLabels[x].children[y],"checked",false)
+                                    }
+                                  }
+                                }
+                                this.$set(this.allBuyTags, "tabName", "买家")
+                                this.$set(this.allBuyTags, "levelName", levelNameBuy)
+                                this.$set(this.allBuyTags, "labelType", "1")
+
+                                let levelNameSell = []
+                                for (let x = 0; x < resSell.data.data.length; x++) {
+                                    let obj = {}
+                                    obj.name = resSell.data.data[x].name
+                                    obj.id = resSell.data.data[x].id
+                                    levelNameSell.push(obj)
+                                }
+                                Util.recursion(resSell.data.data, "childLableVos")
+                                this.$set(this.allSellTags, "allLabels", resSell.data.data)
+                                for(let x=0;x<this.allSellTags.allLabels.length;x++)
+                                {
+                                  for(let y=0;y<this.allSellTags.allLabels[x].children.length;y++)
+                                  {
+                                    if(this.allSellTags.allLabels[x].children[y].isBind)
+                                    {
+                                      this.$set(this.allSellTags.allLabels[x].children[y],"checked",true)
+                                    }else{
+                                      this.$set(this.allSellTags.allLabels[x].children[y],"checked",false)
+                                    }
+                                  }
+                                }
+                                this.$set(this.allSellTags, "tabName", "卖家")
+                                this.$set(this.allSellTags, "levelName", levelNameSell)
+                                this.$set(this.allSellTags, "labelType", "2") 
+                                console.log(this.allSellTags.allLabels)
+                                this.bindTags.showBindTags= true
+                                this.bindTags.id = this.categoryData.id
+                                this.$Message.destroy()                             
+                              }else{
+                                this.$Message.destroy();
+                                this.$Message.error("请求失败")
                               }
-                              
                             }))
-                            // this.bindTags.showBindTags= true
-                            // this.bindTags.id = this.categoryData.id
                           }
                         }
                       },
@@ -429,8 +493,97 @@ export default {
                   }),
                   on: {
                     click: () => {
-                     this.bindTags.showBindTags= true
-                    this.bindTags.id = this.data.id
+                      this.allBuyTags={}
+                      this.allSellTags={}
+                     this.$Message.loading({
+                              content:"请求中...",
+                              duration:0
+                            })
+                            let This = this
+                            function getBuyTags(){
+                              return Util.ajax({
+                                method:"get",
+                                url:baseUri.search_bind_label_list,
+                                params:{
+                                  lableType:1,
+                                  categoryId:data.id
+                                }
+                              })
+                            }
+                            function getSellTags(){
+                              return Util.ajax({
+                                method:"get",
+                                url:baseUri.search_bind_label_list,
+                                params:{
+                                  lableType:2,
+                                  categoryId:data.id
+                                }
+                              })
+                            }
+                            axios.all([getBuyTags(),getSellTags()])
+                            .then(axios.spread((resBuy,resSell)=>{
+                              if(resBuy.data.success && resSell.data.success)
+                              {
+                                // console.log(resBuy)
+                                // console.log(resSell)
+                                let levelNameBuy = []
+                                for (let x = 0; x < resBuy.data.data.length; x++) {
+                                    let obj = {}
+                                    obj.name = resBuy.data.data[x].name
+                                    obj.id = resBuy.data.data[x].id
+                                    levelNameBuy.push(obj)
+                                }
+                                Util.recursion(resBuy.data.data, "childLableVos")
+                                this.$set(this.allBuyTags, "allLabels", resBuy.data.data)
+                                for(let x=0;x<this.allBuyTags.allLabels.length;x++)
+                                {
+                                  for(let y=0;y<this.allBuyTags.allLabels[x].children.length;y++)
+                                  {
+                                    if(this.allBuyTags.allLabels[x].children[y].isBind)
+                                    {
+                                      this.$set(this.allBuyTags.allLabels[x].children[y],"checked",true)
+                                    }else{
+                                      this.$set(this.allBuyTags.allLabels[x].children[y],"checked",false)
+                                    }
+                                  }
+                                }
+                                this.$set(this.allBuyTags, "tabName", "买家")
+                                this.$set(this.allBuyTags, "levelName", levelNameBuy)
+                                this.$set(this.allBuyTags, "labelType", "1")
+
+                                let levelNameSell = []
+                                for (let x = 0; x < resSell.data.data.length; x++) {
+                                    let obj = {}
+                                    obj.name = resSell.data.data[x].name
+                                    obj.id = resSell.data.data[x].id
+                                    levelNameSell.push(obj)
+                                }
+                                Util.recursion(resSell.data.data, "childLableVos")
+                                this.$set(this.allSellTags, "allLabels", resSell.data.data)
+                                for(let x=0;x<this.allSellTags.allLabels.length;x++)
+                                {
+                                  for(let y=0;y<this.allSellTags.allLabels[x].children.length;y++)
+                                  {
+                                    if(this.allSellTags.allLabels[x].children[y].isBind)
+                                    {
+                                      this.$set(this.allSellTags.allLabels[x].children[y],"checked",true)
+                                    }else{
+                                      this.$set(this.allSellTags.allLabels[x].children[y],"checked",false)
+                                    }
+                                  }
+                                }
+                                this.$set(this.allSellTags, "tabName", "卖家")
+                                this.$set(this.allSellTags, "levelName", levelNameSell)
+                                this.$set(this.allSellTags, "labelType", "2") 
+                                  //console.log(this.allBuyTags.allLabels.length)
+                                this.bindTags.showBindTags= true
+                                this.bindTags.id = data.id
+                                this.$Message.destroy()                             
+                              }else{
+                                this.$Message.destroy();
+                                this.$Message.error("请求失败")
+                              }
+                            }))
                     }
                   }
                 },
