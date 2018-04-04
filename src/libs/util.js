@@ -34,6 +34,7 @@ import locked_user_list from "@/views/locked/locked_user/locked_user_list"
 import locked_role_list from "@/views/locked/locked_role/locked_role_list"
 import locked_resource_index from "@/views/locked/locked_resource/locked_resource_index"
 import audit_operation_index from "@/views/audit_operation/audit_operation_index/audit_operation_index"
+import after_merchant_enter_query from "@/views/merchant/after_merchant_enter_query/after_merchant_enter_query"
 
 let util = {
 
@@ -419,6 +420,7 @@ util.createMenus = function (data) {
         'locked_role_list':locked_role_list,
         'locked_resource_index':locked_resource_index,
         'audit_operation_index':audit_operation_index,
+        'after_merchant_enter_query':after_merchant_enter_query
     }
     let menus = []
     for (let i = 0; i < data.length; i++) {

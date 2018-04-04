@@ -23,5 +23,19 @@ config.afterMerchantEnter = {
         data:1
     }
 }
+config.afterMerchantEnterQuerySearch={
+    contact:{
+        tagName:"企业ID",
+        value:""
+    },
+    contactNumber:{
+        tagName:"手机号",
+        value:""
+    },
+    beginCreateTime:{
+        tagName:"昵称",
+        value:"",
+    }
+}
 
 export default config
