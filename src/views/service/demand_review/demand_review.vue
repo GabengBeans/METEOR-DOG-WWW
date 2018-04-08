@@ -168,14 +168,14 @@ export default {
     reviewSuccess() {
       if(!this.data.title)
       {
-        this.$Message.eeror("审核失败，服务标题不能为空")
+        this.$Message.error("审核失败，服务标题不能为空")
         return false
       }else if(!this.data.desc){
-        this.$Message.eeror("审核失败，服务介绍不能为空")
+        this.$Message.error("审核失败，服务介绍不能为空")
         return false
       }else if(this.data.modeTypeData=="线下" && !this.data.area)
       {
-        this.$Message.eeror("审核失败，服务区域不能为空")
+        this.$Message.error("审核失败，服务区域不能为空")
         return false
       }
       let data = {
@@ -265,11 +265,16 @@ export default {
         token: Cookies.get("token")
       }
     }).then(response => {
-      //console.log(response.data.data);
+      console.log(response.data.data);
       if (response.data.success) {
         let obj = response.data.data;
         let priceType = ["", "每次", "每小时", "每天", "每件", "自定义"];
         let priceIndex = parseInt(obj.priceType);
+        if(!obj)
+        {
+          this.$Message.error("数据不存在")
+          return false
+        }
         for (let x in obj) {
           if (x == "expireTime") {
               // if (obj[x]) {
