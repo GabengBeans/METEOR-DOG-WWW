@@ -166,6 +166,18 @@ export default {
       this.underVisible = !this.underVisible;
     },
     reviewSuccess() {
+      if(!this.data.title)
+      {
+        this.$Message.eeror("审核失败，需求标题不能为空")
+        return false
+      }else if(!this.data.desc){
+        this.$Message.eeror("审核失败，需求介绍不能为空")
+        return false
+      }else if(this.data.modeTypeData=="线下" && !this.data.area)
+      {
+        this.$Message.eeror("审核失败，需求区域不能为空")
+        return false
+      }
       let data = {
         demandId: this.$route.params.id,
         businessStatus: 3,
