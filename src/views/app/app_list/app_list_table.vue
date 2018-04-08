@@ -20,6 +20,14 @@ export default {
         {
           title: "上传时间",
           key: "createTime"
+        },
+        {
+          title: "描述",
+          key: "description"
+        },
+        {
+          title: "强制更新",
+          key: "updateStatus"
         }
       ]
     };

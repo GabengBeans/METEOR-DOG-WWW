@@ -1172,6 +1172,7 @@ const app = {
                     state.app_search_result = res.data.data.items
                     for (let x in res.data.data.items) {
                         state.app_search_result[x].createTime = Util.formatDate(new Date(res.data.data.items[x].createTime), "yyyy-MM-dd hh:mm:ss")
+                        state.app_search_result[x].updateStatus = res.data.data.items[x].updateStatus?"是":"否"
                     }
                 }
                 //console.log(state.app_search_result)

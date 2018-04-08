@@ -27,7 +27,7 @@
             图片大小限制2M
             <Upload ref="upload" :show-upload-list="false" :on-success="handleSuccess" :on-format-error="handleFormatError" :on-exceeded-size="handleMaxSize" :before-upload="handleBeforeUpload" :format="['jpg','jpeg','png']" :max-size="2048" :data="{
                     'type':'user'
-                  }" action="https://lxg.91taogu.com/up/">
+                  }" :action="imgUrl">
               <div>
                 <Icon type="camera" size="40"></Icon>
               </div>
@@ -53,7 +53,8 @@ export default {
   props: ["data"],
   data() {
     return {
-      loading: true
+      loading: true,
+      imgUrl:baseUri.img_upload_url
     };
   },
   methods: {

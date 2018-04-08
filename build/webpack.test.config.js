@@ -77,7 +77,7 @@ module.exports = merge(webpackBaseConfig, {
         }),
         new HtmlWebpackPlugin({
             title: '流星狗运营管理系统(测试)' + package.version,
-            //favicon: './td_icon.ico',
+            favicon: './td_icon.png',
             filename: './index.html',
             // filename: './index.ejs',
             template: './src/template/index.html',

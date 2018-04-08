@@ -12,7 +12,7 @@
                             图片大小限制2M
                             <Upload ref="upload" :show-upload-list="false" :on-success="handleSuccess" :format="['jpg','jpeg','png']" :max-size="2048" :on-format-error="handleFormatError" :on-exceeded-size="handleMaxSize" :before-upload="handleBeforeUpload" :data="{
                         'type':'user'
-                    }" action="https://lxg.91taogu.com/up/">
+                    }" :action="imgUrl">
                                 <div>
                                     <Icon type="camera" size="40"></Icon>
                                 </div>
@@ -40,7 +40,7 @@
                             :before-upload="handleVideoBeforeUpload" 
                             :data="{
                         'type':'user'
-                    }" action="https://lxg.91taogu.com/up/">
+                    }" :action="imgUrl">
                                 <div>
                                     <Icon type="camera" size="40"></Icon>
                                 </div>
@@ -85,9 +85,15 @@
     </div>
 </template>
 <script>
+import baseUri from "@/libs/base_uri"
 export default {
   name: "advertNewDetail",
   props: ["data"],
+  data(){
+      return {
+          imgUrl:baseUri.img_upload_url
+      }
+  },
   methods: {
     handleView(name) {
       this.imgName = name;

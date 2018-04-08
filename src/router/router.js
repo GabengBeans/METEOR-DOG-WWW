@@ -103,7 +103,8 @@ export const otherRouter = {
         { path: 'expand-group-add/:id', title: '新增代理组', name: 'expand-group-add', component: resolve => { require(['@/views/expand/expand-group/expand-group-add/expand-group-add'], resolve) } },
         { path: 'group_bind_expand/:id', title: '绑定代理人', name: 'group_bind_expand', component: resolve => { require(['@/views/expand/expand-group/group_bind_expand/group_bind_expand'], resolve) } },
         { path: 'group_unbundling_expand/:id', title: '解除绑定代理人', name: 'group_unbundling_expand', component: resolve => { require(['@/views/expand/expand-group/group_unbundling_expand/group_unbundling_expand'], resolve) } },
-        
+        //商户入驻
+        { path: 'after-merchant-enter-addnew', title: '新增企业IP', name: 'after-merchant-enter-addnew', component: resolve => { require(['@/views/merchant/after_merchant_enter_addnew'], resolve) } },
 
     ]
 };
@@ -312,8 +313,14 @@ export const otherRouter = {
 //             {
 //                 path: 'after_merchant_enter_list', 
 //                 name: 'after_merchant_enter_list', 
-//                 title: '商户管理', 
+//                 title: '入驻管理', 
 //                 component: resolve => { require(['@/views/merchant/after_merchant_enter'], resolve); }, 
+//             },
+//             {
+//                 path: 'after_merchant_enter_query', 
+//                 name: 'after-merchant-enter-query', 
+//                 title: '企业IP查询', 
+//                 component: resolve => { require(['@/views/merchant/after_merchant_enter_query/after_merchant_enter_query'], resolve); }, 
 //             }
 //         ]
 //     },

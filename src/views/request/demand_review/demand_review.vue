@@ -44,11 +44,11 @@
           <b>{{data.categoryName}}</b>
         </div>
         <br>
-        <div class="user_detail_div">
+        <!-- <div class="user_detail_div">
           <label class="from_label">有效期至:</label>
           <b>{{data.expireTime}}</b>
         </div>
-        <br>
+        <br> -->
         <div class="user_detail_div">
           <label class="from_label">需求限制:</label>
           <b>{{data.restrictions}}</b>
@@ -166,6 +166,18 @@ export default {
       this.underVisible = !this.underVisible;
     },
     reviewSuccess() {
+      if(!this.data.title)
+      {
+        this.$Message.error("审核失败，需求标题不能为空")
+        return false
+      }else if(!this.data.desc){
+        this.$Message.error("审核失败，需求介绍不能为空")
+        return false
+      }else if(this.data.modeTypeData=="线下" && !this.data.area)
+      {
+        this.$Message.error("审核失败，需求区域不能为空")
+        return false
+      }
       let data = {
         demandId: this.$route.params.id,
         businessStatus: 3,
@@ -256,10 +268,14 @@ export default {
           let priceIndex = parseInt(obj.priceType);
           for (let x in obj) {
             if (x == "expireTime") {
-              this.data[x] = Util.formatDate(
-                new Date(obj[x]),
-                "yyyy-MM-dd hh:mm:ss"
-              );
+              // if (obj[x]) {
+              //   this.data[x] = Util.formatDate(
+              //     new Date(obj[x]),
+              //     "yyyy-MM-dd hh:mm:ss"
+              //   );
+              // }else{
+              //   this.data[x]=""
+              // }
             } else if (x == "price") {
               if (priceType[priceIndex] === "自定义") {
                 this.data[x] =

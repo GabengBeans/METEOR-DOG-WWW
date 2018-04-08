@@ -7,17 +7,27 @@
         </div>
         <div class="infos">
           <Row class="row">
-            <Col span="6"><span>用户ID:</span>{{data.user.id}}</Col>
-            <Col span="6"><span>姓名:</span>{{data.user.nickname}}</Col>
-            <Col span="6"><span>手机号:</span>{{data.user.phone}}</Col>
-            <Col span="6"><span>流星值:</span>{{(parseInt(data.user.meteorScore)/10).toFixed(1)+"分"}}</Col>          
+            <Col span="6">
+            <span>用户ID:</span>{{data.user.id}}</Col>
+            <Col span="6">
+            <span>姓名:</span>{{data.user.nickname}}</Col>
+            <Col span="6">
+            <span>手机号:</span>{{data.user.phone}}</Col>
+            <Col span="6">
+            <span>流星值:</span>{{(parseInt(data.user.meteorScore)/10).toFixed(1)+"分"}}</Col>
           </Row>
           <Row class="row">
-            <Col span="6"><span>认证信息:</span><Tag color="blue" v-for="item in data.user.selfAuthInfos" :key="item.key" class="tag-style">{{item}}</Tag></Col>
-            <Col span="18"><span>个人标签:</span><Tag color="blue" v-for="item in data.user.tags" :key="item.key" class="tag-style">{{item}}</Tag></Col>          
+            <Col span="6">
+            <span>认证信息:</span>
+            <Tag color="blue" v-for="item in data.user.selfAuthInfos" :key="item.key" class="tag-style">{{item}}</Tag>
+            </Col>
+            <Col span="18">
+            <span>个人标签:</span>
+            <Tag color="blue" v-for="item in data.user.tags" :key="item.key" class="tag-style">{{item}}</Tag>
+            </Col>
           </Row>
         </div>
-        
+
         <br>
         <div class="user_detail_div">
           <label class="from_label">需求标题:</label>
@@ -34,11 +44,11 @@
           <b>{{data.categoryName}}</b>
         </div>
         <br>
-        <div class="user_detail_div">
+        <!-- <div class="user_detail_div">
           <label class="from_label">有效期至:</label>
           <b>{{data.expireTime}}</b>
         </div>
-        <br>
+        <br> -->
         <div class="user_detail_div">
           <label class="from_label">需求限制:</label>
           <b>{{data.restrictions}}</b>
@@ -54,10 +64,10 @@
           <b>{{data.modeTypeData}}</b>
         </div>
         <br>
-          <div class="user_detail_div">
-            <label class="from_label">需求区域:</label>
-            <b>{{data.area}}</b>
-          </div>
+        <div class="user_detail_div">
+          <label class="from_label">需求区域:</label>
+          <b>{{data.area}}</b>
+        </div>
         <br>
         <!-- <div class="user_detail_div">
           <label class="from_label">需求位置:</label>
@@ -114,7 +124,7 @@ import UserEditImgList from "@/views/public-components/user_edit_img_list";
 export default {
   data() {
     return {
-      detail:true,
+      detail: true,
       aliyun: baseUri.oss_url,
       show: false,
       data: {},
@@ -177,10 +187,14 @@ export default {
           let priceIndex = parseInt(obj.priceType);
           for (let x in obj) {
             if (x == "expireTime") {
-              this.data[x] = Util.formatDate(
-                new Date(obj[x]),
-                "yyyy-MM-dd hh:mm:ss"
-              );
+              // if (obj[x]) {
+              //   this.data[x] = Util.formatDate(
+              //     new Date(obj[x]),
+              //     "yyyy-MM-dd hh:mm:ss"
+              //   );
+              // } else {
+              //   this.data[x] = "";
+              // }
             } else if (x == "price") {
               if (priceType[priceIndex] === "自定义") {
                 this.data[x] =
@@ -218,13 +232,13 @@ export default {
               : false;
           this.show = true;
           this.$Message.destroy();
-        }else{
+        } else {
           this.$Message.destroy();
-          this.$Message.error("获取失败")
+          this.$Message.error("获取失败");
         }
       });
   },
-  components:{
+  components: {
     UserEditImgList
   }
 };

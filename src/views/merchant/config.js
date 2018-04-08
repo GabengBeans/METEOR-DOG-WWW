@@ -23,31 +23,19 @@ config.afterMerchantEnter = {
         data:1
     }
 }
-
-config.afterMerchantEnterCloumns = [
-    {
-        title:"公司名称",
-        key:"companyName"
+config.afterMerchantEnterQuerySearch={
+    contact:{
+        tagName:"企业ID",
+        value:""
     },
-    {
-        title:"联系人",
-        key:"contact"
+    contactNumber:{
+        tagName:"手机号",
+        value:""
     },
-    {
-        title:"联系电话",
-        key:"contactNumber"
-    },
-    {
-        title:"办公地址",
-        key:"officeAddress"
-    },
-    {
-        title:"主营业务",
-        key:"mainBusiness"
-    },
-    {
-        title:"提交时间",
-        key:"createTime"
+    beginCreateTime:{
+        tagName:"昵称",
+        value:"",
     }
-]
+}
+
 export default config

@@ -4,7 +4,7 @@
       <Card :bordered="false">
         <Upload style="display:inline-block;" :before-upload="handleBeforeUpload" :show-upload-list="false" :on-success="handleSuccess" :data="{
                     'type':'user'
-                  }" action="https://lxg.91taogu.com/up/">
+                  }" :action="imgUrl">
           <p class="tip" style="margin-left:20px;">点击图片更换头像</p>
           <Avatar :src="aliyun + user_data.avatarUrl" shape="square" class="avatar" />
         </Upload>
@@ -126,6 +126,7 @@ import UserEditImgList from "../../public-components/user_edit_img_list";
 export default {
   data() {
     return {
+      imgUrl:baseUri.img_upload_url,
       aliyun: baseUri.oss_url,
       arr: [],
       show: false,

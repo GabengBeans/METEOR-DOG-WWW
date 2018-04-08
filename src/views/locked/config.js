@@ -31,6 +31,16 @@ config.lockedUserSearch = {
                 value: "无效"
             }
         }
+    },
+    roleId:{
+        tagName:"用户角色",
+        value:"-1",
+        tag:{
+            op0:{
+                num:"-1",
+                value:"全部"
+            }
+        }
     }
 }
 config.lockedRoleSearch = {
@@ -57,4 +67,39 @@ config.lockedRoleSearch = {
         }
     }
 }
+config.icons = [
+    "ios-person",
+    "document-text",
+    "clipboard",
+    "ios-copy",
+    "compose",
+    "images",
+    "ios-telephone",
+    "cash",
+    "gear-b",
+    "android-chat",
+    "person-stalker",
+    "network",
+    "locked",
+    "ios-pie",
+    "help-buoy",
+    "search",
+    "gear-b",
+    "star",
+    "trash-a",
+    "scissors",
+    "paper-airplane",
+    "link",
+    "upload",
+    "cloud",
+    "calendar",
+    "pinpoint",
+    "pin",
+    "key",
+    "unlocked",
+    "map",
+    "mouse",
+    "soup-can",
+    "coffee"
+]
 export default config
