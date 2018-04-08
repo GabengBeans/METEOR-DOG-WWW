@@ -5,7 +5,7 @@ const config = {
 config.advertNewBitsList = {
     level:{
         tagName:"广告位",
-        value:"1",
+        value:1,
         tag:{
             op1:{
                 num:1,
