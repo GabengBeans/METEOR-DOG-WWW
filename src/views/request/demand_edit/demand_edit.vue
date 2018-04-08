@@ -54,18 +54,18 @@
             </div>
           </FormItem>
           <br>
-          <FormItem>
+          <!-- <FormItem>
             <div class="user_detail_div">
               <label class="from_label">有效期至:</label>
-              <b>{{data.expireTime}}</b>
+              <b>{{data.expireTime}}</b> -->
               <!-- <Input clearable style="width: 15vw;min-width:100px;"  v-model='data.expireTime' /> -->
 
               <!-- <template>
                                 <DatePicker :value="data.expireTime" format="yyyy年MM月dd日" type="date" placeholder="Select date" style="width: 200px"></DatePicker>
                             </template> -->
-            </div>
+            <!-- </div>
           </FormItem>
-          <br>
+          <br> -->
           <FormItem>
             <div class="user_detail_div">
               <label class="from_label">出价:</label>
@@ -235,15 +235,16 @@ export default {
         });
         return false;
       }
-      if(parseInt(this.data.price)<0 || parseInt(this.data.price)>0 && parseInt(this.data.price)<5)
-      {
+      if (
+        parseInt(this.data.price) < 0 ||
+        (parseInt(this.data.price) > 0 && parseInt(this.data.price) < 5)
+      ) {
         this.$Notice.warning({
           title: "服务价格只能为0元，或者大于5元"
         });
         return false;
       }
-      if(this.data.price.toString().indexOf(".")!=-1)
-      {
+      if (this.data.price.toString().indexOf(".") != -1) {
         this.$Notice.warning({
           title: "服务价格不能输入小数"
         });
@@ -257,7 +258,7 @@ export default {
           content: "保存中...",
           duration: 0
         });
-        let mediaVideo
+        let mediaVideo;
         let modeType = "[" + this.data.modeType + "]";
         //console.log(modeType);
         let price = parseInt(this.data.price) * 100;
@@ -280,7 +281,7 @@ export default {
           priceType: this.data.priceType,
           restrictions: this.data.restrictions || "无",
           title: this.data.title,
-          validDays:'[]',
+          validDays: "[]",
           videoList: mediaVideo
         };
         //console.log(data);
@@ -350,10 +351,14 @@ export default {
           let obj = response.data.data;
           for (let x in obj) {
             if (x == "expireTime") {
-              this.data[x] = Util.formatDate(
-                new Date(obj[x]),
-                "yyyy-MM-dd hh:mm:ss"
-              );
+              // if (obj[x]) {
+              //   this.data[x] = Util.formatDate(
+              //     new Date(obj[x]),
+              //     "yyyy-MM-dd hh:mm:ss"
+              //   );
+              // } else {
+              //   this.data[x] = "";
+              // }
             } else if (x == "price") {
               this.data[x] = parseInt(obj[x]) / 100;
             } else if (x == "priceType") {

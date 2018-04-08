@@ -44,11 +44,11 @@
           <b>{{data.categoryName}}</b>
         </div>
         <br>
-        <div class="user_detail_div">
+        <!-- <div class="user_detail_div">
           <label class="from_label">有效期至:</label>
           <b>{{data.expireTime}}</b>
         </div>
-        <br>
+        <br> -->
         <div class="user_detail_div">
           <label class="from_label">需求限制:</label>
           <b>{{data.restrictions}}</b>
@@ -268,10 +268,14 @@ export default {
           let priceIndex = parseInt(obj.priceType);
           for (let x in obj) {
             if (x == "expireTime") {
-              this.data[x] = Util.formatDate(
-                new Date(obj[x]),
-                "yyyy-MM-dd hh:mm:ss"
-              );
+              // if (obj[x]) {
+              //   this.data[x] = Util.formatDate(
+              //     new Date(obj[x]),
+              //     "yyyy-MM-dd hh:mm:ss"
+              //   );
+              // }else{
+              //   this.data[x]=""
+              // }
             } else if (x == "price") {
               if (priceType[priceIndex] === "自定义") {
                 this.data[x] =
