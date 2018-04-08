@@ -104,7 +104,7 @@ export default {
                               advertPositionId:params.row.id
                           }
                       }).then((res)=>{
-                          //console.log(res)
+                          console.log(res)
                           if(res.data.success)
                           {
                               this.editSubAdvertBitsData = res.data.data
@@ -175,8 +175,9 @@ export default {
       });
     },
     EditSubAdertBits(){
+      console.log(this.editSubAdvertBitsData)
         for (let x in this.editSubAdvertBitsData) {
-        if (!this.editSubAdvertBitsData[x]) {
+        if (!this.editSubAdvertBitsData[x] && x!="positionInfo") {
           this.$Message.error("请补全信息");
           return false;
         }
