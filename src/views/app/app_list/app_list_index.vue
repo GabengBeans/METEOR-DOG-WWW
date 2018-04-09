@@ -66,12 +66,20 @@ export default {
       this.showAddApp = true;
     },
     saveApp() {
+      if(this.updateStatus=="是")
+      {
+        this.updateStatus=1
+      }else{
+        this.updateStatus=0
+      }
       let data = {
         appVersion: this.appData.appVersion,
         appUrl: this.appData.appUrl,
         description: this.appData.description,
-        updateStatus:this.updateStatus
+        updateStatus:this.updateStatus,
+        //appExternalVersion:0
       };
+      //console.log(data)
       Util.ajax({
         method: "post",
         url: baseUri.app_add_url,
