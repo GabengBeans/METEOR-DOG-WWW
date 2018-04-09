@@ -13,9 +13,9 @@
             <Input clearable v-model="appData.appVersion" />
           </FormItem>
           <FormItem label="上传文件">
-            <Upload action="http://39.106.51.236:9091/oss/v1/upload" :format="['apk']" :data="{
+            <Upload ref="upload" action="http://39.106.51.236:9091/oss/v1/upload" :format="['apk']" :data="{
                             'fileType':2
-                        }" :on-success="handleOk">
+                        }" :before-upload="handleBeforeUpload" :on-progress="handleProgress" :on-success="handleOk">
               <Button type="ghost" icon="ios-cloud-upload-outline">选择文件</Button>
             </Upload>
           </FormItem>
@@ -52,9 +52,29 @@ export default {
     };
   },
   methods: {
+    handleBeforeUpload(){
+      this.$Message.loading({
+        content:"读取文件...",
+        duration:0
+      })
+      return true
+    },
+    handleProgress(event,file,fielList){
+      if(event.percent==100)
+      {
+        this.$Message.destroy()
+        this.$Message.success("读取成功！")
+        this.$Message.loading({
+        content:"上传中，请等待...",
+        duration:0
+      })
+      }
+    },
     handleOk(res, file) {
       //console.log(res)
       if (res.success) {
+        this.$Message.destroy()
+        this.$Message.success("上传成功！")
         this.appData.appUrl = res.data.fileUrl;
       }
       //this.file.appUrl =
@@ -64,6 +84,7 @@ export default {
         this.appData[x] = "";
       }
       this.showAddApp = true;
+      this.$refs.upload.clearFiles()
     },
     saveApp() {
       if(this.updateStatus=="是")
