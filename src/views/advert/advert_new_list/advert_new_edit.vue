@@ -150,11 +150,11 @@ export default {
       });
     },
     handleBeforeUpload(file) {
-        this.$$Message.success("上传视频功能暂未开通")
-    //   this.$Message.loading({
-    //     content: "正在上传...",
-    //     duration: 0
-    //   });
+        //this.$Message.success("上传视频功能暂未开通")
+      this.$Message.loading({
+        content: "正在上传...",
+        duration: 0
+      });
     },
      handleVideoBeforeUpload(file) {
       this.$Message.loading({
