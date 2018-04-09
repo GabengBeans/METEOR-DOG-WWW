@@ -1,6 +1,7 @@
 <template>
   <div>
     <Button type="primary" style="margin-left:16px" @click.native="addApps()">添加APP</Button>
+    <br><br>
     <Table></Table>
     <Page :storeStatus="status" :currentPage="$store.state.app.app_page_info.currentPage" :totalPage="$store.state.app.app_page_info.totalPage"></Page>
     <Modal v-model="showAddApp" width="360" @on-cancel="showAddApp=false" @on-ok="saveApp()">

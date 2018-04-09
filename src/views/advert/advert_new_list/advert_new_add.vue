@@ -12,7 +12,7 @@
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
                 <FormItem style="min-width:60px" label="子广告位" v-if="name">
                     <Select v-model="data.positionId">
-                        <Option v-for="item in name" :key="item.key" :value="item.id">{{item.positionName}}</Option>
+                        <Option v-for="item in name" :key="item.id" :value="item.id">{{item.positionName}}</Option>
                     </Select>
                 </FormItem>
                 </Col>

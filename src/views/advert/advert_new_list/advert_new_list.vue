@@ -12,7 +12,7 @@
         <Col :xs='13' :sm='13' :md='8' :lg='5'>
         <FormItem style="min-width:60px" label="子广告位">
           <Select v-model="id">
-            <Option v-for="item in name" :key="item.key" :value="item.id">{{item.positionName}}</Option>
+            <Option v-for="item in name" :key="item.id" :value="item.id">{{item.positionName}}</Option>
           </Select>
         </FormItem>
         </Col>
@@ -213,7 +213,7 @@ export default {
             });
             this.showAddAdvert = false;
           } else {
-            this.$Message.destroy()
+            this.$Message.destroy();
             this.$Message.erros("保存失败，请联系管理员");
           }
         })
@@ -258,19 +258,19 @@ export default {
             });
             this.showAdvertEdit = false;
           } else {
-            this.$Message.destroy()
+            this.$Message.destroy();
             this.$Message.error("保存失败，请联系管理员");
           }
         })
         .catch(error => {
           console.log(error);
         });
-    }
+    },
   },
   computed: {
     //如果此次与上次的name的length是一样的，则不刷新子广告位
     name: function() {
-      let arr = [];
+      let arr = new Array();
       if (this.level) {
         for (let x = 0; x < this.names.length; x++) {
           if (this.level == this.names[x].level) {
@@ -326,7 +326,7 @@ export default {
           //console.log(this.level);
           this.btn = false;
           this.$store.commit("GET_ADVERT_NEW_INFO", {
-            data: {positionId: this.id },
+            data: { positionId: this.id },
             pageNo: this.$store.state.app.advert_new_public_page
           });
         } else {
