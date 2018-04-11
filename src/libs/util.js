@@ -462,6 +462,14 @@ util.unique = function unique(array){
     } 
     return n; 
   }
+util.isPoneAvailable = function ($poneInput) {
+    var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+    if (!myreg.test($poneInput.toString())) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 export default util;
 
 // let path = {

@@ -24,15 +24,15 @@ config.afterMerchantEnter = {
     }
 }
 config.afterMerchantEnterQuerySearch={
-    contact:{
+    userId:{
         tagName:"企业ID",
         value:""
     },
-    contactNumber:{
+    phone:{
         tagName:"手机号",
         value:""
     },
-    beginCreateTime:{
+    nickName:{
         tagName:"昵称",
         value:"",
     }

@@ -115,6 +115,20 @@ export default {
             pageNo: 1
           });
           break;
+        case "afterMerchantEnter":
+          //this.$store.state.app.merchant_enter_search_info = obj
+          this.$store.commit("GET_MERCHANT_ENTER_INFO", {
+            data: obj,
+            pageNo: 1
+          });
+          break;
+        case "afterMerchantEnterQuery":
+          //this.$store.state.app.merchant_enter_search_info = obj
+          this.$store.commit("GET_BUSINESS_ENTER_FOR_PAGE_INFO", {
+            data: obj,
+            pageNo: 1
+          });
+          break;
       }
     }
   }

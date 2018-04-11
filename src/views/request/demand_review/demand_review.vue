@@ -121,8 +121,8 @@
           </Modal>
         </div>
         <br><br>
-      </Card>
-      <Modal v-model="modalShow" @on-cancel="closePage()">
+      </Card> 
+      <Modal v-model="modalShow" width="360" @on-cancel="closePage()">
         <p slot="header" style="color:#2d8cf0;text-align:center"></p>
         <div style="font-size:20px;text-align:center">
           <b>已审核</b>

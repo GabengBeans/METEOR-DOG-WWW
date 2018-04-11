@@ -88,6 +88,14 @@ const app = {
         },
         merchant_enter_search_result: [],
         merchant_enter_public_page: 1,
+        //已入驻商户查询
+        merchant_bussiness_enter_search_info: {},
+        merchant_bussiness_enter_page_info: {
+            currentPage: 1,
+            totalPage: 0
+        },
+        merchant_bussiness_enter_search_result: [],
+        merchant_bussiness_enter_public_page: 1,
 
         //广告
         advert_new_search_info: {},
@@ -885,6 +893,51 @@ const app = {
                 console.log(error)
             })
         },
+        GET_BUSINESS_ENTER_FOR_PAGE_INFO(state, { data, pageNo }) {
+            state.merchant_bussiness_enter_search_info = data
+            state.merchant_bussiness_enter_public_page = pageNo 
+            Util.ajax({
+                method: "post",
+                url: base_uri.search_business_enter_for_page_url,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10,
+                },
+                data:data
+            }).then((response) => {
+                //console.log(response)
+                let arr = response.data.data.items
+                let status=["禁用","启用"]
+                state.merchant_bussiness_enter_page_info.currentPage = parseInt(response.data.data.page)
+                state.merchant_bussiness_enter_page_info.totalPage = parseInt(response.data.data.totalCount)
+                state.merchant_bussiness_enter_search_result = response.data.data.items
+
+                for (let x=0;x<arr.length;x++) {
+                    for(let y in arr[x])
+                    {
+                        if (y=="userStatus") {
+                            state.merchant_bussiness_enter_search_result[x].userStatus = status[arr[x][y]]
+                        }
+                        else if(y=="meteorScore")
+                        {
+                            if(arr[x][y])
+                            {
+                                state.merchant_bussiness_enter_search_result[x].meteorScore = (parseInt(arr[x][y])/10).toFixed(1)                                
+                            }else{
+                                state.merchant_bussiness_enter_search_result[x].meteorScore =''                                
+                            }
+                        }else if(y=="amount"){
+                            state.merchant_bussiness_enter_search_result[x].amount =(parseInt(arr[x][y])/100).toFixed(2)                       
+                        }
+
+                    }
+                }
+            //console.log(state.merchant_bussiness_enter_search_result)
+            }).catch((error) => {
+                console.log(error)
+            })
+        },
+        //search_business_enter_for_page_url
         //拓展管理-返佣订单审核
         GET_BROKERAGE_ORDER_INFO(state, { data, pageNo }) {
             state.brokerage_order_search_info = data

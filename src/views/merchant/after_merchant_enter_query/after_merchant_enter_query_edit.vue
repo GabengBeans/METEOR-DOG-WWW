@@ -1,13 +1,9 @@
 <template>
   <div id="user_edit" style="background:#eee">
-    <Card :bordered="false">
+    <Card :bordered="false" v-if="show">
       <div class="user_detail_div">
         <label class="from_label">注册手机号</label>
-        <Input clearable :maxlength="11" style="width: 15vw;min-width:100px;" v-model='merchantInfo.phone' @on-change="ruleFun()" />
-        <div style="margin-left:10px" v-if="ruleResult">
-          <Icon type="close-circled" color="red" style="margin-right:2px"></Icon>
-          <span style="color:red">请输入正确的手机号</span>
-        </div>
+        <span style="width: 15vw;min-width:100px;">{{merchantInfo.phone}}</span>
       </div>
       <Upload style="display:inline-block;" :before-upload="handleBeforeUpload" :show-upload-list="false" :on-success="handleSuccess" :data="{
                     'type':'user'
@@ -25,17 +21,17 @@
       <br>
       <div class="user_detail_div">
         <label class="from_label">企业IP昵称</label>
-        <Input clearable style="width: 15vw;min-width:100px;" v-model='merchantInfo.nickname' />
+        <Input clearable style="width: 15vw;min-width:100px;" v-model='merchantInfo.nickName' />
       </div>
       <br>
       <div class="user_detail_div">
         <label class="from_label">流星值</label>
-        <span>{{merchantInfo.meteorScore}}</span>
+        <span>{{(merchantInfo.meteorScore/10).toFixed(1)}}</span>
       </div>
       <br>
       <div class="user_detail_div">
         <label class="from_label">余额</label>
-        <span>{{merchantInfo.amount}}</span>
+        <span>{{(merchantInfo.amount/100).toFixed(2)}}</span>
       </div>
       <br>
       <div class="user_detail_div">
@@ -110,7 +106,7 @@
         <p slot="header">
         </p>
         <div style="text-align:center;font-size:20px">
-           <b>新增成功</b>
+           <b>更新成功</b>
         </div>
         <div slot="footer" style="text-align:center">
            <Button type="success" size="large" @click="closePage" >确定</Button>
@@ -121,14 +117,14 @@
 </template>
 <script>
 import Util from "@/libs/util";
-import Cookies from "js-cookie";
 import baseUri from "@/libs/base_uri";
 import axios from "axios";
 import $ from "jquery";
-import BMapComponent from "../public-components/BMapComponent";
+import BMapComponent from "../../public-components/BMapComponent";
 export default {
   data() {
     return {
+        show:false,
       showCloseMadal:false,
       imgUrl: baseUri.img_upload_url,
       aliyun: baseUri.oss_url,
@@ -137,24 +133,6 @@ export default {
       btnStatus: true,
       ruleResult: false,
       merchantInfo: {
-        phone: "",
-        avatarUrl: baseUri.img_url,
-        nickname: "",
-        meteorScore: "5.0",
-        amount: "0",
-        tagList: [],
-        address: "",
-        addressLat: "",
-        addressLon: "",
-        companyProfile: "",
-        companyName: "",
-        contact: "",
-        contactNumber: "",
-        legalPerson: "",
-        registeredCapital: "",
-        registeredAddress: "",
-        mainBusiness: "",
-        businessCope: ""
       }
     };
   },
@@ -183,15 +161,6 @@ export default {
       this.$router.back(-1);
       this.modalShow = false;
       this.showCloseMadal=false
-    },
-    ruleFun() {
-      if (Util.isPoneAvailable(this.merchantInfo.phone)) {
-        this.ruleResult = false;
-        this.btnStatus = false;
-      } else {
-        this.ruleResult = true;
-        this.btnStatus = true;
-      }
     },
     serach_place: function(event) {
       //搜索百度地图关联地点
@@ -223,7 +192,7 @@ export default {
         } else {
           this.merchantInfo.tagList.push({ lableName: this.tag, id: "-1" });
           this.tag = "";
-          //console.log(this.user_data.listTags);
+          console.log(this.merchantInfo.tagList);
         }
       }
     },
@@ -250,28 +219,44 @@ export default {
         content: "保存中...",
         duration: 0
       });
-      
+      let tags = []
+      for(let x=0;x<this.merchantInfo.tagList.length;x++)
+      {
+          tags.push({id:'',lableName:''})
+          for(let y in this.merchantInfo.tagList[x])
+          {
+              var obj = {}
+              if(y=="id")
+              {
+                 tags[x].id = this.merchantInfo.tagList[x].id
+              }else if(y=="lableName")
+              {
+                  tags[x].lableName = this.merchantInfo.tagList[x].lableName
+              }
+          }
+      }
       //console.log(imgList)
       Util.ajax({
         method: "post",
-        url: baseUri.add_business_url,
+        url: baseUri.update_business_info,
         data: {
-          phone:this.merchantInfo.phone,
-          avatarUrl:this.merchantInfo.avatarUrl,
-          nickname:this.merchantInfo.nickname,
-          tagList:this.merchantInfo.tagList,
-          address:this.merchantInfo.address,
-          addressLat:this.merchantInfo.addressLat,
-          addressLon:this.merchantInfo.addressLon,
-          companyProfile:this.merchantInfo.companyProfile,
-          companyName:this.merchantInfo.companyName,
-          contact:this.merchantInfo.contact,
-          contactNumber:this.merchantInfo.contactNumber,
-          legalPerson:this.merchantInfo.legalPerson,
-          registeredCapital:this.merchantInfo.registeredCapital,
-          registeredAddress:this.merchantInfo.registeredAddress,
-          mainBusiness:this.merchantInfo.mainBusiness,
-          businessCope:this.merchantInfo.businessCope
+          "userId":this.$route.params.id,
+          "phone":this.merchantInfo.phone,
+          "avatarUrl":this.merchantInfo.avatarUrl,
+          "nickName":this.merchantInfo.nickname,
+          "tagList":tags,
+          "address":this.merchantInfo.address,
+          "addressLat":this.merchantInfo.addressLat,
+          "addressLon":this.merchantInfo.addressLon,
+          "companyProfile":this.merchantInfo.companyProfile,
+          "companyName":this.merchantInfo.companyName,
+          "contact":this.merchantInfo.contact,
+          "contactNumber":this.merchantInfo.contactNumber,
+          "legalPerson":this.merchantInfo.legalPerson,
+          "registeredCapital":this.merchantInfo.registeredCapital,
+          "registeredAddress":this.merchantInfo.registeredAddress,
+          "mainBusiness":this.merchantInfo.mainBusiness,
+          "businessCope":this.merchantInfo.businessCope
         }
       })
         .then(res => {
@@ -287,10 +272,29 @@ export default {
           console.log(err);
         });
     }
+  },
+  created(){
+      Util.ajax({
+      method: "post",
+      url: baseUri.get_business_info_url,
+      params: {
+        userId: this.$route.params.id
+      }
+    }).then(res => {
+      if(res.data.success){
+          //console.log(res)
+          this.merchantInfo = res.data.data
+          this.show=true
+      }else{
+          this.$Message.error("获取失败")
+      }
+    }).catch(error=>{
+        console.log(error)
+    })
   }
 };
 </script>
 <style>
-@import "../../styles/public.less";
+@import "../../../styles/public.less";
 </style>
 

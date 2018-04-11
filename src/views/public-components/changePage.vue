@@ -121,10 +121,17 @@ export default {
             pageNo: index
           });
           break;
-          case "audit_operation":
+        case "audit_operation":
           //this.$store.state.app.merchant_enter_search_info = obj
           this.$store.commit("GET_AUDIT_OPERATION_INFO", {
             data: this.$store.state.app.audit_operation_search_info,
+            pageNo: index
+          });
+          break;
+        case "afterMerchantEnterQuery":
+          //this.$store.state.app.merchant_enter_search_info = obj
+          this.$store.commit("GET_BUSINESS_ENTER_FOR_PAGE_INFO", {
+            data: this.$store.state.app.merchant_bussiness_enter_search_info,
             pageNo: index
           });
           break;

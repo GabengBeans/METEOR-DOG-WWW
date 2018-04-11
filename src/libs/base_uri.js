@@ -62,7 +62,13 @@ let base_uri = {
 
     //商户入驻
     search_business_info_for_page_url: "/admin/v1/business_info/search_business_info_for_page",
-
+    consent_business_enter_url:"/admin/v1/business_info/consent_business_enter",
+    //已入驻商户查询
+    search_business_enter_for_page_url:"/admin/v1/business_info/search_business_enter_for_page",
+    add_business_url:"/admin/v1/business_info/add_business",
+    enable_or_disable_business_url:"/admin/v1/business_info/ enable_or_disable_business",
+    get_business_info_url:"/admin/v1/business_info/get_business_info",
+    update_business_info:"/admin/v1/business_info/update_business_info",
     //广告
     new_advert_position_list_two_level_advert_position_url: "/admin/v1/new_advert_position/list_two_level_advert_position/",
     advert_query_advert_url: "/admin/v1/new_advert/query_adverts/",
