@@ -171,7 +171,11 @@ let base_uri = {
 
     //审核统计
     get_adminUserLis_url:"/admin/v1/audit_operation_log/adminUserList",
-    search_audit_operation_log_for_page_url:"/admin/v1/audit_operation_log/search_audit_operation_log_for_page"
+    search_audit_operation_log_for_page_url:"/admin/v1/audit_operation_log/search_audit_operation_log_for_page",
+
+    //IM
+    search_chatlog_for_page_url:"/admin/v1/chatlog/search_chatlog_for_page",
+    query_session_detail:"/admin/v1/chatlog/detail",
 };
 
 export default base_uri;

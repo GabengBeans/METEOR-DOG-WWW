@@ -380,10 +380,10 @@ export const appRouter = [
         component: Main, 
         children: [ 
             {
-                path: 'web-im', 
-                name: 'web-im', 
-                title: 'IM', 
-                component: resolve => { require(['@/views/error-page/404.vue'], resolve); }, 
+                path: 'query_session_record_index', 
+                name: 'query_session_record_index', 
+                title: '查询会话记录', 
+                component: resolve => { require(['@/views/im/query_session_record/query_session_record_index'], resolve); }, 
             }
         ]
     },

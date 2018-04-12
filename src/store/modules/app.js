@@ -242,6 +242,18 @@ const app = {
         audit_operation_search_result: [],
         audit_operation_public_page: 1,
 
+        //im查询会话
+        query_session_search_info:{},
+        query_session_page_info:{
+            currentPage:1,
+            totalPage:0
+        },
+        query_session_search_result:[],
+        query_session_public_page:1,
+
+
+
+
         cachePage: [],
         lang: '',
         isFullScreen: false,
@@ -1231,6 +1243,7 @@ const app = {
                 //console.log(state.app_search_result)
             })
         },
+        //权限管理-用户管理
         GET_SEARCH_ADIMIN_USER_INFO(state, { data, pageNo }) {
             state.admin_user_search_info = data
             state.admin_user_public_page = pageNo
@@ -1263,6 +1276,7 @@ const app = {
                 }
             })
         },
+        //权限管理-角色管理
         GET_SEARCH_ADIMIN_ROLE_INFO(state, { data, pageNo }) {
             //console.log(data)
             state.admin_role_search_info = data
@@ -1295,6 +1309,7 @@ const app = {
                 }
             })
         },
+        //权限管理-资源管理
         GET_SEARCH_ADIMIN_RESOURCE_INFO(state) {
             Util.ajax({
                 method: "get",
@@ -1306,6 +1321,7 @@ const app = {
                 state.admin_resource_search_result = obj
             })
         },
+        //数据统计
         GET_AUDIT_OPERATION_INFO(state, { data, pageNo }) {
             state.audit_operation_search_info = data
             state.audit_operation_public_page = pageNo
@@ -1339,6 +1355,28 @@ const app = {
             })
             .catch(err => {
                 console.log(err)
+            })
+        },
+        //查询会话列表
+        GET_SEARCH_CHATLOG_FOR_PAGE(state, { data, pageNo }){
+            state.query_session_search_info = data
+            state.query_session_public_page = pageNo
+            Util.ajax({
+                method:"post",
+                url:base_uri.search_chatlog_for_page_url,
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
+                },
+                data:data
+            }).then(res=>{
+                if(res.data.success){
+                    state.query_session_search_result = res.data.data.items
+                    state.query_session_page_info.currentPage = res.data.data.page
+                    state.query_session_page_info.totalPage = res.data.data.totalCount
+                }
+            }).catch(error=>{
+                console.og(error)
             })
         }
     }

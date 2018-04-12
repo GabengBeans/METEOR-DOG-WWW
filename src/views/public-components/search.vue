@@ -129,6 +129,13 @@ export default {
             pageNo: 1
           });
           break;
+        case "querySessionRecord":
+          //this.$store.state.app.merchant_enter_search_info = obj
+          this.$store.commit("GET_SEARCH_CHATLOG_FOR_PAGE", {
+            data: obj,
+            pageNo: 1
+          });
+          break;
       }
     }
   }
