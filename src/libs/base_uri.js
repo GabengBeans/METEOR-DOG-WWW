@@ -56,6 +56,7 @@ let base_uri = {
     cash_search_account_log_url: "/admin/v1/cash/account_log/search_account_log_for_page",
     //保障金
     account_search_bond_for_page_url: "/admin/v1/cash/account/search_bond_for_page",
+    audit_account:"/admin/v1/cash/account/audit",
     //提现
     cash_search_withdraw_for_page_url: "/admin/v1/cash/withdraw/search_withdraw_for_page",
     cash_withdraw_audit_url: "/admin/v1/cash/withdraw/audit/",

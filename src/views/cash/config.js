@@ -179,34 +179,5 @@ config.cashRefund = {
     },
 }
 
-config.cashRefundColumns = [
-    {
-        title: "ID",
-        key: "id"
-    },
-    {
-        title: "ping++chargeId",
-        key: "chargeId"
-    },
-    {
-        title: "用户名",
-        key: "nickname"
-    },
-    {
-        title: "手机号",
-        key: "phone"
-    },
-    {
-        title: "保障金",
-        key: "bondAmount"
-    },
-    {
-        title: "操作时间",
-        key: "createTime"
-    },
-    {
-        title: "申请状态",
-        key: "bondStatus"
-    },
-]
+
 export default config

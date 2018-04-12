@@ -163,6 +163,7 @@ export default {
         }
       });
       if (!openpageHasTag) {
+        console.log(this)
         //  解决关闭当前标签后再点击按钮会退到当前页时没有标签的问题
         util.openNewPage(
           this,
