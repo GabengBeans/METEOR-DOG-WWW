@@ -11,7 +11,7 @@
                     <div v-if="item.fromUser==user" style="margin-bottom:10px">
                         <template v-if="item.msgType=='txt'">
                             <div>
-                                <span>{{item.fromUsernickname || "未获取到"}}</span>
+                                <span>{{item.fromUsernickname || item.fromUser}}</span>
                                 <span style="margin-left:5px">{{item.sendTime}}</span>
                             </div>
                             <div style="width:450px;">
@@ -41,7 +41,7 @@
                     <div v-else style="margin-bottom:10px">
                         <template v-if="item.msgType=='txt'">
                             <div style="display:flex;justify-content:flex-end;">
-                                <span>{{item.fromUsernickname}}</span>
+                                <span>{{item.fromUsernickname || item.fromUser}}</span>
                                 <span style="margin-left:5px">{{item.sendTime}}</span>
                             </div>
                             <div style="display:flex;justify-content:flex-end;">
