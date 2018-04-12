@@ -58,7 +58,7 @@
           <FormItem label="图标：">
             <!-- <Input clearable v-model="resourceEditData.newIcon" /> -->
             <Select v-model="resourceEditData.newIcon" style="width:200px">
-              <Option v-for="item in icons" :value="item" :key="item.key" >
+              <Option v-for="item in icons" :value="item" :key="item.key">
                 <Icon size="20" :type="item" />　{{item}}
               </Option>
             </Select>
@@ -346,6 +346,38 @@ export default {
                     .then(res => {
                       if (res.data.success) {
                         data.status = 0;
+                        let parentNodeKey = node.parent;
+                        let childArr = [];
+                        let bool = true;
+                        let parentId;
+                        let parentObj
+                        for (let x = 0; x < root.length; x++) {
+                          if (root[x].nodeKey == parentNodeKey) {
+                            parentId = root[x].node.id;
+                            childArr = root[x].node.children;
+                            parentObj = root[x].node
+                          }
+                        }
+                        for (let x = 0; x < childArr.length; x++) {
+                          if (childArr[x].status) {
+                            bool = false;
+                          }
+                        }
+
+                        if (bool) {
+                          Util.ajax({
+                            method: "post",
+                            url: baseUri.disable_admin_resource_url,
+                            params: {
+                              adminResourceId: parentId
+                            }
+                          }).then(res => {
+                            if (res.data.success) {
+                              parentObj.status = 0;
+                              this.$Message.success("禁用成功");
+                            }
+                          });
+                        }
                         this.$Message.success("禁用成功");
                       } else {
                         this.$Message.error("禁用失败");
