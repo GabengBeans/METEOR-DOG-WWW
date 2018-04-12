@@ -489,7 +489,7 @@ const app = {
             }).then((response) => {
                 //console.log(response)
                 let arr = response.data.data.items
-                let businessStatus = ["全部", "编辑中", "审核中", "已发布", "已过期", "审核未通过", "取消发布"]
+                let businessStatus = ["全部", "编辑中", "审核中", "已发布", "已过期", "审核未通过", "取消发布","已下架","已删除"]
                 let status = ["无效", "有效"]
                 state.request_page_info.currentPage = parseInt(response.data.data.page)
                 state.request_page_info.totalPage = parseInt(response.data.data.totalCount)
@@ -525,7 +525,7 @@ const app = {
             }).then((response) => {
                 //console.log(response)
                 let arr = response.data.data.items
-                let businessStatus = ["全部", "编辑中", "审核中", "已发布", "已过期", "审核未通过", "取消发布"]
+                let businessStatus = ["全部", "编辑中", "审核中", "已发布", "已过期", "审核未通过", "取消发布","已下架","已删除"]
                 let status = ["无效", "有效"]
                 state.service_page_info.currentPage = parseInt(response.data.data.page)
                 state.service_page_info.totalPage = parseInt(response.data.data.totalCount)

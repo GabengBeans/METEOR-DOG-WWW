@@ -45,6 +45,14 @@ config.requestSearch = {
           op7: {
             num: "6",
             value: "取消发布"
+          },
+          op8: {
+            num: "7",
+            value: "已下架"
+          },
+          op9: {
+            num: "8",
+            value: "已删除"
           }
         }
       },
