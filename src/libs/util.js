@@ -258,7 +258,7 @@ util.openNewPage = function (vm, name, argu, query) {
     }
     if (!tagHasOpened) {
         let tag = vm.$store.state.app.tagsList.filter((item) => {
-            if (item.children) {
+            if (item && item.children) {
                 return name === item.children[0].name;
             } else {
                 return name === item.name;
