@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                         </template>
-                        <template v-else>
+                        <!-- <template v-else>
                             <div>
                                 <span>{{item.fromUsernickname || "未获取到"}}</span>
                                 <span style="margin-left:5px">{{item.sendTime}}</span>
@@ -36,7 +36,7 @@
                         ">
                                     <p style="color:black;">暂不支持图片</p>
                                 </div>
-                        </template>
+                        </template> -->
                     </div>
                     <div v-else style="margin-bottom:10px">
                         <template v-if="item.msgType=='txt'">
@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                         </template>
-                        <template v-else>
+                        <!-- <template v-else>
                             <div style="display:flex;justify-content:flex-end;">
                                 <span>{{item.fromUsernickname}}</span>
                                 <span style="margin-left:5px">{{item.sendTime}}</span>
@@ -73,7 +73,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </template>
+                        </template> -->
                     </div>
                 </div>
             </div>
@@ -139,7 +139,6 @@ export default {
                         }
                       }).then(res => {
                         if (res.data.success) {
-                          console.log(res);
                           this.sessionDetail = res.data.data;
                           this.user = res.data.data[0].fromUser;
                         }
