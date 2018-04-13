@@ -24,7 +24,35 @@
                 <FormItem label="广告名称" prop="adName">
                     <Input clearable v-model="data.adName" />
                 </FormItem>
-                <FormItem label="上传">
+                </Col>
+                <Col :xs='13' :sm='13' :md='8' :lg='4'>
+                <FormItem label="业务ID" prop="businessId">
+                    <Input  v-model="data.businessId" />
+                </FormItem>
+                </Col>
+                <Col :xs='13' :sm='13' :md='8' :lg='4'>
+                <FormItem label="业务类型" prop="adType">
+                    <Input clearable v-model="data.adType" />
+                </FormItem>
+                </Col>
+                <Col :xs='13' :sm='13' :md='8' :lg='4'>
+                <FormItem label="序号" prop="adSort">
+                    <Input v-model="data.adSort" />
+                </FormItem>
+                </Col>
+                <Col :xs='13' :sm='13' :md='8' :lg='4'>
+                <FormItem label="媒体类型" >
+                    <Select v-model="data.mediaType">
+                        <Option :value=1>图片</Option>
+                        <Option :value=2>视频</Option>
+                    </Select>
+                </FormItem>
+                </Col>
+                <Col :xs='13' :sm='13' :md='8' :lg='8'>
+                <FormItem label="URL">
+                    <Input clearable v-model="data.redirectUrl" />
+                </FormItem>
+                 <FormItem label="上传">
                   <template v-if="data.imgUrl" >
                       <div class="demo-upload-lists">
                         <img :src="data.imgUrl" />
@@ -72,30 +100,6 @@
                             </Upload>
                         </template>
                     </template>
-                    
-                </FormItem>
-                </Col>
-                <Col :xs='13' :sm='13' :md='8' :lg='4'>
-                <FormItem label="业务ID" prop="businessId">
-                    <Input  v-model="data.businessId" />
-                </FormItem>
-                </Col>
-                <Col :xs='13' :sm='13' :md='8' :lg='4'>
-                <FormItem label="业务类型" prop="adType">
-                    <Input clearable v-model="data.adType" />
-                </FormItem>
-                </Col>
-                <Col :xs='13' :sm='13' :md='8' :lg='4'>
-                <FormItem label="序号" prop="adSort">
-                    <Input v-model="data.adSort" />
-                </FormItem>
-                </Col>
-                <Col :xs='13' :sm='13' :md='8' :lg='4'>
-                <FormItem label="媒体类型" >
-                    <Select v-model="data.mediaType">
-                        <Option :value=1>图片</Option>
-                        <Option :value=2>视频</Option>
-                    </Select>
                 </FormItem>
                 </Col>
             </Form>

@@ -192,7 +192,8 @@ export default {
         adType: this.addAdverNewdata.adType,
         mediaType: this.addAdverNewdata.mediaType,
         adSort: this.addAdverNewdata.adSort,
-        imgUrl: this.addAdverNewdata.imgUrl
+        imgUrl: this.addAdverNewdata.imgUrl,
+        redirectUrl:this.advertDetail.redirectUrl
       };
       this.$Message.loading({
         content: "保存中...",
@@ -237,7 +238,8 @@ export default {
         adType: this.advertDetail.adType,
         mediaType: this.advertDetail.mediaType,
         adSort: this.advertDetail.adSort,
-        imgUrl: this.advertDetail.imgUrl
+        imgUrl: this.advertDetail.imgUrl,
+        redirectUrl:this.advertDetail.redirectUrl
       };
       this.$Message.loading({
         content: "保存中...",
