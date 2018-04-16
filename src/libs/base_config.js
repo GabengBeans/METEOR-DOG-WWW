@@ -1,11 +1,12 @@
 let base_config = {
     //开发服务器接口地址
     devUrl: 'http://39.106.211.153:9898',
+    //devUrl:'http://39.106.212.226:9898',
     //测试服务器接口地址
     testUrl: 'http://39.106.211.153:9898',
     //生产服务器接口地址
     //proUrl: 'http://39.106.51.236:8822',
-    proUrl:'http://47.94.12.50:8824',
+    proUrl:'http://39.106.212.226:9898',
     //阿里图片服务器地址
     imgUrl: 'http://dedc-statics.oss-cn-beijing.aliyuncs.com',
     //百度地图地址
