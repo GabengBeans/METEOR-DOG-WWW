@@ -215,7 +215,7 @@ export default {
             this.showAddAdvert = false;
           } else {
             this.$Message.destroy();
-            this.$Message.erros("保存失败，请联系管理员");
+            this.$Message.error("保存失败，请联系管理员");
           }
         })
         .catch(error => {
