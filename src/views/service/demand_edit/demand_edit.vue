@@ -88,13 +88,17 @@
             <div class="user_detail_div">
               <label class="from_label">服务方式:</label>
               <CheckboxGroup v-model="data.modeType" style="display:inline-block">
-                <Checkbox label=1>线上服务</Checkbox>
-                <Checkbox label=2>线下服务</Checkbox>
+                <Checkbox label=3>到店服务</Checkbox>
+                <Checkbox label=4>上门服务</Checkbox>
+                <Checkbox label=5>场所约见</Checkbox>
+                <Checkbox label=6>电话服务</Checkbox>
+                <Checkbox label=7>视频服务</Checkbox>
+                <Checkbox label=8>其他方式</Checkbox>
               </CheckboxGroup>
             </div>
             <br>
           </FormItem>
-          <FormItem>
+          <!-- <FormItem>
             <div class="user_detail_div">
               <label class="from_label">服务时段:</label>
               <CheckboxGroup v-model="data.periodTypes" style="display:inline-block">
@@ -102,7 +106,7 @@
               </CheckboxGroup>
             </div>
             <br>
-          </FormItem>
+          </FormItem> -->
           <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
             <label class="from_label">服务图片:</label>图片限制大小2M
             <UserEditImgList class="image-style" :change="true" :imgList="data.mediaImg" :upload="true"></UserEditImgList>

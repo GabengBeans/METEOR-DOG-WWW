@@ -61,7 +61,12 @@
         <br>
         <div class="user_detail_div">
           <label class="from_label">服务方式:</label>
-          <b>{{data.modeTypeData}}</b>
+          <b>{{data.modeType}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">服务时段:</label>
+          <b>{{data.servicePeriodList}}</b>
         </div>
         <br>
         <div class="user_detail_div">
@@ -181,21 +186,29 @@ export default {
         }
       })
       .then(response => {
-        console.log(response.data.data);
+        //console.log(response.data.data);
         if (response.data.success) {
           let obj = response.data.data;
           let priceType = ["", "每次", "每小时", "每天", "每件", "自定义"];
+          let modeTypeObj = {
+            3: "到店服务",
+            4: "上门服务",
+            5: "场所约见",
+            6: "电话服务",
+            7: "视频服务",
+            8: "其他方式"
+          };
           let priceIndex = parseInt(obj.priceType);
+
           for (let x in obj) {
-            if (x == "expireTime") {
-              // if (obj[x]) {
-              //   this.data[x] = Util.formatDate(
-              //     new Date(obj[x]),
-              //     "yyyy-MM-dd hh:mm:ss"
-              //   );
-              // }else{
-              //   this.data[x]=""
-              // }
+            if (x == "modeType") {
+              let modeTypeStr = '';
+              for (let y in modeTypeObj) {
+                if (obj[x].indexOf(y) != -1) {
+                 modeTypeStr += modeTypeObj[y]+" "
+                }
+              }
+              this.data.modeType = modeTypeStr;
             } else if (x == "price") {
               if (priceType[priceIndex] === "自定义") {
                 this.data[x] =
@@ -222,20 +235,33 @@ export default {
                   this.data.mediaVideo = obj.mediaList[y].videoPlayUrl;
                 }
               }
+              
+            }else if(x=="servicePeriodList"){
+              let servicePeriodListArr = []
+              let servicePeriodListStr = ''
+              for(let y=0;y<obj[x].length;y++)
+              { 
+                servicePeriodListArr.push({startTime:Util.formatDate(new Date(obj[x][y].startTime),"yyyy-MM-dd hh:mm"),endTime:Util.formatDate(new Date(obj[x][y].endTime),"hh:mm")})
+              }
+              for(let i=0;i<servicePeriodListArr.length;i++)
+              {
+                servicePeriodListStr+=servicePeriodListArr[i].startTime + "至" +servicePeriodListArr[i].endTime+" "
+              }
+              this.data.servicePeriodList = servicePeriodListStr
             } else {
               this.data[x] = obj[x];
             }
           }
-          //console.log(this.data.mediaVideoImg)
+          //console.log(this.data)
           this.btn =
             this.data.status == "1" && this.data.businessStatus == "3"
               ? true
               : false;
           this.show = true;
           this.$Message.destroy();
-        }else{
+        } else {
           this.$Message.destroy();
-          this.$Message.error("获取失败")
+          this.$Message.error("获取失败");
         }
       });
   },
