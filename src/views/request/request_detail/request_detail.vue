@@ -61,7 +61,7 @@
         <br>
         <div class="user_detail_div">
           <label class="from_label">需求方式:</label>
-          <b>{{data.modeTypeData}}</b>
+          <b>{{data.modeType}}</b>
         </div>
         <br>
         <div class="user_detail_div">
@@ -184,18 +184,25 @@ export default {
         if (response.data.success) {
           let obj = response.data.data;
           let priceType = ["", "每次", "每小时", "每天", "每件", "自定义"];
+          let modeTypeObj = {
+            3: "到店服务",
+            4: "上门服务",
+            5: "场所约见",
+            6: "电话服务",
+            7: "视频服务",
+            8: "其他方式"
+          };
           let priceIndex = parseInt(obj.priceType);
           for (let x in obj) {
-            if (x == "expireTime") {
-              if (obj[x]) {
-                this.data[x] = Util.formatDate(
-                  new Date(obj[x]),
-                  "yyyy-MM-dd hh:mm:ss"
-                );
-              } else {
-                this.data[x] = "";
+            if (x == "modeType") {
+              let modeTypeStr = '';
+              for (let y in modeTypeObj) {
+                if (obj[x].indexOf(y) != -1) {
+                 modeTypeStr += modeTypeObj[y]+" "
+                }
               }
-            } else if (x == "price") {
+              this.data.modeType = modeTypeStr;
+            }  else if (x == "price") {
               if (priceType[priceIndex] === "自定义") {
                 this.data[x] =
                   (parseInt(obj[x]) / 100).toFixed(2) + "/" + obj.unitName;
