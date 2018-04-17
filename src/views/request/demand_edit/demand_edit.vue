@@ -54,18 +54,13 @@
             </div>
           </FormItem>
           <br>
-          <!-- <FormItem>
+          <FormItem>
             <div class="user_detail_div">
-              <label class="from_label">有效期至:</label>
-              <b>{{data.expireTime}}</b> -->
-              <!-- <Input clearable style="width: 15vw;min-width:100px;"  v-model='data.expireTime' /> -->
-
-              <!-- <template>
-                                <DatePicker :value="data.expireTime" format="yyyy年MM月dd日" type="date" placeholder="Select date" style="width: 200px"></DatePicker>
-                            </template> -->
-            <!-- </div>
+              <label class="from_label">预约时间:</label>
+              <DatePicker :value="data.expireTime" format="yyyy年MM月dd日" type="date" placeholder="请选择日期" style="width: 200px"></DatePicker>
+            </div>
           </FormItem>
-          <br> -->
+          <br>
           <FormItem>
             <div class="user_detail_div">
               <label class="from_label">出价:</label>
@@ -79,10 +74,14 @@
           <br>
           <FormItem>
             <div class="user_detail_div">
-              <label class="from_label">服务方式:</label>
+              <label class="from_label">需求方式:</label>
               <CheckboxGroup v-model="data.modeType" style="display:inline-block">
-                <Checkbox label=1>线上服务</Checkbox>
-                <Checkbox label=2>线下服务</Checkbox>
+                <Checkbox label=3>到店服务</Checkbox>
+                <Checkbox label=4>上门服务</Checkbox>
+                <Checkbox label=5>场所约见</Checkbox>
+                <Checkbox label=6>电话服务</Checkbox>
+                <Checkbox label=7>视频服务</Checkbox>
+                <Checkbox label=8>其他方式</Checkbox>
               </CheckboxGroup>
             </div>
           </FormItem>
@@ -161,7 +160,7 @@ import Cookies from "js-cookie";
 import baseUri from "@/libs/base_uri";
 import axios from "axios";
 import $ from "jquery";
-import UserEditImgList from "../../public-components/user_edit_img_list";
+import UserEditImgList from "@/views/public-components/upload_img";
 import BMapComponent from "../../public-components/BMapComponent";
 export default {
   data() {
@@ -349,16 +348,21 @@ export default {
         //console.log(response);
         if (response.data.success && response1.data.success) {
           let obj = response.data.data;
+          let modeTypeObj = {
+            3: "到店服务",
+            4: "上门服务",
+            5: "场所约见",
+            6: "电话服务",
+            7: "视频服务",
+            8: "其他方式"
+          };
           for (let x in obj) {
-            if (x == "expireTime") {
-              // if (obj[x]) {
-              //   this.data[x] = Util.formatDate(
-              //     new Date(obj[x]),
-              //     "yyyy-MM-dd hh:mm:ss"
-              //   );
-              // } else {
-              //   this.data[x] = "";
-              // }
+            if (x == "modeType") {
+              this.$set(
+                this.data,
+                "modeType",
+                obj[x].replace(/[\[*\]]/g, "").split(",")
+              );
             } else if (x == "price") {
               this.data[x] = parseInt(obj[x]) / 100;
             } else if (x == "priceType") {

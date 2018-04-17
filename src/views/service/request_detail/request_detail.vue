@@ -81,7 +81,7 @@
         <br> -->
         <div class="user_detail_div">
           <label class="from_label">服务图片:</label>
-          <UserEditImgList :change="true" :imgList="data.mediaImg" :detail="detail"></UserEditImgList>
+          <UserEditImgList :imgList="data.mediaImg" :detail="true" ></UserEditImgList>
         </div>
         <br>
         <div class="user_detail_div">
@@ -126,11 +126,10 @@
 import Util from "@/libs/util";
 import Cookies from "js-cookie";
 import baseUri from "@/libs/base_uri";
-import UserEditImgList from "@/views/public-components/user_edit_img_list";
+import UserEditImgList from "@/views/public-components/upload_img";
 export default {
   data() {
     return {
-      detail: true,
       aliyun: baseUri.oss_url,
       show: false,
       data: {},

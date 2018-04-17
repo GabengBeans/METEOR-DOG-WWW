@@ -113,8 +113,8 @@
           </div>
           <br>
           <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
-            <label class="from_label">服务视频:</label>
-            <UserEditImgList class="image-style" :change="true" :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo"></UserEditImgList>
+            <label class="from_label">服务视频:</label>视频限制大小200M
+            <UserEditVideoList class="image-style" :change="true" :upload="true" :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo"></UserEditVideoList>
           </div>
           <br>
           <FormItem>
@@ -170,7 +170,8 @@ import Cookies from "js-cookie";
 import baseUri from "@/libs/base_uri";
 import axios from "axios";
 import $ from "jquery";
-import UserEditImgList from "../../public-components/user_edit_img_list";
+import UserEditImgList from "@/views/public-components/upload_img";
+import UserEditVideoList from "@/views/public-components/upload_video";
 import BMapComponent from "../../public-components/BMapComponent";
 export default {
   data() {
@@ -243,6 +244,7 @@ export default {
   },
   components: {
     UserEditImgList,
+    UserEditVideoList,
     BMapComponent
   },
   methods: {
@@ -319,7 +321,7 @@ export default {
           lon: this.data.addressLon || "",
           modeType: modeType,
           price: price,
-          deposit: deposit,
+          deposit: deposit || 0,
           periodTypes: periodTypes,
           priceType: this.data.priceType,
           restrictions: this.data.restrictions || "无",
@@ -457,7 +459,7 @@ export default {
             }
             this.levelData = response1.data.data;
             //console.log(this.levelData)
-            console.log(this.data);
+            //console.log(this.data);
             this.showUnitNames = this.data.priceType == 5 ? true : false;
             this.show = true;
             this.$Message.destroy();

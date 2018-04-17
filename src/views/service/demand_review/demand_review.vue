@@ -81,14 +81,7 @@
         <br> -->
         <div class="user_detail_media">
           <label class="from_label">服务图片:</label>
-          <div class="demo-upload-list" v-for="item in data.mediaImg" :key="item.key">
-            <template v-if="item">
-              <img :src="aliyun + item" @click="handleView(item)" />
-            </template>
-            <Modal title="展示大图" v-model="visible">
-              <img :src="aliyun + imgName" v-if="visible" style="width: 100%">
-            </Modal>
-          </div>
+          <UserEditImgList :imgList="data.mediaImg" :detail="true" ></UserEditImgList>
         </div>
         <br>
         <div class="user_detail_media">
@@ -143,6 +136,7 @@
 import Util from "@/libs/util";
 import Cookies from "js-cookie";
 import baseUri from "@/libs/base_uri";
+import UserEditImgList from "@/views/public-components/upload_img";
 export default {
   data() {
     return {
@@ -254,6 +248,9 @@ export default {
       this.$router.back(-1);
       this.modalShow = false;
     }
+  },
+  components:{
+    UserEditImgList
   },
   created() {
     this.$Message.loading({

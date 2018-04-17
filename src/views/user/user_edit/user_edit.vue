@@ -122,7 +122,7 @@ import baseUri from "@/libs/base_uri";
 import axios from "axios";
 import $ from "jquery";
 import BMapComponent from "../../public-components/BMapComponent";
-import UserEditImgList from "../../public-components/user_edit_img_list";
+import UserEditImgList from "@/views/public-components/upload_img";
 export default {
   data() {
     return {

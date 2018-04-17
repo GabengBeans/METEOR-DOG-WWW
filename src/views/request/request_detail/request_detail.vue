@@ -75,7 +75,7 @@
         </div> -->
         <div class="user_detail_div">
           <label class="from_label">需求图片:</label>
-          <UserEditImgList :change="true" :imgList="data.mediaImg" :detail="detail"></UserEditImgList>
+          <UserEditImgList :imgList="data.mediaImg" :detail="detail"></UserEditImgList>
         </div>
         <br>
         <div class="user_detail_div">
@@ -120,7 +120,7 @@
 import Util from "@/libs/util";
 import Cookies from "js-cookie";
 import baseUri from "@/libs/base_uri";
-import UserEditImgList from "@/views/public-components/user_edit_img_list";
+import UserEditImgList from "@/views/public-components/upload_img";
 export default {
   data() {
     return {
@@ -202,7 +202,16 @@ export default {
                 }
               }
               this.data.modeType = modeTypeStr;
-            }  else if (x == "price") {
+            } else if(x == "expireTime"){
+              if (obj[x]) {
+                this.data[x] = Util.formatDate(
+                  new Date(obj[x]),
+                  "yyyy-MM-dd"
+                );
+              }else{
+                this.data[x]=""
+              }
+            } else if (x == "price") {
               if (priceType[priceIndex] === "自定义") {
                 this.data[x] =
                   (parseInt(obj[x]) / 100).toFixed(2) + "/" + obj.unitName;

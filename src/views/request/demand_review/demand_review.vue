@@ -44,11 +44,11 @@
           <b>{{data.categoryName}}</b>
         </div>
         <br>
-        <!-- <div class="user_detail_div">
-          <label class="from_label">有效期至:</label>
+        <div class="user_detail_div">
+          <label class="from_label">预约时间:</label>
           <b>{{data.expireTime}}</b>
         </div>
-        <br> -->
+        <br>
         <div class="user_detail_div">
           <label class="from_label">需求限制:</label>
           <b>{{data.restrictions}}</b>
@@ -61,7 +61,7 @@
         <br>
         <div class="user_detail_div">
           <label class="from_label">需求方式:</label>
-          <b>{{data.modeTypeData}}</b>
+          <b>{{data.modeType}}</b>
         </div>
         <br>
         <div class="user_detail_div">
@@ -76,14 +76,7 @@
         <br> -->
         <div class="user_detail_media">
           <label class="from_label">需求图片:</label>
-          <div class="demo-upload-list" v-for="item in data.mediaImg" :key="item.key">
-            <template v-if="item">
-              <img :src="aliyun + item" @click="handleView(item)" />
-            </template>
-            <Modal title="展示大图" v-model="visible">
-              <img :src="aliyun + imgName" v-if="visible" style="width: 100%">
-            </Modal>
-          </div>
+          <UserEditImgList :imgList="data.mediaImg" :detail="true"></UserEditImgList>
         </div>
         <br>
         <div class="user_detail_media">
@@ -138,6 +131,7 @@
 import Util from "@/libs/util";
 import Cookies from "js-cookie";
 import baseUri from "@/libs/base_uri";
+import UserEditImgList from "@/views/public-components/upload_img";
 export default {
   data() {
     return {
@@ -152,6 +146,9 @@ export default {
       underVisible: false,
       refuseReason: ""
     };
+  },
+  components:{
+    UserEditImgList
   },
   methods: {
     handleView(name) {
@@ -266,17 +263,33 @@ export default {
           let obj = response.data.data;
           let priceType = ["", "每次", "每小时", "每天", "每件", "自定义"];
           let priceIndex = parseInt(obj.priceType);
+          let modeTypeObj = {
+            3: "到店服务",
+            4: "上门服务",
+            5: "场所约见",
+            6: "电话服务",
+            7: "视频服务",
+            8: "其他方式"
+          };
           for (let x in obj) {
             if (x == "expireTime") {
-              // if (obj[x]) {
-              //   this.data[x] = Util.formatDate(
-              //     new Date(obj[x]),
-              //     "yyyy-MM-dd hh:mm:ss"
-              //   );
-              // }else{
-              //   this.data[x]=""
-              // }
-            } else if (x == "price") {
+              if (obj[x]) {
+                this.data[x] = Util.formatDate(
+                  new Date(obj[x]),
+                  "yyyy-MM-dd"
+                );
+              }else{
+                this.data[x]=""
+              }
+            }else if(x == "modeType"){
+              let modeTypeStr = '';
+              for (let y in modeTypeObj) {
+                if (obj[x].indexOf(y) != -1) {
+                 modeTypeStr += modeTypeObj[y]+" "
+                }
+              }
+              this.data.modeType = modeTypeStr;
+            }else if (x == "price") {
               if (priceType[priceIndex] === "自定义") {
                 this.data[x] =
                   (parseInt(obj[x]) / 100).toFixed(2) + "/" + obj.unitName;
