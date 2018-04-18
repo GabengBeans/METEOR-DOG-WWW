@@ -1,87 +1,182 @@
 <template>
-    <div>
-        <div class="demo-upload-list" v-for="item in uploadList" :key="item.key">
-            <template v-if="item">
-                <img :src="aliyun + item">
-                <div class="demo-upload-list-cover">
-                    <Icon type="ios-eye-outline" @click.native="handleView(item)" style="margin-right:10px"></Icon>
-                    <Icon v-if="!detail" type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
-                </div>
-            </template>
-        </div>
-        <Upload v-if="upload" ref="upload" :show-upload-list="false" :on-success="handleSuccess" :format="['mp4']" :max-size="2048" :on-format-error="handleFormatError" :on-exceeded-size="handleMaxSize" :before-upload="handleBeforeUpload" :data="{
-          'type':'user'
-          }" multiple type="drag" :action="imgUrl" style="display: inline-block;width:99px;">
-            <div style="height:99px;line-height:118px;">
-                <Icon type="camera" size="40" style="margin-top:10px;"></Icon>
-            </div>
-        </Upload>
-        <Modal title="展示大图" v-model="visible">
-            <img :src="aliyun + imgName" v-if="visible" style="width: 100%">
-        </Modal>
+  <div>
+    <div class="demo-upload-list" v-if="uploadList">
+      <img :src="uploadList" />
+      <div class="demo-upload-list-cover">
+        <Icon type="ios-eye-outline" @click.native="handleView()" style="margin-right:10px"></Icon>
+        <Icon v-if="!detail" type="ios-trash-outline" @click.native="handleRemove(uploadList)"></Icon>
+      </div>
     </div>
+    <Upload v-if="upload" ref="upload" :show-upload-list="false" :before-upload="handleBeforeUpload" :action="imgUrl" :type="!uploadList?'drag':'select'" style="display: inline-block;width:99px;">
+      <div v-if="!uploadList" style="height:99px;line-height:118px;">
+        <Icon type="camera" size="40"></Icon>
+      </div>
+    </Upload>
+
+    <!-- <form action="">
+      <input @change="changeEvent" type="file" name="file" id="files" multiple/>
+    </form> -->
+    <Modal title="播放视频" v-model="visible">
+      <video :src="videoUrlList" controls="controls" v-if="visible" style="width: 100%"></video>
+    </Modal>
+  </div>
 </template>
 
 <script>
+import Util from "@/libs/util";
 import baseUri from "@/libs/base_uri";
+
 export default {
   data() {
     return {
-      imgUrl: baseUri.img_upload_url,
+      imgUrl: "",
+      uploadAuth: "",
+      uploadAddress: "",
+      videoId: "",
       aliyun: baseUri.oss_url,
-      imgName: "",
       visible: false,
-      uploadList: []
+      uploadList: "",
+      videoUrlList: "",
     };
   },
   props: ["imgList", "videoUrl", "upload", "change", "detail"],
   methods: {
-    handleView(name) {
-      this.imgName = name;
+    handleView() {
       this.visible = true;
     },
     handleRemove(file) {
-      const fileList = this.imgList;
-      this.imgList.splice(fileList.indexOf(file), 1);
+      const fileList = this.uploadList;
+      this.uploadList = "";
+      this.this.$store.state.app.videoId = ""
     },
-    handleSuccess(res, file) {
-      this.$Message.destroy();
-      //console.log(res)
-      this.uploadList.push(res.result.file.innerUrl);
-      //console.log(this.uploadList)
-    },
-    handleFormatError(file) {
-      this.$Message.destroy();
-      this.$Notice.warning({
-        title: "视频格式错误",
-        desc:
-          "视频名:"+file.name +"只能是mp4格式."
-      });
-    },
-    handleMaxSize(file) {
-      this.$Message.destroy();
-      this.$Notice.warning({
-        title: "内容过大",
-        desc: "视频" + file.name + "超过200M的限制."
-      });
-    },
+    // handleFormatError(file) {
+    //   this.$Message.destroy();
+    //   this.$Notice.warning({
+    //     title: "视频格式错误",
+    //     desc: "视频名:" + file.name + "只能是mp4格式."
+    //   });
+    // },
+    // handleMaxSize(file) {
+    //   this.$Message.destroy();
+    //   this.$Notice.warning({
+    //     title: "内容过大",
+    //     desc: "视频" + file.name + "超过200M的限制."
+    //   });
+    // },
     handleBeforeUpload(file) {
-      this.$Message.destroy();
-      const check = this.uploadList.length < 1;
-      if (!check) {
-        this.$Notice.warning({
-          title: "最多上传1个视频"
+      let titleStr = file.name.slice(0, file.name.indexOf("."));
+      Util.ajax({
+        method: "get",
+        url: baseUri.create_video_address_url,
+        params: {
+          fileName: file.name,
+          title: titleStr,
+          cateId: 1,
+          tags: 1,
+          desc: file.type
+        }
+      })
+        .then(res => {
+          if (res.data.success) {
+            let This = this;
+            let obj = res.data.data;
+            var uploader = new AliyunUpload.Vod({
+              //分片大小默认1M，不能小于100K
+              partSize: 1048576,
+              //并行上传分片个数，默认5
+              parallel: 5,
+              //网络原因失败时，重新上传次数，默认为3
+              retryCount: 3,
+              //网络原因失败时，重新上传间隔时间，默认为2秒
+              retryDuration: 2,
+              // 开始上传
+              onUploadstarted: function(uploadInfo) {
+                console.log("开始上传");
+                uploader.setUploadAuthAndAddress(
+                  uploadInfo,
+                  obj.uploadAuth,
+                  obj.uploadAddress,
+                  obj.videoId
+                );
+              },
+              // 文件上传成功
+              onUploadSucceed: function(uploadInfo) {
+                console.log("上传成功");
+                //console.log(uploadInfo);
+                recursionReq();
+                function recursionReq() {
+                  setTimeout(function() {
+                    Util.ajax({
+                      method: "get",
+                      url: baseUri.get_play_url,
+                      params: {
+                        videoId: uploadInfo.videoId
+                      }
+                    }).then(res => {
+                      //console.log(res);
+                      if (
+                        res.data.success &&
+                        res.data.data.VideoBase.CoverURL &&
+                        res.data.data.PlayInfoList.PlayInfo[1].PlayURL
+                      ) {
+                        This.uploadList = res.data.data.VideoBase.CoverURL;
+                        This.videoUrlList =
+                          res.data.data.PlayInfoList.PlayInfo[1].PlayURL;
+                        This.$store.state.app.videoId = uploadInfo.videoId
+                        
+                        This.$Message.destroy();
+                        This.$Message.success("上传成功");
+                      } else {
+                        recursionReq();
+                      }
+                    });
+                  }, 5000);
+                }
+              },
+              // 文件上传失败
+              onUploadFailed: function(uploadInfo, code, message) {
+                console.log("上传失败");
+              },
+              // 文件上传进度，单位：字节
+              onUploadProgress: function(uploadInfo, totalSize, loadedPercent) {
+                //console.log("上传进度" + totalSize + "|" + loadedPercent);
+              },
+              // 上传凭证超时
+              onUploadTokenExpired: function(uploadInfo) {
+                console.log("上传凭证超时");
+                //上传方式1  实现时，根据uploadInfo.videoId调用刷新视频上传凭证接口重新获取UploadAuth
+                // uploader.resumeUploadWithAuth(uploadAuth);
+                // 上传方式2 实现时，从新获取STS临时账号用于恢复上传
+                // uploader.resumeUploadWithSTSToken(accessKeyId, accessKeySecret, secretToken, expireTime);
+              },
+              //全部文件上传结束
+              onUploadEnd: function(uploadInfo) {
+                //console.log(uploader);
+                console.log("上传完成");
+              }
+            });
+            uploader.addFile(file, null, null, null, null);
+            uploader.startUpload();
+            this.$Message.loading({
+              content: "正在上传,如果视频文件较大，请耐心等待...",
+              duration: 0
+            });
+          } else {
+            this.$Message.error("上传失败");
+          }
+        })
+        .catch(error => {
+          console.log(error);
         });
-      } else {
-        this.$Message.loading({
-          content: "正在上传...",
-          duration: 0
-        });
-      }
-      return check;
+      //}
+      return false;
+    },
+    created() {
+      this.uploadList = this.imgList;
+      this.videoUrlList = this.videoUrl
     }
   }
-};
+}; //:on-progress ="handleProgress"
 </script>
 <style>
 .demo-upload-list {

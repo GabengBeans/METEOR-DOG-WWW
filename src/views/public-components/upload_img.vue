@@ -1,13 +1,11 @@
 <template>
   <div>
-    <div class="demo-upload-list" v-for="item in uploadList" :key="item.key">
-      <template v-if="item">
+    <div class="demo-upload-list" v-for="item in uploadList" v-if="item" :key="item.key">
         <img :src="aliyun + item">
         <div class="demo-upload-list-cover" >
           <Icon type="ios-eye-outline" @click.native="handleView(item)" style="margin-right:10px"></Icon>
           <Icon v-if="!detail" type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
         </div>
-      </template>
     </div>
     <Upload v-if="upload"  ref="upload" :show-upload-list="false" :on-success="handleSuccess" :format="['jpg','jpeg','png']" :max-size="2048" :on-format-error="handleFormatError" :on-exceeded-size="handleMaxSize" :before-upload="handleBeforeUpload" :data="{
           'type':'user'

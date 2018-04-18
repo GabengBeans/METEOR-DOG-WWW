@@ -114,7 +114,7 @@
           <br>
           <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
             <label class="from_label">服务视频:</label>视频限制大小200M
-            <UserEditVideoList class="image-style" :change="true" :upload="true" :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo"></UserEditVideoList>
+            <UserEditVideoList class="image-style" :change="true" :upload="true" :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo" ></UserEditVideoList>
           </div>
           <br>
           <FormItem>
@@ -299,18 +299,14 @@ export default {
           content: "保存中...",
           duration: 0
         });
-        let mediaVideo;
         let price = parseInt(this.data.price) * 100;
         let modeType = "[" + this.data.modeType + "]";
         let deposit = parseInt(this.data.deposit) * 100;
         //console.log(this.data.modeType)
         let validDays = "[" + this.data.validDays + "]";
         let periodTypes = "[" + this.data.periodTypes + "]";
-        if (!this.data.mediaVideo) {
-          mediaVideo = "";
-        } else {
-          mediaVideo = this.data.mediaVideo;
-        }
+        
+        console.log(this.$store.state.app.videoId)
         let data = {
           address: this.data.address || "",
           categoryParentId: this.data.categoryParentId,
@@ -326,7 +322,7 @@ export default {
           priceType: this.data.priceType,
           restrictions: this.data.restrictions || "无",
           title: this.data.title,
-          videoList: mediaVideo,
+          videoList: this.$store.state.app.videoId || "",
           unitName: this.data.unitName
         };
         //console.log(data);
@@ -430,11 +426,12 @@ export default {
                 this.data.mediaImg = [];
                 for (let y = 0; y < obj[x].length; y++) {
                   //console.log(obj.mediaList[y])
-                  if (obj.mediaList[y].mediaType == 1) {
+                  if (obj.mediaList[y] && obj.mediaList[y].mediaType == 1 && obj.mediaList[y].mediaUrl) {
                     this.data.mediaImg.push(obj.mediaList[y].mediaUrl);
                   } else if (obj.mediaList[y].mediaType == 2) {
                     this.data.mediaVideoImg = obj.mediaList[y].videoPhotoUrl;
                     this.data.mediaVideo = obj.mediaList[y].videoPlayUrl;
+                    this.$store.state.app.videoId = obj.mediaLIst[y].mediaUrl
                   }
                 }
               } else if (x == "modeType") {
