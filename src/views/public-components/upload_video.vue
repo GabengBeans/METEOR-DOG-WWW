@@ -35,8 +35,8 @@ export default {
       videoId: "",
       aliyun: baseUri.oss_url,
       visible: false,
-      uploadList: "",
-      videoUrlList: "",
+      uploadList: this.imgList,
+      videoUrlList: this.videoUrl,
     };
   },
   props: ["imgList", "videoUrl", "upload", "change", "detail"],
@@ -45,9 +45,8 @@ export default {
       this.visible = true;
     },
     handleRemove(file) {
-      const fileList = this.uploadList;
       this.uploadList = "";
-      this.this.$store.state.app.videoId = ""
+      this.$store.state.app.videoId = ""
     },
     // handleFormatError(file) {
     //   this.$Message.destroy();
@@ -115,7 +114,7 @@ export default {
                     }).then(res => {
                       //console.log(res);
                       if (
-                        res.data.success &&
+                        res.data.success && res.data.code==1 &&
                         res.data.data.VideoBase.CoverURL &&
                         res.data.data.PlayInfoList.PlayInfo[1].PlayURL
                       ) {
@@ -170,10 +169,6 @@ export default {
         });
       //}
       return false;
-    },
-    created() {
-      this.uploadList = this.imgList;
-      this.videoUrlList = this.videoUrl
     }
   }
 }; //:on-progress ="handleProgress"

@@ -431,7 +431,7 @@ export default {
                   } else if (obj.mediaList[y].mediaType == 2) {
                     this.data.mediaVideoImg = obj.mediaList[y].videoPhotoUrl;
                     this.data.mediaVideo = obj.mediaList[y].videoPlayUrl;
-                    this.$store.state.app.videoId = obj.mediaLIst[y].mediaUrl
+                    this.$store.state.app.videoId = obj.mediaList[y].mediaUrl
                   }
                 }
               } else if (x == "modeType") {
