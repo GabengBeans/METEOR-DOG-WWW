@@ -81,14 +81,7 @@
         <br>
         <div class="user_detail_media">
           <label class="from_label">需求视频:</label>
-          <div class="demo-upload-list" v-if="data.mediaVideoImg">
-            <template>
-              <img :src="data.mediaVideoImg" @click="handleVideo()" />
-            </template>
-            <Modal title="视频播放" v-model="videoVisible">
-              <video :src="data.mediaVideo" autoplay controls="controls" v-if="videoVisible" style="width: 100%"></video>
-            </Modal>
-          </div>
+          <UserEditVideoList  :detail="true" :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo" ></UserEditVideoList>
         </div>
         <br>
         <div class="user_detail_div">
@@ -132,6 +125,7 @@ import Util from "@/libs/util";
 import Cookies from "js-cookie";
 import baseUri from "@/libs/base_uri";
 import UserEditImgList from "@/views/public-components/upload_img";
+import UserEditVideoList from "@/views/public-components/upload_video";
 export default {
   data() {
     return {
@@ -148,7 +142,8 @@ export default {
     };
   },
   components:{
-    UserEditImgList
+    UserEditImgList,
+    UserEditVideoList
   },
   methods: {
     handleView(name) {

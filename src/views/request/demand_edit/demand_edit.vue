@@ -259,16 +259,10 @@ export default {
           content: "保存中...",
           duration: 0
         });
-        let mediaVideo;
         let modeType = "[" + this.data.modeType + "]";
         //console.log(modeType);
         let price = parseInt(this.data.price) * 100;
         let validDays = "[" + this.data.validDays + "]";
-        if (!this.data.mediaVideo) {
-          mediaVideo = "";
-        } else {
-          mediaVideo = this.data.mediaVideo;
-        }
         let data = {
           address: this.data.address || "",
           categoryParentId: this.data.categoryParentId,
@@ -283,7 +277,7 @@ export default {
           restrictions: this.data.restrictions || "无",
           title: this.data.title,
           validDays: "[]",
-          videoList: mediaVideo
+          videoList: this.$store.state.app.videoId
         };
         //console.log(data);
         Util.ajax({

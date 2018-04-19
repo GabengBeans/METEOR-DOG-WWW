@@ -306,7 +306,7 @@ export default {
         let validDays = "[" + this.data.validDays + "]";
         let periodTypes = "[" + this.data.periodTypes + "]";
         
-        console.log(this.$store.state.app.videoId)
+        //console.log(this.$store.state.app.videoId)
         let data = {
           address: this.data.address || "",
           categoryParentId: this.data.categoryParentId,
