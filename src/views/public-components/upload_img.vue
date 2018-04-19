@@ -65,18 +65,18 @@ export default {
     },
     handleBeforeUpload(file) {
       this.$Message.destroy();
-      const check = this.uploadList.length < 8;
-      if (!check) {
-        this.$Notice.warning({
-          title: "最多上传8张图片"
-        });
-      } else {
+      // const check = this.uploadList.length < 8;
+      // if (!check) {
+      //   this.$Notice.warning({
+      //     title: "最多上传8张图片"
+      //   });
+      // } else {
         this.$Message.loading({
           content: "正在上传...",
           duration: 0
         });
-      }
-      return check;
+      //}
+      return true;
     }
   },
 
