@@ -28,7 +28,7 @@ export default {
       aliyun: baseUri.oss_url,
       imgName: "",
       visible: false,
-      uploadList: []
+      uploadList: this.imgList
     };
   },
   //change:是否可上传   detail:是否查看。浮层
@@ -80,9 +80,6 @@ export default {
     }
   },
 
-  created() {
-    this.uploadList = this.imgList;
-  }
 };
 </script>
 <style>

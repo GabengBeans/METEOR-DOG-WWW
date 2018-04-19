@@ -270,12 +270,12 @@ export default {
         this.$Message.error("服务介绍不能为空");
         return false;
       }
-      if (this.data.mediaImg.length > 8) {
-        this.$Notice.warning({
-          title: "最多上传8张图片"
-        });
-        return false;
-      }
+      // if (this.data.mediaImg.length > 8) {
+      //   this.$Notice.warning({
+      //     title: "最多上传8张图片"
+      //   });
+      //   return false;
+      // }
       if (
         parseInt(this.data.price) < 0 ||
         (parseInt(this.data.price) > 0 && parseInt(this.data.price) < 5)
