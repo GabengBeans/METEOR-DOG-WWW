@@ -103,8 +103,8 @@
           </div>
           <br>
           <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
-            <label class="from_label">需求视频:</label>
-            <UserEditImgList class="image-style" :change="true" :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo"></UserEditImgList>
+            <label class="from_label">需求视频:</label>视频限制大小200M
+            <UserEditVideoList class="image-style" :change="true" :upload="true" :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo" ></UserEditVideoList>
           </div>
           <br>
           <FormItem>
@@ -161,6 +161,7 @@ import baseUri from "@/libs/base_uri";
 import axios from "axios";
 import $ from "jquery";
 import UserEditImgList from "@/views/public-components/upload_img";
+import UserEditVideoList from "@/views/public-components/upload_video";
 import BMapComponent from "../../public-components/BMapComponent";
 export default {
   data() {
@@ -203,6 +204,7 @@ export default {
   },
   components: {
     UserEditImgList,
+    UserEditVideoList,
     BMapComponent
   },
   methods: {
