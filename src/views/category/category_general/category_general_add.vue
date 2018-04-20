@@ -29,9 +29,18 @@
         <FormItem label="上传图片">
           <template v-if="!data.avatarUrl">
             图片大小限制2M
-            <Upload ref="upload" :show-upload-list="false" :on-success="handleSuccess" :on-format-error="handleFormatError" :on-exceeded-size="handleMaxSize" :before-upload="handleBeforeUpload" :format="['jpg','jpeg','png']" :max-size="2048" :data="{
+            <Upload ref="upload" 
+            :show-upload-list="false" 
+            :on-success="handleSuccess" 
+            :on-format-error="handleFormatError" 
+            :on-exceeded-size="handleMaxSize" 
+            :before-upload="handleBeforeUpload" 
+            :format="['jpg','jpeg','png']" 
+            :max-size="2048" 
+            :data="{
                     'type':'user'
-                  }" :action="imgUrl">
+                  }" 
+            :action="imgUrl">
               <div>
                 <Icon type="camera" size="40"></Icon>
               </div>

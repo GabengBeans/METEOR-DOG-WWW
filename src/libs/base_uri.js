@@ -3,6 +3,7 @@ let base_uri = {
     img_url:"/images/user/5/4/548a2573b46cb1c8e90aee11bdfad978.png",
     //图片上传地址
     img_upload_url:"https://lxg.91taogu.com/up/",
+    //img_upload_url:"/oss/v1/upload_img",
     //阿里云图片地址
     oss_url: "http://dedc-statics.oss-cn-beijing.aliyuncs.com/",
     //用户地址
