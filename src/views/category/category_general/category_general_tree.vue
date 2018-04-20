@@ -170,6 +170,7 @@ export default {
                             this.editObj.name = this.categoryData.name;
                             this.editObj.sort = this.categoryData.sort;
                             this.editObj.isHot = this.categoryData.isHot?true:false;
+                            this.editObj.isPush = this.categoryData.isPush?true:false
                             this.editObj.isRecommend = this.categoryData.isRecommend?true:false;
                             this.editObj.level = this.categoryData.level
                             this.editObj.id = this.categoryData.id;
@@ -455,6 +456,7 @@ export default {
                       this.editObj.name = data.name;
                       this.editObj.sort = data.sort;
                       this.editObj.isHot = data.isHot?true:false;
+                      this.editObj.isPush = data.isPush?true:false
                       this.editObj.isRecommend = data.isRecommend?true:false;
                       this.editObj.level = data.level
                       this.editObj.id = data.id;
