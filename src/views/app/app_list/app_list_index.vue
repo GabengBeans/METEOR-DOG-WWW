@@ -13,6 +13,9 @@
           <FormItem label="app版本号">
             <Input clearable v-model="appData.appVersion" />
           </FormItem>
+          <FormItem label="内部版本号">
+            <Input clearable v-model="appData.appExternalVersion" />
+          </FormItem>
           <FormItem label="上传文件">
             <Upload ref="upload" action="http://39.106.51.236:9091/oss/v1/upload" :format="['apk']" :data="{
                             'fileType':2
@@ -46,7 +49,8 @@ export default {
       appData: {
         appVersion: "",
         appUrl: "",
-        description: ""
+        description: "",
+        appExternalVersion:""
       },
       updateStatus:"是",
       showAddApp: false
@@ -101,10 +105,11 @@ export default {
         appUrl: this.appData.appUrl,
         description: this.appData.description,
         updateStatus:this.updateStatus,
+        appExternalVersion:this.appData.appExternalVersion
         //appExternalVersion:0
       };
       //console.log(data)
-      Util.ajax({
+        Util.ajax({
         method: "post",
         url: baseUri.app_add_url,
         data: Util.formData(data)
@@ -116,8 +121,7 @@ export default {
           } else {
             this.$Message.error("添加失败");
           }
-        })
-        .catch(error => {
+        }).catch(error => {
           console.log(error);
         });
     }

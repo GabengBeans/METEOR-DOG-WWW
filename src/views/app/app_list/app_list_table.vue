@@ -49,6 +49,10 @@ export default {
           key: "appVersion"
         },
         {
+          title: "内部版本号",
+          key: "appExternalVersion"
+        },
+        {
           title: "上传时间",
           key: "createTime"
         },
