@@ -7,7 +7,8 @@
         <span>上传APP</span>
       </p>
       <div style="text-align:center">
-        <Form :label-width="90" label-position="left">
+        后台接口暂未开发
+        <!-- <Form :label-width="90" label-position="left">
           <FormItem label="app版本号">
             <Input clearable v-model="appData.appVersion" />
           </FormItem>
@@ -25,9 +26,9 @@
             </RadioGroup>
           </FormItem>
           <FormItem label="描述">
-            <Input type="textarea" clearable v-model="appData.description" />
+            <Input type="textarea" v-model="appData.description" />
           </FormItem>
-        </Form>
+        </Form> -->
       </div>
     </Modal>
     </div>

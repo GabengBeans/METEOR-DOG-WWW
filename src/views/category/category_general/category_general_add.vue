@@ -24,6 +24,7 @@
         <FormItem label="">
           <Checkbox v-model="data.isRecommend">前端推荐</Checkbox>
           <Checkbox v-model="data.isHot">热门搜索</Checkbox>
+          <Checkbox v-model="data.isPush">主推服务</Checkbox>
         </FormItem>
         <FormItem label="上传图片">
           <template v-if="!data.avatarUrl">
@@ -73,6 +74,7 @@ export default {
           avatarUrl: this.data.avatarUrl,
           id: this.data.id,
           isHot: this.data.isHot ? 1 : 0,
+          isPush:this.data.isPush ?1:0,
           isRecommend: this.data.isRecommend ? 1 : 0,
           level: this.data.level,
           name: this.data.name,

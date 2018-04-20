@@ -27,7 +27,7 @@
             </RadioGroup>
           </FormItem>
           <FormItem label="描述">
-            <Input type="textarea" clearable v-model="appData.description" />
+            <Input type="textarea"  v-model="appData.description" />
           </FormItem>
         </Form>
       </div>
@@ -77,8 +77,10 @@ export default {
         this.$Message.destroy()
         this.$Message.success("上传成功！")
         this.appData.appUrl = res.data.fileUrl;
+      }else{
+        this.$Message.destroy()
+        this.$Message.error("上传失败，请重新上传")
       }
-      //this.file.appUrl =
     },
     addApps() {
       for (let x in this.appData) {
