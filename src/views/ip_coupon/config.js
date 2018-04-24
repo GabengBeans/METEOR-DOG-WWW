@@ -21,42 +21,34 @@ config.ipCouponSearch = {
   },
   couponStatusCode: {
     tagName: "红包状态",
-    value: "",
+    value: "-1",
     tag: {
       op1: {
-        num: "0",
+        num: "-1",
         value: "全部"
       },
       op2: {
         num: "1",
-        value: "编辑中"
+        value: "未开始"
       },
       op3: {
         num: "2",
-        value: "审核中"
+        value: "发行中"
       },
       op4: {
         num: "3",
-        value: "已发布"
+        value: "已结束"
       },
       op5: {
         num: "4",
-        value: "已过期"
+        value: "用户禁用"
       },
       op6: {
         num: "5",
-        value: "审核未通过"
+        value: "平台禁用"
       },
       op7: {
         num: "6",
-        value: "取消发布"
-      },
-      op8: {
-        num: "7",
-        value: "已下架"
-      },
-      op9: {
-        num: "8",
         value: "已删除"
       }
     }
@@ -83,43 +75,27 @@ config.ipCouponDetailSearch = {
   },
   couponStatusCode: {
     tagName: "使用状态",
-    value: "",
+    value: "-1",
     tag: {
       op1: {
-        num: "0",
+        num: "-1",
         value: "全部"
       },
       op2: {
-        num: "1",
-        value: "编辑中"
+        num: "0",
+        value: "没有使用"
       },
       op3: {
-        num: "2",
-        value: "审核中"
+        num: "1",
+        value: "使用中"
       },
       op4: {
-        num: "3",
-        value: "已发布"
+        num: "2",
+        value: "已经使用"
       },
       op5: {
-        num: "4",
-        value: "已过期"
-      },
-      op6: {
-        num: "5",
-        value: "审核未通过"
-      },
-      op7: {
-        num: "6",
-        value: "取消发布"
-      },
-      op8: {
-        num: "7",
-        value: "已下架"
-      },
-      op9: {
-        num: "8",
-        value: "已删除"
+        num: "3",
+        value: "已经过期"
       }
     }
   }
@@ -132,7 +108,7 @@ config.ipCouponDetailColumns = [
   },
   {
     title:"领取时间",
-    key:"beginTime",
+    key:"createTime",
     ellipsis: "false"
   },
   {

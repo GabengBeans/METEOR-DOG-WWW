@@ -19,7 +19,7 @@
 <script>
 export default {
   name: "user_search",
-  props: ["data", "storeStatus"],
+  props: ["data", "storeStatus","searchData"],
   methods: {
     search: function() {
       let obj = {};
@@ -31,108 +31,104 @@ export default {
       //console.log(obj)
       switch (this.storeStatus) {
         case "cashFlow":
-          //this.$store.state.app.cash_flow_search_info = obj
           this.$store.commit("GET_CASH_FLOW_INFO", { data: obj, pageNo: 1 });
           break;
         case "cashRefund":
-          //console.log(obj)
-          //this.$store.state.app.cash_refund_search_info = obj
           this.$store.commit("GET_CASH_REFUND_INFO", { data: obj, pageNo: 1 });
           break;
         case "cashWithDraw":
-          //this.$store.state.app.cash_withdraw_search_info = obj
           this.$store.commit("GET_CASH_WITHDRAW_INFO", {
             data: obj,
             pageNo: 1
           });
           break;
         case "afterMerchantEnter":
-          //this.$store.state.app.merchant_enter_search_info = obj
           this.$store.commit("GET_MERCHANT_ENTER_INFO", {
             data: obj,
             pageNo: 1
           });
           break;
         case "advertNewBits":
-          //this.$store.state.app.merchant_enter_search_info = obj
           this.$store.commit("GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO", {
             data: obj,
             pageNo: 1
           });
           break;
         case "afterFeedBackListSearch":
-          //this.$store.state.app.merchant_enter_search_info = obj
           this.$store.commit("GET_AFTER_FEEDBACK_INFO", {
             data: obj,
             pageNo: 1
           });
           break;
         case "statisticsTransactionSearch":
-          //this.$store.state.app.merchant_enter_search_info = obj
           this.$store.commit("GET_ORDER_STATISTICS_SEARCH_INFO", { time: obj });
           break;
         case "systemSettingSearch":
-          //this.$store.state.app.merchant_enter_search_info = obj
           this.$store.commit("GET_SYSTEM_SETTINGS_SEARCH_INFO", {
             data: obj,
             pageNo: 1
           });
           break;
         case "user":
-          //this.$store.state.app.merchant_enter_search_info = obj
           this.$store.commit("GET_USER_INFO", { data: obj, pageNo: 1 });
           break;
         case "request":
-          //this.$store.state.app.merchant_enter_search_info = obj
           this.$store.commit("GET_REQUEST_INFO", { data: obj, pageNo: 1 });
           break;
         case "service":
-          //this.$store.state.app.merchant_enter_search_info = obj
           this.$store.commit("GET_SERVICE_INFO", { data: obj, pageNo: 1 });
           break;
         case "orderService":
-          //this.$store.state.app.merchant_enter_search_info = obj
           this.$store.commit("GET_ORDER_SERVICE_INFO", {
             data: obj,
             pageNo: 1
           });
           break;
         case "orderDemand":
-          //this.$store.state.app.merchant_enter_search_info = obj
           this.$store.commit("GET_ORDER_DEMAND_INFO", { data: obj, pageNo: 1 });
           break;
         case "lockedUser":
-          //this.$store.state.app.merchant_enter_search_info = obj
           this.$store.commit("GET_SEARCH_ADIMIN_USER_INFO", {
             data: obj,
             pageNo: 1
           });
           break;
         case "lockedRole":
-          //this.$store.state.app.merchant_enter_search_info = obj
           this.$store.commit("GET_SEARCH_ADIMIN_ROLE_INFO", {
             data: obj,
             pageNo: 1
           });
           break;
         case "afterMerchantEnter":
-          //this.$store.state.app.merchant_enter_search_info = obj
+        
           this.$store.commit("GET_MERCHANT_ENTER_INFO", {
             data: obj,
             pageNo: 1
           });
           break;
         case "afterMerchantEnterQuery":
-          //this.$store.state.app.merchant_enter_search_info = obj
+
           this.$store.commit("GET_BUSINESS_ENTER_FOR_PAGE_INFO", {
             data: obj,
             pageNo: 1
           });
           break;
         case "querySessionRecord":
-          //this.$store.state.app.merchant_enter_search_info = obj
           this.$store.commit("GET_SEARCH_CHATLOG_FOR_PAGE", {
             data: obj,
+            pageNo: 1
+          });
+          break;
+        case "ipCoupon":
+          this.$store.commit("GET_IP_COUPON_QUERY_LIST", {
+            data: obj,
+            pageNo: 1
+          });
+          break;
+        case "ipCouponDetail":
+        let objs = Object.assign({"couponId":this.searchData},obj)
+          this.$store.commit("GET_IP_COUPON_DETAIL_QUERY_LIST", {
+            data: objs,
             pageNo: 1
           });
           break;

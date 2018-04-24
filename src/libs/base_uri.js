@@ -182,7 +182,9 @@ let base_uri = {
     query_session_detail:"/admin/v1/chatlog/detail",
 
     //ip红包查询
-    search_coupon_for_page_url:"/admin/v1/coupon/search_coupon_for_page"
+    search_coupon_for_page_url:"/admin/v1/coupon/search_coupon_for_page",
+    search_usercoupon_for_page_url:"/admin/v1/coupon/search_usercoupon_for_page",
+    update_coupon_status:"/admin/v1/coupon/update_coupon_status"
 };
 
 export default base_uri;

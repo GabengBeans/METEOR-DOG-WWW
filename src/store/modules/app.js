@@ -261,6 +261,16 @@ const app = {
         ip_coupon_query_search_result:[],
         ip_coupon_query_public_page:1,
 
+        //IP红包详情查询
+        ip_coupon_detail_query_serch_info:{},
+        ip_coupon_detail_query_page_info:{
+            currentPage:1,
+            totalPage:0
+        },
+        ip_coupon_detail_query_search_result:[],
+        ip_coupon_detail_query_public_page:1,
+
+
         cachePage: [],
         lang: '',
         isFullScreen: false,
@@ -1401,10 +1411,10 @@ const app = {
             }).then(res=>{
                 if(res.data.success){
                     //console.log(res)
-                    state.ip_coupon_query_search_result = res.data.data
+                    state.ip_coupon_query_search_result = res.data.data.items
                     state.ip_coupon_query_page_info.currentPage = res.data.data.page
                     state.ip_coupon_query_page_info.totalPage = res.data.data.totalCount
-                    let obj = res.data.data
+                    let obj = res.data.data.items
                     for(let x=0;x<obj.length;x++)
                     {
                         for(let y in obj[x])
@@ -1421,6 +1431,57 @@ const app = {
                             }
                         }
                     }
+                }
+            }).catch(error=>{
+                console.log(error)
+            })
+        },
+        //IP红包详情查询
+        GET_IP_COUPON_DETAIL_QUERY_LIST(state, { data, pageNo }){
+            state.ip_coupon_detail_query_search_info = data
+            state.ip_coupon_detail_query_public_page = pageNo
+            Util.ajax({
+                method:"post",
+                url:base_uri.search_usercoupon_for_page_url,
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
+                },
+                data:data
+            }).then(res=>{
+                if(res.data.success){
+                    //console.log(res)
+                    state.ip_coupon_detail_query_search_result.items = res.data.data.userCouponList.items
+                    state.ip_coupon_detail_query_search_result.couponInfo = res.data.data.couponInfo
+                    state.ip_coupon_detail_query_page_info.currentPage = res.data.data.page
+                    state.ip_coupon_detail_query_page_info.totalPage = res.data.data.totalCount
+                    let items = res.data.data.userCouponList.items
+                    let couponInfo = res.data.data.couponInfo
+                    let useStatusArr = ["没有使用","使用中","已经使用","已经过期"]
+                    for(let x=0;x<items.length;x++)
+                    {
+                        for(let y in items[x])
+                        {
+                            if(y=="createTime")
+                            {
+                                state.ip_coupon_detail_query_search_result.items[x][y]=Util.formatDate(new Date(items[x][y]),"yyyy-MM-dd hh:mm:ss")
+                            }else if(y=="useStatus")
+                            {
+                                state.ip_coupon_detail_query_search_result.items[x][y] =useStatusArr[items[x][y]]
+                            }
+                        }
+                    }
+                    for(let x in couponInfo)
+                    {
+                        if(x=="saleDecrease" || x=="saleEvery")
+                        {
+                            state.ip_coupon_detail_query_search_result.couponInfo[x]=parseInt(couponInfo[x]/100)
+                        }else if(x=="beginTime" || x=="endTime")
+                        {
+                            state.ip_coupon_detail_query_search_result.couponInfo[x] = Util.formatDate(new Date(couponInfo[x]),"yyyy-MM-dd")
+                        }
+                    }
+                    console.log(state.ip_coupon_detail_query_search_result.couponInfo)
                 }
             }).catch(error=>{
                 console.log(error)

@@ -142,6 +142,12 @@ export default {
             pageNo: index
           });
           break;
+        case "ipCoupon":
+          this.$store.commit("GET_IP_COUPON_QUERY_LIST", {
+            data: this.$store.state.app.ip_coupon_query_search_info,
+            pageNo: index
+          });
+          break;
       }
     }
   }

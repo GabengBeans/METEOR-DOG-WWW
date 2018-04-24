@@ -317,7 +317,7 @@ util.checkUpdate = function (vm) {
         },
         error => {
             // 退出登录
-            vm.$store.commit('logout', this);
+            //vm.$store.commit('logout', this);
             vm.$store.commit('clearOpenedSubmenu');
             vm.$router.push({
                 name: 'login'

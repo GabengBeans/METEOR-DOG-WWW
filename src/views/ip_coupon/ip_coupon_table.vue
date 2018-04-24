@@ -2,6 +2,19 @@
   <div id='user_table' class="table">
     <Table style="min-width:800px;margin:0 16px;" border stripe :columns="columns" :data="$store.state.app.ip_coupon_query_search_result">
     </Table>
+    <Modal v-model="showCoercionModal" width="360">
+      <p slot="header" style="color:red;text-align:center">
+        <span>强制结束</span>
+      </p>
+      <div style="text-align:center;font-size:18px">
+        <p>强制结束后该红包不能领取且无法恢复，已领取的红包可正常使用</p>
+
+      </div>
+      <div slot="footer" style="text-align:center">
+        <Button type="error" @click="showCoercionModal=false">取消</Button>
+        <Button type="success" @click="CoercionCoupon">确定</Button>
+      </div>
+    </Modal>
   </div>
 </template>
 <script>
@@ -13,17 +26,19 @@ export default {
 
   data() {
     return {
-      showAbilityModal:true,
+      showCoercionModal: false,
+      CoercionCouponId: "",
       columns: [
         {
           title: "红包名称",
-          key: "tagName",
-          ellipsis: "false"
+          key: "title",
+          ellipsis: "false",
+          width: 150
         },
         {
           title: "创建时间",
           key: "createTime",
-          width:150,
+          width: 150
         },
         {
           title: "创建者昵称",
@@ -56,16 +71,16 @@ export default {
         },
         {
           title: "已领取个数",
-          key: "aaa"
+          key: "receiveCount"
         },
         {
           title: "已使用个数",
-          key: "bbb"
+          key: "useCount"
         },
         {
           title: "操作",
           key: "phone",
-          width:220,
+          width: 220,
           align: "center",
           render: (h, params) => {
             return h("div", [
@@ -74,32 +89,14 @@ export default {
                 {
                   props: {
                     type: "info",
-                    size: "small",
+                    size: "small"
                   },
                   style: {
                     marginRight: "5px"
                   },
                   on: {
                     click: () => {
-                      // let data = {
-                      //   userId: params.row.id,
-                      //   status: 0
-                      // };
-                      // Util.ajax({
-                      //   method: "post",
-                      //   url: baseUri.user_forbidden_user_url,
-                      //   data: Util.formData(data)
-                      // })
-                      //   .then(response => {
-                      //     //console.log(params.row.status)
-                      //     params.row.status = "禁用";
-                      //     this.$Message.success("禁用成功");
-                      //     //this.user_query_response = response
-                      //   })
-                      //   .catch(error => {
-                      //     this.$Message.error("请求超时");
-                      //   });
-                      this.$router.push("/ip_coupon_detail/"+params.row.tagId);
+                      this.$router.push("/ip_coupon_detail/" + params.row.id);
                     }
                   }
                 },
@@ -111,30 +108,19 @@ export default {
                   props: {
                     type: "error",
                     size: "small",
-                    disabled: params.row.status == "正常" ? true : false
+                    disabled:
+                      params.row.couponStatus == "用户禁用" ||
+                      params.row.couponStatus == "平台禁用"
+                        ? true
+                        : false
                   },
                   style: {
                     marginRight: "5px"
                   },
                   on: {
                     click: () => {
-                      let data = {
-                         userId: params.row.id,
-                          status: 1
-                      }
-                      Util.ajax({
-                        method: "post",
-                        url: baseUri.user_forbidden_user_url,
-                        timeout: 3000,
-                        data: Util.formData(data)
-                      })
-                        .then(response => {
-                          params.row.status = "正常";
-                          this.$Message.success("启用成功");
-                        })
-                        .catch(error => {
-                          this.$Message.error("请求超时");
-                        });
+                      this.showCoercionModal = true;
+                      this.CoercionCouponId = params.row.id;
                     }
                   }
                 },
@@ -146,9 +132,26 @@ export default {
       ]
     };
   },
-  methods:{
-    updataUserAbility(){
-
+  methods: {
+    CoercionCoupon() {
+      Util.ajax({
+        method: "post",
+        url: baseUri.update_coupon_status,
+        params: {
+          couponId: this.CoercionCouponId,
+          status: 0
+        }
+      })
+        .then(res => {
+          if (res.data.success && res.data.code == "100") {
+            this.$Message.success("强制结束成功");
+          } else {
+            this.$Message.error("强制结束失败");
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };
