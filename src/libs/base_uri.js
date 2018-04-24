@@ -180,6 +180,9 @@ let base_uri = {
     //IM
     search_chatlog_for_page_url:"/admin/v1/chatlog/search_chatlog_for_page",
     query_session_detail:"/admin/v1/chatlog/detail",
+
+    //ip红包查询
+    search_coupon_for_page_url:"/admin/v1/coupon/search_coupon_for_page"
 };
 
 export default base_uri;

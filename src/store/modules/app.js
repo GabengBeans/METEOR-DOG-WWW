@@ -252,8 +252,14 @@ const app = {
         query_session_search_result:[],
         query_session_public_page:1,
 
-
-
+        //IP红包查询
+        ip_coupon_query_search_info:{},
+        ip_coupon_query_page_info:{
+            currentPage:1,
+            totalPage:0
+        },
+        ip_coupon_query_search_result:[],
+        ip_coupon_query_public_page:1,
 
         cachePage: [],
         lang: '',
@@ -1377,9 +1383,49 @@ const app = {
                     state.query_session_page_info.totalPage = res.data.data.totalCount
                 }
             }).catch(error=>{
-                console.og(error)
+                console.log(error)
             })
-        }
+        },
+        //ip红包查询
+        GET_IP_COUPON_QUERY_LIST(state, { data, pageNo }){
+            state.ip_coupon_query_search_info = data
+            state.ip_coupon_query_public_page = pageNo
+            Util.ajax({
+                method:"post",
+                url:base_uri.search_coupon_for_page_url,
+                params:{
+                    pageNo:pageNo || 1,
+                    pageSize:10
+                },
+                data:data
+            }).then(res=>{
+                if(res.data.success){
+                    //console.log(res)
+                    state.ip_coupon_query_search_result = res.data.data
+                    state.ip_coupon_query_page_info.currentPage = res.data.data.page
+                    state.ip_coupon_query_page_info.totalPage = res.data.data.totalCount
+                    let obj = res.data.data
+                    for(let x=0;x<obj.length;x++)
+                    {
+                        for(let y in obj[x])
+                        {
+                            if(y=="createTime")
+                            {
+                                state.ip_coupon_query_search_result[x].createTime=Util.formatDate(new Date(obj[x][y]),"yyyy-MM-dd hh:mm:ss")
+                            }else if(y=="saleEvery")
+                            {
+                                state.ip_coupon_query_search_result[x][y] = parseInt(obj[x][y]/100)
+                            }else if(y=="saleDecrease")
+                            {
+                                state.ip_coupon_query_search_result[x][y] = parseInt(obj[x][y]/100)
+                            }
+                        }
+                    }
+                }
+            }).catch(error=>{
+                console.log(error)
+            })
+        },
     }
 }
 export default app

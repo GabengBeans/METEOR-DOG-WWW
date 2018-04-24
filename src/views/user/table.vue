@@ -2,8 +2,21 @@
   <div id='user_table' class="table">
     <Table style="min-width:800px;margin:0 16px;" border stripe :columns="columns" :data="$store.state.app.user_search_result">
     </Table>
+    <!-- <Modal v-model="showAbilityModal" width="360">
+        <p slot="header" style="color:#f60;text-align:center">
+            <span>权限</span>
+        </p>
+        <div style="text-align:center;height:20vh">
+            <CheckboxGroup v-model="disabledGroup">
+                <Checkbox label="IP红包创建权限"></Checkbox>
+            </CheckboxGroup>
+        </div>
+        <div slot="footer" style="text-align:center">
+          <Button type="success" @click="updataUserAbility" >保存</Button>
+            <Button type="error" @click="showAbilityModal=false" >取消</Button>
+        </div>
+    </Modal> -->
   </div>
-
 </template>
 <script>
 import Util from "@/libs/util";
@@ -14,6 +27,7 @@ export default {
 
   data() {
     return {
+      showAbilityModal:true,
       columns: [
         {
           title: "用户ID",
@@ -55,26 +69,6 @@ export default {
           align: "center",
           render: (h, params) => {
             return h("div", [
-              // h(
-              //   "Button",
-              //   {
-              //     props: {
-              //       type: "primary",
-              //       size: "small"
-              //     },
-              //     style: {
-              //       marginRight: "5px"
-              //     },
-              //     on: {
-              //       click: () => {
-              //           this.$router.push("/user-role/"+params.row.id)
-              //       //   this.a.state.public_search_id = params.row.id;
-              //       //   router.push("/user_query/revise");
-              //       }
-              //     }
-              //   },
-              //   "修改"
-              // ),
               h(
                 "Button",
                 {
@@ -164,14 +158,15 @@ export default {
                 },
                 "编辑"
               ),
-              // ]
-              // ),
               h(
                 "Button",
                 {
                   props: {
                     type: "info",
                     size: "small"
+                  },
+                  style: {
+                    marginRight: "5px"
                   },
                   on: {
                     click: () => {
@@ -180,12 +175,35 @@ export default {
                   }
                 },
                 "详情"
-              )
+              ),
+              // h(
+              //   "Button",
+              //   {
+              //     props: {
+              //       type: "success",
+              //       size: "small"
+              //     },
+              //     style: {
+              //       marginRight: "5px"
+              //     },
+              //     on: {
+              //       click: () => {
+                      
+              //       }
+              //     }
+              //   },
+              //   "权限"
+              // )
             ]);
           }
         }
       ]
     };
+  },
+  methods:{
+    updataUserAbility(){
+
+    }
   }
 };
 </script>

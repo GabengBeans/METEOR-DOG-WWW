@@ -1,10 +1,10 @@
 <template>
   <div id='user_search' class="search">
     <Row :gutter='16'>
-      <Form label-position="right" :label-width="60">
+      <Form label-position="right" :label-width="75">
         <Col :xs='13' :sm='13' :md='8' :lg='5' v-for="item in data" :key="item.key" style="height:57px;">
         <FormItem style="min-width:100px" :label="item.tagName">
-          <Select v-model="item.value" v-if="item.tag">
+          <Select v-model="item.value" v-if="item.tag" style="width:150px">
             <Option v-for="item in item.tag" :key="item.key" :value="item.num">{{item.value}}</Option>
           </Select>
           <DatePicker v-else-if="item.data" v-model="item.value" type="date" placeholder="请选择日期"></DatePicker>
