@@ -100,6 +100,10 @@ config.icons = [
     "map",
     "mouse",
     "soup-can",
-    "coffee"
+    "coffee",
+    "android-apps",
+    "android-search",
+    "android-cloud-outline",
+    "social-yen"
 ]
 export default config

@@ -391,7 +391,7 @@ export const appRouter = [
     },
     {
         path: '/resources',
-        icon: 'android-chat',
+        icon: 'android-apps',
         name: 'resources', 
         title: '资源管理', 
         access: 1,

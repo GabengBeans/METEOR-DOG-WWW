@@ -34,7 +34,7 @@
       </Row>
     </div>
     <CouponDetailTable :columns="columns" :data="$store.state.app.ip_coupon_detail_query_search_result.items"></CouponDetailTable>
-    <CouponDetailPage :storeStatus="status" :currentPage="$store.state.app.ip_coupon_query_page_info.currentPage" :totalPage="$store.state.app.ip_coupon_query_page_info.totalPage"></CouponDetailPage>
+    <CouponDetailPage :storeStatus="status" :currentPage="$store.state.app.ip_coupon_detail_query_page_info.currentPage" :totalPage="$store.state.app.ip_coupon_detail_query_page_info.totalPage"></CouponDetailPage>
   </div>
 </template>
 <script>

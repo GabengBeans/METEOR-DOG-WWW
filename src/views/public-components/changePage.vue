@@ -148,6 +148,12 @@ export default {
             pageNo: index
           });
           break;
+        case "ipCouponDetail":
+          this.$store.commit("GET_IP_COUPON_DETAIL_QUERY_LIST", {
+            data: this.$store.state.app.ip_coupon_detail_query_search_info,
+            pageNo: index
+          });
+          break;
       }
     }
   }

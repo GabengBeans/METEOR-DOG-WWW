@@ -55,7 +55,7 @@
           <FormItem label="资源模块名称：">
             <Input clearable v-model="resourceEditData.modelName" />
           </FormItem>
-          <FormItem label="图标：">
+          <FormItem v-if="parentId==-1" label="图标：">
             <!-- <Input clearable v-model="resourceEditData.newIcon" /> -->
             <Select v-model="resourceEditData.newIcon" style="width:200px">
               <Option v-for="item in icons" :value="item" :key="item.key">
@@ -92,7 +92,7 @@
           <FormItem label="资源模块名称：">
             <Input clearable v-model="reseourceAddData.modelName" />
           </FormItem>
-          <FormItem label="图标：">
+          <FormItem v-if=" parentId ==-1" label="图标：">
             <Select v-model="reseourceAddData.newIcon" style="width:200px">
               <Option v-for="item in icons" :value="item" :key="item.key">
                 <Icon size="20" :type="item" />　{{item}}
@@ -116,6 +116,7 @@ import config from "../config";
 export default {
   data() {
     return {
+      parentId:"",
       icons: [],
       showResourceAdd: false,
       showResourceDetail: false,
@@ -142,6 +143,7 @@ export default {
       this.showResourceAdd = true;
       this.showResourceDetail = false;
       this.showResourceEdit = false;
+      this.parentId = -1
     },
     saveResourceAdd() {
       Util.ajax({
@@ -282,6 +284,7 @@ export default {
                   this.showResourceEdit = true;
                   this.showResourceDetail = false;
                   this.showResourceAdd = false;
+                  this.parentId = data.parentId
                 }
               }
             },
@@ -410,6 +413,7 @@ export default {
                       this.showResourceAdd = true;
                       this.showResourceDetail = false;
                       this.showResourceEdit = false;
+                      this.parentId =data.id
                     }
                   }
                 },

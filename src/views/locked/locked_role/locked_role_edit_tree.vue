@@ -1,7 +1,6 @@
 <template>
     <div>
         <Tree :data="trees" show-checkbox multiple :render="renderContent"></Tree>
-
     </div>
 </template>
 <script>

@@ -36,7 +36,7 @@ import locked_resource_index from "@/views/locked/locked_resource/locked_resourc
 import audit_operation_index from "@/views/audit_operation/audit_operation_index/audit_operation_index"
 import after_merchant_enter_query from "@/views/merchant/after_merchant_enter_query/after_merchant_enter_query"
 import query_session_record_index from "@/views/im/query_session_record/query_session_record_index"
-
+import ip_coupon_index from "@/views/ip_coupon/ip_coupon_index"
 let util = {
 
 };
@@ -409,7 +409,8 @@ util.createMenus = function (data) {
         'locked_resource_index':locked_resource_index,
         'audit_operation_index':audit_operation_index,
         'after_merchant_enter_query':after_merchant_enter_query,
-        'query_session_record_index':query_session_record_index
+        'query_session_record_index':query_session_record_index,
+        'ip_coupon_index':ip_coupon_index
     }
     let menus = []
     for (let i = 0; i < data.length; i++) {

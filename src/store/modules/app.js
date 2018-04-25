@@ -267,7 +267,10 @@ const app = {
             currentPage:1,
             totalPage:0
         },
-        ip_coupon_detail_query_search_result:[],
+        ip_coupon_detail_query_search_result:{
+            couponInfo:"",
+            items:[]
+        },
         ip_coupon_detail_query_public_page:1,
 
 
@@ -1453,8 +1456,8 @@ const app = {
                     //console.log(res)
                     state.ip_coupon_detail_query_search_result.items = res.data.data.userCouponList.items
                     state.ip_coupon_detail_query_search_result.couponInfo = res.data.data.couponInfo
-                    state.ip_coupon_detail_query_page_info.currentPage = res.data.data.page
-                    state.ip_coupon_detail_query_page_info.totalPage = res.data.data.totalCount
+                    state.ip_coupon_detail_query_page_info.currentPage = res.data.data.userCouponList.page
+                    state.ip_coupon_detail_query_page_info.totalPage = res.data.data.userCouponList.totalCount
                     let items = res.data.data.userCouponList.items
                     let couponInfo = res.data.data.couponInfo
                     let useStatusArr = ["没有使用","使用中","已经使用","已经过期"]
@@ -1481,7 +1484,7 @@ const app = {
                             state.ip_coupon_detail_query_search_result.couponInfo[x] = Util.formatDate(new Date(couponInfo[x]),"yyyy-MM-dd")
                         }
                     }
-                    console.log(state.ip_coupon_detail_query_search_result.couponInfo)
+                    //console.log(state.ip_coupon_detail_query_search_result.couponInfo)
                 }
             }).catch(error=>{
                 console.log(error)

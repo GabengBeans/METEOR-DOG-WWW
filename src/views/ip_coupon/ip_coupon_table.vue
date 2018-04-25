@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       showCoercionModal: false,
-      CoercionCouponId: "",
+      CoercionCouponObj: "",
       columns: [
         {
           title: "红包名称",
@@ -110,7 +110,10 @@ export default {
                     size: "small",
                     disabled:
                       params.row.couponStatus == "用户禁用" ||
-                      params.row.couponStatus == "平台禁用"
+                      params.row.couponStatus == "平台禁用" ||
+                      params.row.couponStatus == "已结束" ||
+                      params.row.couponStatus == "已过期" ||
+                      params.row.couponStatus == "已删除"
                         ? true
                         : false
                   },
@@ -120,7 +123,7 @@ export default {
                   on: {
                     click: () => {
                       this.showCoercionModal = true;
-                      this.CoercionCouponId = params.row.id;
+                      this.CoercionCouponObj = params.row;
                     }
                   }
                 },
@@ -138,12 +141,14 @@ export default {
         method: "post",
         url: baseUri.update_coupon_status,
         params: {
-          couponId: this.CoercionCouponId,
+          couponId: this.CoercionCouponObj.id,
           status: 0
         }
       })
         .then(res => {
           if (res.data.success && res.data.code == "100") {
+            this.CoercionCouponObj.couponStatus="平台禁用"
+            this.showCoercionModal = false
             this.$Message.success("强制结束成功");
           } else {
             this.$Message.error("强制结束失败");

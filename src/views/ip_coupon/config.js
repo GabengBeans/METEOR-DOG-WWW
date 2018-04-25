@@ -73,7 +73,7 @@ config.ipCouponDetailSearch = {
     tagName: "领取人昵称",
     value: "",
   },
-  couponStatusCode: {
+  useStatus: {
     tagName: "使用状态",
     value: "-1",
     tag: {

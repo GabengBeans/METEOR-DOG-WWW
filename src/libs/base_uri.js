@@ -154,6 +154,7 @@ let base_uri = {
     admin_user_detail_url:"/admin/v1/admin_user/detail",
     find_grant_admin_role_url:"/admin/v1/admin_user/find_grant_admin_role",
     get_roleList_url:"/admin/v1/admin_user/roleList",
+    //get_roleList_url:"/admin/v1/admin_user/role_list",
     edit_admin_user_url:"/admin/v1/admin_user/edit_admin_user",
     grant_admin_role_url:"/admin/v1/admin_user/grant_admin_role",
     add_admin_user:"/admin/v1/admin_user/add_admin_user",
