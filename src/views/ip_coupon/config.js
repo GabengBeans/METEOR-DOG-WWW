@@ -33,23 +33,27 @@ config.ipCouponSearch = {
       },
       op3: {
         num: "2",
-        value: "发行中"
+        value: "发放中"
       },
       op4: {
         num: "3",
-        value: "已结束"
+        value: "商户停用"
       },
       op5: {
         num: "4",
-        value: "用户禁用"
+        value: "已经过期"
       },
       op6: {
         num: "5",
-        value: "平台禁用"
+        value: "商户删除"
       },
       op7: {
         num: "6",
-        value: "已删除"
+        value: "平台禁用"
+      },
+      op8: {
+        num: "7",
+        value: "系统删除"
       }
     }
   }

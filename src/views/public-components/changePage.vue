@@ -154,6 +154,12 @@ export default {
             pageNo: index
           });
           break;
+        case "userAbility":
+          this.$store.commit("GET_USER_ABILITY_LIST", {
+            data: this.$store.state.app.user_ability_search_info,
+            pageNo: index
+          });
+          break;
       }
     }
   }

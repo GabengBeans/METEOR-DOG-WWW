@@ -142,10 +142,15 @@ export const appRouter = [
         children: [ // 必填，同上
             {
                 path: 'user_query', // 必填，同上
-                icon: 'ios-list', // 必填，同上
                 name: 'user_query', // 必填，同上
                 title: '用户列表', // 必填，将显示在左侧菜单栏二级菜单
                 component: resolve => { require(['@/views/user/index'], resolve); }, // 必填
+            },
+            {
+                path: 'user_ability', // 必填，同上
+                name: 'user_ability', // 必填，同上
+                title: '权限管理', // 必填，将显示在左侧菜单栏二级菜单
+                component: resolve => { require(['@/views/user/user_ability/user_ability_index'], resolve); }, // 必填
             }
         ]
     },

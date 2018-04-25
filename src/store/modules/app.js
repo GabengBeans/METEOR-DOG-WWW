@@ -8,7 +8,7 @@ import base_uri from '../../libs/base_uri';
 const app = {
     state: {
         temp_status: true,
-        videoId:"",
+        videoId: "",
         //用户公共状态
         user_page_info: {//用户页页码
             currentPage: 1,
@@ -17,6 +17,14 @@ const app = {
         user_search_info: { "status": "-1" },//用户页搜索条件
         user_search_result: [],//用户页搜过结果
         user_public_page: 1,
+        //用户权限公共状态
+        user_ability_page_info: {
+            currentPage: 1,
+            totalPage: 0
+        },
+        user_ability_search_info: {},
+        user_ability_search_result: [],
+        user_ability_public_page: 1,
 
         //需求公共状态
         request_page_info: {
@@ -234,7 +242,7 @@ const app = {
         admin_resource_public_page: 1,
 
         //审核统计
-        audit_operation:{},
+        audit_operation: {},
         audit_operation_search_info: {},
         audit_operation_page_info: {
             currentPage: 1,
@@ -244,34 +252,34 @@ const app = {
         audit_operation_public_page: 1,
 
         //im查询会话
-        query_session_search_info:{},
-        query_session_page_info:{
-            currentPage:1,
-            totalPage:0
+        query_session_search_info: {},
+        query_session_page_info: {
+            currentPage: 1,
+            totalPage: 0
         },
-        query_session_search_result:[],
-        query_session_public_page:1,
+        query_session_search_result: [],
+        query_session_public_page: 1,
 
         //IP红包查询
-        ip_coupon_query_search_info:{},
-        ip_coupon_query_page_info:{
-            currentPage:1,
-            totalPage:0
+        ip_coupon_query_search_info: {},
+        ip_coupon_query_page_info: {
+            currentPage: 1,
+            totalPage: 0
         },
-        ip_coupon_query_search_result:[],
-        ip_coupon_query_public_page:1,
+        ip_coupon_query_search_result: [],
+        ip_coupon_query_public_page: 1,
 
         //IP红包详情查询
-        ip_coupon_detail_query_serch_info:{},
-        ip_coupon_detail_query_page_info:{
-            currentPage:1,
-            totalPage:0
+        ip_coupon_detail_query_serch_info: {},
+        ip_coupon_detail_query_page_info: {
+            currentPage: 1,
+            totalPage: 0
         },
-        ip_coupon_detail_query_search_result:{
-            couponInfo:"",
-            items:[]
+        ip_coupon_detail_query_search_result: {
+            couponInfo: "",
+            items: []
         },
-        ip_coupon_detail_query_public_page:1,
+        ip_coupon_detail_query_public_page: 1,
 
 
         cachePage: [],
@@ -331,24 +339,24 @@ const app = {
                 //         }
                 //     }
                 // } else {
-                    if (item.children.length === 1) {
-                        menuList.push(item);
-                    } else {
-                        let len = menuList.push(item);
-                        let childrenArr = [];
-                        childrenArr = item.children.filter(child => {
-                            if (child.access !== undefined) {
-                                if (Util.showThisRoute(child.access, accessCode)) {
-                                    return child;
-                                }
-                            } else {
+                if (item.children.length === 1) {
+                    menuList.push(item);
+                } else {
+                    let len = menuList.push(item);
+                    let childrenArr = [];
+                    childrenArr = item.children.filter(child => {
+                        if (child.access !== undefined) {
+                            if (Util.showThisRoute(child.access, accessCode)) {
                                 return child;
                             }
-                        });
-                        let handledItem = JSON.parse(JSON.stringify(menuList[len - 1]));
-                        handledItem.children = childrenArr;
-                        menuList.splice(len - 1, 1, handledItem);
-                    }
+                        } else {
+                            return child;
+                        }
+                    });
+                    let handledItem = JSON.parse(JSON.stringify(menuList[len - 1]));
+                    handledItem.children = childrenArr;
+                    menuList.splice(len - 1, 1, handledItem);
+                }
                 //}
             });
             //console.log(menuList)
@@ -491,7 +499,46 @@ const app = {
                 //Cookies.set("user_search_result",JSON.stringify(state.user_search_result))
             })
         },
+        //获取用户权限list
+        GET_USER_ABILITY_LIST(state, { data, pageNo }) {
+            state.user_ability_search_info = data
+            state.user_ability_public_page = pageNo
+            Util.ajax({
+                method: "post",
+                url: base_uri.search_user_ability_for_page_url,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
+                },
+                data: data
+            }).then(res => {
+                if (res.data.success) {
+                    //console.log(res)
+                    state.user_ability_search_result = res.data.data.items
+                    state.user_ability_page_info.currentPage = res.data.data.page
+                    state.user_ability_page_info.totalPage = res.data.data.totalCount
+                    let arr = res.data.data.items
+                    //console.log(state.user_ability_search_result)
+                    let abilityName = { "ability01": "IP红包权限" }
+                    for (let x = 0; x < arr.length; x++) {
+                        Vue.set(state.user_ability_search_result[x], "showStr", "")
+                        for (let y in arr[x]) {
 
+                            if (y.indexOf("ability") != -1 && arr[x][y] == "1") {
+                                state.user_ability_search_result[x].showStr += abilityName[y] + " "
+                            }
+
+                        }
+                        if (!state.user_ability_search_result[x].showStr) {
+
+                        }
+                    }
+                    //console.log(state.user_ability_search_result)
+                }
+            }).catch(error => {
+                console.log(error)
+            })
+        },
 
 
         //需求信息
@@ -509,7 +556,7 @@ const app = {
             }).then((response) => {
                 //console.log(response)
                 let arr = response.data.data.items
-                let businessStatus = ["全部", "编辑中", "审核中", "已发布", "已过期", "审核未通过", "取消发布","已下架","已删除"]
+                let businessStatus = ["全部", "编辑中", "审核中", "已发布", "已过期", "审核未通过", "取消发布", "已下架", "已删除"]
                 let status = ["无效", "有效"]
                 state.request_page_info.currentPage = parseInt(response.data.data.page)
                 state.request_page_info.totalPage = parseInt(response.data.data.totalCount)
@@ -545,7 +592,7 @@ const app = {
             }).then((response) => {
                 //console.log(response)
                 let arr = response.data.data.items
-                let businessStatus = ["全部", "编辑中", "审核中", "已发布", "已过期", "审核未通过", "取消发布","已下架","已删除"]
+                let businessStatus = ["全部", "编辑中", "审核中", "已发布", "已过期", "审核未通过", "取消发布", "已下架", "已删除"]
                 let status = ["无效", "有效"]
                 state.service_page_info.currentPage = parseInt(response.data.data.page)
                 state.service_page_info.totalPage = parseInt(response.data.data.totalCount)
@@ -927,7 +974,7 @@ const app = {
         },
         GET_BUSINESS_ENTER_FOR_PAGE_INFO(state, { data, pageNo }) {
             state.merchant_bussiness_enter_search_info = data
-            state.merchant_bussiness_enter_public_page = pageNo 
+            state.merchant_bussiness_enter_public_page = pageNo
             Util.ajax({
                 method: "post",
                 url: base_uri.search_business_enter_for_page_url,
@@ -935,36 +982,33 @@ const app = {
                     pageNo: pageNo || 1,
                     pageSize: 10,
                 },
-                data:data
+                data: data
             }).then((response) => {
                 //console.log(response)
                 let arr = response.data.data.items
-                let status=["禁用","启用"]
+                let status = ["禁用", "启用"]
                 state.merchant_bussiness_enter_page_info.currentPage = parseInt(response.data.data.page)
                 state.merchant_bussiness_enter_page_info.totalPage = parseInt(response.data.data.totalCount)
                 state.merchant_bussiness_enter_search_result = response.data.data.items
 
-                for (let x=0;x<arr.length;x++) {
-                    for(let y in arr[x])
-                    {
-                        if (y=="userStatus") {
+                for (let x = 0; x < arr.length; x++) {
+                    for (let y in arr[x]) {
+                        if (y == "userStatus") {
                             state.merchant_bussiness_enter_search_result[x].userStatus = status[arr[x][y]]
                         }
-                        else if(y=="meteorScore")
-                        {
-                            if(arr[x][y])
-                            {
-                                state.merchant_bussiness_enter_search_result[x].meteorScore = (parseInt(arr[x][y])/10).toFixed(1)                                
-                            }else{
-                                state.merchant_bussiness_enter_search_result[x].meteorScore =''                                
+                        else if (y == "meteorScore") {
+                            if (arr[x][y]) {
+                                state.merchant_bussiness_enter_search_result[x].meteorScore = (parseInt(arr[x][y]) / 10).toFixed(1)
+                            } else {
+                                state.merchant_bussiness_enter_search_result[x].meteorScore = ''
                             }
-                        }else if(y=="amount"){
-                            state.merchant_bussiness_enter_search_result[x].amount =(parseInt(arr[x][y])/100).toFixed(2)                       
+                        } else if (y == "amount") {
+                            state.merchant_bussiness_enter_search_result[x].amount = (parseInt(arr[x][y]) / 100).toFixed(2)
                         }
 
                     }
                 }
-            //console.log(state.merchant_bussiness_enter_search_result)
+                //console.log(state.merchant_bussiness_enter_search_result)
             }).catch((error) => {
                 console.log(error)
             })
@@ -1257,7 +1301,7 @@ const app = {
                     state.app_search_result = res.data.data.items
                     for (let x in res.data.data.items) {
                         state.app_search_result[x].createTime = Util.formatDate(new Date(res.data.data.items[x].createTime), "yyyy-MM-dd hh:mm:ss")
-                        state.app_search_result[x].updateStatus = res.data.data.items[x].updateStatus?"是":"否"
+                        state.app_search_result[x].updateStatus = res.data.data.items[x].updateStatus ? "是" : "否"
                     }
                 }
                 //console.log(state.app_search_result)
@@ -1359,100 +1403,95 @@ const app = {
                     state.audit_operation_page_info.currentPage = res.data.data.pageAuditOperationLogResult.page
                     state.audit_operation_page_info.totalPage = res.data.data.pageAuditOperationLogResult.totalCount
                     let obj = res.data.data.pageAuditOperationLogResult.items
-                    state.audit_operation_search_result= obj
-                    for (let x=0;x<obj.length;x++) {
+                    state.audit_operation_search_result = obj
+                    for (let x = 0; x < obj.length; x++) {
                         for (let y in obj[x]) {
                             //console.log(y)
                             if (y == "bussinessTime" || y == "opertateTime") {
-                                let time = Util.formatDate(new Date(obj[x][y]),"yyyy-MM-dd hh:mm:ss")
+                                let time = Util.formatDate(new Date(obj[x][y]), "yyyy-MM-dd hh:mm:ss")
                                 state.audit_operation_search_result[x][y] = time
-                            } 
+                            }
                         }
 
                     }
                     //console.log(state.audit_operation_search_result)
                 }
             })
-            .catch(err => {
-                console.log(err)
-            })
+                .catch(err => {
+                    console.log(err)
+                })
         },
         //查询会话列表
-        GET_SEARCH_CHATLOG_FOR_PAGE(state, { data, pageNo }){
+        GET_SEARCH_CHATLOG_FOR_PAGE(state, { data, pageNo }) {
             state.query_session_search_info = data
             state.query_session_public_page = pageNo
             Util.ajax({
-                method:"post",
-                url:base_uri.search_chatlog_for_page_url,
-                params:{
-                    pageNo:pageNo || 1,
-                    pageSize:10
+                method: "post",
+                url: base_uri.search_chatlog_for_page_url,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
                 },
-                data:data
-            }).then(res=>{
-                if(res.data.success){
+                data: data
+            }).then(res => {
+                if (res.data.success) {
                     state.query_session_search_result = res.data.data.items
                     state.query_session_page_info.currentPage = res.data.data.page
                     state.query_session_page_info.totalPage = res.data.data.totalCount
                 }
-            }).catch(error=>{
+            }).catch(error => {
                 console.log(error)
             })
         },
         //ip红包查询
-        GET_IP_COUPON_QUERY_LIST(state, { data, pageNo }){
+        GET_IP_COUPON_QUERY_LIST(state, { data, pageNo }) {
             state.ip_coupon_query_search_info = data
             state.ip_coupon_query_public_page = pageNo
             Util.ajax({
-                method:"post",
-                url:base_uri.search_coupon_for_page_url,
-                params:{
-                    pageNo:pageNo || 1,
-                    pageSize:10
+                method: "post",
+                url: base_uri.search_coupon_for_page_url,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
                 },
-                data:data
-            }).then(res=>{
-                if(res.data.success){
+                data: data
+            }).then(res => {
+                if (res.data.success) {
                     //console.log(res)
                     state.ip_coupon_query_search_result = res.data.data.items
                     state.ip_coupon_query_page_info.currentPage = res.data.data.page
                     state.ip_coupon_query_page_info.totalPage = res.data.data.totalCount
                     let obj = res.data.data.items
-                    for(let x=0;x<obj.length;x++)
-                    {
-                        for(let y in obj[x])
-                        {
-                            if(y=="createTime")
-                            {
-                                state.ip_coupon_query_search_result[x].createTime=Util.formatDate(new Date(obj[x][y]),"yyyy-MM-dd hh:mm:ss")
-                            }else if(y=="saleEvery")
-                            {
-                                state.ip_coupon_query_search_result[x][y] = parseInt(obj[x][y]/100)
-                            }else if(y=="saleDecrease")
-                            {
-                                state.ip_coupon_query_search_result[x][y] = parseInt(obj[x][y]/100)
+                    for (let x = 0; x < obj.length; x++) {
+                        for (let y in obj[x]) {
+                            if (y == "createTime") {
+                                state.ip_coupon_query_search_result[x].createTime = Util.formatDate(new Date(obj[x][y]), "yyyy-MM-dd hh:mm:ss")
+                            } else if (y == "saleEvery") {
+                                state.ip_coupon_query_search_result[x][y] = parseInt(obj[x][y] / 100)
+                            } else if (y == "saleDecrease") {
+                                state.ip_coupon_query_search_result[x][y] = parseInt(obj[x][y] / 100)
                             }
                         }
                     }
                 }
-            }).catch(error=>{
+            }).catch(error => {
                 console.log(error)
             })
         },
         //IP红包详情查询
-        GET_IP_COUPON_DETAIL_QUERY_LIST(state, { data, pageNo }){
+        GET_IP_COUPON_DETAIL_QUERY_LIST(state, { data, pageNo }) {
             state.ip_coupon_detail_query_search_info = data
             state.ip_coupon_detail_query_public_page = pageNo
             Util.ajax({
-                method:"post",
-                url:base_uri.search_usercoupon_for_page_url,
-                params:{
-                    pageNo:pageNo || 1,
-                    pageSize:10
+                method: "post",
+                url: base_uri.search_usercoupon_for_page_url,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
                 },
-                data:data
-            }).then(res=>{
-                if(res.data.success){
+                data: data
+            }).then(res => {
+                if (res.data.success) {
                     //console.log(res)
                     state.ip_coupon_detail_query_search_result.items = res.data.data.userCouponList.items
                     state.ip_coupon_detail_query_search_result.couponInfo = res.data.data.couponInfo
@@ -1460,36 +1499,29 @@ const app = {
                     state.ip_coupon_detail_query_page_info.totalPage = res.data.data.userCouponList.totalCount
                     let items = res.data.data.userCouponList.items
                     let couponInfo = res.data.data.couponInfo
-                    let useStatusArr = ["没有使用","使用中","已经使用","已经过期"]
-                    for(let x=0;x<items.length;x++)
-                    {
-                        for(let y in items[x])
-                        {
-                            if(y=="createTime")
-                            {
-                                state.ip_coupon_detail_query_search_result.items[x][y]=Util.formatDate(new Date(items[x][y]),"yyyy-MM-dd hh:mm:ss")
-                            }else if(y=="useStatus")
-                            {
-                                state.ip_coupon_detail_query_search_result.items[x][y] =useStatusArr[items[x][y]]
+                    let useStatusArr = ["没有使用", "使用中", "已经使用", "已经过期"]
+                    for (let x = 0; x < items.length; x++) {
+                        for (let y in items[x]) {
+                            if (y == "createTime") {
+                                state.ip_coupon_detail_query_search_result.items[x][y] = Util.formatDate(new Date(items[x][y]), "yyyy-MM-dd hh:mm:ss")
+                            } else if (y == "useStatus") {
+                                state.ip_coupon_detail_query_search_result.items[x][y] = useStatusArr[items[x][y]]
                             }
                         }
                     }
-                    for(let x in couponInfo)
-                    {
-                        if(x=="saleDecrease" || x=="saleEvery")
-                        {
-                            state.ip_coupon_detail_query_search_result.couponInfo[x]=parseInt(couponInfo[x]/100)
-                        }else if(x=="beginTime" || x=="endTime")
-                        {
-                            state.ip_coupon_detail_query_search_result.couponInfo[x] = Util.formatDate(new Date(couponInfo[x]),"yyyy-MM-dd")
+                    for (let x in couponInfo) {
+                        if (x == "saleDecrease" || x == "saleEvery") {
+                            state.ip_coupon_detail_query_search_result.couponInfo[x] = parseInt(couponInfo[x] / 100)
+                        } else if (x == "beginTime" || x == "endTime") {
+                            state.ip_coupon_detail_query_search_result.couponInfo[x] = Util.formatDate(new Date(couponInfo[x]), "yyyy-MM-dd")
                         }
                     }
                     //console.log(state.ip_coupon_detail_query_search_result.couponInfo)
                 }
-            }).catch(error=>{
+            }).catch(error => {
                 console.log(error)
             })
-        },
+        }
     }
 }
 export default app

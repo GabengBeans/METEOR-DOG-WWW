@@ -13,6 +13,10 @@ config.serviceSearch = {
         tagName: "真实姓名",
         value: ""
       },
+      nickname: {
+        tagName: "昵称",
+        value: ""
+      },
       businessStatus: {
         tagName: "审核状态",
         value: "0",
@@ -83,9 +87,10 @@ config.serviceSearch = {
         value: "",
         data: "1"
       },
-      nickname: {
-        tagName: "昵称",
-        value: ""
+      desc: {
+        tagName: "服务介绍",
+        value: "",
+        desc:"1"
       }
 }
 

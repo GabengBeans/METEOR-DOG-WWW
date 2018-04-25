@@ -31,6 +31,10 @@ let base_uri = {
     user_detail_url: "/admin/v1/user/detail/",
     //编辑用户
     user_edit_url: "/admin/v1/user/edit_user",
+    //用户权限
+    search_user_ability_for_page_url:"/admin/v1/user/search_user_ability_for_page",
+    get_user_ability_byid:"/admin/v1/user/get_user_ability_byid",
+    update_user_ability_url:"/admin/v1/user/update_user_ability",
 
     //获取需求信息
     demand_search_demands_for_page_url: "/admin/v1/demand/search_demands_for_page/",

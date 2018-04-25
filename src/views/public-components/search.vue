@@ -8,6 +8,7 @@
             <Option v-for="item in item.tag" :key="item.key" :value="item.num">{{item.value}}</Option>
           </Select>
           <DatePicker v-else-if="item.data" v-model="item.value" type="date" placeholder="请选择日期"></DatePicker>
+          <Input clearable v-model="item.value" v-else-if="item.desc" style="width:67vw" />
           <Input clearable v-model="item.value" v-else />
         </FormItem>
         </Col>
@@ -129,6 +130,12 @@ export default {
         let objs = Object.assign({"couponId":this.searchData},obj)
           this.$store.commit("GET_IP_COUPON_DETAIL_QUERY_LIST", {
             data: objs,
+            pageNo: 1
+          });
+          break;
+        case "userAbility":
+          this.$store.commit("GET_USER_ABILITY_LIST", {
+            data: obj,
             pageNo: 1
           });
           break;
