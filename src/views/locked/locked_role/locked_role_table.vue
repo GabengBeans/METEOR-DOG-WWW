@@ -247,11 +247,13 @@ export default {
                                 "childAdminResources",
                                 false
                               );
-                            // for(let x=0;x<resource.allLabels.length;x++)
-                            // {
-                            //     delete resource.allLabels[x].checked
-                            // }
-                            //console.log(resource.allLabels)
+                              Util.recursion(
+                                resource.currentLoginAdminResource,
+                                "childAdminResources",
+                                false
+                              )
+                              resource.allLabels = Object.assign(resource.currentLoginAdminResource,resource.allLabels)
+                            
                               this.$set(
                                 this.roleDataEdit,
                                 "tree",
