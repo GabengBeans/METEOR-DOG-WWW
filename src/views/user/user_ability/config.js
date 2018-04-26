@@ -12,10 +12,10 @@ config.userAbilitySearch = {
     },
     ability01:{
         tagName:"权限类别",
-        value:"",
+        value:"null",
         tag:{   
             op1: {
-                num: "",
+                num: "null",
                 value: "全部"
             },
             op2: {

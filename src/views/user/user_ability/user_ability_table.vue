@@ -36,21 +36,22 @@ export default {
         {
           title: "用户昵称",
           key: "nickname",
-          ellipsis: "false"
+          ellipsis: "false",
+           width: 150,
         },
         {
           title: "手机号",
-          key: "phone"
+          key: "phone",
+           width: 150,
         },
         {
           title: "拥有权限",
-          key: "showStr",
-          width: 1200
+          key: "showStr"
         },
         {
           title: "操作",
           key: "phone",
-          width: 150,
+          width: 100,
           align: "center",
           render: (h, params) => {
             return h("div", [
