@@ -77,12 +77,12 @@ export default {
         data: Util.formData(data)
       })
         .then(response => {
-          console.log(response);
+          //console.log(response);
           if (response.data.success) {
-            console.log("已审核");
+            this.$Message.success("审核成功")
             this.modalShow = true;
           } else {
-            console.log("审核失败");
+            this.$Message.error("审核失败")
             this.modalShow = true;
           }
         })
@@ -103,10 +103,10 @@ export default {
         .then(response => {
           console.log(response);
           if (response.data.success) {
-            console.log("已审核");
+            this.$Message.success("审核成功")
             this.modalShow = true;
           } else {
-            console.log("审核失败");
+            this.$Message.error("审核失败")
             this.modalShow = true;
           }
         })
