@@ -45,14 +45,18 @@ config.ipCouponSearch = {
       },
       op6: {
         num: "5",
-        value: "商户删除"
+        value: "已领取完"
       },
       op7: {
         num: "6",
-        value: "平台禁用"
+        value: "商户删除"
       },
       op8: {
         num: "7",
+        value: "平台禁用"
+      },
+      op9: {
+        num: "8",
         value: "系统删除"
       }
     }
