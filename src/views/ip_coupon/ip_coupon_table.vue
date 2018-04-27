@@ -97,6 +97,7 @@ export default {
                   on: {
                     click: () => {
                       this.$router.push("/ip_coupon_detail/" + params.row.id);
+                      this.$store.state.app.ip_coupon_detail_query_public_page = 1
                     }
                   }
                 },
@@ -109,11 +110,7 @@ export default {
                     type: "error",
                     size: "small",
                     disabled:
-                      params.row.couponStatus == "用户禁用" ||
-                      params.row.couponStatus == "平台禁用" ||
-                      params.row.couponStatus == "已结束" ||
-                      params.row.couponStatus == "已过期" ||
-                      params.row.couponStatus == "已删除"
+                      params.row.couponStatus == "平台禁用"
                         ? true
                         : false
                   },
