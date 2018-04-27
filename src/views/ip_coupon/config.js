@@ -130,7 +130,7 @@ config.ipCouponDetailColumns = [
   },
   {
     title:"订单号",
-    key:"useOrderId",
+    key:"orderNo",
     ellipsis: "false"
   },
 
