@@ -108,7 +108,7 @@
             <br>
           </FormItem> -->
           <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
-            <label class="from_label">服务图片:</label>图片限制大小2M
+            <label class="from_label">服务图片:</label>图片限制大小5M
             <UserEditImgList class="image-style" :change="true" :imgList="data.mediaImg" :upload="true"></UserEditImgList>
           </div>
           <br>
