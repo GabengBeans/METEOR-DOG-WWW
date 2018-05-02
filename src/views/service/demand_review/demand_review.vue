@@ -327,6 +327,13 @@ export default {
                 servicePeriodListStr+=servicePeriodListArr[i].startTime + "至" +servicePeriodListArr[i].endTime+" "
               }
               this.data.servicePeriodList = servicePeriodListStr
+            }else if(x=="title"){
+              if(obj[x].length>=30)
+              {
+                this.data[x] = obj[x].slice(0,30)+"..."
+              }else{
+                this.data[x] = obj[x]
+              }
             } else {
             this.data[x] = obj[x];
           }

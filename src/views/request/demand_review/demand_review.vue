@@ -310,6 +310,13 @@ export default {
                   this.data.mediaVideo = obj.mediaList[y].videoPlayUrl;
                 }
               }
+            }else if(x=="title"){
+              if(obj[x].length>=30)
+              {
+                this.data[x] = obj[x].slice(0,30)+"..."
+              }else{
+                this.data[x] = obj[x]
+              }
             } else {
               this.data[x] = obj[x];
             }
