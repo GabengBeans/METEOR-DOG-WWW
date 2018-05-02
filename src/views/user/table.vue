@@ -31,7 +31,8 @@ export default {
       columns: [
         {
           title: "用户ID",
-          key: "id"
+          key: "id",
+          width:160
         },
         {
           title: "手机号",
