@@ -63,6 +63,10 @@ export default {
           key: "agentInviterCode"
         },
         {
+          title: "注册时间",
+          key: "createTime"
+        },
+        {
           title: "操作",
           key: "phone",
           width: 300,

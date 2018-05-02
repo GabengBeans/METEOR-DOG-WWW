@@ -490,11 +490,13 @@ const app = {
                 for (let x in arr) {
                     if (arr[x].status == '1') {
                         state.user_search_result[x].status = '正常'
-                    } else {
+                    }else {
                         state.user_search_result[x].status = '禁用'
                     }
+                    
                     state.user_search_result[x].meteorScore = parseFloat(arr[x].meteorScore / 10).toFixed(1)
                     state.user_search_result[x].amount = parseFloat(arr[x].amount / 100).toFixed(2)
+                    state.user_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
                 }
                 //Cookies.set("user_search_result",JSON.stringify(state.user_search_result))
             })
