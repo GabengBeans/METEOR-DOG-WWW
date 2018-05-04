@@ -7,15 +7,16 @@
         <Icon v-if="!detail" type="ios-trash-outline" @click.native="handleRemove(uploadList)"></Icon>
       </div>
     </div>
-    <Upload v-if="upload" ref="upload" :show-upload-list="false" :before-upload="handleBeforeUpload" :action="imgUrl" :type="!uploadList?'drag':'select'" style="display: inline-block;width:99px;">
-      <div v-if="!uploadList" style="height:99px;line-height:118px;">
-        <Icon type="camera" size="40"></Icon>
+    <div class="demo-upload-list" v-if="showProgress">
+      <Progress :percent="progress" hide-info></Progress>
+    </div>
+
+    <Upload v-if="upload" ref="upload" :show-upload-list="false" :before-upload="handleBeforeUpload" :action="imgUrl" type="drag" style="display: inline-block;width:99px;">
+      <div style="height:99px;weigth:99px;line-height:118px;">
+        <Icon type="ios-videocam" size="40"></Icon>
       </div>
     </Upload>
 
-    <!-- <form action="">
-      <input @change="changeEvent" type="file" name="file" id="files" multiple/>
-    </form> -->
     <Modal title="播放视频" v-model="visible">
       <video :src="videoUrlList" controls="controls" v-if="visible" style="width: 100%"></video>
     </Modal>
@@ -33,10 +34,12 @@ export default {
       uploadAuth: "",
       uploadAddress: "",
       videoId: "",
-      aliyun: baseUri.oss_url,
+      //aliyun: baseUri.oss_url,
       visible: false,
       uploadList: this.imgList,
       videoUrlList: this.videoUrl,
+      progress: 0,
+      showProgress: false
     };
   },
   props: ["imgList", "videoUrl", "upload", "change", "detail"],
@@ -45,8 +48,8 @@ export default {
       this.visible = true;
     },
     handleRemove(file) {
-      this.uploadList = "";
-      this.$store.state.app.videoId = ""
+      this.uploadList = false;
+      this.$store.state.app.videoId = "";
     },
     // handleFormatError(file) {
     //   this.$Message.destroy();
@@ -63,6 +66,11 @@ export default {
     //   });
     // },
     handleBeforeUpload(file) {
+      if(this.uploadList)
+      {
+        this.$Message.error("只能上传一个视频")
+        return
+      }
       let titleStr = file.name.slice(0, file.name.indexOf("."));
       Util.ajax({
         method: "get",
@@ -79,6 +87,8 @@ export default {
           if (res.data.success) {
             let This = this;
             let obj = res.data.data;
+            let reqCount;
+            let maxCount = 10;
             var uploader = new AliyunUpload.Vod({
               //分片大小默认1M，不能小于100K
               partSize: 1048576,
@@ -91,6 +101,8 @@ export default {
               // 开始上传
               onUploadstarted: function(uploadInfo) {
                 console.log("开始上传");
+                This.progress = 0;
+                This.showProgress = true;
                 uploader.setUploadAuthAndAddress(
                   uploadInfo,
                   obj.uploadAuth,
@@ -104,6 +116,12 @@ export default {
                 //console.log(uploadInfo);
                 recursionReq();
                 function recursionReq() {
+                  reqCount++;
+                  if (reqCount > maxCount) {
+                    This.destroy();
+                    This.$Message.error("上传失败，请重新上传");
+                    return;
+                  }
                   setTimeout(function() {
                     Util.ajax({
                       method: "get",
@@ -112,24 +130,26 @@ export default {
                         videoId: uploadInfo.videoId
                       }
                     }).then(res => {
-                      //console.log(res);
+                      //console.log(res)
+                      // console.log(typeof res.data);
                       if (
-                        res.data.success && res.data.code==1 &&
-                        res.data.data.VideoBase.CoverURL &&
-                        res.data.data.PlayInfoList.PlayInfo[1].PlayURL
+                        typeof res.data == "object" &&
+                        res.data.success &&
+                        res.data.data.PlayInfoList.PlayInfo.length >= 2
                       ) {
                         This.uploadList = res.data.data.VideoBase.CoverURL;
                         This.videoUrlList =
                           res.data.data.PlayInfoList.PlayInfo[1].PlayURL;
-                        This.$store.state.app.videoId = uploadInfo.videoId
-                        
+                        This.$store.state.app.videoId = uploadInfo.videoId;
                         This.$Message.destroy();
+                        This.progress = 100;
+                        This.showProgress = false;
                         This.$Message.success("上传成功");
                       } else {
                         recursionReq();
                       }
                     });
-                  }, 5000);
+                  }, 3000);
                 }
               },
               // 文件上传失败
@@ -139,6 +159,8 @@ export default {
               // 文件上传进度，单位：字节
               onUploadProgress: function(uploadInfo, totalSize, loadedPercent) {
                 //console.log("上传进度" + totalSize + "|" + loadedPercent);
+                This.progress = loadedPercent * 90;
+                //console.log(This.progress)
               },
               // 上传凭证超时
               onUploadTokenExpired: function(uploadInfo) {
@@ -179,8 +201,8 @@ export default {
   width: 100px;
   height: 100px;
   text-align: center;
-  line-height: 60px;
-  /* border: 1px solid transparent; */
+  line-height: 100px;
+  border: 1px solid transparent;
   border-radius: 4px;
   overflow: hidden;
   background: #fff;
