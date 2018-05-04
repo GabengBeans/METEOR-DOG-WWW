@@ -4,22 +4,22 @@
             <Form label-position="right" :label-width="60">
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
                 <FormItem label="广告名称">
-                    <Input clearable v-model="data.adName"></Input>
+                    <Input clearable v-model="data.adName" />
                 </FormItem>
                 </Col>
-                    <Col :xs='13' :sm='13' :md='8' :lg='4'>
-                    <FormItem label="业务">
-                        <Input clearable v-model="data.businessId"></Input>
-                    </FormItem>
-                    </Col>
+                <Col :xs='13' :sm='13' :md='8' :lg='4'>
+                <FormItem label="业务">
+                    <Input clearable v-model="data.businessId" />
+                </FormItem>
+                </Col>
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
                 <FormItem label="业务类型">
-                    <Input clearable v-model="data.adType"></Input>
+                    <Input clearable v-model="data.adType" />
                 </FormItem>
                 </Col>
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
                 <FormItem label="序号">
-                    <Input clearable v-model="data.adSort"></Input>
+                    <Input clearable v-model="data.adSort" />
                 </FormItem>
                 </Col>
                 <Col :xs='13' :sm='13' :md='8' :lg='4'>
@@ -34,7 +34,7 @@
                 <FormItem label="URL">
                     <Input clearable v-model="data.redirectUrl" />
                 </FormItem>
-                 <FormItem label="上传">
+                <FormItem label="上传">
                     <template v-if="data.mediaType==1">
                         <template v-if="!data.imgUrl">
                             图片大小限制2M
@@ -58,15 +58,7 @@
                     <template v-if="data.mediaType==2">
                         <template v-if="!data.imgUrl">
                             视频大小限制200M
-                            <Upload ref="upload" 
-                            :show-upload-list="false" 
-                            :on-success="handleVideoSuccess" 
-                            :format="['MP4']" 
-                            :max-size="204800" 
-                            :on-format-error="handleVideoFormatError" 
-                            :on-exceeded-size="handleVideoMaxSize" 
-                            :before-upload="handleVideoBeforeUpload" 
-                            :data="{
+                            <Upload ref="upload" :show-upload-list="false" :on-success="handleVideoSuccess" :format="['MP4']" :max-size="204800" :on-format-error="handleVideoFormatError" :on-exceeded-size="handleVideoMaxSize" :before-upload="handleVideoBeforeUpload" :data="{
                         'type':'user'
                     }" :action="imgUrl">
                                 <div>
@@ -90,14 +82,14 @@
     </div>
 </template>
 <script>
-import baseUri from "@/libs/base_uri"
+import baseUri from "@/libs/base_uri";
 export default {
   name: "advertNewDetail",
   props: ["data"],
-  data(){
-      return {
-          imgUrl:baseUri.img_upload_url
-      }
+  data() {
+    return {
+      imgUrl: baseUri.img_upload_url
+    };
   },
   methods: {
     handleView(name) {
@@ -118,50 +110,44 @@ export default {
       this.$Message.destroy();
       this.$Message.success("上传成功");
       this.data.imgUrl = res.result.file.outUrl;
-      this.data.videoId = res.result.fiel.videoId
+      this.data.videoId = res.result.fiel.videoId;
     },
     handleFormatError(file) {
-        this.$Message.destroy()
+      this.$Message.destroy();
       this.$Notice.warning({
-       title: "文件格式错误",
-        desc:
-          "文件名" +
-          file.name +
-          " 格式错误, 请选择jpg或png格式."
+        title: "文件格式错误",
+        desc: "文件名" + file.name + " 格式错误, 请选择jpg或png格式."
       });
     },
     handleVideoFormatError(file) {
-        this.$Message.destroy()
+      this.$Message.destroy();
       this.$Notice.warning({
         title: "视频格式错误",
-        desc:
-          "视频 " +
-          file.name +
-          " 格式错误，请上传MP4格式."
+        desc: "视频 " + file.name + " 格式错误，请上传MP4格式."
       });
     },
     handleMaxSize(file) {
-        this.$Message.destroy()
+      this.$Message.destroy();
       this.$Notice.warning({
         title: "内容过大",
         desc: "图片" + file.name + "超过2M的限制."
       });
     },
     handleVideoMaxSize(file) {
-        this.$Message.destroy()
+      this.$Message.destroy();
       this.$Notice.warning({
         title: "内容过大",
         desc: "视频" + file.name + "超过200M的限制."
       });
     },
     handleBeforeUpload(file) {
-        //this.$Message.success("上传视频功能暂未开通")
+      //this.$Message.success("上传视频功能暂未开通")
       this.$Message.loading({
         content: "正在上传...",
         duration: 0
       });
     },
-     handleVideoBeforeUpload(file) {
+    handleVideoBeforeUpload(file) {
       this.$Message.loading({
         content: "正在上传...",
         duration: 0
@@ -187,10 +173,12 @@ export default {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   margin-right: 4px;
 }
+
 .demo-upload-lists img {
   width: 100%;
   height: 100%;
 }
+
 .demo-upload-list-covers {
   display: none;
   position: absolute;
@@ -201,9 +189,11 @@ export default {
   background: rgba(0, 0, 0, 0.6);
   line-height: 300px;
 }
+
 .demo-upload-lists:hover .demo-upload-list-covers {
   display: block;
 }
+
 .demo-upload-list-covers i {
   color: #fff;
   font-size: 40px;
