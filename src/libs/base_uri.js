@@ -88,6 +88,9 @@ let base_uri = {
     advert_position_delete_url: "/admin/v1/advert_position/delete_advert_position/",
     advert_position_detail_url: "/admin/v1/advert_position/detail/",
     advert_position_edit_url: "/admin/v1/advert_position/edit_advert_position/",
+        //推荐IP设置
+    add_recommend_url:"/admin/v1/advert/add_recommend",
+
 
     // 拓展管理信息
     extend_user_search_ex_userinfo_for_page: "/admin/v1/extend_user/search_ex_userinfo_for_page",
