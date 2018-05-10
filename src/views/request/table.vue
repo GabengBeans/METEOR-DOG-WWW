@@ -15,7 +15,8 @@ export default {
       columns: [
         {
           title: "需求ID",
-          key: "id"
+          key: "id",
+          width:160
         },
         {
           title: "需求标题",
@@ -33,11 +34,13 @@ export default {
         },
         {
           title: "发布时间",
-          key: "createTime"
+          key: "createTime",
+          width:150
         },
         {
           title: "审核时间",
-          key: "auditTime"
+          key: "auditTime",
+          width:150
         },
         {
           title: "审核状态",

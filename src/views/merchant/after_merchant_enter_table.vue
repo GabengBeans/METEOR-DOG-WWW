@@ -31,11 +31,13 @@ export default {
       columns: [
         {
           title: "公司名称",
-          key: "companyName"
+          key: "companyName",
+          ellipsis: "false"
         },
         {
           title: "联系人",
-          key: "contact"
+          key: "contact",
+          ellipsis: "false"
         },
         {
           title: "联系电话",

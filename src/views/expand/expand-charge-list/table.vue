@@ -45,19 +45,23 @@ export default {
         },
         {
           title: "订单号",
-          key: "balanceOrderNo"
+          key: "balanceOrderNo",
+          width:160
         },
         {
           title: "手机号",
-          key: "phone"
+          key: "phone",
+          width:120
         },
         {
           title: "代理人姓名",
-          key: "extendUsername"
+          key: "extendUsername",
+          ellipsis:"false"
         },
         {
           title: "交易日期",
-          key: "accountDay"
+          key: "accountDay",
+          width:100
         },
         {
           title: "交易笔数",
@@ -85,7 +89,8 @@ export default {
         },
         {
           title: "结算时间",
-          key: "balanceTime"
+          key: "balanceTime",
+          width:150
         },
         {
           title: "操作",

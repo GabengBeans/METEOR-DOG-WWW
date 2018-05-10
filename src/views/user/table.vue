@@ -32,7 +32,6 @@ export default {
         {
           title: "用户ID",
           key: "id",
-          width:160
         },
         {
           title: "手机号",
@@ -45,7 +44,8 @@ export default {
         },
         {
           title: "真实姓名",
-          key: "realname"
+          key: "realname",
+          ellipsis: "false"
         },
         {
           title: "流星值",
@@ -65,7 +65,8 @@ export default {
         },
         {
           title: "注册时间",
-          key: "createTime"
+          key: "createTime",
+          width:150
         },
         {
           title: "操作",

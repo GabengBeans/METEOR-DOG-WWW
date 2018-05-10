@@ -23,7 +23,8 @@ export default {
       columns: [
         {
           title: "订单号",
-          key: "orderNo"
+          key: "orderNo",
+          width:160
         },
         {
           title: "服务标题",
@@ -41,7 +42,8 @@ export default {
         },
         {
           title: "下单时间",
-          key: "createTime"
+          key: "createTime",
+          width:150
         },
         {
           title: "状态",

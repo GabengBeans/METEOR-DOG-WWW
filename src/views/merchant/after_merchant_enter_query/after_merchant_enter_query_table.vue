@@ -16,7 +16,8 @@ export default {
         },
         {
           title: "昵称",
-          key: "nickName"
+          key: "nickName",
+          ellipsis: "false"
         },
         {
           title: "手机号",
@@ -24,7 +25,8 @@ export default {
         },
         {
           title: "企业名称",
-          key: "companyName"
+          key: "companyName",
+          ellipsis: "false"
         },
         {
           title: "流星值",

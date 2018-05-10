@@ -25,15 +25,18 @@ export default {
         },
         {
           title: "ID",
-          key: "id"
+          key: "id",
+          width:160
         },
         {
           title: "用户名",
-          key: "fromUserName"
+          key: "fromUserName",
+          ellipsis:"false"
         },
         {
           title: "手机号",
-          key: "phone"
+          key: "phone",
+          width:120
         },
         // {
         //   title: "支付ID",
@@ -45,11 +48,13 @@ export default {
         },
         {
           title: "服务ID",
-          key: "serviceId"
+          key: "serviceId",
+          width:160
         },
         {
           title: "订单编码",
-          key: "orderId"
+          key: "orderId",
+          width:160
         },
         {
           title: "交易类型",

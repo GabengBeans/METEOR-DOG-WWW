@@ -47,27 +47,33 @@ export default {
         },
         {
           title: "ID",
-          key: "id"
+          key: "id",
+          width:160
         },
         {
           title: "手机号",
-          key: "phone"
+          key: "phone",
+          width:120
         },
         {
           title: "代理人",
-          key: "extendUsername"
+          key: "extendUsername",
+          ellipsis:"false"
         },
         {
           title: "交易日",
-          key: "accountDay"
+          key: "accountDay",
+          width:100
         },
         {
           title: "交易订单号",
-          key: "orderNo"
+          key: "orderNo",
+          width:160
         },
         {
           title: "服务者",
-          key: "providerName"
+          key: "providerName",
+          ellipsis:"false"
         },
         {
           title: "平台服务费(元)",
