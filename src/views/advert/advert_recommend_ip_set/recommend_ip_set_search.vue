@@ -7,11 +7,11 @@
                     <Input clearable style="min-width:100px" v-model="searchServiceId" />
                 </FormItem>
                 </Col>
-                <!-- <Col :xs='24' :sm='12' :md='8' :lg='6'>
-                <FormItem label="IP昵称" >
-                    <Input clearable style="min-width:100px" />
+                <Col :xs='24' :sm='12' :md='8' :lg='6'>
+                <FormItem label="标题">
+                    <Input clearable style="min-width:100px" v-model="searchName" />
                 </FormItem>
-                </Col> -->
+                </Col>
                 <Col :xs='24' :sm='12' :md='8' :lg='6'>
                 <Button style='margin-left:38px' type="primary" shape="circle" icon="ios-search" @click="searchRecommendIp">搜索</Button>
                 </Col>
@@ -61,7 +61,8 @@ import uploadSingleImg from "@/views/public-components/upload_single_img";
 export default {
   data() {
     return {
-        searchServiceId:"",
+      searchServiceId: "",
+      searchName: "",
       showAddRecommendIp: false,
       serviceId: "",
       adSort: "",
@@ -146,9 +147,10 @@ export default {
         });
     },
     searchRecommendIp: function() {
-        let data = {
-            serviceId:this.searchServiceId
-        }
+      let data = {
+        serviceId: this.searchServiceId,
+        name:this.searchName
+      };
       this.$store.commit("GET_RECOMMEND_FOR_PAGE_INFO", {
         data: data,
         pageNo: this.$store.state.app.recommend_ip_public_page
