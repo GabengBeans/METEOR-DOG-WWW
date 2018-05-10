@@ -1,16 +1,29 @@
 <template>
   <div style="display:inline-block">
-    <div class="demo-upload-list" v-if="uploadImg" >
-        <img :src="aliyun + uploadImg">
+    <div class="demo-upload-list" v-if="imgUrl.imgUrl" >
+        <img :src="aliyun + imgUrl.imgUrl">
         <div class="demo-upload-list-cover" >
-          <Icon type="ios-eye-outline" @click.native="handleView(uploadImg)" style="margin-right:10px"></Icon>
-          <Icon type="ios-trash-outline" @click.native="handleRemove(uploadImg)"></Icon>
+          <Icon type="ios-eye-outline" @click.native="handleView(imgUrl.imgUrl)" style="margin-right:10px"></Icon>
+          <Icon type="ios-trash-outline" @click.native="handleRemove(imgUrl.imgUrl)"></Icon>
         </div>
     </div>
-    <template v-if="!uploadImg" >
-    <Upload v-if="upload"  ref="upload" :show-upload-list="false" :on-success="handleSuccess" :format="['jpg','jpeg','png']" :max-size="5120" :on-format-error="handleFormatError" :on-exceeded-size="handleMaxSize" :before-upload="handleBeforeUpload" :data="{
+    <template v-if="!imgUrl.imgUrl" >
+    <Upload v-if="upload"  
+    ref="upload" 
+    :show-upload-list="false" 
+    :on-success="handleSuccess" 
+    :format="['jpg','jpeg','png']" 
+    :max-size="5120" 
+    :on-format-error="handleFormatError" 
+    :on-exceeded-size="handleMaxSize" 
+    :before-upload="handleBeforeUpload" 
+    :data="{
           'type':'user'
-          }" multiple :type="uploadImg?'select':'drag'" :action="imgUrl" style="display: inline-block;width:99px;margin-right:10px">
+          }" 
+    :type="imgUrl.imgUrl?'select':'drag'" 
+    :action="imgUploadUrl"
+     style="display: inline-block;width:99px;margin-right:10px"
+     >
       <div style="height:99px;line-height:118px;">
         <Icon type="camera" size="40" style="margin-top:10px;"></Icon>
       </div>
@@ -26,27 +39,25 @@ import baseUri from "@/libs/base_uri";
 export default {
   data() {
     return {
-      imgUrl: baseUri.img_upload_url,
+      imgUploadUrl: baseUri.img_upload_url,
       aliyun: baseUri.oss_url,
       imgName: "",
       visible: false,
-      uploadImg: this.img_url
     };
   },
   //change:是否可上传   detail:是否查看。浮层
-  props: ["img_url", "upload", "change", "detail"],
+  props: ["imgUrl", "upload", "change", "detail"],
   methods: {
     handleView(name) {
       this.imgName = name;
       this.visible = true;
     },
     handleRemove(file) {
-     this.uploadImg=""
+     this.imgUrl.imgUrl=""
     },
     handleSuccess(res, file) {
       this.$Message.destroy();
-      this.uploadImg = res.result.file.innerUrl
-      //console.log(this.uploadList)
+      this.imgUrl.imgUrl = res.result.file.innerUrl
     },
     handleFormatError(file) {
       this.$Message.destroy();

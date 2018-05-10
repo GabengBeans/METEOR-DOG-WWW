@@ -160,6 +160,12 @@ export default {
             pageNo: index
           });
           break;
+        case "recommendIpSetSearch":
+          this.$store.commit("GET_RECOMMEND_FOR_PAGE_INFO", {
+            data: this.$store.state.app.recommend_ip_search_info,
+            pageNo: index
+          });
+          break;
       }
     }
   }

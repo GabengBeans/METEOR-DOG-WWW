@@ -38,6 +38,7 @@ import after_merchant_enter_query from "@/views/merchant/after_merchant_enter_qu
 import query_session_record_index from "@/views/im/query_session_record/query_session_record_index"
 import ip_coupon_index from "@/views/ip_coupon/ip_coupon_index"
 import user_ability from "@/views/user/user_ability/user_ability_index"
+import advert_recommend_ip_set from "@/views/advert/advert_recommend_ip_set/recommend_ip_set_index"
 
 let util = {
 
@@ -398,6 +399,7 @@ util.createMenus = function (data) {
         'new_advert_list': new_advert_list,
         'advert_list': advert_list,
         'advert_new_bits_list': advert_new_bits_list,
+        'advert_recommend_ip_set':advert_recommend_ip_set,
         'category_general': category_general,
         'category_tab_general': category_tab_general,
         'after_merchant_enter_list': after_merchant_enter_list,

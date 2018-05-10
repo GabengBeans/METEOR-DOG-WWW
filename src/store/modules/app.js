@@ -1,5 +1,5 @@
 import { otherRouter, appRouter } from '@/router/router';
-import Util from '@/libs/util';
+import util from '@/libs/util';
 import Cookies from 'js-cookie';
 import Vue from 'vue';
 import baseUri from '@/libs/base_uri'
@@ -123,6 +123,15 @@ const app = {
         },
         advert_position_search_result: [],
         advert_position_public_page: 1,
+        
+        //推荐IP
+        recommend_ip_search_info:{},
+        recommend_ip_page_info:{
+            currentPage:1,
+            totalPage:0
+        },
+        recommend_ip_search_result:[],
+        recommend_ip_public_page:1,
 
         //售后管理
         after_feedback_search_info: {},
@@ -320,7 +329,7 @@ const app = {
             //console.log("app.js")
             appRouter.forEach((item, index) => {
                 // if (item.access !== undefined) {
-                //     if (Util.showThisRoute(item.access, accessCode)) {
+                //     if (util.showThisRoute(item.access, accessCode)) {
                 //         if (item.children.length === 1) {
                 //             menuList.push(item);
                 //         } else {
@@ -346,7 +355,7 @@ const app = {
                     let childrenArr = [];
                     childrenArr = item.children.filter(child => {
                         if (child.access !== undefined) {
-                            if (Util.showThisRoute(child.access, accessCode)) {
+                            if (util.showThisRoute(child.access, accessCode)) {
                                 return child;
                             }
                         } else {
@@ -460,7 +469,7 @@ const app = {
             state.messageCount = count;
         },
         increateTag(state, tagObj) {
-            if (!Util.oneOf(tagObj.name, state.dontCache)) {
+            if (!util.oneOf(tagObj.name, state.dontCache)) {
                 state.cachePage.push(tagObj.name);
                 localStorage.cachePage = JSON.stringify(state.cachePage);
             }
@@ -471,7 +480,7 @@ const app = {
         GET_USER_INFO(state, { data, pageNo }) {
             state.user_search_info = data
             state.user_public_page = pageNo
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.user_search_for_page_url,
                 params: {
@@ -496,7 +505,7 @@ const app = {
                     
                     state.user_search_result[x].meteorScore = parseFloat(arr[x].meteorScore / 10).toFixed(1)
                     state.user_search_result[x].amount = parseFloat(arr[x].amount / 100).toFixed(2)
-                    state.user_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
+                    state.user_search_result[x].createTime = util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
                 }
                 //Cookies.set("user_search_result",JSON.stringify(state.user_search_result))
             })
@@ -505,7 +514,7 @@ const app = {
         GET_USER_ABILITY_LIST(state, { data, pageNo }) {
             state.user_ability_search_info = data
             state.user_ability_public_page = pageNo
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.search_user_ability_for_page_url,
                 params: {
@@ -547,7 +556,7 @@ const app = {
         GET_REQUEST_INFO(state, { data, pageNo }) {
             state.request_search_info = data
             state.request_public_page = pageNo
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.demand_search_demands_for_page_url,
                 params: {
@@ -567,9 +576,9 @@ const app = {
                 for (let x in arr) {
                     let businessIndex = parseInt(state.request_search_result[x].businessStatus)
                     let statusIndex = parseInt(state.request_search_result[x].status)
-                    state.request_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
+                    state.request_search_result[x].createTime = util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
                     if (arr[x].auditTime) {
-                        state.request_search_result[x].auditTime = Util.formatDate(new Date(arr[x].auditTime), "yyyy-MM-dd hh:mm:ss")
+                        state.request_search_result[x].auditTime = util.formatDate(new Date(arr[x].auditTime), "yyyy-MM-dd hh:mm:ss")
                     } else {
                         state.request_search_result[x].auditTime = ''
                     }
@@ -583,7 +592,7 @@ const app = {
         GET_SERVICE_INFO(state, { data, pageNo }) {
             state.service_search_info = data
             state.service_public_page = pageNo
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.service_search_services_page_url,
                 params: {
@@ -602,9 +611,9 @@ const app = {
                 for (let x in arr) {
                     let businessIndex = parseInt(state.service_search_result[x].businessStatus)
                     let statusIndex = parseInt(state.service_search_result[x].status)
-                    state.service_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
+                    state.service_search_result[x].createTime = util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
                     if (arr[x].auditTime) {
-                        state.service_search_result[x].auditTime = Util.formatDate(new Date(arr[x].auditTime), "yyyy-MM-dd hh:mm:ss")
+                        state.service_search_result[x].auditTime = util.formatDate(new Date(arr[x].auditTime), "yyyy-MM-dd hh:mm:ss")
                     } else {
                         state.service_search_result[x].auditTime = ''
                     }
@@ -619,7 +628,7 @@ const app = {
             state.order_demand_search_info = data
             state.order_demand_public_page = pageNo
             //console.log(data)
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.order_search_orders_for_page_url,
                 params: {
@@ -639,7 +648,7 @@ const app = {
                 for (let x in arr) {
                     let orderStatu = parseInt(arr[x].orderStatus)
                     //let statusIndex = parseInt(state.service_search_result[x].status)
-                    state.order_demand_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
+                    state.order_demand_search_result[x].createTime = util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
                     state.order_demand_search_result[x].orderStatus = orderStatus[orderStatu]
                     state.order_demand_search_result[x].actualAmount = parseInt(arr[x].actualAmount) / 100 + "元"
                     //state.order_demand_search_result[x].status = status[statusIndex]
@@ -654,7 +663,7 @@ const app = {
             state.order_service_search_info = data
             state.order_service_public_page = pageNo
             //console.log(data)
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.order_search_orders_for_page_url,
                 params: {
@@ -674,7 +683,7 @@ const app = {
                 for (let x in arr) {
                     let orderStatu = parseInt(arr[x].orderStatus)
                     //let statusIndex = parseInt(state.service_search_result[x].status)
-                    state.order_service_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
+                    state.order_service_search_result[x].createTime = util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
                     state.order_service_search_result[x].orderStatus = orderStatus[orderStatu]
                     state.order_service_search_result[x].rawPrice = parseInt(arr[x].rawPrice) / 100 + "元"
                     //state.order_demand_search_result[x].status = status[statusIndex]
@@ -687,7 +696,7 @@ const app = {
         GET_EXPAND_INFO(state, { data, pageNo }) {
             state.expand_search_info = data
             state.expand_public_page = pageNo
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.extend_user_search_ex_userinfo_for_page,
                 params: {
@@ -705,10 +714,10 @@ const app = {
                 state.expand_search_result = arr
                 for (let x in arr) {
                     let statusIndex = parseInt(state.expand_search_result[x].expandStatus)
-                    state.expand_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
+                    state.expand_search_result[x].createTime = util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
                     state.expand_search_result[x].tradeAmount = (arr[x].tradeAmount * 0.01).toFixed(2)
                     if (arr[x].auditTime) {
-                        state.expand_search_result[x].auditTime = Util.formatDate(new Date(arr[x].auditTime), "yyyy-MM-dd hh:mm:ss")
+                        state.expand_search_result[x].auditTime = util.formatDate(new Date(arr[x].auditTime), "yyyy-MM-dd hh:mm:ss")
                     } else {
                         state.expand_search_result[x].auditTime = ''
                     }
@@ -718,7 +727,7 @@ const app = {
         },
         GET_EXPAND_CHARGE_INFO(state, { data, pageNo }) {
             state.expand_charge_search_info = data
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.brokerage_balance_search_for_page_url,
                 params: {
@@ -735,14 +744,14 @@ const app = {
                 state.expand_charge_search_result = arr
                 for (let x in arr) {
                     let balanceIndex = parseInt(state.expand_charge_search_result[x].balanceStatus)
-                    state.expand_charge_search_result[x].accountDay = Util.formatDate(new Date(arr[x].accountDay), "yyyy-MM-dd")
+                    state.expand_charge_search_result[x].accountDay = util.formatDate(new Date(arr[x].accountDay), "yyyy-MM-dd")
                     state.expand_charge_search_result[x].tradeAmount = (arr[x].tradeAmount * 0.01).toFixed(2)
                     state.expand_charge_search_result[x].platformServiceCharge = (arr[x].platformServiceCharge * 0.01).toFixed(2)
                     state.expand_charge_search_result[x].balanceAmount = (arr[x].balanceAmount * 0.01).toFixed(2)
                     state.expand_charge_search_result[x].reate = (arr[x].reate * 0.01).toFixed(2)
 
                     if (arr[x].balanceTime) {
-                        state.expand_charge_search_result[x].balanceTime = Util.formatDate(new Date(arr[x].balanceTime), "yyyy-MM-dd hh:mm:ss")
+                        state.expand_charge_search_result[x].balanceTime = util.formatDate(new Date(arr[x].balanceTime), "yyyy-MM-dd hh:mm:ss")
                     } else {
                         state.expand_charge_search_result[x].balanceTime = ''
                     }
@@ -752,7 +761,7 @@ const app = {
         },
         GET_EXPAND_GROUP_INFO(state, { data, pageNo }) {
             state.expand_group_search_info = data
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.extend_group_search_ex_group_for_page,
                 params: {
@@ -774,7 +783,7 @@ const app = {
         //绑定代理人
         GET_GROUP_BIND_INFO(state, { data, pageNo }) {
             state.group_bind_search_info = data
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.get_bind_expend_list_url,
                 params: {
@@ -800,7 +809,7 @@ const app = {
         //解绑代理人
         GET_GROUP_UNBUNDLING_INFO(state, { data, pageNo, groupId }) {
             state.group_unbundling_search_info = data
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.get_group_expend_list_url,
                 params: {
@@ -828,7 +837,7 @@ const app = {
         GET_CASH_FLOW_INFO(state, { data, pageNo }) {
             state.cash_flow_search_info = data
             state.cash_flow_public_page = pageNo
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.cash_search_account_log_url,
                 params: {
@@ -856,7 +865,7 @@ const app = {
                     let status = parseInt(arr[x].status)
                     //let statusIndex = parseInt(state.service_search_result[x].status)
                     if (arr[x].createTime) {
-                        state.cash_flow_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
+                        state.cash_flow_search_result[x].createTime = util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
                     }
                     state.cash_flow_search_result[x].chargeStatus = chargeStatusArr[chargeStatus]
                     state.cash_flow_search_result[x].tradeType = tradeTypeArr[tradeType]
@@ -874,7 +883,7 @@ const app = {
         GET_CASH_REFUND_INFO(state, { data, pageNo }) {
             state.cash_refund_search_info = data
             state.cash_refund_public_page = pageNo
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.account_search_bond_for_page_url,
                 params: {
@@ -893,7 +902,7 @@ const app = {
                 for (let x in arr) {
                     let bondStatus = parseInt(arr[x].bondStatus)
                     if (arr[x].createTime) {
-                        state.cash_refund_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
+                        state.cash_refund_search_result[x].createTime = util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
                     } else {
                         state.cash_refund_search_result[x].createTime = ''
                     }
@@ -910,7 +919,7 @@ const app = {
         GET_CASH_WITHDRAW_INFO(state, { data, pageNo }) {
             state.cash_withdraw_search_info = data
             state.cash_withdraw_public_page = pageNo
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.cash_search_withdraw_for_page_url,
                 params: {
@@ -929,7 +938,7 @@ const app = {
                 for (let x in arr) {
                     let applyStatus = parseInt(arr[x].applyStatus)
                     if (arr[x].createTime) {
-                        state.cash_withdraw_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
+                        state.cash_withdraw_search_result[x].createTime = util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
                     } else {
                         state.cash_withdraw_search_result[x].createTime = ''
                     }
@@ -947,7 +956,7 @@ const app = {
             state.merchant_enter_search_info = data
             state.merchant_enter_public_page = pageNo
 
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.search_business_info_for_page_url,
                 params: {
@@ -964,7 +973,7 @@ const app = {
 
                 for (let x in arr) {
                     if (arr[x].createTime) {
-                        state.merchant_enter_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
+                        state.merchant_enter_search_result[x].createTime = util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
                     } else {
                         state.merchant_enter_search_result[x].createTime = ''
                     }
@@ -977,7 +986,7 @@ const app = {
         GET_BUSINESS_ENTER_FOR_PAGE_INFO(state, { data, pageNo }) {
             state.merchant_bussiness_enter_search_info = data
             state.merchant_bussiness_enter_public_page = pageNo
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.search_business_enter_for_page_url,
                 params: {
@@ -1019,7 +1028,7 @@ const app = {
         //拓展管理-返佣订单审核
         GET_BROKERAGE_ORDER_INFO(state, { data, pageNo }) {
             state.brokerage_order_search_info = data
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.brokerage_order_search_for_page,
                 params: {
@@ -1037,19 +1046,19 @@ const app = {
                 for (let x in arr) {
                     let businessIndex = parseInt(state.brokerage_order_search_result[x].businessStatus)
 
-                    state.brokerage_order_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
+                    state.brokerage_order_search_result[x].createTime = util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
                     state.brokerage_order_search_result[x].platformServiceCharge = (arr[x].platformServiceCharge * 0.01).toFixed(2);
                     state.brokerage_order_search_result[x].brokerage = (arr[x].brokerage * 0.01).toFixed(2);
                     state.brokerage_order_search_result[x].reate = (arr[x].reate * 0.01).toFixed(2);
 
 
                     if (arr[x].accountDay) {
-                        state.brokerage_order_search_result[x].accountDay = Util.formatDate(new Date(arr[x].accountDay), "yyyy-MM-dd")
+                        state.brokerage_order_search_result[x].accountDay = util.formatDate(new Date(arr[x].accountDay), "yyyy-MM-dd")
                     } else {
                         state.brokerage_order_search_result[x].accountDay = ''
                     }
                     if (arr[x].auditTime) {
-                        state.brokerage_order_search_result[x].auditTime = Util.formatDate(new Date(arr[x].auditTime), "yyyy-MM-dd hh:mm:ss")
+                        state.brokerage_order_search_result[x].auditTime = util.formatDate(new Date(arr[x].auditTime), "yyyy-MM-dd hh:mm:ss")
                     } else {
                         state.brokerage_order_search_result[x].auditTime = ''
                     }
@@ -1062,7 +1071,7 @@ const app = {
             state.advert_new_search_info = data
             state.advert_new_public_page = pageNo
 
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.advert_query_advert_url,
                 params: {
@@ -1079,7 +1088,7 @@ const app = {
 
                 for (let x = 0; x < arr.length; x++) {
                     if (arr[x].updateTime) {
-                        state.advert_new_search_result[x].updateTime = Util.formatDate(new Date(arr[x].updateTime), "yyyy-MM-dd hh:mm:ss")
+                        state.advert_new_search_result[x].updateTime = util.formatDate(new Date(arr[x].updateTime), "yyyy-MM-dd hh:mm:ss")
                     } else {
                         state.advert_new_search_result[x].updateTime = ''
                     }
@@ -1094,7 +1103,7 @@ const app = {
             state.advert_position_search_info = data
             state.advert_position_public_page = pageNo
 
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.advert_position_search_for_page_url,
                 params: {
@@ -1124,12 +1133,49 @@ const app = {
                 console.log(error)
             })
         },
+        //推荐IP
+        GET_RECOMMEND_FOR_PAGE_INFO(state,{data,pageNo}){
+            state.recommend_ip_search_info = data
+            state.recommend_ip_public_page = pageNo
+
+            util.ajax({
+                method: "post",
+                url: base_uri.search_recommend_for_page_url,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
+                },
+                data: data
+            }).then((response) => {
+                if(response.data.success)
+                {
+                    const obj = response.data.data
+                    state.recommend_ip_page_info.currentPage = obj.page
+                    state.recommend_ip_page_info.totalPage = obj.totalCount
+                    console.log(state.recommend_ip_page_info.totalPage)
+                    state.recommend_ip_search_result = obj.items
+                    const displayArr = ["已下线","已上线"]
+                    for(let x in obj.items){
+                        for(let y in obj.items[x])
+                        {
+                            if(y == "display")
+                            {
+                                state.recommend_ip_search_result[x][y] = displayArr[obj.items[x][y]]
+                            }
+                        }
+                    }
+                }
+                
+            }).catch((error) => {
+                console.log(error)
+            })
+        },
         //售后管理
         GET_AFTER_FEEDBACK_INFO(state, { data, pageNo }) {
             state.after_feedback_search_info = data
             state.after_feedback_public_page = pageNo
 
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.after_feedback_query_for_page,
                 params: {
@@ -1146,7 +1192,7 @@ const app = {
                     state.after_feedback_search_result = response.data.data.items
 
                     for (let x = 0; x < arr.length; x++) {
-                        state.after_feedback_search_result[x].createTime = Util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
+                        state.after_feedback_search_result[x].createTime = util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
                         if (!arr[x].phone) {
                             state.after_feedback_search_result[x].phone = ""
                         }
@@ -1159,7 +1205,7 @@ const app = {
 
         //类别管理
         GET_CATEGORY_SEARCH_INFO(state, { businessType }) {
-            Util.ajax({
+            util.ajax({
                 method: "get",
                 url: base_uri.category_search_url,
                 params: {
@@ -1170,13 +1216,13 @@ const app = {
                 let obj = response.data.data.allCategory[0]
                 if (businessType == 1) {
                     if (response.data.success) {
-                        Util.recursion(response.data.data.allCategory, "childCategory")
+                        util.recursion(response.data.data.allCategory, "childCategory")
                         state.category_search_result = response.data.data.allCategory[0]
                     }
 
                 } else if (businessType == 2) {
                     if (response.data.success) {
-                        Util.recursion(response.data.data.allCategory, "childCategory")
+                        util.recursion(response.data.data.allCategory, "childCategory")
                         state.categorys_search_result = response.data.data.allCategory[0]
                     }
                 }
@@ -1187,7 +1233,7 @@ const app = {
         },
         //标签管理
         GET_LABEL_LIST_SEARCH_INFO(state, { lableType }) {
-            Util.ajax({
+            util.ajax({
                 method: "get",
                 url: base_uri.label_search_label_list_url,
                 params: {
@@ -1204,7 +1250,7 @@ const app = {
                             obj.id = response.data.data.allLabels[x].id
                             levelName.push(obj)
                         }
-                        Util.recursion(response.data.data.allLabels, "childLableVos")
+                        util.recursion(response.data.data.allLabels, "childLableVos")
                         Vue.set(state.category_tab_search_result, "allLabels", response.data.data.allLabels)
                         //console.log(state.category_tab_search_result.allLabels instanceof Array)
                         Vue.set(state.category_tab_search_result, "tabName", "买家")
@@ -1222,7 +1268,7 @@ const app = {
                             obj.id = response.data.data.allLabels[x].id
                             levelName.push(obj)
                         }
-                        Util.recursion(response.data.data.allLabels, "childLableVos")
+                        util.recursion(response.data.data.allLabels, "childLableVos")
                         Vue.set(state.categorys_tab_search_result, "allLabels", response.data.data.allLabels)
                         Vue.set(state.categorys_tab_search_result, "tabName", "卖家")
                         Vue.set(state.categorys_tab_search_result, "levelName", levelName)
@@ -1236,7 +1282,7 @@ const app = {
         },
         //统计
         GET_ORDER_STATISTICS_SEARCH_INFO(state, { time }) {
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.order_statistics_query,
                 data: time
@@ -1256,7 +1302,7 @@ const app = {
             state.system_settings_search_info = data
             state.system_settings_public_page = pageNo
 
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.search_setting_info_for_page,
                 params: {
@@ -1287,7 +1333,7 @@ const app = {
         GET_APP_SEARCH_INFO(state, { data, pageNo }) {
             state.app_public_page = pageNo
 
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.app_search_url,
                 params: {
@@ -1302,7 +1348,7 @@ const app = {
                     state.app_page_info.totalPage = res.data.data.totalCount
                     state.app_search_result = res.data.data.items
                     for (let x in res.data.data.items) {
-                        state.app_search_result[x].createTime = Util.formatDate(new Date(res.data.data.items[x].createTime), "yyyy-MM-dd hh:mm:ss")
+                        state.app_search_result[x].createTime = util.formatDate(new Date(res.data.data.items[x].createTime), "yyyy-MM-dd hh:mm:ss")
                         state.app_search_result[x].updateStatus = res.data.data.items[x].updateStatus ? "是" : "否"
                     }
                 }
@@ -1313,7 +1359,7 @@ const app = {
         GET_SEARCH_ADIMIN_USER_INFO(state, { data, pageNo }) {
             state.admin_user_search_info = data
             state.admin_user_public_page = pageNo
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.search_admin_user_info,
                 params: {
@@ -1347,7 +1393,7 @@ const app = {
             //console.log(data)
             state.admin_role_search_info = data
             state.admin_role_public_page = pageNo
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.search_admin_role_info,
                 params: {
@@ -1377,12 +1423,12 @@ const app = {
         },
         //权限管理-资源管理
         GET_SEARCH_ADIMIN_RESOURCE_INFO(state) {
-            Util.ajax({
+            util.ajax({
                 method: "get",
                 url: base_uri.search_admin_resource_list,
             }).then(res => {
                 let obj = res.data.data.allLabels
-                Util.recursion(obj, "childAdminResources", false)
+                util.recursion(obj, "childAdminResources", false)
                 //console.log(obj)
                 state.admin_resource_search_result = obj
             })
@@ -1391,7 +1437,7 @@ const app = {
         GET_AUDIT_OPERATION_INFO(state, { data, pageNo }) {
             state.audit_operation_search_info = data
             state.audit_operation_public_page = pageNo
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.search_audit_operation_log_for_page_url,
                 params: {
@@ -1410,7 +1456,7 @@ const app = {
                         for (let y in obj[x]) {
                             //console.log(y)
                             if (y == "bussinessTime" || y == "opertateTime") {
-                                let time = Util.formatDate(new Date(obj[x][y]), "yyyy-MM-dd hh:mm:ss")
+                                let time = util.formatDate(new Date(obj[x][y]), "yyyy-MM-dd hh:mm:ss")
                                 state.audit_operation_search_result[x][y] = time
                             }
                         }
@@ -1427,7 +1473,7 @@ const app = {
         GET_SEARCH_CHATLOG_FOR_PAGE(state, { data, pageNo }) {
             state.query_session_search_info = data
             state.query_session_public_page = pageNo
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.search_chatlog_for_page_url,
                 params: {
@@ -1449,7 +1495,7 @@ const app = {
         GET_IP_COUPON_QUERY_LIST(state, { data, pageNo }) {
             state.ip_coupon_query_search_info = data
             state.ip_coupon_query_public_page = pageNo
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.search_coupon_for_page_url,
                 params: {
@@ -1467,7 +1513,7 @@ const app = {
                     for (let x = 0; x < obj.length; x++) {
                         for (let y in obj[x]) {
                             if (y == "createTime") {
-                                state.ip_coupon_query_search_result[x].createTime = Util.formatDate(new Date(obj[x][y]), "yyyy-MM-dd hh:mm:ss")
+                                state.ip_coupon_query_search_result[x].createTime = util.formatDate(new Date(obj[x][y]), "yyyy-MM-dd hh:mm:ss")
                             } else if (y == "saleEvery") {
                                 state.ip_coupon_query_search_result[x][y] = parseInt(obj[x][y] / 100)
                             } else if (y == "saleDecrease") {
@@ -1484,7 +1530,7 @@ const app = {
         GET_IP_COUPON_DETAIL_QUERY_LIST(state, { data, pageNo }) {
             state.ip_coupon_detail_query_search_info = data
             state.ip_coupon_detail_query_public_page = pageNo
-            Util.ajax({
+            util.ajax({
                 method: "post",
                 url: base_uri.search_usercoupon_for_page_url,
                 params: {
@@ -1505,7 +1551,7 @@ const app = {
                     for (let x = 0; x < items.length; x++) {
                         for (let y in items[x]) {
                             if (y == "createTime") {
-                                state.ip_coupon_detail_query_search_result.items[x][y] = Util.formatDate(new Date(items[x][y]), "yyyy-MM-dd hh:mm:ss")
+                                state.ip_coupon_detail_query_search_result.items[x][y] = util.formatDate(new Date(items[x][y]), "yyyy-MM-dd hh:mm:ss")
                             } else if (y == "useStatus") {
                                 state.ip_coupon_detail_query_search_result.items[x][y] = useStatusArr[items[x][y]]
                             }
@@ -1515,7 +1561,7 @@ const app = {
                         if (x == "saleDecrease" || x == "saleEvery") {
                             state.ip_coupon_detail_query_search_result.couponInfo[x] = parseInt(couponInfo[x] / 100)
                         } else if (x == "beginTime" || x == "endTime") {
-                            state.ip_coupon_detail_query_search_result.couponInfo[x] = Util.formatDate(new Date(couponInfo[x]), "yyyy-MM-dd")
+                            state.ip_coupon_detail_query_search_result.couponInfo[x] = util.formatDate(new Date(couponInfo[x]), "yyyy-MM-dd")
                         }
                     }
                     //console.log(state.ip_coupon_detail_query_search_result.couponInfo)
