@@ -18,13 +18,11 @@
   "license": "MIT",
   "dependencies": {
     "area-data": "^1.0.0",
-    "axios": "^0.17.1",
     "clipboard": "^1.7.1",
     "countup": "^1.8.2",
     "cropperjs": "^1.2.1",
     "echarts": "^3.8.5",
     "html2canvas": "^0.5.0-beta4",
-    "iview": "^2.9.2",
     "iview-area": "^1.5.14",
     "jquery": "^3.3.1",
     "js-cookie": "^2.2.0",
@@ -32,10 +30,7 @@
     "simplemde": "^1.11.2",
     "sortablejs": "^1.7.0",
     "tinymce": "^4.7.4",
-    "vue": "^2.5.13",
-    "vue-baidu-map": "^0.20.7",
-    "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vue-baidu-map": "^0.20.7"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",

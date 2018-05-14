@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import iView from 'iview';
+//import Vue from 'vue';
+//import iView from 'iview';
 import { router } from './router/index';
 import { appRouter } from './router/router';
 import store from './store';
@@ -12,7 +12,7 @@ import BaiduMap from 'vue-baidu-map'
 import Cookies from "js-cookie"
 
 // Vue.use(VueI18n);
-Vue.use(iView);
+Vue.use(iview);
 Vue.use(BaiduMap, {
     ak: "sKkVhwaa0xKdBYPtGzAALEY5FEDL01g2&services=&t=20180201111639"
 })

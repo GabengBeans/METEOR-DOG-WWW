@@ -1,7 +1,7 @@
-import Vue from 'vue';
-import iView from 'iview';
+//import Vue from 'vue';
+//import iView from 'iview';
 import Util from '../libs/util';
-import VueRouter from 'vue-router';
+//import VueRouter from 'vue-router';
 import Cookies from 'js-cookie';
 import {routers, otherRouter, appRouter} from './router';
 
@@ -16,7 +16,7 @@ const RouterConfig = {
 export const router = new VueRouter(RouterConfig);
 
 router.beforeEach((to, from, next) => {
-    iView.LoadingBar.start();
+    iview.LoadingBar.start();
     Util.title(to.meta.title);
     if (Cookies.get('locking') === '1' && to.name !== 'locking') { // 判断当前是否是锁定状态
         next({
@@ -57,6 +57,6 @@ router.beforeEach((to, from, next) => {
 //console.log("22222222")
 router.afterEach((to) => {
     Util.openNewPage(router.app, to.name, to.params, to.query);
-    iView.LoadingBar.finish();
+    iview.LoadingBar.finish();
     window.scrollTo(0, 0);
 });
