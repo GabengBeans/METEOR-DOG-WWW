@@ -437,7 +437,7 @@ util.createMenus = function (data) {
             menus[i].children[j].path = data[i].childResources[j].modelName
             menus[i].children[j].name = data[i].childResources[j].modelName
             menus[i].children[j].title = data[i].childResources[j].name
-            menus[i].children[j].component = tempPath
+            menus[i].children[j].component = resolve => { require([tempPath], resolve); }
         }
 
     }
