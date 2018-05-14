@@ -477,7 +477,7 @@ util.createMenus = function (data) {
 
     }
     //this.menus = menus//console.log(menus)
-    console.log(menus)
+    //console.log(menus)
     return menus
 }
 util.unique = function unique(array){ 

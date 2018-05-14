@@ -26,7 +26,6 @@
 <script>
 import Util from "@/libs/util";
 import baseUri from "@/libs/base_uri";
-
 export default {
   data() {
     return {
