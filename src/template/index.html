@@ -7,64 +7,64 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
     <link rel="stylesheet" name="theme" href="">
     <style>
-            .spinner {
-                width: 60px;
-                height: 60px;
-    
-                position: relative;
-                margin: 300px auto;
+        .spinner {
+            width: 60px;
+            height: 60px;
+
+            position: relative;
+            margin: 300px auto;
+        }
+
+        .double-bounce1,
+        .double-bounce2 {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #67CF22;
+            opacity: 0.6;
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            -webkit-animation: bounce 2.0s infinite ease-in-out;
+            animation: bounce 2.0s infinite ease-in-out;
+        }
+
+        .double-bounce2 {
+            -webkit-animation-delay: -1.0s;
+            animation-delay: -1.0s;
+        }
+
+        @-webkit-keyframes bounce {
+            0%,
+            100% {
+                -webkit-transform: scale(0.0)
             }
-    
-            .double-bounce1,
-            .double-bounce2 {
-                width: 100%;
-                height: 100%;
-                border-radius: 50%;
-                background-color: #67CF22;
-                opacity: 0.6;
-                position: absolute;
-                top: 0;
-                left: 0;
-    
-                -webkit-animation: bounce 2.0s infinite ease-in-out;
-                animation: bounce 2.0s infinite ease-in-out;
+            50% {
+                -webkit-transform: scale(1.0)
             }
-    
-            .double-bounce2 {
-                -webkit-animation-delay: -1.0s;
-                animation-delay: -1.0s;
+        }
+
+        @keyframes bounce {
+            0%,
+            100% {
+                transform: scale(0.0);
+                -webkit-transform: scale(0.0);
             }
-    
-            @-webkit-keyframes bounce {
-                0%,
-                100% {
-                    -webkit-transform: scale(0.0)
-                }
-                50% {
-                    -webkit-transform: scale(1.0)
-                }
+            50% {
+                transform: scale(1.0);
+                -webkit-transform: scale(1.0);
             }
-    
-            @keyframes bounce {
-                0%,
-                100% {
-                    transform: scale(0.0);
-                    -webkit-transform: scale(0.0);
-                }
-                50% {
-                    transform: scale(1.0);
-                    -webkit-transform: scale(1.0);
-                }
-            }
-        </style>
+        }
+    </style>
 </head>
 
 <body>
-    <div id="app"></div>
     <div class="spinner">
-            <div class="double-bounce1"></div>
-            <div class="double-bounce2"></div>
-        </div>
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+    <div id="app"></div>
     <div class="lock-screen-back" id="lock_screen_back"></div>
     <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
     <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
@@ -76,11 +76,11 @@
     <script src="https://dedc-statics.oss-cn-beijing.aliyuncs.com/node/aliyun-oss-sdk4.13.2.min.js"></script>
     <script src="https://dedc-statics.oss-cn-beijing.aliyuncs.com/node/aliyun-upload-sdk1.3.1.min.js"></script>
     <script>
-            window.onload = function () {
-                const oDiv = document.getElementsByClassName("spinner")[0]
-                oDiv.style.display = "none"
-            }
-        </script>
+        window.onload = function () {
+            const oDiv = document.getElementsByClassName("spinner")[0]
+            oDiv.style.display = "none"
+        }
+    </script>
 </body>
 
 </html>
