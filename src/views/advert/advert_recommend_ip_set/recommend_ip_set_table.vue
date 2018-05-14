@@ -246,17 +246,17 @@ export default {
   },
   methods: {
     saveEditRecommendIp() {
-      // if (
-      //   !this.imgObj1.imgUrl ||
-      //   !this.imgObj2.imgUrl ||
-      //   !this.imgObj3.imgUrl ||
-      //   !this.imgObj4.imgUrl ||
-      //   !this.imgObj5.imgUrl ||
-      //   !this.imgObj6.imgUrl
-      // ) {
-      //   this.$Message.error("请上传6张图片");
-      //   return;
-      // }
+      if (
+        !this.imgObj1.imgUrl ||
+        !this.imgObj2.imgUrl ||
+        !this.imgObj3.imgUrl ||
+        !this.imgObj4.imgUrl ||
+        !this.imgObj5.imgUrl ||
+        !this.imgObj6.imgUrl
+      ) {
+        this.$Message.error("至少上传6张图片");
+        return;
+      }
       this.$Message.loading({
         duration: 0,
         content: "保存中..."
