@@ -415,6 +415,40 @@ util.createMenus = function (data) {
         'ip_coupon_index':ip_coupon_index,
         'user_ability':user_ability
     }
+    // let path = {
+    //     'user_query': "@/views/user/index",
+    //     'demand_audit': demand_audit,
+    //     'service_audit': service_audit,
+    //     'order_request': order_request,
+    //     'order_service': order_service,
+    //     'expand_manage': expand_manage,
+    //     'expand_order_audit': expand_order_audit,
+    //     'expand_charge_list': expand_charge_list,
+    //     'expand_group': expand_group,
+    //     'cash_flow_list':cash_flow_list,
+    //     'cash_withdraw_list': cash_withdraw_list,
+    //     'cash_refund_list': cash_refund_list,
+    //     'new_advert_list': new_advert_list,
+    //     'advert_list': advert_list,
+    //     'advert_new_bits_list': advert_new_bits_list,
+    //     'advert_recommend_ip_set':advert_recommend_ip_set,
+    //     'category_general': category_general,
+    //     'category_tab_general': category_tab_general,
+    //     'after_merchant_enter_list': after_merchant_enter_list,
+    //     'statistics_transaction_list': statistics_transaction_list,
+    //     'system_settings': system_settings,
+    //     'web_im': web_im,
+    //     'app_list': app_list,
+    //     'after_feedback_list': after_feedback_list,
+    //     'locked_user_list':locked_user_list,
+    //     'locked_role_list':locked_role_list,
+    //     'locked_resource_index':locked_resource_index,
+    //     'audit_operation_index':audit_operation_index,
+    //     'after_merchant_enter_query':after_merchant_enter_query,
+    //     'query_session_record_index':query_session_record_index,
+    //     'ip_coupon_index':ip_coupon_index,
+    //     'user_ability':user_ability
+    // }
     let menus = []
     for (let i = 0; i < data.length; i++) {
         menus.push({})
@@ -434,15 +468,16 @@ util.createMenus = function (data) {
         }
         for (let j = 0; j < data[i].childResources.length; j++) {
             let tempPath = path[data[i].childResources[j].modelName]
+            console.log( typeof tempPath)
             menus[i].children[j].path = data[i].childResources[j].modelName
             menus[i].children[j].name = data[i].childResources[j].modelName
             menus[i].children[j].title = data[i].childResources[j].name
-            menus[i].children[j].component = resolve => { require([tempPath], resolve); }
+            menus[i].children[j].component = tempPath
         }
 
     }
     //this.menus = menus//console.log(menus)
-    //console.log(this.menus)
+    console.log(menus)
     return menus
 }
 util.unique = function unique(array){ 
