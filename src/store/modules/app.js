@@ -1,6 +1,6 @@
 import { otherRouter, appRouter } from '@/router/router';
 import util from '@/libs/util';
-import Cookies from 'js-cookie';
+//import Cookies from 'js-cookie';
 //import Vue from 'vue';
 import baseUri from '@/libs/base_uri'
 import base_uri from '../../libs/base_uri';

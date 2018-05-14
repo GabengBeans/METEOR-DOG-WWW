@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import Cookies from "js-cookie"
+//import Cookies from "js-cookie"
 import Util from "@/libs/util"
 import baseUri from "@/libs/base_uri"
 export default {

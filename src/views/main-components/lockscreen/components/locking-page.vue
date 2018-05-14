@@ -8,7 +8,7 @@
 
 <script>
 import unlock from "./unlock.vue";
-import Cookies from "js-cookie";
+//import Cookies from "js-cookie";
 import Util from "@/libs/util"
 export default {
   components: {

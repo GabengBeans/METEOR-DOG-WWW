@@ -9,7 +9,7 @@ import 'iview/dist/styles/iview.css';
 // import VueI18n from 'vue-i18n';
 import util from '@/libs/util';
 import BaiduMap from 'vue-baidu-map'
-import Cookies from "js-cookie"
+////import Cookies from "js-cookie"
 
 // Vue.use(VueI18n);
 Vue.use(iview);

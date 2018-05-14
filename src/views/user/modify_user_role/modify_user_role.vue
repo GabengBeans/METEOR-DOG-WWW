@@ -19,7 +19,7 @@
 <script>
 import Util from '@/libs/util'
 import baseUri from '@/libs/base_uri'
-import Cookies from 'js-cookie'
+//import Cookies from 'js-cookie'
 export default {
     name:'revise',
     data(){

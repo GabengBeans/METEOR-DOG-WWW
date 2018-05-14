@@ -43,7 +43,7 @@
 import Util from '@/libs/util'
 import baseUri from '@/libs/base_uri'
 import baseConfig from '@/libs/base_config'
-import Cookies from "js-cookie"
+////import Cookies from "js-cookie"
 export default {
   name: "user_table",
 

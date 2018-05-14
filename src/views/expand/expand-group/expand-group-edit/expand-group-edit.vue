@@ -16,7 +16,7 @@
 
 <script>
 import Util from "@/libs/util";
-import Cookies from "js-cookie";
+////import Cookies from "js-cookie";
 import baseUri from "@/libs/base_uri";
 
 export default {

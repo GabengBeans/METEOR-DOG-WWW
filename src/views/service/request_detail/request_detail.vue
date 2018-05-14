@@ -117,7 +117,7 @@
 </template>
 <script>
 import Util from "@/libs/util";
-import Cookies from "js-cookie";
+//import Cookies from "js-cookie";
 import baseUri from "@/libs/base_uri";
 import UserEditImgList from "@/views/public-components/upload_img";
 import UserEditVideoList from "@/views/public-components/upload_video";

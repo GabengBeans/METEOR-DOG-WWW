@@ -10,7 +10,7 @@ import config from "./config";
 import search from "@/views/public-components/search";
 import userTable from "./table.vue";
 import userPage from "@/views/public-components/changePage";
-import Cookies from "js-cookie";
+////import Cookies from "js-cookie";
 export default {
   data() {
     return {

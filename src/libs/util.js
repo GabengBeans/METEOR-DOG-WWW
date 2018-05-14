@@ -2,7 +2,7 @@
 import env from '../../build/env';
 import baseUri from './base_uri.js';
 import baseConfig from './base_config.js';
-import Cookies from "js-cookie"
+////import Cookies from "js-cookie"
 import Main from '@/views/Main.vue';
 
 import user_query from "@/views/user/index"

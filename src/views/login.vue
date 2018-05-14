@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import Cookies from "js-cookie";
+//import Cookies from "js-cookie";
 import util from "@/libs/util.js";
 import baseUri from "@/libs/base_uri";
 export default {
