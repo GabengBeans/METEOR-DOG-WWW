@@ -1152,7 +1152,7 @@ const app = {
                     const obj = response.data.data
                     state.recommend_ip_page_info.currentPage = obj.page
                     state.recommend_ip_page_info.totalPage = obj.totalCount
-                    console.log(state.recommend_ip_page_info.totalPage)
+                    //console.log(state.recommend_ip_page_info.totalPage)
                     state.recommend_ip_search_result = obj.items
                     const displayArr = ["已下线","已上线"]
                     for(let x in obj.items){

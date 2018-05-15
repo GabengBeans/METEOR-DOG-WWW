@@ -135,6 +135,7 @@ export default {
           if (res.data.success) {
             this.showAddRecommendIp = false;
             this.init();
+            this.searchRecommendIp()
             this.$Message.destroy();
             this.$Message.success("保存成功！");
           } else {
