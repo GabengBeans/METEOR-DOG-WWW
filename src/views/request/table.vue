@@ -21,6 +21,7 @@ export default {
         {
           title: "需求标题",
           key: "title",
+          width:400,
           ellipsis:"false"
         },
         {
@@ -30,7 +31,8 @@ export default {
         },
         {
           title: "手机号",
-          key: "phone"
+          key: "phone",
+          width:120
         },
         {
           title: "发布时间",
@@ -53,7 +55,7 @@ export default {
         {
           title: "操作",
           key: "phone",
-          width: 300,
+          width: 200,
           align: "center",
           render: (h, params) => {
             return h("div", [
