@@ -12,9 +12,8 @@
         .spinner {
             width: 60px;
             height: 60px;
-
             position: relative;
-            margin: 300px auto;
+            margin: 300px auto auto;
         }
 
         .double-bounce1,
@@ -58,6 +57,19 @@
                 -webkit-transform: scale(1.0);
             }
         }
+
+        .my-div {
+            margin-top: 5px;
+            text-align: center;
+            font-size:16px;
+            color: #67CF22;
+        }
+        .my-div1{
+            margin-top: 5px;
+            text-align: center;
+            font-size:16px;
+            color: #67CF22;
+        }
     </style>
 </head>
 
@@ -67,6 +79,25 @@
         <div class="double-bounce1"></div>
         <div class="double-bounce2"></div>
     </div>
+    <div class="my-div">建议使用谷歌浏览器...</div>
+    <div class="my-div1">正在加载...</div>
+    <script>
+        const oMyDiv = document.getElementsByClassName('my-div')[0]
+        const oMyDiv1 = document.getElementsByClassName('my-div1')[0]
+            let browser = {
+                versions: (function () {
+                    let u = navigator.userAgent;
+                    return {
+                        webKit: u.indexOf("AppleWebKit") > -1 //苹果、谷歌内核
+                    };
+                })()
+            };
+            if (!browser.versions.webKit) {
+                oMyDiv1.style.display="none"
+            }else{
+                oMyDiv.style.display="none"
+            }
+    </script>
     <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
     <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
     <script src="https://cdn.bootcss.com/iview/2.9.2/iview.min.js"></script>
