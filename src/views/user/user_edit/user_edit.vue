@@ -66,7 +66,7 @@
           <div class="user_detail_div">
             <label class="from_label">个人标签</label>
             <Input style="width: 5vw;min-width:100px;margin-right:1vw" v-model='tags' />
-            <Tag closable @on-close="handleClose" color="blue" v-for="item in user_data.listTags" :key="item.key" :name="item.lableName" class="tag-style">{{item.lableName}}</Tag>
+            <Tag closable @on-close="handleClose" color="blue" v-for="item in user_data.tags" :key="item.key" :name="item" class="tag-style">{{item}}</Tag>
             <Button icon="ios-plus-empty" type="dashed" size="small" @click="handleAdd">添加标签</Button>
           </div>
           <br>
@@ -201,23 +201,23 @@ export default {
     },
     handleAdd: function() {
       //添加个人标签
-      if (this.user_data.listTags.length >= 3) {
+      if (this.user_data.tags.length >= 3) {
         this.$Message.error("最多添加3组标签");
       } else {
         if (this.tags == "") {
           this.$Message.error("请输入标签内容");
         } else {
-          this.user_data.listTags.push({ lableName: this.tags, id: "-1" });
+          this.user_data.tags.push(this.tags);
           this.tags = "";
-          //console.log(this.user_data.listTags);
+          console.log(this.user_data.tags);
         }
       }
     },
     handleClose: function(event, name) {
       //删除个人标签
-      for (let i = 0; i < this.user_data.listTags.length; i++) {
-        if (this.user_data.listTags[i].lableName == name) {
-          this.user_data.listTags.splice(i, 1);
+      for (let i = 0; i < this.user_data.tags.length; i++) {
+        if (this.user_data.tags[i]== name) {
+          this.user_data.tags.splice(i, 1);
         }
       }
     },
@@ -250,8 +250,12 @@ export default {
       ) {
         imgList.push(this.user_data.certificates[0].imageUrls[x]);
       }
-
-      //console.log(imgList)
+      this.user_data.listTags = []
+      for(let i in this.user_data.tags)
+      {
+        this.user_data.listTags.push({lableName:this.user_data.tags[i],id:-1})
+      }
+      console.log(this.user_data.listTags)
       Util.ajax({
         method: "post",
         url: baseUri.user_edit_url,
@@ -382,12 +386,11 @@ export default {
               new_obj.certificates[0].imageUrls = src_obj.certificates[0].imageUrls
                 .replace(/[\["*"\]]/g, "")
                 .split(",");
-            } else if (x == "listTags") {
             } else {
               new_obj.certificates = [{}];
               new_obj.certificates[0].imageUrls = [];
             }
-          } else {
+          }else {
             new_obj[x] = src_obj[x];
           }
         }
@@ -412,10 +415,9 @@ export default {
         this.show = true;
         this.$Message.destroy();
       })
-    );
-    //   .catch(error => {
-    //     this.$Message.error(error);
-    //   });
+    ).catch(error => {
+        this.$Message.error(error);
+      });
   }
 };
 </script>
