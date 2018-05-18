@@ -1,4 +1,4 @@
-const config={}
+let config={}
 config.serviceSearch = {
     phone: {
         tagName: "手机号",
@@ -86,6 +86,34 @@ config.serviceSearch = {
         tagName: "截止日期",
         value: "",
         data: "1"
+      },
+      serviceCategory:{
+        tagName: "服务类别",
+        value: "-1",
+        tag: {
+          op1: {
+            num: "-1",
+            value: "全部"
+          }
+        }
+      },
+      sort:{
+        tagName: "排序",
+        value: "-1",
+        tag: {
+          op1: {
+            num: "-1",
+            value: "全部"
+          },
+          op2: {
+            num: "1",
+            value: "按图片/视频数量从高到低排序"
+          },
+          op3: {
+            num: "0",
+            value: "按图片/视频数量从低到高排序"
+          }
+        }
       },
       desc: {
         tagName: "服务介绍",

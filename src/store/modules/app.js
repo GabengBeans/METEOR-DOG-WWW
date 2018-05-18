@@ -737,7 +737,7 @@ const app = {
                 data: data
             }).then((res) => {
                 let arr = res.data.data.items;
-                console.log(arr)
+                //console.log(arr)
                 let balanceStatus = ["全部", "已结算", "未结算", "待结算"];
                 state.expand_charge_page_info.currentPage = parseInt(res.data.data.page)
                 state.expand_charge_page_info.totalPage = parseInt(res.data.data.totalCount)
@@ -770,7 +770,7 @@ const app = {
                 },
                 data: data
             }).then((res) => {
-                console.log(res)
+                //console.log(res)
                 let arr = res.data.data.items;
                 state.expand_group_page_info.currentPage = parseInt(res.data.data.page)
                 state.expand_group_page_info.totalPage = parseInt(res.data.data.totalCount)

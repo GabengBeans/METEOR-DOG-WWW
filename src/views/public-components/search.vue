@@ -2,25 +2,33 @@
   <div id='user_search' class="search">
     <Row :gutter='16'>
       <Form label-position="right" :label-width="75">
-        <Col :xs='13' :sm='13' :md='8' :lg='5' v-for="item in data" :key="item.key" style="height:57px;">
+        <Col :xs='13' :sm='13' :md='8' :lg='5' v-for="item in data" :key="item.key" v-if="!item.desc" style="height:57px;">
         <FormItem style="min-width:100px" :label="item.tagName">
           <Select v-model="item.value" v-if="item.tag" style="width:150px">
             <Option v-for="item in item.tag" :key="item.key" :value="item.num">{{item.value}}</Option>
           </Select>
           <DatePicker v-else-if="item.data" v-model="item.value" type="date" placeholder="请选择日期"></DatePicker>
-          <Input clearable v-model="item.value" v-else-if="item.desc" style="width:67vw" />
           <Input clearable v-model="item.value" v-else />
         </FormItem>
         </Col>
       </Form>
       <Button style='margin-left:38px' type="primary" shape="circle" icon="ios-search" @click.native='search'>搜索</Button>
     </Row>
+    <Row :gutter='16'>
+      <Form label-position="right" :label-width="75">
+        <Col :xs='13' :sm='13' :md='8' :lg='5' v-for="item in data" :key="item.key" v-if="item.desc">
+        <FormItem style="min-width:100px" :label="item.tagName" >
+          <Input clearable v-model="item.value" v-if="item.desc" style="width:67vw" />
+        </FormItem>
+        </Col>
+      </Form>
+    </Row>
   </div>
 </template>
 <script>
 export default {
   name: "user_search",
-  props: ["data", "storeStatus","searchData"],
+  props: ["data", "storeStatus", "searchData"],
   methods: {
     search: function() {
       let obj = {};
@@ -101,14 +109,12 @@ export default {
           });
           break;
         case "afterMerchantEnter":
-        
           this.$store.commit("GET_MERCHANT_ENTER_INFO", {
             data: obj,
             pageNo: 1
           });
           break;
         case "afterMerchantEnterQuery":
-
           this.$store.commit("GET_BUSINESS_ENTER_FOR_PAGE_INFO", {
             data: obj,
             pageNo: 1
@@ -127,7 +133,7 @@ export default {
           });
           break;
         case "ipCouponDetail":
-        let objs = Object.assign({"couponId":this.searchData},obj)
+          let objs = Object.assign({ couponId: this.searchData }, obj);
           this.$store.commit("GET_IP_COUPON_DETAIL_QUERY_LIST", {
             data: objs,
             pageNo: 1
