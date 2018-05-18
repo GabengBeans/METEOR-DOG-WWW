@@ -468,7 +468,7 @@ util.createMenus = function (data) {
         }
         for (let j = 0; j < data[i].childResources.length; j++) {
             let tempPath = path[data[i].childResources[j].modelName]
-            console.log( typeof tempPath)
+            //console.log( typeof tempPath)
             menus[i].children[j].path = data[i].childResources[j].modelName
             menus[i].children[j].name = data[i].childResources[j].modelName
             menus[i].children[j].title = data[i].childResources[j].name

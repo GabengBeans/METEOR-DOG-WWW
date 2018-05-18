@@ -23,6 +23,9 @@ export default {
   },
   computed: {
     serviceSearch() {
+      if (localStorage.getItem("serviceCategoryObj")) {
+        return JSON.parse(localStorage.getItem("serviceCategoryObj"));
+      }
       let categoryArr = new Array();
       const obj = this.$store.state.app.category_search_result;
       const obj1 = this.$store.state.app.categorys_search_result;
