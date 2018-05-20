@@ -60,16 +60,11 @@
       <div>
         <Form label-position="right" :label-width="80">
           <FormItem label="服务标题">
-            <span>asdfsadfadsfdsdf</span>
+            <span>{{serviceName}}</span>
           </FormItem>
           <FormItem label="推广图片">
-            <div>
-              <uploadSingleImg :imgUrl="imgObj1" :upload="true" :change="true" :detail="true"></uploadSingleImg>
-              <uploadSingleImg :imgUrl="imgObj2" :upload="true" :change="true" :detail="true"></uploadSingleImg>
-              <uploadSingleImg :imgUrl="imgObj3" :upload="true" :change="true" :detail="true"></uploadSingleImg>
-              <uploadSingleImg :imgUrl="imgObj4" :upload="true" :change="true" :detail="true"></uploadSingleImg>
-              <uploadSingleImg :imgUrl="imgObj5" :upload="true" :change="true" :detail="true"></uploadSingleImg>
-              <uploadSingleImg :imgUrl="imgObj6" :upload="true" :change="true" :detail="true"></uploadSingleImg>
+            <div >
+              <uplaodImg :imgList="imgList" :upload="false" :change="false" :detail="true"></uplaodImg>
             </div>
           </FormItem>
         </Form>
@@ -84,6 +79,7 @@
 import util from "@/libs/util";
 import base_uri from "@/libs/base_uri";
 import uploadSingleImg from "@/views/public-components/upload_single_img";
+import uplaodImg from "@/views/public-components/upload_img"
 export default {
   data() {
     return {
@@ -111,8 +107,9 @@ export default {
       },
       imgObj6: {
         imgUrl: ""
-      }
-    };
+      },
+      imgList:[]
+    }
   },
   methods: {
     init: function() {
@@ -185,11 +182,42 @@ export default {
       });
     },
     getServiceDetail() {
+      if(!this.serviceId)
+      {
+        this.$Message.error("请填写服务ID")
+        return
+      }
       this.showServiceDetail=true
+      util.ajax({
+        method:'get',
+        url:base_uri.service_detail_url,
+        params:{
+           serviceId:this.serviceId
+        }
+      }).then(resp=>{
+        if(resp.data.success){
+          const obj = resp.data.data
+          this.serviceName = obj.title
+          for(let i=0; i<obj.mediaList.length;i++)
+          {
+            console.log(obj.mediaList[i])
+            if(obj.mediaList[i].businessType==1)
+            {
+              this.imgList.push(obj.mediaList[i].mediaUrl)
+            }
+          }
+          console.log(this.imgList)
+        }else{
+          this.$Message.error("没有这个服务")
+        }
+      }).catch(error=>{
+        console.log(error)
+      })
     }
   },
   components: {
-    uploadSingleImg
+    uploadSingleImg,
+    uplaodImg
   }
 };
 </script>
