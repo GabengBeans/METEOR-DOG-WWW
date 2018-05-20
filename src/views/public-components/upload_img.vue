@@ -14,8 +14,8 @@
         <Icon type="camera" size="40" style="margin-top:10px;"></Icon>
       </div>
     </Upload>
-    <Modal title="展示大图" v-model="visible">
-      <img :src="aliyun + imgName" v-if="visible" style="width: 100%">
+    <Modal title="展示大图" v-model="visible" transfer="false">
+      <img :src="aliyun + imgName" v-if="visible" style="width: 100%;">
     </Modal>
   </div>
 </template>

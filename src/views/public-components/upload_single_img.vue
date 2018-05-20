@@ -29,7 +29,7 @@
       </div>
     </Upload>
     </template>
-    <Modal title="展示大图" v-model="visible">
+    <Modal title="展示大图" v-model="visible" transfer="false">
       <img :src="aliyun + imgName" v-if="visible" style="width: 100%">
     </Modal>
   </div>

@@ -70,7 +70,7 @@
         </Form>
       </div>
       <div slot="footer" style="text-align:center">
-        <Button type="error" @click="showServiceDetail=false">关闭</Button>
+        <Button type="error" @click="closeServiceDetail">关闭</Button>
       </div>
     </Modal>
   </div>
@@ -122,6 +122,7 @@ export default {
       this.imgObj4.imgUrl = "";
       this.imgObj5.imgUrl = "";
       this.imgObj6.imgUrl = "";
+      this.imgList = []
     },
     saveAddRecommendIp: function() {
       if (
@@ -213,6 +214,10 @@ export default {
       }).catch(error=>{
         console.log(error)
       })
+    },
+    closeServiceDetail(){
+      this.showServiceDetail = false;
+      this.imgList = []
     }
   },
   components: {
