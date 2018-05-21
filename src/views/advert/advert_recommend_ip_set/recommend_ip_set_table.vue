@@ -68,7 +68,14 @@ export default {
       imgObj6: {
         imgUrl: ""
       },
-
+      imgList:{
+        imgUrl1:"",
+        imgUrl2:"",
+        imgUrl3:"",
+        imgUrl4:"",
+        imgUrl5:"",
+        imgUrl6:"",
+      },
       columns: [
         {
           title: "序号",
@@ -128,12 +135,12 @@ export default {
                             this.id = obj.id
                             this.adSort = obj.adSort;
                             this.serviceName = obj.name;
-                            this.imgObj1.imgUrl = obj.imgUrl1;
-                            this.imgObj2.imgUrl = obj.imgUrl2;
-                            this.imgObj3.imgUrl = obj.imgUrl3;
-                            this.imgObj4.imgUrl = obj.imgUrl4;
-                            this.imgObj5.imgUrl = obj.imgUrl5;
-                            this.imgObj6.imgUrl = obj.imgUrl6;
+                            this.imgList.imgUrl1 = this.imgObj1.imgUrl = obj.imgUrl1;
+                            this.imgList.imgUrl2 = this.imgObj2.imgUrl = obj.imgUrl2;
+                            this.imgList.imgUrl3 = this.imgObj3.imgUrl = obj.imgUrl3;
+                            this.imgList.imgUrl4 = this.imgObj4.imgUrl = obj.imgUrl4;
+                            this.imgList.imgUrl5 = this.imgObj5.imgUrl = obj.imgUrl5;
+                            this.imgList.imgUrl6 = this.imgObj6.imgUrl = obj.imgUrl6;
                           } else {
                             this.$Message.error("信息获取失败");
                           }
@@ -257,6 +264,18 @@ export default {
       //   this.$Message.error("至少上传6张图片");
       //   return;
       // }
+      for(let i=1;i<7;i++)
+      {
+        let imgObj = `imgObj${i}`
+        if(this[imgObj].imgUrl == ""){//""字符串是不上传或删除产生的
+          this[imgObj].imgUrl = null
+        }
+        let imgUrl = `imgUrl${i}`
+        if(this.imgList[imgUrl] == this[imgObj].imgUrl){
+          this[imgObj].imgUrl = ""
+        }
+      }
+      
       this.$Message.loading({
         duration: 0,
         content: "保存中..."
@@ -269,12 +288,12 @@ export default {
             id:this.id,
             adSort: this.adSort,
             name: this.serviceName,
-            imgUrl1: this.imgObj1.imgUrl || null,
-            imgUrl2: this.imgObj2.imgUrl || null,
-            imgUrl3: this.imgObj3.imgUrl || null,
-            imgUrl4: this.imgObj4.imgUrl || null,
-            imgUrl5: this.imgObj5.imgUrl || null,
-            imgUrl6: this.imgObj6.imgUrl || null
+            imgUrl1: this.imgObj1.imgUrl,
+            imgUrl2: this.imgObj2.imgUrl,
+            imgUrl3: this.imgObj3.imgUrl,
+            imgUrl4: this.imgObj4.imgUrl,
+            imgUrl5: this.imgObj5.imgUrl,
+            imgUrl6: this.imgObj6.imgUrl
           }
         })
         .then(res => {
