@@ -22,7 +22,9 @@ export default {
     requestPage
   },
   computed: {
+    //组装对象
     serviceSearch() {
+      console.log(localStorage.getItem("serviceCategoryObj"))
       if (localStorage.getItem("serviceCategoryObj")) {
         return JSON.parse(localStorage.getItem("serviceCategoryObj"));
       }
@@ -48,10 +50,10 @@ export default {
         config.serviceSearch.serviceCategory.tag[`op${++number}`] =
           categoryArr[i];
       }
-      localStorage.setItem(
-        "serviceCategoryObj",
-        JSON.stringify(config.serviceSearch)
-      );
+      // localStorage.setItem(
+      //   "serviceCategoryObj",
+      //   JSON.stringify(config.serviceSearch)
+      // );
       return config.serviceSearch;
     }
   },
@@ -60,10 +62,10 @@ export default {
       data: this.$store.state.app.service_search_info,
       pageNo: this.$store.state.app.service_public_page
     });
-    if (!localStorage.getItem("serviceCategoryObj")) {
+    // if (!localStorage.getItem("serviceCategoryObj")) {
       this.$store.commit("GET_CATEGORY_SEARCH_INFO", { businessType: 1 });
       this.$store.commit("GET_CATEGORY_SEARCH_INFO", { businessType: 2 });
-    }
+    //}
   }
 };
 </script>

@@ -269,12 +269,12 @@ export default {
             id:this.id,
             adSort: this.adSort,
             name: this.serviceName,
-            imgUrl1: this.imgObj1.imgUrl,
-            imgUrl2: this.imgObj2.imgUrl,
-            imgUrl3: this.imgObj3.imgUrl,
-            imgUrl4: this.imgObj4.imgUrl,
-            imgUrl5: this.imgObj5.imgUrl,
-            imgUrl6: this.imgObj6.imgUrl
+            imgUrl1: this.imgObj1.imgUrl || null,
+            imgUrl2: this.imgObj2.imgUrl || null,
+            imgUrl3: this.imgObj3.imgUrl || null,
+            imgUrl4: this.imgObj4.imgUrl || null,
+            imgUrl5: this.imgObj5.imgUrl || null,
+            imgUrl6: this.imgObj6.imgUrl || null
           }
         })
         .then(res => {
