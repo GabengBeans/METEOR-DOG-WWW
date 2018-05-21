@@ -53,7 +53,7 @@
         <Button type="error" style="margin-left:3vw" @click="showAddRecommendIp=false">取消</Button>
       </div>
     </Modal>
-    <Modal v-model="showServiceDetail" width="800" :mask-closable="false">
+    <Modal v-model="showServiceDetail" width="800" :mask-closable="false" :closable="false">
       <p slot="header" style="color:#f60;text-align:center">
         <span>服务详情</span>
       </p>
@@ -183,9 +183,13 @@ export default {
       });
     },
     getServiceDetail() {
-      if(!this.serviceId)
+      if(!this.serviceId )
       {
         this.$Message.error("请填写服务ID")
+        return
+      }
+      if(!Number(this.serviceId)){
+        this.$Message.error("请正确填写服务ID")
         return
       }
       this.showServiceDetail=true
@@ -201,13 +205,11 @@ export default {
           this.serviceName = obj.title
           for(let i=0; i<obj.mediaList.length;i++)
           {
-            console.log(obj.mediaList[i])
             if(obj.mediaList[i].businessType==1)
             {
               this.imgList.push(obj.mediaList[i].mediaUrl)
             }
           }
-          console.log(this.imgList)
         }else{
           this.$Message.error("没有这个服务")
         }
@@ -217,7 +219,11 @@ export default {
     },
     closeServiceDetail(){
       this.showServiceDetail = false;
-      this.imgList = []
+      let length = this.imgList.length
+      for(let i=0;i<length;i++)
+      {
+        this.imgList.pop()
+      }
     }
   },
   components: {
