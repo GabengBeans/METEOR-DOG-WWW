@@ -268,7 +268,7 @@ export default {
       {
         let imgObj = `imgObj${i}`
         if(this[imgObj].imgUrl == ""){//""字符串是不上传或删除产生的
-          this[imgObj].imgUrl = null
+          this[imgObj].imgUrl = new Object()
         }
         let imgUrl = `imgUrl${i}`
         if(this.imgList[imgUrl] == this[imgObj].imgUrl){
