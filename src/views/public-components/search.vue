@@ -148,6 +148,34 @@ export default {
             pageNo: 1
           });
           break;
+        case "audit_user":
+          this.$store.commit("GET_AUDIT_ALL_INFO", {
+            data: obj,
+            name:"user",
+            pageNo: 1
+          });
+          break;
+        case "audit_service":
+          this.$store.commit("GET_AUDIT_ALL_INFO", {
+            data: obj,
+            name:"service",
+            pageNo: 1
+          });
+          break;
+        case "audit_demand":
+          this.$store.commit("GET_AUDIT_ALL_INFO", {
+            data: obj,
+            name:"demand",
+            pageNo: 1
+          });
+          break;
+        case "audit_order":
+          this.$store.commit("GET_AUDIT_ALL_INFO", {
+            data: obj,
+            name:"order",
+            pageNo: 1
+          });
+          break;
       }
     }
   }

@@ -185,6 +185,8 @@ let base_uri = {
     //审核统计
     get_adminUserLis_url:"/admin/v1/audit_operation_log/adminUserList",
     search_audit_operation_log_for_page_url:"/admin/v1/audit_operation_log/search_audit_operation_log_for_page",
+    search_statistics_system_daily_info_for_page_url:"/admin/v1/statistics_system_daily/search_statistics_system_daily_info_for_page",
+    search_statistics_channel_daily_info_url:"/admin/v1/statistics_channel_daily/search_statistics_channel_daily_info",
 
     //IM
     search_chatlog_for_page_url:"/admin/v1/chatlog/search_chatlog_for_page",

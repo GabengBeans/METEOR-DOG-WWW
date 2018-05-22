@@ -166,6 +166,34 @@ export default {
             pageNo: index
           });
           break;
+        case "audit_user":
+          this.$store.commit("GET_AUDIT_ALL_INFO", {
+            data: this.$store.state.app.audit_user_search_info,
+            pageNo: index,
+            name: "user"
+          });
+          break;
+        case "audit_service":
+          this.$store.commit("GET_AUDIT_ALL_INFO", {
+            data: this.$store.state.app.audit_service_search_info,
+            pageNo: index,
+            name: "service"
+          });
+          break;
+        case "audit_demand":
+          this.$store.commit("GET_AUDIT_ALL_INFO", {
+            data: this.$store.state.app.audit_demand_search_info,
+            pageNo: index,
+            name: "demand"
+          });
+          break;
+        case "audit_order":
+          this.$store.commit("GET_AUDIT_ALL_INFO", {
+            data: this.$store.state.app.audit_order_search_info,
+            pageNo: index,
+            name: "order"
+          });
+          break;
       }
     }
   }

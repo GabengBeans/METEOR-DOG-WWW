@@ -260,6 +260,33 @@ const app = {
         audit_operation_search_result: [],
         audit_operation_public_page: 1,
 
+        //用户统计，服务统计，需求统计，订单统计
+        audit_user_search_info:{},
+        audit_user_public_page: 1,
+        audit_user_page_info: {
+            currentPage: 1,
+            totalPage: 0
+        },
+        audit_service_search_info:{},
+        audit_service_public_page: 1,
+        audit_service_page_info: {
+            currentPage: 1,
+            totalPage: 0
+        },
+        audit_demand_search_info:{},
+        audit_demand_public_page: 1,
+        audit_demand_page_info: {
+            currentPage: 1,
+            totalPage: 0
+        },
+        audit_order_search_info:{},
+        audit_order_public_page: 1,
+        audit_order_page_info: {
+            currentPage: 1,
+            totalPage: 0
+        },
+        audit_all_search_result: [],
+        
         //im查询会话
         query_session_search_info: {},
         query_session_page_info: {
@@ -1469,6 +1496,77 @@ const app = {
                     console.log(err)
                 })
         },
+        //用户统计、服务统计、需求统计、订单统计
+        GET_AUDIT_ALL_INFO(state, { data, pageNo, name}) {
+            switch(name){
+                case "user":
+                state.audit_user_search_info = data
+                state.audit_user_public_page = pageNo
+                break
+                case "service":
+                state.audit_service_search_info = data
+                state.audit_service_public_page = pageNo
+                break
+                case "demand":
+                state.audit_demand_search_info = data
+                state.audit_demand_public_page = pageNo
+                break
+                case "order":
+                state.audit_order_search_info = data
+                state.audit_order_public_page = pageNo
+                break
+            }
+            util.ajax({
+                method: "post",
+                url: base_uri.search_statistics_system_daily_info_for_page_url,
+                params: {
+                    pageNo: pageNo || 1,
+                    pageSize: 10
+                },
+                data: data
+            }).then(resp => {
+                if (resp.data.success) {
+                    //console.log(resp)
+                    state.audit_all_search_result = resp.data.data.items
+                    switch(name){
+                        case "user":
+                        state.audit_user_page_info.currentPage = resp.data.data.page
+                        state.audit_user_page_info.totalPage = resp.data.data.totalCount
+                        break
+                        case "service":
+                        state.audit_service_page_info.currentPage = resp.data.data.page
+                        state.audit_service_page_info.totalPage = resp.data.data.totalCount
+                        break
+                        case "demand":
+                        state.audit_demand_page_info.currentPage = resp.data.data.page
+                        state.audit_demand_page_info.totalPage = resp.data.data.totalCount
+                        break
+                        case "order":
+                        state.audit_order_page_info.currentPage = resp.data.data.page
+                        state.audit_order_page_info.totalPage = resp.data.data.totalCount
+                        break
+                    }
+                    let obj = resp.data.data.items
+                    for(let x in obj)
+                    {
+                        for(let y in obj[x]){
+                            if(y=="dateday"){
+                                state.audit_all_search_result[x][y] = util.formatDate(new Date(obj[x][y]),"yyyy-MM-dd")
+                            }else if(y=="sopay" || y=="dopay" || y=="ropay"){
+                                state.audit_all_search_result[x][y] = Number.parseInt(obj[x][y]/100)+"元"
+                            }
+                        }
+                    }
+                    
+                    
+                }else{
+                    this.$Message.error("信息获取失败")
+                }
+            })
+                .catch(err => {
+                    console.log(err)
+                })
+        },
         //查询会话列表
         GET_SEARCH_CHATLOG_FOR_PAGE(state, { data, pageNo }) {
             state.query_session_search_info = data
@@ -1571,5 +1669,5 @@ const app = {
             })
         }
     }
-}
+}//
 export default app
