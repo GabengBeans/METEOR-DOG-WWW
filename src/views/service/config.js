@@ -87,30 +87,30 @@ config.serviceSearch = {
         value: "",
         data: "1"
       },
-      serviceCategory:{
+      categoryParentId:{
         tagName: "服务类别",
-        value: "-1",
-        tag: {
+        value: "0",
+         tag: {
           op1: {
-            num: "-1",
+            num: "0",
             value: "全部"
           }
-        }
+         }
       },
-      sort:{
+      orderType:{
         tagName: "排序",
-        value: "-1",
+        value: "0",
         tag: {
           op1: {
-            num: "-1",
-            value: "全部"
+            num: "0",
+            value: "默认"
           },
           op2: {
             num: "1",
             value: "按图片/视频数量从高到低排序"
           },
           op3: {
-            num: "0",
+            num: "2",
             value: "按图片/视频数量从低到高排序"
           }
         }

@@ -24,7 +24,6 @@ export default {
   computed: {
     //组装对象
     serviceSearch() {
-      console.log(localStorage.getItem("serviceCategoryObj"))
       if (localStorage.getItem("serviceCategoryObj")) {
         return JSON.parse(localStorage.getItem("serviceCategoryObj"));
       }
@@ -47,7 +46,7 @@ export default {
         categoryArr.push(temp);
       }
       for (let i in categoryArr) {
-        config.serviceSearch.serviceCategory.tag[`op${++number}`] =
+        config.serviceSearch.categoryParentId.tag[`op${++number}`] =
           categoryArr[i];
       }
       // localStorage.setItem(

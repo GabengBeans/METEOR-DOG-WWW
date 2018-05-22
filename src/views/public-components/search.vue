@@ -17,7 +17,7 @@
     <Row :gutter='16'>
       <Form label-position="right" :label-width="75">
         <Col :xs='13' :sm='13' :md='8' :lg='5' v-for="item in data" :key="item.key" v-if="item.desc">
-        <FormItem style="min-width:100px" :label="item.tagName" >
+        <FormItem style="min-width:100px" :label="item.tagName">
           <Input clearable v-model="item.value" v-if="item.desc" style="width:67vw" />
         </FormItem>
         </Col>
@@ -85,6 +85,9 @@ export default {
           this.$store.commit("GET_REQUEST_INFO", { data: obj, pageNo: 1 });
           break;
         case "service":
+          if (obj.categoryParentId == "0") {
+            delete obj.categoryParentId;
+          }
           this.$store.commit("GET_SERVICE_INFO", { data: obj, pageNo: 1 });
           break;
         case "orderService":
