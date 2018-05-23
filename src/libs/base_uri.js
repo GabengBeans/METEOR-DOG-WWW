@@ -92,6 +92,7 @@ let base_uri = {
     add_recommend_url:"/admin/v1/advert/add_recommend",
     search_recommend_for_page_url:"/admin/v1/advert/search_recommend_for_page",
     up_recommend_url:"/admin/v1/advert/up_recommend",
+    del_recommend_url:"/admin/v1/advert/del_recommend",
 
     // 拓展管理信息
     extend_user_search_ex_userinfo_for_page: "/admin/v1/extend_user/search_ex_userinfo_for_page",

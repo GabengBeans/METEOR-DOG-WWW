@@ -217,11 +217,9 @@ export default {
                       util
                         .ajax({
                           method: "post",
-                          url: base_uri.up_recommend_url,
+                          url: base_uri.del_recommend_url,
                           data: {
-                            id: params.row.id,
-                            name: params.row.name,
-                            status: 0
+                            id: params.row.id
                           }
                         })
                         .then(res => {
