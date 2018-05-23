@@ -267,12 +267,12 @@ export default {
       for(let i=1;i<7;i++)
       {
         let imgObj = `imgObj${i}`
-        if(this[imgObj].imgUrl == ""){//""字符串是不上传或删除产生的
-          this[imgObj].imgUrl = new Object()
-        }
+        // if(this[imgObj].imgUrl == ""){//""字符串是不上传或删除产生的
+        //   this[imgObj].imgUrl = ""
+        // }
         let imgUrl = `imgUrl${i}`
         if(this.imgList[imgUrl] == this[imgObj].imgUrl){
-          this[imgObj].imgUrl = ""
+          this[imgObj].imgUrl = null
         }
       }
       
