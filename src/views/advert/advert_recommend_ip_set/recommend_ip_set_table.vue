@@ -218,7 +218,7 @@ export default {
                         .ajax({
                           method: "post",
                           url: base_uri.del_recommend_url,
-                          data: {
+                          params: {
                             id: params.row.id
                           }
                         })
