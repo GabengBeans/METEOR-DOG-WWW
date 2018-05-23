@@ -20,7 +20,7 @@ module.exports = merge(webpackBaseConfig, {
     devtool: '#eval-source-map',
     output: {
         publicPath: 'http://47.94.12.50/admin_n/',
-         // 修改 https://iv...admin 这部分为你的服务器域名
+         // 打包后的文件放在那个服务器，就设置成那个服务器的ip地址
         filename: '[name].[hash].js',
         chunkFilename: '[name].[hash].chunk.js'
     },

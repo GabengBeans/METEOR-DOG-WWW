@@ -46,7 +46,8 @@ export default {
         status: 1,
         avatarUrl: "",
         parentId: "",
-        type: ""
+        type: "",
+        homesort:""
       },
       bindTags:{
         showBindTags:false,
@@ -462,6 +463,7 @@ export default {
                       this.editObj.id = data.id;
                       this.editObj.type = data.type
                       this.editObj.showEditCategory = true;
+                      this.editObj.homesort = data.homesort
                       this.editObj.title = "编辑二级类目"
                      
                     }

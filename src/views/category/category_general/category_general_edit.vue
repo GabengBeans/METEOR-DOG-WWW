@@ -18,6 +18,9 @@
         <FormItem label="排序">
           <Input class="category_Input" clearable v-model="data.sort" />
         </FormItem>
+        <FormItem label="首页排序">
+          <Input class="category_Input" clearable v-model="data.homesort" />
+        </FormItem>
         <FormItem label="">
           <Checkbox v-model="data.isRecommend">前端推荐</Checkbox>
           <Checkbox v-model="data.isHot">热门搜索</Checkbox>
