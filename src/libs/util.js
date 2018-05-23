@@ -37,6 +37,10 @@ import query_session_record_index from "@/views/im/query_session_record/query_se
 import ip_coupon_index from "@/views/ip_coupon/ip_coupon_index"
 import user_ability from "@/views/user/user_ability/user_ability_index"
 import advert_recommend_ip_set from "@/views/advert/advert_recommend_ip_set/recommend_ip_set_index"
+import audit_user from "@/views/audit_operation/audit_user/audit_user_index"
+import audit_service from "@/views/audit_operation/audit_service/audit_service_index"
+import audit_demand from "@/views/audit_operation/audit_demand/audit_demand_index"
+import audit_order from "@/views/audit_operation/audit_order/audit_order_index"
 
 let util = {
 
@@ -413,7 +417,11 @@ util.createMenus = function (data) {
         'after_merchant_enter_query':after_merchant_enter_query,
         'query_session_record_index':query_session_record_index,
         'ip_coupon_index':ip_coupon_index,
-        'user_ability':user_ability
+        'user_ability':user_ability,
+        'audit_user':audit_user,
+        'audit_service':audit_service,
+        'audit_demand':audit_demand,
+        'audit_order':audit_order
     }
     // let path = {
     //     'user_query': "@/views/user/index",
