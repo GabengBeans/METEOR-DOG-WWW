@@ -1,6 +1,6 @@
 <template>
 <div id='user_table' class="table">
-    <Table style="min-width:800px;margin:0 16px;" 
+    <Table style="margin:0 16px;" 
     border stripe  :columns="columns" :data="$store.state.app.request_search_result">
     </Table>
 </div>
@@ -27,7 +27,8 @@ export default {
         {
           title: "昵称",
           key: "nickname",
-          ellipsis:"false"
+          ellipsis:"false",
+          width:139
         },
         {
           title: "手机号",
@@ -46,11 +47,13 @@ export default {
         },
         {
           title: "审核状态",
-          key: "businessStatus"
+          key: "businessStatus",
+           width:90
         },
         {
           title: "状态",
-          key: "status"
+          key: "status",
+          width:70
         },
         {
           title: "操作",
