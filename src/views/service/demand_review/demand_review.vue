@@ -345,7 +345,9 @@ export default {
         this.$Message.destroy();
         this.$Message.error("读取失败");
       }
-    });
+    }).catch(err=>{
+      console.log(err)
+    })
   }
 };
 </script>
