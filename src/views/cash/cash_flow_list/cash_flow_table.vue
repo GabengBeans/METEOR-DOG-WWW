@@ -1,6 +1,6 @@
 <template>
   <div id='user_table' class="table">
-    <Table style="min-width:800px;margin:0 16px;" border stripe :columns="cashFlowTableColumns" :data="$store.state.app.cash_flow_search_result" >
+    <Table style="margin:0 16px;" border stripe :columns="cashFlowTableColumns" :data="$store.state.app.cash_flow_search_result" >
     </Table>
   </div>
 
@@ -76,18 +76,14 @@ export default {
           title: "支出方",
           key: "fromUserName"
         },
+        // {
+        //   title:"账户余额",
+        //   key:"uAmout"
+        // },
         {
           title: "接收方",
           key: "toUserName"
         },
-        // {
-        //     title: "系统订单号",
-        //     key: "orderNo"
-        // },
-        // {
-        //     title: "交易时间",
-        //     key: "createTime"
-        // },
         {
           title: "数据状态",
           key: "status"

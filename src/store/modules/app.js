@@ -897,6 +897,7 @@ const app = {
                     state.cash_flow_search_result[x].chargeStatus = chargeStatusArr[chargeStatus]
                     state.cash_flow_search_result[x].tradeType = tradeTypeArr[tradeType]
                     state.cash_flow_search_result[x].amount = parseInt(arr[x].amount) / 100 + "元"
+                    state.cash_flow_search_result[x].uamount = Number.parseInt(arr[x].uamount)/ 100 + "元"
                     state.cash_flow_search_result[x].isIncoming = isIncomingArr[isIncoming]
                     state.cash_flow_search_result[x].paymentType = paymentTypeArr[paymentType]
                     state.cash_flow_search_result[x].status = statusArr[status]

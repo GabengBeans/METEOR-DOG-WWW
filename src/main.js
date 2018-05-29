@@ -16,6 +16,7 @@ Vue.use(iview);
 Vue.use(BaiduMap, {
     ak: "sKkVhwaa0xKdBYPtGzAALEY5FEDL01g2&services=&t=20180201111639"
 })
+Vue.config.devtools = true;
 new Vue({
     el: '#app',
     router: router,
