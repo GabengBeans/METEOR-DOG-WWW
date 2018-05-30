@@ -5,42 +5,82 @@ import baseConfig from './base_config.js';
 ////import Cookies from "js-cookie"
 import Main from '@/views/Main.vue';
 
-import user_query from "@/views/user/index"
-import demand_audit from "@/views/request/index"
-import service_audit from "@/views/service/index"
-import order_request from "@/views/order/order_demand_list/order_demand_list"
-import order_service from "@/views/order/order_service_list/order_service_list"
-import expand_manage from "@/views/expand/expand-manager/index"
-import expand_order_audit from "@/views/expand/expand-order-audit/index"
-import expand_charge_list from "@/views/expand/expand-charge-list/index"
-import expand_group from "@/views/expand/expand-group/index"
-import cash_flow_list from "@/views/cash/cash_flow_list/cash_flow_list"
-import cash_withdraw_list from "@/views/cash/cash_withdraw_list/cash_withdraw_list"
-import cash_refund_list from "@/views/cash/cash_refund_list/cash_refund_list"
-import new_advert_list from "@/views/advert/advert_new_list/advert_new_list"
-import advert_list from "@/views/advert/advert_new_list/advert_new_list"
-import advert_new_bits_list from "@/views/advert/advert_new_bits_list/advert_new_bits_list"
-import category_general from "@/views/category/category_general/category_general_index"
-import category_tab_general from "@/views/category/category_tab_general/category_tab_general_index"
-import after_merchant_enter_list from "@/views/merchant/after_merchant_enter"
-import statistics_transaction_list from "@/views/statistics/statistics_transaction/statistics_transaction_index"
-import system_settings from "@/views/system/system_settings/system_settings_index"
-import web_im from "@/views/error-page/404.vue"
-import app_list from "@/views/app/app_list/app_list_index"
-import after_feedback_list from "@/views/after_feedback/after_feedback_list/after_feedback_list"
-import locked_user_list from "@/views/locked/locked_user/locked_user_list"
-import locked_role_list from "@/views/locked/locked_role/locked_role_list"
-import locked_resource_index from "@/views/locked/locked_resource/locked_resource_index"
-import audit_operation_index from "@/views/audit_operation/audit_operation_index/audit_operation_index"
-import after_merchant_enter_query from "@/views/merchant/after_merchant_enter_query/after_merchant_enter_query"
-import query_session_record_index from "@/views/im/query_session_record/query_session_record_index"
-import ip_coupon_index from "@/views/ip_coupon/ip_coupon_index"
-import user_ability from "@/views/user/user_ability/user_ability_index"
-import advert_recommend_ip_set from "@/views/advert/advert_recommend_ip_set/recommend_ip_set_index"
-import audit_user from "@/views/audit_operation/audit_user/audit_user_index"
-import audit_service from "@/views/audit_operation/audit_service/audit_service_index"
-import audit_demand from "@/views/audit_operation/audit_demand/audit_demand_index"
-import audit_order from "@/views/audit_operation/audit_order/audit_order_index"
+
+// import user_query from "@/views/user/index"
+// import demand_audit from "@/views/request/index"
+// import service_audit from "@/views/service/index"
+// import order_request from "@/views/order/order_demand_list/order_demand_list"
+// import order_service from "@/views/order/order_service_list/order_service_list"
+// import expand_manage from "@/views/expand/expand-manager/index"
+// import expand_order_audit from "@/views/expand/expand-order-audit/index"
+// import expand_charge_list from "@/views/expand/expand-charge-list/index"
+// import expand_group from "@/views/expand/expand-group/index"
+// import cash_flow_list from "@/views/cash/cash_flow_list/cash_flow_list"
+// import cash_withdraw_list from "@/views/cash/cash_withdraw_list/cash_withdraw_list"
+// import cash_refund_list from "@/views/cash/cash_refund_list/cash_refund_list"
+// import new_advert_list from "@/views/advert/advert_new_list/advert_new_list"
+// import advert_list from "@/views/advert/advert_new_list/advert_new_list"
+// import advert_new_bits_list from "@/views/advert/advert_new_bits_list/advert_new_bits_list"
+// import category_general from "@/views/category/category_general/category_general_index"
+// import category_tab_general from "@/views/category/category_tab_general/category_tab_general_index"
+// import after_merchant_enter_list from "@/views/merchant/after_merchant_enter"
+// import statistics_transaction_list from "@/views/statistics/statistics_transaction/statistics_transaction_index"
+// import system_settings from "@/views/system/system_settings/system_settings_index"
+// import web_im from "@/views/error-page/404.vue"
+// import app_list from "@/views/app/app_list/app_list_index"
+// import after_feedback_list from "@/views/after_feedback/after_feedback_list/after_feedback_list"
+// import locked_user_list from "@/views/locked/locked_user/locked_user_list"
+// import locked_role_list from "@/views/locked/locked_role/locked_role_list"
+// import locked_resource_index from "@/views/locked/locked_resource/locked_resource_index"
+// import audit_operation_index from "@/views/audit_operation/audit_operation_index/audit_operation_index"
+// import after_merchant_enter_query from "@/views/merchant/after_merchant_enter_query/after_merchant_enter_query"
+// import query_session_record_index from "@/views/im/query_session_record/query_session_record_index"
+// import ip_coupon_index from "@/views/ip_coupon/ip_coupon_index"
+// import user_ability from "@/views/user/user_ability/user_ability_index"
+// import advert_recommend_ip_set from "@/views/advert/advert_recommend_ip_set/recommend_ip_set_index"
+// import audit_user from "@/views/audit_operation/audit_user/audit_user_index"
+// import audit_service from "@/views/audit_operation/audit_service/audit_service_index"
+// import audit_demand from "@/views/audit_operation/audit_demand/audit_demand_index"
+// import audit_order from "@/views/audit_operation/audit_order/audit_order_index"
+
+const user_query = resolve => require(["@/views/user/index"], resolve)
+const demand_audit = resolve => require(["@/views/request/index"], resolve)
+const service_audit = resolve => require(["@/views/service/index"], resolve)
+const order_request = resolve => require(["@/views/order/order_demand_list/order_demand_list"], resolve)
+const order_service = resolve => require(["@/views/order/order_service_list/order_service_list"], resolve)
+const expand_manage = resolve => require(["@/views/expand/expand-manager/index"], resolve)
+const expand_order_audit = resolve => require(["@/views/expand/expand-order-audit/index"], resolve)
+const expand_charge_list = resolve => require(["@/views/expand/expand-charge-list/index"], resolve)
+const expand_group = resolve => require(["@/views/expand/expand-group/index"], resolve)
+const cash_flow_list = resolve => require(["@/views/cash/cash_flow_list/cash_flow_list"], resolve)
+const cash_withdraw_list = resolve => require(["@/views/cash/cash_withdraw_list/cash_withdraw_list"], resolve)
+const cash_refund_list = resolve => require(["@/views/cash/cash_refund_list/cash_refund_list"], resolve)
+const new_advert_list = resolve => require(["@/views/advert/advert_new_list/advert_new_list"], resolve)
+const advert_list = resolve => require(["@/views/advert/advert_new_list/advert_new_list"], resolve)
+const advert_new_bits_list = resolve => require(["@/views/advert/advert_new_bits_list/advert_new_bits_list"], resolve)
+const category_general = resolve => require(["@/views/category/category_general/category_general_index"], resolve)
+const category_tab_general = resolve => require(["@/views/category/category_tab_general/category_tab_general_index"], resolve)
+const after_merchant_enter_list = resolve => require(["@/views/merchant/after_merchant_enter"], resolve)
+const statistics_transaction_list = resolve => require(["@/views/statistics/statistics_transaction/statistics_transaction_index"], resolve)
+const system_settings = resolve => require(["@/views/system/system_settings/system_settings_index"], resolve)
+const web_im = resolve => require(["@/views/error-page/404.vue"], resolve)
+const app_list = resolve => require(["@/views/app/app_list/app_list_index"], resolve)
+const after_feedback_list = resolve => require(["@/views/after_feedback/after_feedback_list/after_feedback_list"], resolve)
+const locked_user_list = resolve => require(["@/views/locked/locked_user/locked_user_list"], resolve)
+const locked_role_list = resolve => require(["@/views/locked/locked_role/locked_role_list"], resolve)
+const locked_resource_index = resolve => require(["@/views/locked/locked_resource/locked_resource_index"], resolve)
+const audit_operation_index = resolve => require(["@/views/audit_operation/audit_operation_index/audit_operation_index"], resolve)
+const after_merchant_enter_query = resolve => require(["@/views/merchant/after_merchant_enter_query/after_merchant_enter_query"], resolve)
+const query_session_record_index = resolve => require(["@/views/im/query_session_record/query_session_record_index"], resolve)
+const ip_coupon_index = resolve => require(["@/views/ip_coupon/ip_coupon_index"], resolve)
+const user_ability = resolve => require(["@/views/user/user_ability/user_ability_index"], resolve)
+const advert_recommend_ip_set = resolve => require(["@/views/advert/advert_recommend_ip_set/recommend_ip_set_index"], resolve)
+const audit_user = resolve => require(["@/views/audit_operation/audit_user/audit_user_index"], resolve)
+const audit_service = resolve => require(["@/views/audit_operation/audit_service/audit_service_index"], resolve)
+const audit_demand = resolve => require(["@/views/audit_operation/audit_demand/audit_demand_index"], resolve)
+const audit_order = resolve => require(["@/views/audit_operation/audit_order/audit_order_index"], resolve)
+
+
 
 let util = {
 
@@ -54,11 +94,11 @@ util.title = function (title) {
     window.document.title = title;
 };
 
-const ajaxUrl = env === 'development'
-    ? util.getConfig.devUrl
-    : env === 'production'
-        ? util.getConfig.proUrl
-        : util.getConfig.testUrl
+const ajaxUrl = env === 'development' ?
+    util.getConfig.devUrl :
+    env === 'production' ?
+    util.getConfig.proUrl :
+    util.getConfig.testUrl
 console.log(ajaxUrl)
 util.ajax = axios.create({
     baseURL: ajaxUrl,
@@ -101,7 +141,7 @@ util.showThisRoute = function (itAccess, currentAccess) {
     }
 };
 
-util.getRouterObjByName = function (routers, name) {    
+util.getRouterObjByName = function (routers, name) {
     if (!name || !routers || !routers.length) {
         return null;
     }
@@ -155,16 +195,13 @@ util.setCurrentPath = function (vm, name) {
     });
     let currentPathArr = [];
     if (name === 'home_index') {
-        currentPathArr = [
-            {
-                title: util.handleTitle(vm, util.getRouterObjByName(vm.$store.state.app.routers, 'home_index')),
-                path: '',
-                name: 'home_index'
-            }
-        ];
+        currentPathArr = [{
+            title: util.handleTitle(vm, util.getRouterObjByName(vm.$store.state.app.routers, 'home_index')),
+            path: '',
+            name: 'home_index'
+        }];
     } else if ((name.indexOf('_index') >= 0 || isOtherRouter) && name !== 'home_index') {
-        currentPathArr = [
-            {
+        currentPathArr = [{
                 title: util.handleTitle(vm, util.getRouterObjByName(vm.$store.state.app.routers, 'home_index')),
                 path: '/home',
                 name: 'home_index'
@@ -196,16 +233,13 @@ util.setCurrentPath = function (vm, name) {
             }
         })[0];
         if (currentPathObj.children.length <= 1 && currentPathObj.name === 'home') {
-            currentPathArr = [
-                {
-                    title: '首页',
-                    path: '',
-                    name: 'home_index'
-                }
-            ];
+            currentPathArr = [{
+                title: '首页',
+                path: '',
+                name: 'home_index'
+            }];
         } else if (currentPathObj.children.length <= 1 && currentPathObj.name !== 'home') {
-            currentPathArr = [
-                {
+            currentPathArr = [{
                     title: '首页',
                     path: '/home',
                     name: 'home_index'
@@ -220,8 +254,7 @@ util.setCurrentPath = function (vm, name) {
             let childObj = currentPathObj.children.filter((child) => {
                 return child.name === name;
             })[0];
-            currentPathArr = [
-                {
+            currentPathArr = [{
                     title: '首页',
                     path: '/home',
                     name: 'home_index'
@@ -350,6 +383,7 @@ util.formatDate = function (date, fmt) {
     }
     return fmt;
 };
+
 function padLeftZero(str) {
     return ('00' + str).substr(str.length);
 }
@@ -361,28 +395,28 @@ util.formData = function (data) {
     }
     return formData;
 }
-util.recursion = function (obj, subName,detail) {
+util.recursion = function (obj, subName, detail) {
     if (!obj.length) {
         return false
     } else {
         for (let x = 0; x < obj.length; x++) {
             //Vue.set(obj[x],'expand',true)、
-            if(subName == "childAdminResources" && detail)
-            {
-                obj[x].disabled  = true
+            if (subName == "childAdminResources" && detail) {
+                obj[x].disabled = true
             }
-            if(detail)
-            {
+            if (detail) {
                 obj[x].expand = true
             }
             obj[x].children = obj[x][subName]
-            util.recursion(obj[x].children, subName,detail)
+            util.recursion(obj[x].children, subName, detail)
         }
     }
 }
 
 util.createMenus = function (data) {
-    if (data == undefined) { return new Array; }
+    if (data == undefined) {
+        return new Array;
+    }
     let path = {
         'user_query': user_query,
         'demand_audit': demand_audit,
@@ -393,13 +427,13 @@ util.createMenus = function (data) {
         'expand_order_audit': expand_order_audit,
         'expand_charge_list': expand_charge_list,
         'expand_group': expand_group,
-        'cash_flow_list':cash_flow_list,
+        'cash_flow_list': cash_flow_list,
         'cash_withdraw_list': cash_withdraw_list,
         'cash_refund_list': cash_refund_list,
         'new_advert_list': new_advert_list,
         'advert_list': advert_list,
         'advert_new_bits_list': advert_new_bits_list,
-        'advert_recommend_ip_set':advert_recommend_ip_set,
+        'advert_recommend_ip_set': advert_recommend_ip_set,
         'category_general': category_general,
         'category_tab_general': category_tab_general,
         'after_merchant_enter_list': after_merchant_enter_list,
@@ -408,18 +442,18 @@ util.createMenus = function (data) {
         'web_im': web_im,
         'app_list': app_list,
         'after_feedback_list': after_feedback_list,
-        'locked_user_list':locked_user_list,
-        'locked_role_list':locked_role_list,
-        'locked_resource_index':locked_resource_index,
-        'audit_operation_index':audit_operation_index,
-        'after_merchant_enter_query':after_merchant_enter_query,
-        'query_session_record_index':query_session_record_index,
-        'ip_coupon_index':ip_coupon_index,
-        'user_ability':user_ability,
-        'audit_user':audit_user,
-        'audit_service':audit_service,
-        'audit_demand':audit_demand,
-        'audit_order':audit_order
+        'locked_user_list': locked_user_list,
+        'locked_role_list': locked_role_list,
+        'locked_resource_index': locked_resource_index,
+        'audit_operation_index': audit_operation_index,
+        'after_merchant_enter_query': after_merchant_enter_query,
+        'query_session_record_index': query_session_record_index,
+        'ip_coupon_index': ip_coupon_index,
+        'user_ability': user_ability,
+        'audit_user': audit_user,
+        'audit_service': audit_service,
+        'audit_demand': audit_demand,
+        'audit_order': audit_order
     }
     // let path = {
     //     'user_query': "@/views/user/index",
@@ -463,7 +497,7 @@ util.createMenus = function (data) {
     for (let i = 0; i < data.length; i++) {
 
         menus[i].path = "/" + data[i].modelName
-        menus[i].icon = data[i].newIcon?data[i].newIcon:data[i].icon
+        menus[i].icon = data[i].newIcon ? data[i].newIcon : data[i].icon
         menus[i].name = data[i].modelName
         menus[i].title = data[i].name
         menus[i].access = 1
@@ -486,24 +520,24 @@ util.createMenus = function (data) {
     //console.log(menus)
     return menus
 }
-util.unique = function unique(array){ 
+util.unique = function unique(array) {
     var n = []; //一个新的临时数组 
     //遍历当前数组 
-    for(var i = 0; i < array.length; i++){ 
-    //如果当前数组的第i已经保存进了临时数组，那么跳过， 
-    //否则把当前项push到临时数组里面 
-    if (n.indexOf(array[i]) == -1) n.push(array[i]); 
-    } 
-    return n; 
-  }
+    for (var i = 0; i < array.length; i++) {
+        //如果当前数组的第i已经保存进了临时数组，那么跳过， 
+        //否则把当前项push到临时数组里面 
+        if (n.indexOf(array[i]) == -1) n.push(array[i]);
+    }
+    return n;
+}
 util.isPoneAvailable = function ($poneInput) {
     var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
     if (!myreg.test($poneInput.toString())) {
-      return false;
+        return false;
     } else {
-      return true;
+        return true;
     }
-  }
+}
 export default util;
 
 // let path = {
