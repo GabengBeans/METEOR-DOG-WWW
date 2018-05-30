@@ -49,7 +49,6 @@ let util = {
 
 util.getConfigUri = baseUri;
 util.getConfig = baseConfig;
-util.menus
 util.title = function (title) {
     title = title || '流星狗运营后台';
     window.document.title = title;
@@ -314,7 +313,6 @@ util.fullscreenEvent = function (vm) {
 };
 
 util.checkUpdate = function (vm) {
-
     util.ajax.interceptors.response.use(
         response => {
             //console.log(response.data.data.menus);
