@@ -123,7 +123,6 @@
 import Util from "@/libs/util";
 //import Cookies from "js-cookie";
 import baseUri from "@/libs/base_uri";
-import axios from "axios";
 //import $ from "jquery";
 import BMapComponent from "../public-components/BMapComponent";
 export default {

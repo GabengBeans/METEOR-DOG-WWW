@@ -1,4 +1,4 @@
-//import axios from 'axios';
+
 import env from '../../build/env';
 import baseUri from './base_uri.js';
 import baseConfig from './base_config.js';

@@ -42,7 +42,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
 import Util from "@/libs/util";
 import baseUri from "@/libs/base_uri";
 //import Cookies from "js-cookie";

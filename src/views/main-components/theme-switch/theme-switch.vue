@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie';
 import config from '../../../../build/config.js';
 export default {
     name: 'themeSwitch',

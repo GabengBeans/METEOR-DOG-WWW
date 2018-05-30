@@ -14,7 +14,6 @@ import EditCategory from "./category_general_edit";
 import BindTags from "./category_bind_tags"
 import Util from "@/libs/util";
 import baseUri from "@/libs/base_uri";
-import axios from "axios"
 export default {
   props: ["categoryData"],
   data() {
