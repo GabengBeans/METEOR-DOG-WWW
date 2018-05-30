@@ -17,7 +17,8 @@ export default {
     methods: {
         itemTitle (item) {
             if (typeof item.title === 'object') {
-                return this.$t(item.title.i18n);
+                //return this.$t(item.title.i18n);
+                return "首页"
             } else {
                 return item.title;
             }

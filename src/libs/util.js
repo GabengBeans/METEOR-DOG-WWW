@@ -161,7 +161,8 @@ util.getRouterObjByName = function (routers, name) {
 
 util.handleTitle = function (vm, item) {
     if (typeof item.title === 'object') {
-        return vm.$t(item.title.i18n);
+        //return vm.$t(item.title.i18n);
+        return "首页"
     } else {
         return item.title;
     }
