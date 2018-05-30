@@ -11,7 +11,8 @@ function resolve (dir) {
 
 module.exports = {
     entry: {
-        main: '@/main'
+        main: '@/main',
+        'vender-base' : '@/vendors/vendors.base.js'
     },
     output: {
         path: path.resolve(__dirname, '../dist/dist')

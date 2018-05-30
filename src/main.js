@@ -4,13 +4,12 @@ import { router } from './router/index';
 import { appRouter } from './router/router';
 import store from './store';
 import App from './app.vue';
-import '@/locale';
-// import VueI18n from 'vue-i18n';
+import VueI18n from 'vue-i18n';
 import util from '@/libs/util';
 import BaiduMap from 'vue-baidu-map'
 ////import Cookies from "js-cookie"
 
-// Vue.use(VueI18n);
+Vue.use(VueI18n);
 Vue.use(iview);
 Vue.use(BaiduMap, {
     ak: "sKkVhwaa0xKdBYPtGzAALEY5FEDL01g2&services=&t=20180201111639"
