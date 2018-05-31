@@ -5,12 +5,12 @@
     </Card>
     <Row>
       <Col span="12">
-      <Card style="width:44vw;min-width:400px;">
+      <Card style="min-width:400px;">
         <Tree :data="$store.state.app.admin_resource_search_result" :render="renderContent"></Tree>
       </Card>
       </Col>
       <Col span="12" v-if="showResourceDetail">
-      <Card style="width:44vw;min-width:400px;">
+      <Card style="min-width:400px;">
         <div style="text-align:center;font-size:18px;color:#f60">{{resourceDetailData.title}}</div>
         <br>
         <Form>
@@ -36,7 +36,7 @@
       </Card>
       </Col>
       <Col span="12" v-if="showResourceEdit">
-      <Card style="width:44vw;min-width:400px;">
+      <Card style="min-width:400px;">
         <div style="text-align:center;font-size:18px;color:#f60">{{resourceEditData.title}}</div>
         <br>
         <Form :label-width="100">
@@ -79,7 +79,7 @@
       </Card>
       </Col>
       <Col span="12" v-if="showResourceAdd">
-      <Card style="width:44vw;min-width:400px;">
+      <Card style="min-width:400px;">
         <div style="text-align:center;font-size:18px;color:#f60">{{reseourceAddData.title}}</div>
         <br>
         <Form :label-width="100">
