@@ -60,7 +60,7 @@ export const otherRouter = {
     redirect: '/home',
     component: Main,
     children: [
-        { path: 'home', title: { i18n: 'home' }, name: 'home_index', component: resolve => { require(['@/views/home/home.vue'], resolve); } },
+        { path: 'home', title:'首页', name: 'home_index', component: resolve => { require(['@/views/home/home.vue'], resolve); } },
         //{ path: 'home', title: { i18n: 'home' }, name: 'home_index', component: resolve => { require(['@/views/statistics/statistics_transaction/statistics_transaction_index'], resolve); } },
         { path: 'ownspace', title: '修改密码', name: 'ownspace_index', component: resolve => { require(['@/views/own-space/own-space.vue'], resolve); } },
         { path: 'message', title: '消息中心', name: 'message_index', component: resolve => { require(['@/views/message/message.vue'], resolve); } },
