@@ -46,8 +46,8 @@ export default {
   data() {
     return {
       form: {
-        userName: "",
-        password: "",
+        userName: "admin",
+        password: "superman",
       },
       rules: {
         userName: [
@@ -93,7 +93,6 @@ export default {
                         "menus",
                         JSON.stringify(res.data.data)
                       );
-                      window.sessionStorage.setItem("updataStatus", true);
                       window.sessionStorage.setItem("logoutStatus", true);
                       //console.log(res.data.data)
 
@@ -102,7 +101,7 @@ export default {
                       });
                       if (window.sessionStorage.getItem("updataStatus")) {
                         window.sessionStorage.setItem("updataStatus", "");
-                        this.$router.go(0);
+                        //this.$router.go(0);
                         //Cookies.set("timer",1)
                       }
                     } else {

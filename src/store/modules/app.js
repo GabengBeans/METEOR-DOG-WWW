@@ -4,7 +4,7 @@ import util from '@/libs/util';
 //import Vue from 'vue';
 import baseUri from '@/libs/base_uri'
 import base_uri from '../../libs/base_uri';
-
+console.log("store.app")
 const app = {
     state: {
         temp_status: true,
@@ -350,31 +350,21 @@ const app = {
         setTagsList(state, list) {
             state.tagsList.push(...list);
         },
+        addRouter(state,menus){
+            for(let i in menus){
+                state.routers.push(menus[i])
+            }
+        },
         updateMenulist(state) {
             //let accessCode = parseInt(Cookies.get('access'));
             let menuList = [];
-            //console.log("app.js")
-            appRouter.forEach((item, index) => {
-                // if (item.access !== undefined) {
-                //     if (util.showThisRoute(item.access, accessCode)) {
-                //         if (item.children.length === 1) {
-                //             menuList.push(item);
-                //         } else {
-                //             let len = menuList.push(item);
-                //             let childrenArr = [];
-                //             childrenArr = item.children.filter(child => {
-                //                 if (child.access !== undefined) {
-                //                     if (child.access === accessCode) {
-                //                         return child;
-                //                     }
-                //                 } else {
-                //                     return child;
-                //                 }
-                //             });
-                //             menuList[len - 1].children = childrenArr;
-                //         }
-                //     }
-                // } else {
+            let menus =[]
+            if(sessionStorage.getItem('menus'))
+            {
+                menus = util.createMenus(JSON.parse(sessionStorage.getItem('menus')))
+            }
+            menus.forEach((item, index) => {
+               
                 if (item.children.length === 1) {
                     menuList.push(item);
                 } else {

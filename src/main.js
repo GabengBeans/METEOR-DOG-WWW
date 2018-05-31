@@ -1,14 +1,18 @@
 //import Vue from 'vue';
 //import iView from 'iview';
-import { router } from './router/index';
-import { appRouter } from './router/router';
+import {
+    router
+} from './router/index';
+import {
+    appRouter
+} from './router/router';
 import store from './store';
 import App from './app.vue';
 
 import util from '@/libs/util';
 import BaiduMap from 'vue-baidu-map'
 ////import Cookies from "js-cookie"
-
+console.log("main.js")
 
 Vue.use(iview);
 Vue.use(BaiduMap, {
@@ -31,25 +35,9 @@ new Vue({
         this.$store.commit('initCachepage');
         //console.log("Main.vue执行") 
         this.$store.commit('updateMenulist')
-        util.checkUpdate(this); 
+        util.checkUpdate(this);
     },
     created() {
-        //console.log(this.$store.state.app.menuList)
-        //console.log("main.js运行")
-        let tagsList = [];
-        //let menus = JSON.parse(window.sessionStorage.menus)
-       // console.log("created" + menus)
-        //if (menus) {
-            appRouter.map((item) => {
-
-                if (item.children.length <= 1) {
-                    tagsList.push(item.children[0]);
-                } else {
-                    tagsList.push(...item.children);
-                }
-            });
-            this.$store.commit('setTagsList', tagsList);
-        //}
-
+        
     }
 });

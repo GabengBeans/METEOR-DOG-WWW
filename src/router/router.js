@@ -13,14 +13,14 @@ export const loginRouter = {
     component: resolve => { require(['@/views/login.vue'], resolve); }
 };
 
-export const page404 = {
-    path: '/*',
-    name: 'error-404',
-    meta: {
-        title: '404-页面不存在'
-    },
-    component: resolve => { require(['@/views/error-page/404.vue'], resolve); }
-};
+// export const page404 = {
+//     path: '/*',
+//     name: 'error-404',
+//     meta: {
+//         title: '404-页面不存在'
+//     },
+//     component: resolve => { require(['@/views/error-page/404.vue'], resolve); }
+// };
 
 
 export const page403 = {
@@ -479,14 +479,14 @@ export const otherRouter = {
 // ];
 
 
-let menus = []
-if (window.sessionStorage.getItem("menus")) {
-    let serializeMenus = JSON.parse(window.sessionStorage.getItem("menus"))
-    menus = Util.createMenus(serializeMenus)
-    //console.log(menus)
-}
+// let menus = []
+// if (window.sessionStorage.getItem("menus")) {
+//     let serializeMenus = JSON.parse(window.sessionStorage.getItem("menus"))
+//     menus = Util.createMenus(serializeMenus)
+//     //console.log(menus)
+// }
 
-export const appRouter = menus
+export const appRouter = []
 
 // 所有上面定义的路由都要写在下面的routers里
 export const routers = [
@@ -497,7 +497,7 @@ export const routers = [
     ...appRouter,
     page500,
     page403,
-    page404
+    //page404
 ];
 
 // { // b.第二种情况：有二级菜单

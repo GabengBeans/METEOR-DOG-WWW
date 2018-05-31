@@ -118,7 +118,8 @@ export default {
   methods: {
     init() {
       let pathArr = util.setCurrentPath(this, this.$route.name);
-      this.$store.commit("updateMenulist");
+      this.$store.commit("updateMenulist");//初始化菜单列表
+      //添加到路由router
       if (pathArr.length >= 2) {
         this.$store.commit("addOpenSubmenu", pathArr[1].name);
       }
@@ -139,7 +140,6 @@ export default {
         // 退出登录
         if (window.sessionStorage.getItem("logoutStatus")) {
           window.sessionStorage.setItem("logoutStatus", "");
-          this.$router.go(0);
         }
         this.$store.commit("logout", this);
         this.$store.commit("clearOpenedSubmenu");
@@ -157,7 +157,6 @@ export default {
         }
       });
       if (!openpageHasTag) {
-        console.log(this)
         //  解决关闭当前标签后再点击按钮会退到当前页时没有标签的问题
         util.openNewPage(
           this,
@@ -185,7 +184,6 @@ export default {
   watch: {
     $route(to) {
       this.$store.commit("setCurrentPageName", to.name);
-      //console.log("ok")
       let pathArr = util.setCurrentPath(this, to.name);
       if (pathArr.length > 2) {
         this.$store.commit("addOpenSubmenu", pathArr[1].name);
@@ -193,9 +191,7 @@ export default {
       this.checkTag(to.name);
       localStorage.currentPageName = to.name;
     }
-    // lang () {
-    //     util.setCurrentPath(this, this.$route.name); // 在切换语言时用于刷新面包屑
-    // }
+   
   },
   mounted() {
     this.init();
@@ -211,7 +207,22 @@ export default {
   },
   created() {
     // 显示打开的页面的列表
+    let tagsList = [];
+    let menus = util.createMenus(JSON.parse(sessionStorage.getItem('menus')))
+    //let menus = util.createMenus(JSON.parse(sessionStorage.getItem('menus')))
+      this.$router.addRoutes(menus)
+      this.$store.commit("addRouter",menus)
+      
+    menus.map((item) => {
+        if (item.children.length <= 1) {
+            tagsList.push(item.children[0]);
+        } else {
+            tagsList.push(...item.children);
+        }
+    });
+    this.$store.commit('setTagsList', tagsList);
     this.$store.commit("setOpenedList");
+     
   }
 };
 </script>

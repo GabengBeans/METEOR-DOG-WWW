@@ -1,10 +1,6 @@
-//import Vue from 'vue';
-//import iView from 'iview';
-import Util from '../libs/util';
-//import VueRouter from 'vue-router';
-//import Cookies from 'js-cookie';
+import util from '../libs/util';
 import {routers, otherRouter, appRouter} from './router';
-
+console.log('router.js')
 Vue.use(VueRouter);
 
 // 路由配置
@@ -12,12 +8,16 @@ const RouterConfig = {
     //mode: 'hash',
     routes: routers
 };
-//console.log("index.js运行")
-export const router = new VueRouter(RouterConfig);
 
+export const router = new VueRouter(RouterConfig);
+if(sessionStorage.getItem('menus')){
+    let  menus = util.createMenus(JSON.parse(sessionStorage.getItem('menus')))
+    router.addRoutes(menus)
+}
 router.beforeEach((to, from, next) => {
     iview.LoadingBar.start();
-    Util.title(to.meta.title);
+    util.title(to.meta.title);
+    console.log(to.name)
     if (Cookies.get('locking') === '1' && to.name !== 'locking') { // 判断当前是否是锁定状态
         next({
             replace: true,
@@ -31,32 +31,22 @@ router.beforeEach((to, from, next) => {
                 name: 'login'
             });
         } else if (Cookies.get('user') && to.name === 'login') { // 判断是否已经登录且前往的是登录页
-            Util.title();
+            util.title();
             next({
                 name: 'home_index'
             });
         } else {
-            //let menus = JSON.parse(window.sessionStorage.menus)
-            const curRouterObj = Util.getRouterObjByName([otherRouter, ...appRouter], to.name);
-            //console.log(curRouterObj)
-            if (curRouterObj && curRouterObj.access !== undefined) { // 需要判断权限的路由
-                if (curRouterObj.access === parseInt(Cookies.get('access'))) {
-                    Util.toDefaultPage([otherRouter, ...appRouter], to.name, router, next); // 如果在地址栏输入的是一级菜单则默认打开其第一个二级菜单的页面
-                } else {
-                    next({
-                        replace: true,
-                        name: 'error-403'
-                    });
-                }
-            } else { // 没有配置权限的路由, 直接通过
-                Util.toDefaultPage([...routers], to.name, router, next);
+            let menus =[]
+            if(sessionStorage.getItem('menus')){
+                menus = util.createMenus(JSON.parse(sessionStorage.getItem('menus')))
             }
+            util.toDefaultPage([otherRouter, ...menus], to.name, router, next);
         }
     }
 });
-//console.log("22222222")
+
 router.afterEach((to) => {
-    Util.openNewPage(router.app, to.name, to.params, to.query);
+    //util.openNewPage(router.app, to.name, to.params, to.query);
     iview.LoadingBar.finish();
     window.scrollTo(0, 0);
 });
