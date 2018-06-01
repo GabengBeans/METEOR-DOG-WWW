@@ -1,5 +1,6 @@
 import util from '../libs/util';
 import {routers, otherRouter, appRouter} from './router';
+import {page404} from './page404'
 console.log('router.js')
 Vue.use(VueRouter);
 
@@ -13,6 +14,7 @@ export const router = new VueRouter(RouterConfig);
 if(sessionStorage.getItem('menus')){
     let  menus = util.createMenus(JSON.parse(sessionStorage.getItem('menus')))
     router.addRoutes(menus)
+    router.addRoutes(page404)
 }
 router.beforeEach((to, from, next) => {
     iview.LoadingBar.start();

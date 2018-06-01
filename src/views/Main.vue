@@ -69,7 +69,7 @@ import messageTip from "./main-components/message-tip.vue";
 import themeSwitch from "./main-components/theme-switch/theme-switch.vue";
 //import Cookies from "js-cookie";
 import util from "@/libs/util.js";
-
+import {page404} from '@/router/page404'
 export default {
   components: {
     shrinkableMenu,
@@ -211,6 +211,7 @@ export default {
     let menus = util.createMenus(JSON.parse(sessionStorage.getItem('menus')))
     //let menus = util.createMenus(JSON.parse(sessionStorage.getItem('menus')))
       this.$router.addRoutes(menus)
+      this.$router.addRoutes(page404)
       this.$store.commit("addRouter",menus)
       
     menus.map((item) => {
