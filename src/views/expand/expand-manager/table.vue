@@ -1,8 +1,8 @@
 <template>
   <div id='user_table'>
       <div class="btns">
-        <i-button class="btn" type="primary" @click="handleImport()">批量导入</i-button>
-        <i-button class="btn" type="primary" @click="handleDownload()">下载模板</i-button>
+        <!-- <i-button class="btn" type="primary" @click="handleImport()">批量导入</i-button>
+        <i-button class="btn" type="primary" @click="handleDownload()">下载模板</i-button> -->
         <i-button class="btn" type="primary" @click="handleExport()">批量导出</i-button>      
       </div>
       <Modal v-model="showModal" title="请选择文件">
