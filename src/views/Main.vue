@@ -217,7 +217,7 @@ export default {
     menus.map((item) => {
         if (item.children.length <= 1) {
             tagsList.push(item.children[0]);
-        } else {
+        } else {  
             tagsList.push(...item.children);
         }
     });

@@ -1,7 +1,6 @@
 import util from '../libs/util';
 import {routers, otherRouter, appRouter} from './router';
 import {page404} from './page404'
-console.log('router.js')
 Vue.use(VueRouter);
 
 // 路由配置
@@ -19,7 +18,6 @@ if(sessionStorage.getItem('menus')){
 router.beforeEach((to, from, next) => {
     iview.LoadingBar.start();
     util.title(to.meta.title);
-    console.log(to.name)
     if (Cookies.get('locking') === '1' && to.name !== 'locking') { // 判断当前是否是锁定状态
         next({
             replace: true,

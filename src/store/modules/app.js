@@ -4,7 +4,7 @@ import util from '@/libs/util';
 //import Vue from 'vue';
 import baseUri from '@/libs/base_uri'
 import base_uri from '../../libs/base_uri';
-console.log("store.app")
+
 const app = {
     state: {
         temp_status: true,

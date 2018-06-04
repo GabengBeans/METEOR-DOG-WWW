@@ -395,7 +395,7 @@ util.formData = function (data) {
         formData.append(it, data[it])
     }
     return formData;
-}
+}   
 util.recursion = function (obj, subName, detail) {
     if (!obj.length) {
         return false
