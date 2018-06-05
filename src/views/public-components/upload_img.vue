@@ -22,10 +22,9 @@
            <img :src="aliyun + imgName" v-if="visible" style="width: 100%;">
         </div>
         <div slot="footer" style="display:flex;flex-direction:row;justify-content:space-around">
-            <Button type="primary" size="large" @click="prevImg">上一张</Button>
-            <Button type="primary" size="large" @click="nextImg">下一张</Button>
+            <Button :disabled="uploadList.length>1?false:true" type="primary" size="large" @click="prevImg">上一张</Button>
+            <Button :disabled="uploadList.length>1?false:true" type="primary" size="large" @click="nextImg">下一张</Button>
         </div>
-      <!-- <img :src="aliyun + imgName" v-if="visible" style="width: 100%;"> -->
     </Modal>
   </div>
 </template>
