@@ -16,9 +16,9 @@
     </Row>
     <Row :gutter='16'>
       <Form label-position="right" :label-width="75">
-        <Col :xs='13' :sm='13' :md='8' :lg='5' v-for="item in data" :key="item.key" v-if="item.desc">
+        <Col :xs='24' :sm='24' :md='24' :lg='24' v-for="item in data" :key="item.key" v-if="item.desc">
         <FormItem style="min-width:100px" :label="item.tagName">
-          <Input clearable v-model="item.value" v-if="item.desc" style="width:67vw" />
+          <Input clearable v-model="item.value" v-if="item.desc" style="width:82%" />
         </FormItem>
         </Col>
       </Form>

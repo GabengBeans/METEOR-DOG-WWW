@@ -15,7 +15,7 @@ export default {
       columns: [
         {
           title: "需求ID",
-          key: "id",
+          key: "id"
         },
         {
           title: "需求标题",
@@ -29,33 +29,28 @@ export default {
         },
         {
           title: "手机号",
-          key: "phone",
-          width:120
+          key: "phone"
         },
         {
           title: "发布时间",
-          key: "createTime",
-          width:150
+          key: "createTime"
         },
         {
           title: "审核时间",
-          key: "auditTime",
-          width:150
+          key: "auditTime"
         },
         {
           title: "审核状态",
-          key: "businessStatus",
-           width:90
+          key: "businessStatus"
         },
         {
           title: "状态",
-          key: "status",
-          width:70
+          key: "status"
         },
         {
           title: "操作",
           key: "phone",
-          width: 200,
+          width: 180,
           align: "center",
           render: (h, params) => {
             return h("div", [
