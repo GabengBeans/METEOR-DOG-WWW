@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div  style="z-index:1001">
     <div class="demo-upload-list" v-for="(item,key) in uploadList" v-if="item" :key="item.key">
         <img :src="aliyun + item">
         <div class="demo-upload-list-cover" >
@@ -14,7 +14,7 @@
         <Icon type="camera" size="40" style="margin-top:10px;"></Icon>
       </div>
     </Upload>
-    <Modal v-model="visible">
+    <Modal v-model="visible" :transfer="false" :mask-closable="false">
       <p slot="header" style="color:#f60;text-align:center">
             <span>{{index+1}}/{{uploadList.length}}</span>
         </p>

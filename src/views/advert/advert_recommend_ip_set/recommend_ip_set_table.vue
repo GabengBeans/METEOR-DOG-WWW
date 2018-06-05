@@ -9,7 +9,8 @@
       <div>
         <Form label-position="right" :label-width="80">
           <FormItem label="服务ID">
-            <p>{{serviceId}}</p>
+            <Input clearable v-model="serviceId" style="min-width:100px;width:200px" />
+            <Button type="success" style="margin-left:1vw" @click="getServiceDetail">服务详情</Button>
           </FormItem>
           <FormItem label="序号">
             <Input clearable v-model="adSort" style="min-width:100px;width:200px" />
@@ -34,18 +35,40 @@
         <Button type="error" style="margin-left:3vw" @click="showEditRecommendIp=false">取消</Button>
       </div>
     </Modal>
+    <Modal v-model="showServiceDetail" width="800" :mask-closable="false" :closable="false" style="z-index:999" >
+      <p slot="header" style="color:#f60;text-align:center">
+        <span>服务详情</span>
+      </p>
+      <div>
+        <Form label-position="right" :label-width="80">
+          <FormItem label="服务标题">
+            <span>{{serviceName}}</span>
+          </FormItem>
+          <FormItem label="推广图片">
+            <div >
+              <uplaodImg :imgList="imgArray" :upload="false" :change="false" :detail="true"></uplaodImg>
+            </div>
+          </FormItem>
+        </Form>
+      </div>
+      <div slot="footer" style="text-align:center">
+        <Button type="error" @click="closeServiceDetail">关闭</Button>
+      </div>
+    </Modal>
   </div>
 </template>
 <script>
 import util from "@/libs/util";
 import base_uri from "@/libs/base_uri";
 import uploadSingleImg from "@/views/public-components/upload_single_img";
+import uplaodImg from "@/views/public-components/upload_img"
 export default {
   name: "user_table",
 
   data() {
     return {
       showEditRecommendIp: false,
+      showServiceDetail:false,
       id:"",
       serviceId: "",
       adSort: "",
@@ -68,6 +91,7 @@ export default {
       imgObj6: {
         imgUrl: ""
       },
+       imgArray:[],
       imgList:{
         imgUrl1:"",
         imgUrl2:"",
@@ -307,10 +331,54 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    getServiceDetail() {
+      if(!this.serviceId )
+      {
+        this.$Message.error("请填写服务ID")
+        return
+      }
+      if(!Number(this.serviceId)){
+        this.$Message.error("请正确填写服务ID")
+        return
+      }
+      this.showServiceDetail=true
+      util.ajax({
+        method:'get',
+        url:base_uri.service_detail_url,
+        params:{
+           serviceId:this.serviceId
+        }
+      }).then(resp=>{
+        if(resp.data.success){
+          const obj = resp.data.data
+          this.serviceName = obj.title
+          for(let i=0; i<obj.mediaList.length;i++)
+          {
+            if(obj.mediaList[i].businessType==1)
+            {
+              this.imgArray.push(obj.mediaList[i].mediaUrl)
+            }
+          }
+        }else{
+          this.$Message.error("没有这个服务")
+        }
+      }).catch(error=>{
+        console.log(error)
+      })
+    },
+    closeServiceDetail(){
+      this.showServiceDetail = false;
+      let length = this.imgArray.length
+      for(let i=0;i<length;i++)
+      {
+        this.imgArray.pop()
+      }
     }
   },
   components: {
-    uploadSingleImg
+    uploadSingleImg,
+    uplaodImg
   }
 };
 </script>
