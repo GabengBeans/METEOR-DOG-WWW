@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="demo-upload-list" v-for="item in uploadList" v-if="item" :key="item.key">
+    <div class="demo-upload-list" v-for="(item,key) in uploadList" v-if="item" :key="item.key">
         <img :src="aliyun + item">
         <div class="demo-upload-list-cover" >
-          <Icon type="ios-eye-outline" @click.native="handleView(item)" style="margin-right:10px"></Icon>
+          <Icon type="ios-eye-outline" @click.native="handleView(item,key)" style="margin-right:10px"></Icon>
           <Icon v-if="!detail" type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
         </div>
     </div>
@@ -14,16 +14,19 @@
         <Icon type="camera" size="40" style="margin-top:10px;"></Icon>
       </div>
     </Upload>
-    <!-- <Modal title="展示大图" v-model="visible" transfer="false">
-      <img :src="aliyun + imgName" v-if="visible" style="width: 100%;">
-    </Modal> -->
-    <template >
-    <Carousel v-model="value1" loop>
-        <CarouselItem>
-            <div class="demo-carousel">1</div>
-        </CarouselItem>
-    </Carousel>
-</template>
+    <Modal v-model="visible">
+      <p slot="header" style="color:#f60;text-align:center">
+            <span>{{index+1}}/{{uploadList.length}}</span>
+        </p>
+        <div>
+           <img :src="aliyun + imgName" v-if="visible" style="width: 100%;">
+        </div>
+        <div slot="footer" style="display:flex;flex-direction:row;justify-content:space-around">
+            <Button type="primary" size="large" @click="prevImg">上一张</Button>
+            <Button type="primary" size="large" @click="nextImg">下一张</Button>
+        </div>
+      <!-- <img :src="aliyun + imgName" v-if="visible" style="width: 100%;"> -->
+    </Modal>
   </div>
 </template>
 <script>
@@ -35,15 +38,26 @@ export default {
       aliyun: baseUri.oss_url,
       imgName: "",
       visible: false,
-      uploadList: this.imgList
+      uploadList: this.imgList,
+      index:0
     };
   },
   //change:是否可上传   detail:是否查看。浮层
   props: ["imgList", "upload", "change", "detail"],
   methods: {
-    handleView(name) {
+    handleView(name,key) {
+      this.index = key
       this.imgName = name;
       this.visible = true;
+    },
+    prevImg(){
+      this.index = this.index<=0?this.uploadList.length-1:this.index-1
+      this.imgName = this.uploadList[this.index]
+    },
+    nextImg(){
+      this.index = this.index>=this.uploadList.length-1?0:this.index+1
+      this.imgName = this.uploadList[this.index]
+      console.log(this.index)
     },
     handleRemove(file) {
       const fileList = this.imgList;
