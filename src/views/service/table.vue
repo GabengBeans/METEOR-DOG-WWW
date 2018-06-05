@@ -17,8 +17,7 @@ export default {
       columns: [
         {
           title: "服务ID",
-          key: "id",
-          width: 160
+          key: "id"
         },
         {
           title: "服务标题",
@@ -28,9 +27,7 @@ export default {
         },
         {
           title: "昵称",
-          key: "nickname",
-          ellipsis: "false",
-          width:139
+          key: "nickname"
         },
         {
           title: "手机号",

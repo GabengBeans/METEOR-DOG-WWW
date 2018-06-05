@@ -16,7 +16,6 @@ export default {
         {
           title: "需求ID",
           key: "id",
-          width:160
         },
         {
           title: "需求标题",
@@ -27,8 +26,6 @@ export default {
         {
           title: "昵称",
           key: "nickname",
-          ellipsis:"false",
-          width:139
         },
         {
           title: "手机号",
