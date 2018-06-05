@@ -99,10 +99,14 @@ const ajaxUrl = env === 'development' ?
     util.getConfig.proUrl :
     util.getConfig.testUrl
 console.log(ajaxUrl)
+
+util.upload_resources_url = ajaxUrl + "/zuul/oss/v1/upload"
+
 util.ajax = axios.create({
     baseURL: ajaxUrl,
     timeout: util.getConfig.ajaxOutTime,
 });
+
 util.ajax.interceptors.request.use(
     config => {
         //console.log("请求拦截器")

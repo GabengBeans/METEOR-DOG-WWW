@@ -9,8 +9,7 @@ let base_config = {
     //devUrl:"http://192.168.100.160:8822",//慧
     //测试服务器接口地址
     testUrl: 'http://39.106.211.153:8890',
-    //生产服务器接口地址
-    //proUrl: 'http://39.106.51.236:8822',
+    //生产接口地址
     proUrl:'http://39.106.16.60:8822',
     //阿里图片服务器地址
     imgUrl: 'http://dedc-statics.oss-cn-beijing.aliyuncs.com',

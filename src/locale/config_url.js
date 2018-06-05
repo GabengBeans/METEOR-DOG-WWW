@@ -3,5 +3,4 @@ export default {
     'uri': {
         login: this.global_server_url + 'admin/v1/oauth/token'
     }
-
 };

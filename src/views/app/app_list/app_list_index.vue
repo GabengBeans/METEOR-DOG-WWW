@@ -1,7 +1,7 @@
 <template>
   <div>
+    <br>
     <Button type="primary" style="margin-left:16px" @click.native="addApps()">添加APP</Button>
-    <br><br>
     <Table></Table>
     <Page :storeStatus="status" :currentPage="$store.state.app.app_page_info.currentPage" :totalPage="$store.state.app.app_page_info.totalPage"></Page>
     <Modal v-model="showAddApp" width="360" @on-cancel="showAddApp=false" @on-ok="saveApp()">
@@ -17,9 +17,13 @@
             <Input clearable v-model="appData.appExternalVersion" />
           </FormItem>
           <FormItem label="上传文件">
-            <Upload ref="upload" action="http://39.106.51.236:9091/oss/v1/upload" :format="['apk']" :data="{
-                            'fileType':2
-                        }" :before-upload="handleBeforeUpload" :on-progress="handleProgress" :on-success="handleOk">
+            <Upload ref="upload" 
+            :action="upload_resources_url" 
+            :format="['apk']" 
+            :data="{'fileType':2}" 
+            :before-upload="handleBeforeUpload" 
+            :on-progress="handleProgress" 
+            :on-success="handleOk">
               <Button type="ghost" icon="ios-cloud-upload-outline">选择文件</Button>
             </Upload>
           </FormItem>
@@ -39,12 +43,13 @@
 </template>
 <script>
 import Table from "./app_list_table.vue";
-import Util from "@/libs/util";
+import util from "@/libs/util";
 import baseUri from "@/libs/base_uri";
 import Page from "@/views/public-components/changePage";
 export default {
   data() {
     return {
+      upload_resources_url:util.upload_resources_url,
       status: "appList",
       appData: {
         appVersion: "",
@@ -109,10 +114,10 @@ export default {
         //appExternalVersion:0
       };
       //console.log(data)
-        Util.ajax({
+        util.ajax({
         method: "post",
         url: baseUri.app_add_url,
-        data: Util.formData(data)
+        data: util.formData(data)
       })
         .then(res => {
           if (res.data.success) {
@@ -139,5 +144,5 @@ export default {
 };
 </script>
 <style>
-
+@import "../../../styles/public.less"
 </style>

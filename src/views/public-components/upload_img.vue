@@ -14,9 +14,16 @@
         <Icon type="camera" size="40" style="margin-top:10px;"></Icon>
       </div>
     </Upload>
-    <Modal title="展示大图" v-model="visible" transfer="false">
+    <!-- <Modal title="展示大图" v-model="visible" transfer="false">
       <img :src="aliyun + imgName" v-if="visible" style="width: 100%;">
-    </Modal>
+    </Modal> -->
+    <template >
+    <Carousel v-model="value1" loop>
+        <CarouselItem>
+            <div class="demo-carousel">1</div>
+        </CarouselItem>
+    </Carousel>
+</template>
   </div>
 </template>
 <script>
