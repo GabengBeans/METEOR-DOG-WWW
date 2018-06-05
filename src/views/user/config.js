@@ -40,6 +40,14 @@ config.userSearch = {
     inviterCode: {
         tagName: "邀请码",
         value: ""
+    },
+    createTime:{
+        tagName:"注册时间",
+        data:1
+    },
+    endTime:{
+        tagName:"截止时间",
+        data:1
     }
 }
 
