@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 
 // 路由配置
 const RouterConfig = {
-    //mode: 'hash',
+    mode: 'hash',
     routes: routers
 };
 
@@ -51,7 +51,7 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach((to) => {
-    //util.openNewPage(router.app, to.name, to.params, to.query);
+    util.openNewPage(router.app, to.name, to.params, to.query);
     iview.LoadingBar.finish();
     window.scrollTo(0, 0);
 });

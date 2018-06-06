@@ -211,7 +211,7 @@ export default {
     let menus = util.createMenus(JSON.parse(sessionStorage.getItem('menus')))
     //let menus = util.createMenus(JSON.parse(sessionStorage.getItem('menus')))
       this.$router.addRoutes(menus)
-      this.$router.addRoutes(page404)
+      //this.$router.addRoutes(page404)
       this.$store.commit("addRouter",menus)
       
     menus.map((item) => {
