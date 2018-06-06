@@ -239,7 +239,7 @@ export default {
       this.$store.commit("closePage", this.$route.name);
       pageOpenedList = this.$store.state.app.pageOpenedList;
       localStorage.pageOpenedList = JSON.stringify(pageOpenedList);
-      this.$router.back(-1);
+      this.$router.go(-1);
       this.modalShow = false;
     }
   },

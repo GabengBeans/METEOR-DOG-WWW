@@ -328,7 +328,7 @@ util.toDefaultPage = function (routers, name, route, next) {
     let notHandle = true;
     while (i < len) {
         if (routers[i].name === name && routers[i].children && routers[i].redirect === undefined) {
-            route.replace({
+            route.push({
                 name: routers[i].children[0].name
             });
             notHandle = false;
