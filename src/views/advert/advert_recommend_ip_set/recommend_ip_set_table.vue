@@ -116,6 +116,16 @@ export default {
           ellipsis: "false"
         },
         {
+          title: "服务类别",
+          key: "categoryName",
+          ellipsis: "false"
+        },
+        {
+          title: "IP昵称",
+          key: "nickName",
+          ellipsis: "false"
+        },
+        {
           title: "状态",
           key: "display"
         },
