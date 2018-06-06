@@ -10,7 +10,7 @@
             <Col span="6">
             <span>用户ID:</span>{{data.user.id}}</Col>
             <Col span="6">
-            <span>姓名:</span>{{data.user.nickname}}</Col>
+            <span>昵称:</span>{{data.user.nickname}}</Col>
             <Col span="6">
             <span>手机号:</span>{{data.user.phone}}</Col>
             <Col span="6">

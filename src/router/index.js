@@ -11,10 +11,11 @@ const RouterConfig = {
 
 export const router = new VueRouter(RouterConfig);
 if(sessionStorage.getItem('menus')){
-    let  menus = util.createMenus(JSON.parse(sessionStorage.getItem('menus')))
+    let menus = util.createMenus(JSON.parse(sessionStorage.getItem('menus')))
     router.addRoutes(menus)
     router.addRoutes(page404)
 }
+let menus = []
 router.beforeEach((to, from, next) => {
     iview.LoadingBar.start();
     util.title(to.meta.title);
@@ -36,9 +37,13 @@ router.beforeEach((to, from, next) => {
                 name: 'home_index'
             });
         } else {
-            let menus =[]
-            if(sessionStorage.getItem('menus')){
-                menus = util.createMenus(JSON.parse(sessionStorage.getItem('menus')))
+            if(menus.length==0)
+            {
+                if(sessionStorage.getItem('menus')){
+                    menus = util.createMenus(JSON.parse(sessionStorage.getItem('menus')))
+                    router.addRoutes(menus)
+                    router.addRoutes(page404)
+                }
             }
             util.toDefaultPage([otherRouter, ...menus], to.name, router, next);
         }
