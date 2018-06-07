@@ -23,6 +23,14 @@
         </div>
         <br>
         <div class="user_detail_div">
+          <label class="from_label">设置角色</label>
+          <Select v-model="user_data.isExpandPeople" style="width:15vw; min-width:100px;" @on-change="changeRoleInfo(user_data.isExpandPeople)">
+            <Option :value="0">普通用户</Option>
+            <Option :value="1">代理人</Option>
+          </Select>
+        </div>
+        <br>
+        <div class="user_detail_div">
           <label class="from_label">性别</label>
           <Select v-model="user_data.sex" style="width:15vw; min-width:100px;">
             <Option :value="1">男</Option>
@@ -116,7 +124,7 @@
   </div>
 </template>
 <script>
-import Util from "@/libs/util";
+import util from "@/libs/util";
 ////import Cookies from "js-cookie";
 import baseUri from "@/libs/base_uri";
 //import $ from "jquery";
@@ -255,7 +263,7 @@ export default {
         this.user_data.listTags.push({lableName:this.user_data.tags[i],id:-1})
       }
       console.log(this.user_data.listTags)
-      Util.ajax({
+      util.ajax({
         method: "post",
         url: baseUri.user_edit_url,
         headers: {
@@ -291,6 +299,24 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    changeRoleInfo(value){
+      util.ajax({
+        method:'post',
+        url:baseUri.convert_expand_type,
+        params:{
+          extensionPersonId:this.user_data.extensionPersonId
+        }
+      }).then(resp=>{
+        if(resp.status==200 && resp.data.success)
+        {
+          this.$Message.success("修改成功")
+        }else{
+          this.$Message.error("修改失败")
+        }
+      }).catch(error=>{
+        console.log(error)
+      })
     }
   },
   computed: {
@@ -323,7 +349,7 @@ export default {
     });
     let This = this;
     function getUserInfo() {
-      return Util.ajax({
+      return util.ajax({
         method: "get",
         url: baseUri.user_detail_url,
         params: {
@@ -333,7 +359,7 @@ export default {
     }
     function getAttentionUser() {
       //console.log(user_search_attention_users_for_page_url)
-      return Util.ajax({
+      return util.ajax({
         method: "get",
         url: baseUri.user_search_attention_users_for_page_url,
         params: {
@@ -344,7 +370,7 @@ export default {
       });
     }
     function getInviterUsers() {
-      return Util.ajax({
+      return util.ajax({
         method: "post",
         url: baseUri.user_search_for_page_url,
         data: {
@@ -396,13 +422,13 @@ export default {
         attention_arr = response1.data.data.items;
         inviter_arr = response2.data.data.items;
         for (let j in inviter_arr) {
-          inviter_arr[j].createTime = Util.formatDate(
+          inviter_arr[j].createTime = util.formatDate(
             new Date(inviter_arr[j].createTime),
             "yyyy-MM-dd hh:mm:ss"
           );
         }
         for (let i in attention_arr) {
-          attention_arr[i].createTime = Util.formatDate(
+          attention_arr[i].createTime = util.formatDate(
             new Date(attention_arr[i].createTime),
             "yyyy-MM-dd hh:mm:ss"
           );

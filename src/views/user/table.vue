@@ -60,8 +60,12 @@ export default {
           key: "amount"
         },
         {
-          title: "代理人邀请码",
+          title: "推荐码",
           key: "agentInviterCode"
+        },
+        {
+          title:"代理人",
+          key:"expandRealName"
         },
         {
           title: "注册时间",

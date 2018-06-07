@@ -35,7 +35,7 @@ let base_uri = {
     search_user_ability_for_page_url:"/admin/v1/user/search_user_ability_for_page",
     get_user_ability_byid:"/admin/v1/user/get_user_ability_byid",
     update_user_ability_url:"/admin/v1/user/update_user_ability",
-
+    convert_expand_type:"/admin/v1/user/convert_expand_type",
     //获取需求信息
     demand_search_demands_for_page_url: "/admin/v1/demand/search_demands_for_page/",
     demand_detail_url: "/admin/v1/demand/detail/",
