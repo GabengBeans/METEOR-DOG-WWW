@@ -41,11 +41,11 @@ config.userSearch = {
         tagName: "邀请码",
         value: ""
     },
-    createTime:{
+    createTimeStart:{
         tagName:"注册时间",
         data:1
     },
-    endTime:{
+    createTimeEnd:{
         tagName:"截止时间",
         data:1
     }
