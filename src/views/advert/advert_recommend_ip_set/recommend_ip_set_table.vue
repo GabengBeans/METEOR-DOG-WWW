@@ -318,6 +318,7 @@ export default {
           url: base_uri.up_recommend_url,
           data: {
             id:this.id,
+            serviceId:this.serviceId,
             adSort: this.adSort,
             name: this.serviceName,
             imgUrl1: this.imgObj1.imgUrl,
