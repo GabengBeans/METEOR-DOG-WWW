@@ -36,11 +36,13 @@ export default {
               "span",
               {
                 style: {
-                  display: "inline-block",
+                  display: "inline-flex",
                   width: "100%",
                   minWidth: "200px",
                   height: "40px",
-                  lineHeight: "40px"
+                  lineHeight: "40px",
+                  justifyContent:'space-between',
+                  alignItems:'center'
                 }
               },
               [
@@ -73,7 +75,6 @@ export default {
                   {
                     style: {
                       display: "inline-block",
-                      float: "right",
                       marginRight: "32px"
                     }
                   },
@@ -150,11 +151,13 @@ export default {
         "span",
         {
           style: {
-            display: "inline-block",
+            display: "inline-flex",
             width: "100%",
             minWidth: "200px",
             height: "40px",
-            lineHeight: "40px"
+            lineHeight: "40px",
+            justifyContent:'space-between',
+            alignItems:'center'
           }
         },
         [
@@ -187,7 +190,6 @@ export default {
             {
               style: {
                 display: "inline-block",
-                float: "right",
                 marginRight: "32px"
               }
             },
