@@ -334,9 +334,13 @@ export default {
             this.showEditRecommendIp =false
             this.$Message.destroy();
             this.$Message.success("保存成功！");
+            this.$store.commit("GET_RECOMMEND_FOR_PAGE_INFO",{
+              data:this.$store.state.app.recommend_ip_search_info,
+              pageNo:this.$store.state.app.recommend_ip_public_page
+            })
           } else {
             this.$Message.destroy();
-            this.$Message.error("保存失败");
+            this.$Message.error(res.data.msg);
           }
         })
         .catch(err => {
