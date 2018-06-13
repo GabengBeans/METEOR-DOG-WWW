@@ -305,7 +305,7 @@ export default {
         method:'post',
         url:baseUri.convert_expand_type,
         params:{
-          extensionPersonId:this.user_data.extensionPersonId
+          expandId:this.user_data.extensionPersonId
         }
       }).then(resp=>{
         if(resp.status==200 && resp.data.success)
