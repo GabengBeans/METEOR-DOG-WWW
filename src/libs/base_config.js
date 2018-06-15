@@ -18,10 +18,6 @@ let base_config = {
 
     //ajax超时时间
     ajaxOutTime: 30000,
-
-    pageNo:     1,      //默认页数
-    pageSize:   10     //每页显示最大条数
-
 };
 
 export default base_config;

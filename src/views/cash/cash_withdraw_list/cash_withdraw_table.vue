@@ -62,7 +62,8 @@ export default {
                   props: {
                     type: "success",
                     size: "small",
-                    disabled: params.row.applyStatus == "申请中" ? false : true
+                    //disabled: params.row.applyStatus == "申请中" ? false : true
+                    disabled:true
                   },
                   style: {
                     marginRight: "5px"
