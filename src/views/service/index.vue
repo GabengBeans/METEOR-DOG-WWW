@@ -1,6 +1,8 @@
 <template>
     <div>
+      <template v-if="serviceSearch.categoryParentId.tag.op30">
         <search :data="serviceSearch" :storeStatus="status"></search>
+      </template>
         <requestTable></requestTable>
         <requestPage :storeStatus="status" :currentPage="$store.state.app.service_page_info.currentPage" :totalPage="$store.state.app.service_page_info.totalPage"></requestPage>
     </div>
@@ -24,9 +26,9 @@ export default {
   computed: {
     //组装对象
     serviceSearch() {
-      if (localStorage.getItem("serviceCategoryObj")) {
-        return JSON.parse(localStorage.getItem("serviceCategoryObj"));
-      }
+      // if (localStorage.getItem("serviceCategoryObj")) {
+      //   return JSON.parse(localStorage.getItem("serviceCategoryObj"));
+      // }
       let categoryArr = new Array();
       const obj = this.$store.state.app.category_search_result;
       const obj1 = this.$store.state.app.categorys_search_result;
@@ -40,8 +42,8 @@ export default {
       }
       for (let i in obj1.childCategory) {
         let temp = {
-          num: obj.childCategory[i].id,
-          value: obj.childCategory[i].name
+          num: obj1.childCategory[i].id,
+          value: obj1.childCategory[i].name
         };
         categoryArr.push(temp);
       }
@@ -62,7 +64,7 @@ export default {
       pageNo: this.$store.state.app.service_public_page
     });
     // if (!localStorage.getItem("serviceCategoryObj")) {
-      this.$store.commit("GET_CATEGORY_SEARCH_INFO", { businessType: 1 });
+     this.$store.commit("GET_CATEGORY_SEARCH_INFO", { businessType: 1 });
       this.$store.commit("GET_CATEGORY_SEARCH_INFO", { businessType: 2 });
     //}
   }
