@@ -95,7 +95,7 @@ export default {
                       );
                       window.sessionStorage.setItem("logoutStatus", true);
                       //console.log(res.data.data)
-
+                       this.$store.state.app.pageOpenedList=[]
                       obj.$router.push({
                         name: "home_index"
                       });
