@@ -196,7 +196,11 @@ let base_uri = {
     //ip红包查询
     search_coupon_for_page_url:"/admin/v1/coupon/search_coupon_for_page",
     search_usercoupon_for_page_url:"/admin/v1/coupon/search_usercoupon_for_page",
-    update_coupon_status:"/admin/v1/coupon/update_coupon_status"
+    update_coupon_status:"/admin/v1/coupon/update_coupon_status",
+
+    //红包广告
+    search_advert_coupon_for_page_url:"/admin/v1/advert/search_advert_coupon_for_page",
+    edit_advert_coupon_url:"/admin/v1/advert/edit_advert_coupon",
 };
 
 export default base_uri;

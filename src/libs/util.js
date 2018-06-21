@@ -78,7 +78,7 @@ const audit_user = resolve => require(["@/views/audit_operation/audit_user/audit
 const audit_service = resolve => require(["@/views/audit_operation/audit_service/audit_service_index"], resolve)
 const audit_demand = resolve => require(["@/views/audit_operation/audit_demand/audit_demand_index"], resolve)
 const audit_order = resolve => require(["@/views/audit_operation/audit_order/audit_order_index"], resolve)
-
+const advert_coupon_index = resolve => require(["@/views/advert/advert_coupon/advert_coupon_index"],resolve)
 
 
 let util = {
@@ -458,7 +458,8 @@ util.createMenus = function (data) {
         'audit_user': audit_user,
         'audit_service': audit_service,
         'audit_demand': audit_demand,
-        'audit_order': audit_order
+        'audit_order': audit_order,
+        'advert_coupon_index':advert_coupon_index
     }
 
     let menus = []

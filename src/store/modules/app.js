@@ -317,6 +317,8 @@ const app = {
         },
         ip_coupon_detail_query_public_page: 1,
 
+        //广告红包
+        search_advert_coupon_result:[],
 
         cachePage: [],
         lang: '',
@@ -1658,7 +1660,21 @@ const app = {
             }).catch(error => {
                 console.log(error)
             })
+        },
+
+        //获取广告红包数据
+        GET_ADVERT_COUPON_LIST(state){
+            util.ajax({
+                method:"post",
+                url:base_uri.search_advert_coupon_for_page_url
+            }).then(resp=>{
+                if(resp.data.success){
+                    state.search_advert_coupon_result = resp.data.data.items[0]
+                }
+            }).catch(error => {
+                console.log(error)
+            })
         }
     }
-}//
+}
 export default app
