@@ -104,6 +104,7 @@ config.icons = [
     "android-apps",
     "android-search",
     "android-cloud-outline",
-    "social-yen"
+    "social-yen",
+    "aperture"
 ]
 export default config

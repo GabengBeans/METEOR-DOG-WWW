@@ -320,6 +320,19 @@ const app = {
         //广告红包
         search_advert_coupon_result:[],
 
+        //动态
+        dynamic_search_info:{
+            "businessStatus": 0
+        },
+        dynamic_search_result:[],
+        dynamic_page_info:{
+            currentPage:"",
+            totalPage:""
+        },
+        dynamic_public_page:1,
+
+
+
         cachePage: [],
         lang: '',
         isFullScreen: false,
@@ -1674,7 +1687,37 @@ const app = {
             }).catch(error => {
                 console.log(error)
             })
-        }
+        },
+
+         //获取动态数据
+    GET_DYNAMIC_LIST(state,{data,pageNo}){
+        console.log(data)
+        state.dynamic_search_info = data
+        state.dynamic_public_page = pageNo
+        util.ajax({
+            method:"post",
+            url:base_uri.search_dynamic_for_page_url,
+            params:{
+                pageNo:pageNo,
+                pageSize:10,
+            },
+            data:data
+        }).then(resp=>{
+            if(resp.data.success){
+                let statusArr = ["","待审核","通过","驳回"]
+                resp.data.data.items.map(item=>{
+                    item.createTime = item.createTime?util.formatDate(new Date(item.createTime),"yyyy-MM-dd hh:mm:ss" ):""
+                    item.auditTime = util.formatDate(new Date(item.auditTime),"yyyy-MM-dd hh:mm:ss" )
+                    item.businessStatus = statusArr[item.businessStatus]
+                })
+                state.dynamic_search_result = resp.data.data.items
+                state.dynamic_page_info.currentPage = resp.data.data.page
+                state.dynamic_page_info.totalCount = resp.data.data.totalCount
+            }
+        }).catch(error=>{
+            console.log(error)
+        })
+    }
     }
 }
 export default app

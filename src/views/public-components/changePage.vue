@@ -194,8 +194,14 @@ export default {
             name: "order"
           });
           break;
+        case "dynamic":
+          this.$store.commit("GET_DYNAMIC_LIST",{
+            data:this.$store.state.app.dynamic_search_info,
+            pageNo:index
+          })
+          break;
       }
     }
-  }
+  }//
 };
 </script>

@@ -33,7 +33,7 @@ export default {
     search: function() {
       let obj = {};
       for (let x in this.data) {
-        if (this.data[x].value != "") {
+        if (this.data[x].value !== "") {
           obj[x] = this.data[x].value;
         }
       }
@@ -175,6 +175,12 @@ export default {
             name:"order",
             pageNo: 1
           });
+          break;
+        case "dynamic":
+          this.$store.commit("GET_DYNAMIC_LIST",{
+            data:obj,
+            pageNo:1
+          })
           break;
       }
     }

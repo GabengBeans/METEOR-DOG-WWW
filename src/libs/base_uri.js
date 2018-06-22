@@ -201,6 +201,11 @@ let base_uri = {
     //红包广告
     search_advert_coupon_for_page_url:"/admin/v1/advert/search_advert_coupon_for_page",
     edit_advert_coupon_url:"/admin/v1/advert/edit_advert_coupon",
+
+    //动态
+    search_dynamic_for_page_url:"/admin/v1/dynamic/search_dynamic_for_page",//动态查询
+    dynamic_detail_url:"/admin/v1/dynamic/detail",
+    dynamic_audit:"/admin/v1/dynamic/audit",
 };
 
 export default base_uri;
