@@ -10,35 +10,34 @@
             <div>
                 <Form style="border-bottom:1px solid gray" :label-width="100">
                     <Row type="flex" justify="space-around">
-                        <Col span="4">
+                        <Col span="6">
                         <FormItem label="用户ID：">
                             <span>{{dynamicDetail.userId}}</span>
                         </FormItem>
                         </Col>
-                        <Col span="4">
-                        <FormItem label="昵称：">
-                            <!-- <span>{{dynamicDetail.nickname}}</span> -->
-                            <span>是的发送到</span>
+                        <Col span="6">
+                        <FormItem label="昵称：" >
+                            <span>{{dynamicDetail.nickname}}</span>
                         </FormItem>
                         </Col>
-                        <Col span="4">
+                        <Col span="6">
                         <FormItem label="手机号：">
                             <span>{{dynamicDetail.phone}}</span>
                         </FormItem>
                         </Col>
-                        <Col span="4">
+                        <Col span="6">
                         <FormItem label="流星值：">
                             <span>{{Number.parseFloat(dynamicDetail.meteorScore/10).toFixed(1)}}</span>
                         </FormItem>
                         </Col>
                     </Row>
                     <Row type="flex" justify="space-around">
-                        <Col span="4">
+                        <Col span="12">
                         <FormItem label="认证信息：">
                             <span>1111111111111</span>
                         </FormItem>
                         </Col>
-                        <Col span="4">
+                        <Col span="12">
                         <FormItem label="个人标签：">
                             <span>11111</span>
                         </FormItem>
@@ -47,14 +46,14 @@
                 </Form>
                 <Form style="margin-top:30px" :label-width="120">
                     <Row type="flex" justify="start">
-                        <Col span="4">
+                        <Col span="24">
                         <FormItem label="动态文本：">
                             <span>1111111111111</span>
                         </FormItem>
                         </Col>
                     </Row>
                     <Row type="flex" justify="start">
-                        <Col span="4">
+                        <Col span="24">
                         <FormItem label="动态图片和视频：">
                             <span>1111111111111</span>
                         </FormItem>
