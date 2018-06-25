@@ -16,7 +16,7 @@
                         </FormItem>
                         </Col>
                         <Col span="6">
-                        <FormItem label="昵称：" >
+                        <FormItem label="昵称：">
                             <span>{{dynamicDetail.nickname}}</span>
                         </FormItem>
                         </Col>
@@ -34,12 +34,12 @@
                     <Row type="flex" justify="space-around">
                         <Col span="12">
                         <FormItem label="认证信息：">
-                            <span>1111111111111</span>
+                            <Tag color="blue" v-for="item in dynamicDetail.selfAuthInfos" :key="item.key">{{item}}</Tag>
                         </FormItem>
                         </Col>
                         <Col span="12">
                         <FormItem label="个人标签：">
-                            <span>11111</span>
+                            <Tag color="blue" v-for="item in dynamicDetail.tags" :key="item.key">{{item}}</Tag>
                         </FormItem>
                         </Col>
                     </Row>
@@ -48,7 +48,7 @@
                     <Row type="flex" justify="start">
                         <Col span="24">
                         <FormItem label="动态文本：">
-                            <span>1111111111111</span>
+                            <span>{{dynamicDetail.content}}</span>
                         </FormItem>
                         </Col>
                     </Row>
@@ -62,19 +62,70 @@
                 </Form>
             </div>
             <div slot="footer" style="display:flex;justify-content: space-around;">
-                <Button type="success">通过</Button>
                 <Button type="error">驳回</Button>
+                <Button type="success">通过</Button>
             </div>
         </Modal>
-        <Modal v-model="showDetailMOdal" width="800">
+        <Modal v-model="showDetailModal" width="800">
             <p slot="header" style="color:#f60;text-align:center">
                 <span>动态详情</span>
             </p>
             <div>
-
+                <Form style="border-bottom:1px solid gray" :label-width="100">
+                    <Row type="flex" justify="space-around">
+                        <Col span="6">
+                        <FormItem label="用户ID：">
+                            <span>{{dynamicDetail.userId}}</span>
+                        </FormItem>
+                        </Col>
+                        <Col span="6">
+                        <FormItem label="昵称：">
+                            <span>{{dynamicDetail.nickname}}</span>
+                        </FormItem>
+                        </Col>
+                        <Col span="6">
+                        <FormItem label="手机号：">
+                            <span>{{dynamicDetail.phone}}</span>
+                        </FormItem>
+                        </Col>
+                        <Col span="6">
+                        <FormItem label="流星值：">
+                            <span>{{Number.parseFloat(dynamicDetail.meteorScore/10).toFixed(1)}}</span>
+                        </FormItem>
+                        </Col>
+                    </Row>
+                    <Row type="flex" justify="space-around">
+                        <Col span="12">
+                        <FormItem label="认证信息：">
+                            <Tag color="blue" v-for="item in dynamicDetail.selfAuthInfos" :key="item.key">{{item}}</Tag>
+                        </FormItem>
+                        </Col>
+                        <Col span="12">
+                        <FormItem label="个人标签：">
+                            <Tag color="blue" v-for="item in dynamicDetail.tags" :key="item.key">{{item}}</Tag>
+                        </FormItem>
+                        </Col>
+                    </Row>
+                </Form>
+                <Form style="margin-top:30px" :label-width="120">
+                    <Row type="flex" justify="start">
+                        <Col span="24">
+                        <FormItem label="动态文本：">
+                            <span>{{dynamicDetail.content}}</span>
+                        </FormItem>
+                        </Col>
+                    </Row>
+                    <Row type="flex" justify="start">
+                        <Col span="24">
+                        <FormItem label="动态图片和视频：">
+                            <span>1111111111111</span>
+                        </FormItem>
+                        </Col>
+                    </Row>
+                </Form>
             </div>
             <div slot="footer" style="text-align:center">
-                <Button type="error">返回</Button>
+                <Button type="error" @click="showDetailModal=false">返回</Button>
             </div>
         </Modal>
     </div>
@@ -92,9 +143,9 @@ export default {
       search: config.dynamicSearch,
       storeStatus: "dynamic",
       showAuditModal: false,
-      showDetailMOdal: false,
-      dynamicId:"",
-      dynamicDetail:{},
+      showDetailModal: false,
+      dynamicId: "",
+      dynamicDetail: {},
       columns: [
         {
           title: "动态ID",
@@ -139,8 +190,26 @@ export default {
                   },
                   on: {
                     click: () => {
-                        
-                      this.showDetailMOdal = true;
+                      util
+                        .ajax({
+                          method: "get",
+                          url: base_uri.dynamic_detail_url,
+                          params: {
+                            userId: params.row.userId,
+                            dynamicId: params.row.id
+                          }
+                        })
+                        .then(resp => {
+                          if (resp.data.success) {
+                            this.dynamicDetail = resp.data.data;
+                            this.showDetailModal = true;
+                          } else {
+                            this.$Message.error("获取失败");
+                          }
+                        })
+                        .catch(error => {
+                          console.log(error);
+                        });
                     }
                   }
                 },
@@ -159,24 +228,26 @@ export default {
                   },
                   on: {
                     click: () => {
-                        util.ajax({
-                            method:"get",
-                            url:base_uri.dynamic_detail_url,
-                            params:{
-                                userId:params.row.userId,
-                                dynamicId:params.row.id
-                            }
-                        }).then(resp=>{
-                            if(resp.data.success){
-                                this.dynamicDetail = resp.data.data
-                                this.showAuditModal = true;
-                            }else{
-                                this.$Message.error("获取失败")
-                            }
-                        }).catch(error=>{
-                            console.log(error)
+                      util
+                        .ajax({
+                          method: "get",
+                          url: base_uri.dynamic_detail_url,
+                          params: {
+                            userId: params.row.userId,
+                            dynamicId: params.row.id
+                          }
                         })
-                      
+                        .then(resp => {
+                          if (resp.data.success) {
+                            this.dynamicDetail = resp.data.data;
+                            this.showAuditModal = true;
+                          } else {
+                            this.$Message.error("获取失败");
+                          }
+                        })
+                        .catch(error => {
+                          console.log(error);
+                        });
                     }
                   }
                 },
