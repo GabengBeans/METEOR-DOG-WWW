@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import Util from "@/libs/util";
+import util from "@/libs/util";
 import baseUri from "@/libs/base_uri";
 export default {
   data() {
@@ -41,10 +41,31 @@ export default {
       showProgress: false
     };
   },
-  props: ["imgList", "videoUrl", "upload", "change", "detail"],
+  props: ["imgList", "videoUrl", "type", "upload", "change", "detail"],
   methods: {
     handleView() {
-      this.visible = true;
+      if (this.type) {
+        util.ajax({
+            method: "get",
+            url: baseUri.get_play_url,
+            params: {
+              videoId:this.videoUrl
+            }
+          })
+          .then(resp => {
+            if (resp.data.success) {
+              this.videoUrlList = resp.data.data.PlayInfoList.PlayInfo[1].PlayURL
+              this.visible = true;
+            } else {
+              this.$Message.error("视频获取失败");
+            }
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      } else {
+        this.visible = true;
+      }
     },
     handleRemove(file) {
       this.uploadList = false;
@@ -65,13 +86,12 @@ export default {
     //   });
     // },
     handleBeforeUpload(file) {
-      if(this.uploadList)
-      {
-        this.$Message.error("只能上传一个视频")
-        return
+      if (this.uploadList) {
+        this.$Message.error("只能上传一个视频");
+        return;
       }
       let titleStr = file.name.slice(0, file.name.indexOf("."));
-      Util.ajax({
+      util.ajax({
         method: "get",
         url: baseUri.create_video_address_url,
         params: {
@@ -99,7 +119,6 @@ export default {
               retryDuration: 2,
               // 开始上传
               onUploadstarted: function(uploadInfo) {
-                console.log("开始上传");
                 This.progress = 0;
                 This.showProgress = true;
                 uploader.setUploadAuthAndAddress(
@@ -108,6 +127,7 @@ export default {
                   obj.uploadAddress,
                   obj.videoId
                 );
+                console.log("开始上传");
               },
               // 文件上传成功
               onUploadSucceed: function(uploadInfo) {
@@ -122,7 +142,7 @@ export default {
                     return;
                   }
                   setTimeout(function() {
-                    Util.ajax({
+                    util.ajax({
                       method: "get",
                       url: baseUri.get_play_url,
                       params: {
@@ -131,11 +151,7 @@ export default {
                     }).then(res => {
                       //console.log(res)
                       // console.log(typeof res.data);
-                      if (
-                        typeof res.data == "object" &&
-                        res.data.success &&
-                        res.data.data.PlayInfoList.PlayInfo.length >= 2
-                      ) {
+                      if (typeof res.data == "object" && res.data.success) {
                         This.uploadList = res.data.data.VideoBase.CoverURL;
                         This.videoUrlList =
                           res.data.data.PlayInfoList.PlayInfo[1].PlayURL;
@@ -153,6 +169,11 @@ export default {
               },
               // 文件上传失败
               onUploadFailed: function(uploadInfo, code, message) {
+                console.log(code);
+                console.log(message);
+                This.$Message.destroy();
+                This.$Message.error("上传失败");
+                This.showProgress = false;
                 console.log("上传失败");
               },
               // 文件上传进度，单位：字节

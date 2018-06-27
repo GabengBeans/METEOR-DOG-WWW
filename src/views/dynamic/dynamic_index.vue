@@ -55,15 +55,25 @@
                     <Row type="flex" justify="start">
                         <Col span="24">
                         <FormItem label="动态图片和视频：">
-                            <span>1111111111111</span>
+                            <upload-img style="display:inline" v-if="imgUrlArr.length>0" :imgList="imgUrlArr" :detail="true"></upload-img>
+                            <template v-if="videoObj.length>0" >
+                              <upload-video style="display:inline"  
+                              v-for="item in videoObj" 
+                              :key="item.videoId" 
+                              :imgList="item.videoImg" 
+                              :videoUrl="item.videoId" 
+                              :detail="true"
+                              :type="item.type"
+                              ></upload-video>
+                            </template>
                         </FormItem>
                         </Col>
                     </Row>
                 </Form>
             </div>
             <div slot="footer" style="display:flex;justify-content: space-around;">
-                <Button type="error">驳回</Button>
-                <Button type="success">通过</Button>
+                <Button type="error" data-ok="cancel">驳回</Button>
+                <Button type="success" data-ok="ok" @click="auditDynamic">通过</Button>
             </div>
         </Modal>
         <Modal v-model="showDetailModal" width="800">
@@ -118,14 +128,24 @@
                     <Row type="flex" justify="start">
                         <Col span="24">
                         <FormItem label="动态图片和视频：">
-                            <span>1111111111111</span>
+                            <upload-img style="display:inline" v-if="imgUrlArr.length>0" :imgList="imgUrlArr" :detail="true"></upload-img>
+                            <template v-if="videoObj.length>0" >
+                              <upload-video style="display:inline"  
+                              v-for="item in videoObj" 
+                              :key="item.videoId" 
+                              :imgList="item.videoImg" 
+                              :videoUrl="item.videoId" 
+                              :detail="true"
+                              :type="item.type"
+                              ></upload-video>
+                            </template>
                         </FormItem>
                         </Col>
                     </Row>
                 </Form>
             </div>
             <div slot="footer" style="text-align:center">
-                <Button type="error" @click="showDetailModal=false">返回</Button>
+                <Button type="error"  @click="showDetailModal=false">返回</Button>
             </div>
         </Modal>
     </div>
@@ -136,6 +156,8 @@ import base_uri from "@/libs/base_uri";
 import publicSearch from "@/views/public-components/search";
 import publicTable from "@/views/public-components/table";
 import publicChangePage from "@/views/public-components/changePage";
+import uploadImg from "@/views/public-components/upload_img"
+import uploadVideo from "@/views/public-components/upload_video"
 import config from "./config";
 export default {
   data() {
@@ -144,6 +166,10 @@ export default {
       storeStatus: "dynamic",
       showAuditModal: false,
       showDetailModal: false,
+      showAuditDismissedMoadl:false,
+      imgUrlArr:[],
+      videoObj:[],
+      DismissedReason:"",
       dynamicId: "",
       dynamicDetail: {},
       columns: [
@@ -190,6 +216,8 @@ export default {
                   },
                   on: {
                     click: () => {
+                      this.videoObj=[]
+                      this.imgUrlArr = []
                       util
                         .ajax({
                           method: "get",
@@ -202,6 +230,17 @@ export default {
                         .then(resp => {
                           if (resp.data.success) {
                             this.dynamicDetail = resp.data.data;
+                            this.dynamicDetail.medias.map(item=>{
+                              if(item.mediaType==1){
+                                this.imgUrlArr.push(item.mediaUrl)
+                              }else if(item.mediaType==2){
+                                this.videoObj.push({
+                                  videoImg:base_uri.oss_video_img_url+item.mediaUrl+'00001.jpg',
+                                  videoId:item.mediaUrl,
+                                  type:'id'
+                                })
+                              }
+                            })
                             this.showDetailModal = true;
                           } else {
                             this.$Message.error("获取失败");
@@ -213,21 +252,23 @@ export default {
                     }
                   }
                 },
-                "查看"
+                "详情"
               ),
               h(
                 "Button",
                 {
                   props: {
                     type: "success",
-                    size: "small"
-                    //disabled: params.row.businessStatus != "待审核" ? true : false
+                    size: "small",
+                    disabled: params.row.businessStatus != "待审核" ? true : false
                   },
                   style: {
                     marginRight: "5px"
                   },
                   on: {
                     click: () => {
+                      this.videoObj=[]
+                      this.imgUrlArr = []
                       util
                         .ajax({
                           method: "get",
@@ -240,6 +281,17 @@ export default {
                         .then(resp => {
                           if (resp.data.success) {
                             this.dynamicDetail = resp.data.data;
+                            this.dynamicDetail.medias.map(item=>{
+                              if(item.mediaType==1){
+                                this.imgUrlArr.push(item.mediaUrl)
+                              }else if(item.mediaType==2){
+                                this.videoObj.push({
+                                  videoImg:base_uri.oss_video_img_url+item.mediaUrl+'00001.jpg',
+                                  videoId:item.mediaUrl,
+                                  type:'id'
+                                })
+                              }
+                            })
                             this.showAuditModal = true;
                           } else {
                             this.$Message.error("获取失败");
@@ -259,10 +311,46 @@ export default {
       ]
     };
   },
+  methods:{
+    auditDynamic(e){
+      let status = e.target.dataset.ok=="ok"?2:3
+      if(status==3)
+      {
+        this.showAuditDismissedMoadl = true
+      }else if(status==2){
+        this.audioFun(status)
+        this.$Message.success("审核通过")
+      }
+    },
+    audioFun(status){
+      let params = {}
+      if(status==2){
+        params={
+          dynamicId:this.dynamicDetail.id,
+          businessStatus:status
+        }
+      }else if(status==3){
+        params={
+          dynamicId:this.dynamicDetail.id,
+          businessStatus:status,
+          refuseReason:this.DismissedReason
+        }
+      }
+      util.ajax({
+        method:"post",
+        url:base_uri.dynamic_audit,
+        params:params
+      }).then(resp=>{
+        console.log(resp)
+      })
+    }
+  },
   components: {
     publicSearch,
     publicTable,
-    publicChangePage
+    publicChangePage,
+    uploadImg,
+    uploadVideo
   },
   created() {
     this.$store.commit("GET_DYNAMIC_LIST", {

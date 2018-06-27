@@ -6,6 +6,8 @@ let base_uri = {
     //img_upload_url:"/oss/v1/upload_img",
     //阿里云图片地址
     oss_url: "http://dedc-statics.oss-cn-beijing.aliyuncs.com/",
+    //阿里云视频图片地址
+    oss_video_img_url:'http://vod.shootingstargo.com/snapshot/',
     //用户地址
     userLogin: "/admin/v1/oauth/token",
     //请求视频地址

@@ -1691,7 +1691,6 @@ const app = {
 
          //获取动态数据
     GET_DYNAMIC_LIST(state,{data,pageNo}){
-        console.log(data)
         state.dynamic_search_info = data
         state.dynamic_public_page = pageNo
         util.ajax({
