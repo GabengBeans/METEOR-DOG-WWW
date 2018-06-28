@@ -1,6 +1,6 @@
 <template>
     <div>
-      <template v-if="serviceSearch.categoryParentId.tag.op30">
+      <template v-if="serviceSearch.categoryParentId.tag.op20">
         <search :data="serviceSearch" :storeStatus="status"></search>
       </template>
         <requestTable></requestTable>
@@ -71,4 +71,5 @@ export default {
 };
 </script>
 <style>
+@import "../../styles/public.less";
 </style>
