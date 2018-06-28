@@ -78,8 +78,8 @@ const audit_user = resolve => require(["@/views/audit_operation/audit_user/audit
 const audit_service = resolve => require(["@/views/audit_operation/audit_service/audit_service_index"], resolve)
 const audit_demand = resolve => require(["@/views/audit_operation/audit_demand/audit_demand_index"], resolve)
 const audit_order = resolve => require(["@/views/audit_operation/audit_order/audit_order_index"], resolve)
-const advert_coupon_index = resolve => require(["@/views/advert/advert_coupon/advert_coupon_index"],resolve)
-const dynamic_index = resolve => require(["@/views/dynamic/dynamic_index"],resolve)
+const advert_coupon_index = resolve => require(["@/views/advert/advert_coupon/advert_coupon_index"], resolve)
+const dynamic_index = resolve => require(["@/views/dynamic/dynamic_index"], resolve)
 
 let util = {
 
@@ -116,8 +116,20 @@ util.ajax.interceptors.request.use(
             'token': token
         };
         return config;
-    }
-);
+    },
+    function (error) {
+        console.log(error)
+        return Promise.reject(error);
+    });
+
+axios.interceptors.response.use(function (response) {
+    console.log(response)
+    return response;
+}, function (error) {
+    // 对响应错误做点什么
+    console.log(response)
+    return Promise.reject(error);
+});
 util.inOf = function (arr, targetArr) {
     let res = true;
     arr.forEach(item => {
@@ -399,7 +411,7 @@ util.formData = function (data) {
         formData.append(it, data[it])
     }
     return formData;
-}   
+}
 util.recursion = function (obj, subName, detail) {
     if (!obj.length) {
         return false
@@ -459,8 +471,8 @@ util.createMenus = function (data) {
         'audit_service': audit_service,
         'audit_demand': audit_demand,
         'audit_order': audit_order,
-        'advert_coupon_index':advert_coupon_index,
-        'dynamic_index':dynamic_index
+        'advert_coupon_index': advert_coupon_index,
+        'dynamic_index': dynamic_index
     }
 
     let menus = []

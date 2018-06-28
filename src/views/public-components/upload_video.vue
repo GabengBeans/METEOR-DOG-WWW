@@ -17,7 +17,7 @@
       </div>
     </Upload>
 
-    <Modal title="播放视频" v-model="visible">
+    <Modal title="播放视频" v-model="visible" :mask-closable="false">
       <video :src="videoUrlList" controls="controls" v-if="visible" style="width: 100%"></video>
     </Modal>
   </div>
