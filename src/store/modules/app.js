@@ -1706,7 +1706,7 @@ const app = {
                 let statusArr = ["","待审核","通过","驳回"]
                 resp.data.data.items.map(item=>{
                     item.createTime = item.createTime?util.formatDate(new Date(item.createTime),"yyyy-MM-dd hh:mm:ss" ):""
-                    item.auditTime = util.formatDate(new Date(item.auditTime),"yyyy-MM-dd hh:mm:ss" )
+                    item.auditTime = item.auditTime?util.formatDate(new Date(item.auditTime),"yyyy-MM-dd hh:mm:ss" ):""
                     item.businessStatus = statusArr[item.businessStatus]
                 })
                 state.dynamic_search_result = resp.data.data.items
