@@ -62,6 +62,15 @@
             </FormItem>
             </Col>
           </Row>
+          <Row type="flex" justify="start" v-if="audioUrl">
+            <Col span="24">
+            <FormItem label="动态音频：">
+              <a :href="audioUrl">下载</a>
+              <Button type="info" @click="playAudio(audioUrl)">播放</Button>
+              <div style="width:1px;height:1px;" id="playerQT"> </div>
+            </FormItem>
+            </Col>
+          </Row>
         </Form>
       </div>
       <div slot="footer" style="display:flex;justify-content: space-around;">
@@ -131,6 +140,7 @@
           <Row type="flex" justify="start" v-if="audioUrl">
             <Col span="24">
             <FormItem label="动态音频：">
+              <a :href="audioUrl">下载</a>
               <Button type="info" @click="playAudio(audioUrl)">播放</Button>
               <div style="width:1px;height:1px;" id="playerQT"> </div>
             </FormItem>
@@ -236,6 +246,7 @@ export default {
                         })
                         .then(resp => {
                           if (resp.data.success) {
+                            
                             this.dynamicDetail = resp.data.data;
                             this.dynamicDetail.medias.map(item => {
                               if (item.mediaType == 1) {
@@ -252,10 +263,9 @@ export default {
                               } else if (item.mediaType == 6) {
                                 this.audioUrl =
                                   base_uri.oss_url + item.mediaUrl;
-                                //console.log(base_uri.oss_url+item.mediaUrl);
-                                this.showDetailModal = true;
                               }
                             });
+                            this.showDetailModal = true;
                           } else {
                             this.$Message.error("获取失败");
                           }
@@ -308,6 +318,9 @@ export default {
                                   videoId: item.mediaUrl,
                                   type: "id"
                                 });
+                              }else if (item.mediaType == 6) {
+                                this.audioUrl =
+                                  base_uri.oss_url + item.mediaUrl;
                               }
                             });
                             this.showAuditModal = true;
