@@ -246,7 +246,6 @@ export default {
                         })
                         .then(resp => {
                           if (resp.data.success) {
-                            
                             this.dynamicDetail = resp.data.data;
                             this.dynamicDetail.medias.map(item => {
                               if (item.mediaType == 1) {
@@ -318,7 +317,7 @@ export default {
                                   videoId: item.mediaUrl,
                                   type: "id"
                                 });
-                              }else if (item.mediaType == 6) {
+                              } else if (item.mediaType == 6) {
                                 this.audioUrl =
                                   base_uri.oss_url + item.mediaUrl;
                               }
@@ -344,7 +343,6 @@ export default {
   },
   methods: {
     auditDynamic(value) {
-      this.DismissedReason = "";
       this.audioFun(value);
     },
     audioFun(status) {
@@ -371,15 +369,15 @@ export default {
           params: params
         })
         .then(resp => {
-          console.log(resp);
           if (resp.data.success) {
-            this.showAuditDismissedMoadl = false;
-            this.showAuditModal = false;
             this.$Message.success("审核成功");
             this.$store.commit("GET_DYNAMIC_LIST", {
               data: this.$store.state.app.dynamic_search_info,
               pageNo: this.$store.state.app.dynamic_public_page
             });
+            this.DismissedReason = "";
+            this.showAuditDismissedMoadl = false;
+            this.showAuditModal = false;
           } else {
             this.$Message.error("审核失败");
           }
@@ -388,15 +386,14 @@ export default {
           console.log(error);
         });
     },
-    playAudio(url){
+    playAudio(url) {
       let html =
         '<ltembed width="1px" height="1px" name="plugin" src="' +
         url +
         '" type="audio/amr" id="QT_EMB">';
-        console.log($("#playerQT")[0])
-       $("#playerQT")[0].innerHTML = html;
+      console.log($("#playerQT")[0]);
+      $("#playerQT")[0].innerHTML = html;
     }
-     
   },
   components: {
     publicSearch,
