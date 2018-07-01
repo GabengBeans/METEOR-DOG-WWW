@@ -66,7 +66,7 @@
             <Col span="24">
             <FormItem label="动态音频：">
               <a :href="audioUrl">下载</a>
-              <Button type="info" @click="playAudio(audioUrl)">播放</Button>
+              <!-- <Button type="info" @click="playAudio(audioUrl)">播放</Button> -->
               <div style="width:1px;height:1px;" id="playerQT"> </div>
             </FormItem>
             </Col>
@@ -141,7 +141,7 @@
             <Col span="24">
             <FormItem label="动态音频：">
               <a :href="audioUrl">下载</a>
-              <Button type="info" @click="playAudio(audioUrl)">播放</Button>
+              <!-- <Button type="info" @click="playAudio(audioUrl)">播放</Button> -->
               <div style="width:1px;height:1px;" id="playerQT"> </div>
             </FormItem>
             </Col>
