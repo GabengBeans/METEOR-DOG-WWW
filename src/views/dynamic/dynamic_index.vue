@@ -128,6 +128,14 @@
             </FormItem>
             </Col>
           </Row>
+          <Row type="flex" justify="start" v-if="audioUrl">
+            <Col span="24">
+            <FormItem label="动态音频：">
+              <Button type="info" @click="playAudio(audioUrl)">播放</Button>
+              <div style="width:1px;height:1px;" id="playerQT"> </div>
+            </FormItem>
+            </Col>
+          </Row>
         </Form>
       </div>
       <div slot="footer" style="text-align:center">
@@ -165,6 +173,7 @@ export default {
       showAuditModal: false,
       showDetailModal: false,
       showAuditDismissedMoadl: false,
+      audioUrl: "",
       imgUrlArr: [],
       videoObj: [],
       DismissedReason: "",
@@ -240,9 +249,13 @@ export default {
                                   videoId: item.mediaUrl,
                                   type: "id"
                                 });
+                              } else if (item.mediaType == 6) {
+                                this.audioUrl =
+                                  base_uri.oss_url + item.mediaUrl;
+                                //console.log(base_uri.oss_url+item.mediaUrl);
+                                this.showDetailModal = true;
                               }
                             });
-                            this.showDetailModal = true;
                           } else {
                             this.$Message.error("获取失败");
                           }
@@ -318,6 +331,7 @@ export default {
   },
   methods: {
     auditDynamic(value) {
+      this.DismissedReason = "";
       this.audioFun(value);
     },
     audioFun(status) {
@@ -360,7 +374,16 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    playAudio(url){
+      let html =
+        '<ltembed width="1px" height="1px" name="plugin" src="' +
+        url +
+        '" type="audio/amr" id="QT_EMB">';
+        console.log($("#playerQT")[0])
+       $("#playerQT")[0].innerHTML = html;
     }
+     
   },
   components: {
     publicSearch,
