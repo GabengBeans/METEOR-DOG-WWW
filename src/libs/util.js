@@ -81,6 +81,9 @@ const audit_order = resolve => require(["@/views/audit_operation/audit_order/aud
 const advert_coupon_index = resolve => require(["@/views/advert/advert_coupon/advert_coupon_index"], resolve)
 const dynamic_index = resolve => require(["@/views/dynamic/dynamic_index"], resolve)
 
+//广告
+const banner_ad_index = resolve => require(["@/views/advert/bannerAd/banner_ad_index"], resolve)
+
 let util = {
 
 };
@@ -472,7 +475,9 @@ util.createMenus = function (data) {
         'audit_demand': audit_demand,
         'audit_order': audit_order,
         'advert_coupon_index': advert_coupon_index,
-        'dynamic_index': dynamic_index
+        'dynamic_index': dynamic_index,
+        //广告
+        'banner_ad_index':banner_ad_index
     }
 
     let menus = []
