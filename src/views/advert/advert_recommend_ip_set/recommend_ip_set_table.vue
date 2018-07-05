@@ -104,21 +104,23 @@ export default {
         {
           title: "序号",
           key: "adSort",
-          width: 160
+          width: 100
         },
         {
           title: "服务ID",
-          key: "serviceId"
+          key: "serviceId",
+          width: 180
         },
         {
           title: "标题",
           key: "name",
+          width:300,
           ellipsis: "false"
         },
         {
           title: "服务类别",
           key: "categoryName",
-          ellipsis: "false"
+          width:150,
         },
         {
           title: "IP昵称",
