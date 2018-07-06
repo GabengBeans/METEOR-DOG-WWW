@@ -46,7 +46,6 @@ export default {
         }
         Object.assign(config.lockedUserSearch.roleId.tag,items)
         this.searchConfig = config.lockedUserSearch
-        console.log(this.searchConfig)
       }
     })
   },
