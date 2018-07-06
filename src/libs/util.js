@@ -85,7 +85,8 @@ const dynamic_index = resolve => require(["@/views/dynamic/dynamic_index"], reso
 const banner_ad_index = resolve => require(["@/views/advert/bannerAd/banner_ad_index"], resolve)
 const activities_ad_index = resolve => require(["@/views/advert/activitiesAd/activities_ad_index"], resolve)
 const selling_service_ad_index = resolve => require(["@/views/advert/selling_service_ad/selling_service_ad_index"], resolve)
-
+const quality_ip_index = resolve => require(["@/views/advert/quality_ip/quality_ip_index"], resolve)
+const model_ip_index = resolve => require(["@/views/advert/model_ip/model_ip_index"], resolve)
 
 let util = {
 
@@ -482,7 +483,9 @@ util.createMenus = function (data) {
         //广告
         'banner_ad_index':banner_ad_index,
         'activities_ad_index':activities_ad_index,
-        'selling_service_ad_index':selling_service_ad_index
+        'selling_service_ad_index':selling_service_ad_index,
+        'quality_ip_index':quality_ip_index,
+        'model_ip_index':model_ip_index
     }
 
     let menus = []
