@@ -1,11 +1,10 @@
 <template>
     <div>
         <div class="button">
-            <Button type="success" @click="showCreate">新增广告</Button>
+            <Button type="success" @click="showAdCreateModal = true">新增广告</Button>
         </div>
-        <quality-table :storeStatus="status" :currentPage="$store.state.app.user_page_info.currentPage" :totalPage="$store.state.app.user_page_info.totalPage">
-        </quality-table>
-        <quality-page></quality-page>
+        <quality-table></quality-table>
+        <quality-page :storeStatus="status" :currentPage="$store.state.app.quality_ip_page_info.currentPage" :totalPage="$store.state.app.quality_ip_page_info.totalPage"></quality-page>
 
         <Modal v-model="showAdCreateModal" width="600">
             <p slot="header" style="text-align:center">
@@ -13,26 +12,21 @@
             </p>
             <div>
                 <Form :label-width="80" label-position="right">
-                    <FormItem label="广告类型">
-                        <Select style="width:200px">
-                            <Option></Option>
-                        </Select>
-                    </FormItem>
                     <FormItem label="序号">
-                        <Input style="width:60%;min-width:200px" />
+                        <Input clearable v-model="createObj.sort" style="width:60%;min-width:200px" />
                         <span style="color:blue;margin-left:15px">序号越小位置越靠前</span>
                     </FormItem>
-                    <FormItem label="服务ID">
-                        <Input style="width:60%;min-width:200px" />
+                    <FormItem label="用户ID">
+                        <Input clearable v-model="createObj.serviceId" style="width:60%;min-width:200px" />
                     </FormItem>
                     <FormItem label="展示图片">
-                        <Input style="width:60%;min-width:200px" />
+                        <upload-single-img :imgUrl="createObj" :upload="true" :detial="true"></upload-single-img>
                     </FormItem>
                 </Form>
             </div>
             <div slot="footer" style="display:flex;justify-content:space-around">
-                <Button type="success" size="large">保存</Button>
-                <Button type="error" size="large">取消</Button>
+                <Button type="success" size="large" @click="saveCreateAd">保存</Button>
+                <Button type="error" size="large" @click="showAdCreateModal = false">取消</Button>
             </div>
         </Modal>
     </div>
@@ -41,28 +35,112 @@
 <script>
 import qualityTable from "./quality_ip_table.vue";
 import qualityPage from "@/views/public-components/changePage";
-////import Cookies from "js-cookie";
+import uploadSingleImg from "@/views/public-components/upload_single_img";
+import util from "@/libs/util";
+import baseUri from "@/libs/base_uri";
+import uplaodImg from "@/views/public-components/upload_img";
 export default {
   data() {
     return {
       status: "qualityAd",
       buttonName: "新增广告",
-      showAdCreateModal: false
+      showAdCreateModal: false,
+      businessName: "",
+      imgArray: [],
+      createObj: {
+        adType: "1",
+        sort: "",
+        serviceId: "",
+        imgUrl: "",
+        adName: "IP昵称",
+        adDescribe: ""
+      }
     };
   },
   methods: {
+    init() {
+      this.createObj.sort = "";
+      this.createObj.serviceId = "";
+      this.createObj.imgUrl = "";
+      this.createObj.adDescribe = "";
+      this.businessName = "";
+    },
     showCreate() {
       this.showAdCreateModal = true;
+    },
+    saveCreateAd() {
+      this.$Message.success({
+        content: "请求中...",
+        duration: 0
+      });
+      util
+        .ajax({
+          method: "get",
+          url: baseUri.user_detail_url,
+          params: {
+            userId: this.createObj.serviceId
+          }
+        })
+        .then(resp => {
+          if (resp.data.success) {
+            this.businessName = resp.data.data.nickname;
+            this.requestCreate();
+          } else {
+            this.$Message.error(resp.data.msg);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    requestCreate() {
+      let params = {
+        adItemId: 3,
+        adTypeId: this.createObj.adType,
+        imgUrl: this.createObj.imgUrl,
+        adSort: this.createObj.sort,
+        businessId: this.createObj.serviceId,
+        adName: this.createObj.adName,
+        adDescribe: this.businessName
+      };
+
+      util
+        .ajax({
+          method: "post",
+          url: baseUri.add_advert_url,
+          params: params
+        })
+        .then(resp => {
+          if (resp.data.success) {
+            this.$store.commit("GET_QUALITY_IP_LIST", {
+              data: this.$store.state.app.quality_ip_search_info,
+              pageNo: this.$store.state.app.quality_ip_public_page
+            });
+            this.$Message.destroy();
+            this.$Message.success("新增成功");
+            this.init();
+            this.showAdCreateModal = false;
+          } else {
+            this.$Message.destroy();
+            this.$Message.error(resp.data.msg);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
+
   components: {
     qualityTable,
-    qualityPage
+    qualityPage,
+    uploadSingleImg,
+    uplaodImg
   },
   created() {
-    this.$store.commit("GET_USER_INFO", {
-      data: this.$store.state.app.user_search_info,
-      pageNo: this.$store.state.app.user_public_page
+    this.$store.commit("GET_QUALITY_IP_LIST", {
+      data: this.$store.state.app.quality_ip_search_info,
+      pageNo: this.$store.state.app.quality_ip_public_page
     });
   }
 };

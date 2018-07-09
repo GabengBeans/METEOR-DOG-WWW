@@ -194,6 +194,13 @@ export default {
             pageNo:index
           })
           break;
+
+        case "qualityAd":
+          this.$store.commit("GET_QUALITY_IP_LIST",{
+            data:this.$store.state.app.quality_ip_search_info,
+            pageNo:index
+          })
+          break;
       }
     }
   }

@@ -18,11 +18,11 @@
                         </Select>
                     </FormItem>
                     <FormItem label="序号">
-                        <Input v-model="createObj.sort" style="width:60%;min-width:200px" />
+                        <Input clearable v-model="createObj.sort" style="width:60%;min-width:200px" />
                         <span style="color:blue;margin-left:15px">序号越小位置越靠前</span>
                     </FormItem>
                     <FormItem v-if="createObj.adType!=5" :label="labelStr">
-                        <Input v-model="createObj.serviceId" style="width:60%;min-width:200px" />
+                        <Input clearable v-model="createObj.serviceId" style="width:60%;min-width:200px" />
                         <Button v-if="createObj.adType==2 || createObj.adType==3" type="info" style="margin-left:15px" @click="getServiceDetail(createObj.adType,createObj.serviceId)">{{createObj.adType==2?"服务详情":"需求详情"}}</Button>
                     </FormItem>
                     <FormItem label="展示图片">

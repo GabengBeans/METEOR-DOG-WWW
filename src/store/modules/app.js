@@ -377,6 +377,15 @@ const app = {
         },
         activities_ad_public_page: 1,
 
+        //品质IP
+        quality_ip_search_info: {adItemId: 3},
+        quality_ip_search_result: [],
+        quality_ip_page_info: {
+            currentPage: "",
+            totalPage: ""
+        },
+        quality_ip_public_page: 1,
+
 
         cachePage: [],
         lang: '',
@@ -1935,6 +1944,38 @@ const app = {
                     state.activities_ad_search_result = resp.data.data.items
                     state.activities_ad_page_info.currentPage = resp.data.data.page
                     state.activities_ad_page_info.totalCount = resp.data.data.totalCount
+                }
+            }).catch(error => {
+                console.log(error)
+            })
+        },
+
+        //获取品质IP广告列表
+        GET_QUALITY_IP_LIST(state, {
+            data,
+            pageNo
+        }) {
+            state.quality_ip_search_info = data
+            state.quality_ip_public_page = pageNo
+            util.ajax({
+                method: "post",
+                url: base_uri.query_adverts_url,
+                params: {
+                    pageNo: pageNo,
+                    pageSize: 10,
+                },
+                data: data
+            }).then(resp => {
+                let useStatusArr = ["","上线","下线"]
+                if (resp.data.success) {
+                    resp.data.data.items.map(item => {
+                        item.createTime = item.createTime ? util.formatDate(new Date(item.createTime), "yyyy-MM-dd hh:mm:ss") : ""
+                        item.auditTime = item.auditTime ? util.formatDate(new Date(item.auditTime), "yyyy-MM-dd hh:mm:ss") : ""
+                        item.MyUseStatus = useStatusArr[Number(item.useStatus)]
+                    })
+                    state.quality_ip_search_result = resp.data.data.items
+                    state.quality_ip_page_info.currentPage = resp.data.data.page
+                    state.quality_ip_page_info.totalCount = resp.data.data.totalCount
                 }
             }).catch(error => {
                 console.log(error)
