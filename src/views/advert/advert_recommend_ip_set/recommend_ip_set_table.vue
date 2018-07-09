@@ -372,7 +372,7 @@ export default {
           this.serviceName = obj.title
           for(let i=0; i<obj.mediaList.length;i++)
           {
-            if(obj.mediaList[i].businessType==1)
+            if(obj.mediaList[i].mediaType==1)
             {
               this.imgArray.push(obj.mediaList[i].mediaUrl)
             }

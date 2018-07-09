@@ -1,4 +1,7 @@
-import { otherRouter, appRouter } from '@/router/router';
+import {
+    otherRouter,
+    appRouter
+} from '@/router/router';
 import util from '@/libs/util';
 //import Cookies from 'js-cookie';
 //import Vue from 'vue';
@@ -10,12 +13,14 @@ const app = {
         temp_status: true,
         videoId: "",
         //用户公共状态
-        user_page_info: {//用户页页码
+        user_page_info: { //用户页页码
             currentPage: 1,
             totalPage: 0
         },
-        user_search_info: { "status": "-1" },//用户页搜索条件
-        user_search_result: [],//用户页搜过结果
+        user_search_info: {
+            "status": "-1"
+        }, //用户页搜索条件
+        user_search_result: [], //用户页搜过结果
         user_public_page: 1,
         //用户权限公共状态
         user_ability_page_info: {
@@ -31,7 +36,10 @@ const app = {
             currentPage: 1,
             totalPage: 0
         },
-        request_search_info: { "businessStatus": "0", "status": "-1" },
+        request_search_info: {
+            "businessStatus": "0",
+            "status": "-1"
+        },
         request_search_result: [],
         request_public_page: 1,
 
@@ -40,7 +48,10 @@ const app = {
             currentPage: 1,
             totalPage: 0
         },
-        service_search_info: { "businessStatus": "0", "status": "-1" },
+        service_search_info: {
+            "businessStatus": "0",
+            "status": "-1"
+        },
         service_search_result: [],
         service_public_page: 1,
 
@@ -49,7 +60,10 @@ const app = {
             currentPage: 1,
             totalPage: 0
         },
-        order_demand_search_info: { "businessType": "2", "orderStatus": "0" },
+        order_demand_search_info: {
+            "businessType": "2",
+            "orderStatus": "0"
+        },
         order_demand_search_result: [],
         order_demand_public_page: 1,
 
@@ -58,12 +72,18 @@ const app = {
             currentPage: 1,
             totalPage: 0
         },
-        order_service_search_info: { "businessType": "1", "orderStatus": "0" },
+        order_service_search_info: {
+            "businessType": "1",
+            "orderStatus": "0"
+        },
         order_service_search_result: [],
         order_service_public_page: 1,
 
         //资金流水公共状态
-        cash_flow_search_info: { "chargeStatus": "-1", "tradeType": "0" },
+        cash_flow_search_info: {
+            "chargeStatus": "-1",
+            "tradeType": "0"
+        },
         cash_flow_page_info: {
             currentPage: 1,
             totalPage: 0
@@ -72,7 +92,9 @@ const app = {
         cash_flow_public_page: 1,
 
         //保障金
-        cash_refund_search_info: { "bondStatus": "-1" },
+        cash_refund_search_info: {
+            "bondStatus": "-1"
+        },
         cash_refund_page_info: {
             currentPage: 1,
             totalPage: 0
@@ -81,7 +103,9 @@ const app = {
         cash_refund_public_page: 1,
 
         //提现
-        cash_withdraw_search_info: { "applyStatus": "-1" },
+        cash_withdraw_search_info: {
+            "applyStatus": "-1"
+        },
         cash_withdraw_page_info: {
             currentPage: 1,
             totalPage: 0
@@ -123,15 +147,15 @@ const app = {
         },
         advert_position_search_result: [],
         advert_position_public_page: 1,
-        
+
         //推荐IP
-        recommend_ip_search_info:{},
-        recommend_ip_page_info:{
-            currentPage:1,
-            totalPage:0
+        recommend_ip_search_info: {},
+        recommend_ip_page_info: {
+            currentPage: 1,
+            totalPage: 0
         },
-        recommend_ip_search_result:[],
-        recommend_ip_public_page:1,
+        recommend_ip_search_result: [],
+        recommend_ip_public_page: 1,
 
         //售后管理
         after_feedback_search_info: {},
@@ -147,7 +171,9 @@ const app = {
             currentPage: 1,
             totalPage: 0
         },
-        expand_search_info: { "expandStatus": "-1" },
+        expand_search_info: {
+            "expandStatus": "-1"
+        },
         expand_search_result: [],
 
         // 拓展用户--返佣订单审核
@@ -155,7 +181,9 @@ const app = {
             currentPage: 1,
             totalPage: 0
         },
-        brokerage_order_search_info: { "businessStatus": "0" },
+        brokerage_order_search_info: {
+            "businessStatus": "0"
+        },
         brokerage_order_search_result: [],
         // 拓展用户 -- 佣金结算
         expand_charge_page_info: {
@@ -261,32 +289,32 @@ const app = {
         audit_operation_public_page: 1,
 
         //用户统计，服务统计，需求统计，订单统计
-        audit_user_search_info:{},
+        audit_user_search_info: {},
         audit_user_public_page: 1,
         audit_user_page_info: {
             currentPage: 1,
             totalPage: 0
         },
-        audit_service_search_info:{},
+        audit_service_search_info: {},
         audit_service_public_page: 1,
         audit_service_page_info: {
             currentPage: 1,
             totalPage: 0
         },
-        audit_demand_search_info:{},
+        audit_demand_search_info: {},
         audit_demand_public_page: 1,
         audit_demand_page_info: {
             currentPage: 1,
             totalPage: 0
         },
-        audit_order_search_info:{},
+        audit_order_search_info: {},
         audit_order_public_page: 1,
         audit_order_page_info: {
             currentPage: 1,
             totalPage: 0
         },
         audit_all_search_result: [],
-        
+
         //im查询会话
         query_session_search_info: {},
         query_session_page_info: {
@@ -318,19 +346,36 @@ const app = {
         ip_coupon_detail_query_public_page: 1,
 
         //广告红包
-        search_advert_coupon_result:[],
+        search_advert_coupon_result: [],
 
         //动态
-        dynamic_search_info:{
+        dynamic_search_info: {
             "businessStatus": 0
         },
-        dynamic_search_result:[],
-        dynamic_page_info:{
-            currentPage:"",
-            totalPage:""
+        dynamic_search_result: [],
+        dynamic_page_info: {
+            currentPage: "",
+            totalPage: ""
         },
-        dynamic_public_page:1,
+        dynamic_public_page: 1,
 
+        //banner广告
+        banner_ad_search_info: {adItemId: 1},
+        banner_ad_search_result: [],
+        banner_ad_page_info: {
+            currentPage: "",
+            totalPage: ""
+        },
+        banner_ad_public_page: 1,
+        
+        //活动广告
+        activities_ad_search_info: {adItemId: 2},
+        activities_ad_search_result: [],
+        activities_ad_page_info: {
+            currentPage: "",
+            totalPage: ""
+        },
+        activities_ad_public_page: 1,
 
 
         cachePage: [],
@@ -345,13 +390,11 @@ const app = {
             name: 'home_index'
         }],
         currentPageName: '',
-        currentPath: [
-            {
-                title: '首页',
-                path: '',
-                name: 'home_index'
-            }
-        ], // 面包屑数组
+        currentPath: [{
+            title: '首页',
+            path: '',
+            name: 'home_index'
+        }], // 面包屑数组
         menuList: [],
         routers: [
             otherRouter,
@@ -365,21 +408,20 @@ const app = {
         setTagsList(state, list) {
             state.tagsList.push(...list);
         },
-        addRouter(state,menus){
-            for(let i in menus){
+        addRouter(state, menus) {
+            for (let i in menus) {
                 state.routers.push(menus[i])
             }
         },
         updateMenulist(state) {
             //let accessCode = parseInt(Cookies.get('access'));
             let menuList = [];
-            let menus =[]
-            if(sessionStorage.getItem('menus'))
-            {
+            let menus = []
+            if (sessionStorage.getItem('menus')) {
                 menus = util.createMenus(JSON.parse(sessionStorage.getItem('menus')))
             }
             menus.forEach((item, index) => {
-               
+
                 if (item.children.length === 1) {
                     menuList.push(item);
                 } else {
@@ -509,7 +551,10 @@ const app = {
             localStorage.pageOpenedList = JSON.stringify(state.pageOpenedList);
         },
         //获取用户信息
-        GET_USER_INFO(state, { data, pageNo }) {
+        GET_USER_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.user_search_info = data
             state.user_public_page = pageNo
             util.ajax({
@@ -531,19 +576,22 @@ const app = {
                 for (let x in arr) {
                     if (arr[x].status == '1') {
                         state.user_search_result[x].status = '正常'
-                    }else {
+                    } else {
                         state.user_search_result[x].status = '禁用'
                     }
-                    
+
                     state.user_search_result[x].meteorScore = parseFloat(arr[x].meteorScore / 10).toFixed(1)
                     state.user_search_result[x].amount = parseFloat(arr[x].amount / 100).toFixed(2)
-                    state.user_search_result[x].createTime = util.formatDate(new Date(arr[x].createTime),"yyyy-MM-dd hh:mm:ss")
+                    state.user_search_result[x].createTime = util.formatDate(new Date(arr[x].createTime), "yyyy-MM-dd hh:mm:ss")
                 }
                 //Cookies.set("user_search_result",JSON.stringify(state.user_search_result))
             })
         },
         //获取用户权限list
-        GET_USER_ABILITY_LIST(state, { data, pageNo }) {
+        GET_USER_ABILITY_LIST(state, {
+            data,
+            pageNo
+        }) {
             state.user_ability_search_info = data
             state.user_ability_public_page = pageNo
             util.ajax({
@@ -562,7 +610,9 @@ const app = {
                     state.user_ability_page_info.totalPage = res.data.data.totalCount
                     let arr = res.data.data.items
                     //console.log(state.user_ability_search_result)
-                    let abilityName = { "ability01": "IP红包权限" }
+                    let abilityName = {
+                        "ability01": "IP红包权限"
+                    }
                     for (let x = 0; x < arr.length; x++) {
                         Vue.set(state.user_ability_search_result[x], "showStr", "")
                         for (let y in arr[x]) {
@@ -585,7 +635,10 @@ const app = {
 
 
         //需求信息
-        GET_REQUEST_INFO(state, { data, pageNo }) {
+        GET_REQUEST_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.request_search_info = data
             state.request_public_page = pageNo
             util.ajax({
@@ -621,7 +674,10 @@ const app = {
             })
         },
         //服务信息
-        GET_SERVICE_INFO(state, { data, pageNo }) {
+        GET_SERVICE_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.service_search_info = data
             state.service_public_page = pageNo
             util.ajax({
@@ -655,7 +711,10 @@ const app = {
             })
         },
         //需求订单
-        GET_ORDER_DEMAND_INFO(state, { data, pageNo }) {
+        GET_ORDER_DEMAND_INFO(state, {
+            data,
+            pageNo
+        }) {
             Vue.set(data, 'businessType', '2')
             state.order_demand_search_info = data
             state.order_demand_public_page = pageNo
@@ -690,7 +749,10 @@ const app = {
             })
         },
         //服务订单
-        GET_ORDER_SERVICE_INFO(state, { data, pageNo }) {
+        GET_ORDER_SERVICE_INFO(state, {
+            data,
+            pageNo
+        }) {
             Vue.set(data, 'businessType', '1')
             state.order_service_search_info = data
             state.order_service_public_page = pageNo
@@ -725,7 +787,10 @@ const app = {
             })
         },
         //拓展信息
-        GET_EXPAND_INFO(state, { data, pageNo }) {
+        GET_EXPAND_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.expand_search_info = data
             state.expand_public_page = pageNo
             util.ajax({
@@ -757,7 +822,10 @@ const app = {
                 }
             })
         },
-        GET_EXPAND_CHARGE_INFO(state, { data, pageNo }) {
+        GET_EXPAND_CHARGE_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.expand_charge_search_info = data
             util.ajax({
                 method: "post",
@@ -791,7 +859,10 @@ const app = {
                 }
             })
         },
-        GET_EXPAND_GROUP_INFO(state, { data, pageNo }) {
+        GET_EXPAND_GROUP_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.expand_group_search_info = data
             util.ajax({
                 method: "post",
@@ -813,7 +884,10 @@ const app = {
             })
         },
         //绑定代理人
-        GET_GROUP_BIND_INFO(state, { data, pageNo }) {
+        GET_GROUP_BIND_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.group_bind_search_info = data
             util.ajax({
                 method: "post",
@@ -839,7 +913,11 @@ const app = {
             })
         },
         //解绑代理人
-        GET_GROUP_UNBUNDLING_INFO(state, { data, pageNo, groupId }) {
+        GET_GROUP_UNBUNDLING_INFO(state, {
+            data,
+            pageNo,
+            groupId
+        }) {
             state.group_unbundling_search_info = data
             util.ajax({
                 method: "post",
@@ -866,7 +944,10 @@ const app = {
             })
         },
         //资金信息
-        GET_CASH_FLOW_INFO(state, { data, pageNo }) {
+        GET_CASH_FLOW_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.cash_flow_search_info = data
             state.cash_flow_public_page = pageNo
             util.ajax({
@@ -902,7 +983,7 @@ const app = {
                     state.cash_flow_search_result[x].chargeStatus = chargeStatusArr[chargeStatus]
                     state.cash_flow_search_result[x].tradeType = tradeTypeArr[tradeType]
                     state.cash_flow_search_result[x].amount = parseInt(arr[x].amount) / 100 + "元"
-                    state.cash_flow_search_result[x].uamount = Number.parseInt(arr[x].uamount)/ 100 + "元"
+                    state.cash_flow_search_result[x].uamount = Number.parseInt(arr[x].uamount) / 100 + "元"
                     state.cash_flow_search_result[x].isIncoming = isIncomingArr[isIncoming]
                     state.cash_flow_search_result[x].paymentType = paymentTypeArr[paymentType]
                     state.cash_flow_search_result[x].status = statusArr[status]
@@ -913,7 +994,10 @@ const app = {
             })
         },
         //保障金退回
-        GET_CASH_REFUND_INFO(state, { data, pageNo }) {
+        GET_CASH_REFUND_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.cash_refund_search_info = data
             state.cash_refund_public_page = pageNo
             util.ajax({
@@ -949,7 +1033,10 @@ const app = {
             })
         },
         //提现申请
-        GET_CASH_WITHDRAW_INFO(state, { data, pageNo }) {
+        GET_CASH_WITHDRAW_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.cash_withdraw_search_info = data
             state.cash_withdraw_public_page = pageNo
             util.ajax({
@@ -985,7 +1072,10 @@ const app = {
             })
         },
         //商户入住
-        GET_MERCHANT_ENTER_INFO(state, { data, pageNo }) {
+        GET_MERCHANT_ENTER_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.merchant_enter_search_info = data
             state.merchant_enter_public_page = pageNo
 
@@ -1016,7 +1106,10 @@ const app = {
                 console.log(error)
             })
         },
-        GET_BUSINESS_ENTER_FOR_PAGE_INFO(state, { data, pageNo }) {
+        GET_BUSINESS_ENTER_FOR_PAGE_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.merchant_bussiness_enter_search_info = data
             state.merchant_bussiness_enter_public_page = pageNo
             util.ajax({
@@ -1039,8 +1132,7 @@ const app = {
                     for (let y in arr[x]) {
                         if (y == "userStatus") {
                             state.merchant_bussiness_enter_search_result[x].userStatus = status[arr[x][y]]
-                        }
-                        else if (y == "meteorScore") {
+                        } else if (y == "meteorScore") {
                             if (arr[x][y]) {
                                 state.merchant_bussiness_enter_search_result[x].meteorScore = (parseInt(arr[x][y]) / 10).toFixed(1)
                             } else {
@@ -1059,7 +1151,10 @@ const app = {
         },
         //search_business_enter_for_page_url
         //拓展管理-返佣订单审核
-        GET_BROKERAGE_ORDER_INFO(state, { data, pageNo }) {
+        GET_BROKERAGE_ORDER_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.brokerage_order_search_info = data
             util.ajax({
                 method: "post",
@@ -1100,7 +1195,10 @@ const app = {
             })
         },
         //广告管理
-        GET_ADVERT_NEW_INFO(state, { data, pageNo }) {
+        GET_ADVERT_NEW_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.advert_new_search_info = data
             state.advert_new_public_page = pageNo
 
@@ -1132,7 +1230,10 @@ const app = {
             })
         },
         //广告位管理
-        GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO(state, { data, pageNo }) {
+        GET_ADVERT_POSITION_SEARCH_FOR_PAGE_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.advert_position_search_info = data
             state.advert_position_public_page = pageNo
 
@@ -1167,7 +1268,10 @@ const app = {
             })
         },
         //推荐IP
-        GET_RECOMMEND_FOR_PAGE_INFO(state,{data,pageNo}){
+        GET_RECOMMEND_FOR_PAGE_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.recommend_ip_search_info = data
             state.recommend_ip_public_page = pageNo
 
@@ -1180,31 +1284,31 @@ const app = {
                 },
                 data: data
             }).then((response) => {
-                if(response.data.success)
-                {
+                if (response.data.success) {
                     const obj = response.data.data
                     state.recommend_ip_page_info.currentPage = obj.page
                     state.recommend_ip_page_info.totalPage = obj.totalCount
                     //console.log(state.recommend_ip_page_info.totalPage)
                     state.recommend_ip_search_result = obj.items
-                    const displayArr = ["已下线","已上线"]
-                    for(let x in obj.items){
-                        for(let y in obj.items[x])
-                        {
-                            if(y == "display")
-                            {
+                    const displayArr = ["已下线", "已上线"]
+                    for (let x in obj.items) {
+                        for (let y in obj.items[x]) {
+                            if (y == "display") {
                                 state.recommend_ip_search_result[x][y] = displayArr[obj.items[x][y]]
                             }
                         }
                     }
                 }
-                
+
             }).catch((error) => {
                 console.log(error)
             })
         },
         //售后管理
-        GET_AFTER_FEEDBACK_INFO(state, { data, pageNo }) {
+        GET_AFTER_FEEDBACK_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.after_feedback_search_info = data
             state.after_feedback_public_page = pageNo
 
@@ -1237,7 +1341,9 @@ const app = {
         },
 
         //类别管理
-        GET_CATEGORY_SEARCH_INFO(state, { businessType }) {
+        GET_CATEGORY_SEARCH_INFO(state, {
+            businessType
+        }) {
             util.ajax({
                 method: "get",
                 url: base_uri.category_search_url,
@@ -1265,7 +1371,9 @@ const app = {
             })
         },
         //标签管理
-        GET_LABEL_LIST_SEARCH_INFO(state, { lableType }) {
+        GET_LABEL_LIST_SEARCH_INFO(state, {
+            lableType
+        }) {
             util.ajax({
                 method: "get",
                 url: base_uri.label_search_label_list_url,
@@ -1314,7 +1422,9 @@ const app = {
             })
         },
         //统计
-        GET_ORDER_STATISTICS_SEARCH_INFO(state, { time }) {
+        GET_ORDER_STATISTICS_SEARCH_INFO(state, {
+            time
+        }) {
             util.ajax({
                 method: "post",
                 url: base_uri.order_statistics_query,
@@ -1331,7 +1441,10 @@ const app = {
             })
         },
         //系统变量
-        GET_SYSTEM_SETTINGS_SEARCH_INFO(state, { data, pageNo }) {
+        GET_SYSTEM_SETTINGS_SEARCH_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.system_settings_search_info = data
             state.system_settings_public_page = pageNo
 
@@ -1363,7 +1476,10 @@ const app = {
             })
         },
         //app管理
-        GET_APP_SEARCH_INFO(state, { data, pageNo }) {
+        GET_APP_SEARCH_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.app_public_page = pageNo
 
             util.ajax({
@@ -1389,7 +1505,10 @@ const app = {
             })
         },
         //权限管理-用户管理
-        GET_SEARCH_ADIMIN_USER_INFO(state, { data, pageNo }) {
+        GET_SEARCH_ADIMIN_USER_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.admin_user_search_info = data
             state.admin_user_public_page = pageNo
             util.ajax({
@@ -1422,7 +1541,10 @@ const app = {
             })
         },
         //权限管理-角色管理
-        GET_SEARCH_ADIMIN_ROLE_INFO(state, { data, pageNo }) {
+        GET_SEARCH_ADIMIN_ROLE_INFO(state, {
+            data,
+            pageNo
+        }) {
             //console.log(data)
             state.admin_role_search_info = data
             state.admin_role_public_page = pageNo
@@ -1467,114 +1589,123 @@ const app = {
             })
         },
         //数据统计
-        GET_AUDIT_OPERATION_INFO(state, { data, pageNo }) {
+        GET_AUDIT_OPERATION_INFO(state, {
+            data,
+            pageNo
+        }) {
             state.audit_operation_search_info = data
             state.audit_operation_public_page = pageNo
             util.ajax({
-                method: "post",
-                url: base_uri.search_audit_operation_log_for_page_url,
-                params: {
-                    pageNo: pageNo || 1,
-                    pageSize: 10
-                },
-                data: data
-            }).then(res => {
-                if (res.data.success) {
-                    state.audit_operation = res.data.data
-                    state.audit_operation_page_info.currentPage = res.data.data.pageAuditOperationLogResult.page
-                    state.audit_operation_page_info.totalPage = res.data.data.pageAuditOperationLogResult.totalCount
-                    let obj = res.data.data.pageAuditOperationLogResult.items
-                    state.audit_operation_search_result = obj
-                    for (let x = 0; x < obj.length; x++) {
-                        for (let y in obj[x]) {
-                            //console.log(y)
-                            if (y == "bussinessTime" || y == "opertateTime") {
-                                let time = util.formatDate(new Date(obj[x][y]), "yyyy-MM-dd hh:mm:ss")
-                                state.audit_operation_search_result[x][y] = time
+                    method: "post",
+                    url: base_uri.search_audit_operation_log_for_page_url,
+                    params: {
+                        pageNo: pageNo || 1,
+                        pageSize: 10
+                    },
+                    data: data
+                }).then(res => {
+                    if (res.data.success) {
+                        state.audit_operation = res.data.data
+                        state.audit_operation_page_info.currentPage = res.data.data.pageAuditOperationLogResult.page
+                        state.audit_operation_page_info.totalPage = res.data.data.pageAuditOperationLogResult.totalCount
+                        let obj = res.data.data.pageAuditOperationLogResult.items
+                        state.audit_operation_search_result = obj
+                        for (let x = 0; x < obj.length; x++) {
+                            for (let y in obj[x]) {
+                                //console.log(y)
+                                if (y == "bussinessTime" || y == "opertateTime") {
+                                    let time = util.formatDate(new Date(obj[x][y]), "yyyy-MM-dd hh:mm:ss")
+                                    state.audit_operation_search_result[x][y] = time
+                                }
                             }
-                        }
 
+                        }
+                        //console.log(state.audit_operation_search_result)
                     }
-                    //console.log(state.audit_operation_search_result)
-                }
-            })
+                })
                 .catch(err => {
                     console.log(err)
                 })
         },
         //用户统计、服务统计、需求统计、订单统计
-        GET_AUDIT_ALL_INFO(state, { data, pageNo, name}) {
-            switch(name){
+        GET_AUDIT_ALL_INFO(state, {
+            data,
+            pageNo,
+            name
+        }) {
+            switch (name) {
                 case "user":
-                state.audit_user_search_info = data
-                state.audit_user_public_page = pageNo
-                break
+                    state.audit_user_search_info = data
+                    state.audit_user_public_page = pageNo
+                    break
                 case "service":
-                state.audit_service_search_info = data
-                state.audit_service_public_page = pageNo
-                break
+                    state.audit_service_search_info = data
+                    state.audit_service_public_page = pageNo
+                    break
                 case "demand":
-                state.audit_demand_search_info = data
-                state.audit_demand_public_page = pageNo
-                break
+                    state.audit_demand_search_info = data
+                    state.audit_demand_public_page = pageNo
+                    break
                 case "order":
-                state.audit_order_search_info = data
-                state.audit_order_public_page = pageNo
-                break
+                    state.audit_order_search_info = data
+                    state.audit_order_public_page = pageNo
+                    break
             }
             util.ajax({
-                method: "post",
-                url: base_uri.search_statistics_system_daily_info_for_page_url,
-                params: {
-                    pageNo: pageNo || 1,
-                    pageSize: 10
-                },
-                data: data
-            }).then(resp => {
-                if (resp.data.success) {
-                    //console.log(resp)
-                    state.audit_all_search_result = resp.data.data.items
-                    switch(name){
-                        case "user":
-                        state.audit_user_page_info.currentPage = resp.data.data.page
-                        state.audit_user_page_info.totalPage = resp.data.data.totalCount
-                        break
-                        case "service":
-                        state.audit_service_page_info.currentPage = resp.data.data.page
-                        state.audit_service_page_info.totalPage = resp.data.data.totalCount
-                        break
-                        case "demand":
-                        state.audit_demand_page_info.currentPage = resp.data.data.page
-                        state.audit_demand_page_info.totalPage = resp.data.data.totalCount
-                        break
-                        case "order":
-                        state.audit_order_page_info.currentPage = resp.data.data.page
-                        state.audit_order_page_info.totalPage = resp.data.data.totalCount
-                        break
-                    }
-                    let obj = resp.data.data.items
-                    for(let x in obj)
-                    {
-                        for(let y in obj[x]){
-                            if(y=="dateday"){
-                                state.audit_all_search_result[x][y] = util.formatDate(new Date(obj[x][y]),"yyyy-MM-dd")
-                            }else if(y=="sopay" || y=="dopay" || y=="ropay"){
-                                state.audit_all_search_result[x][y] = Number.parseInt(obj[x][y]/100)+"元"
+                    method: "post",
+                    url: base_uri.search_statistics_system_daily_info_for_page_url,
+                    params: {
+                        pageNo: pageNo || 1,
+                        pageSize: 10
+                    },
+                    data: data
+                }).then(resp => {
+                    if (resp.data.success) {
+                        //console.log(resp)
+                        state.audit_all_search_result = resp.data.data.items
+                        switch (name) {
+                            case "user":
+                                state.audit_user_page_info.currentPage = resp.data.data.page
+                                state.audit_user_page_info.totalPage = resp.data.data.totalCount
+                                break
+                            case "service":
+                                state.audit_service_page_info.currentPage = resp.data.data.page
+                                state.audit_service_page_info.totalPage = resp.data.data.totalCount
+                                break
+                            case "demand":
+                                state.audit_demand_page_info.currentPage = resp.data.data.page
+                                state.audit_demand_page_info.totalPage = resp.data.data.totalCount
+                                break
+                            case "order":
+                                state.audit_order_page_info.currentPage = resp.data.data.page
+                                state.audit_order_page_info.totalPage = resp.data.data.totalCount
+                                break
+                        }
+                        let obj = resp.data.data.items
+                        for (let x in obj) {
+                            for (let y in obj[x]) {
+                                if (y == "dateday") {
+                                    state.audit_all_search_result[x][y] = util.formatDate(new Date(obj[x][y]), "yyyy-MM-dd")
+                                } else if (y == "sopay" || y == "dopay" || y == "ropay") {
+                                    state.audit_all_search_result[x][y] = Number.parseInt(obj[x][y] / 100) + "元"
+                                }
                             }
                         }
+
+
+                    } else {
+                        this.$Message.error("信息获取失败")
                     }
-                    
-                    
-                }else{
-                    this.$Message.error("信息获取失败")
-                }
-            })
+                })
                 .catch(err => {
                     console.log(err)
                 })
         },
         //查询会话列表
-        GET_SEARCH_CHATLOG_FOR_PAGE(state, { data, pageNo }) {
+        GET_SEARCH_CHATLOG_FOR_PAGE(state, {
+            data,
+            pageNo
+        }) {
             state.query_session_search_info = data
             state.query_session_public_page = pageNo
             util.ajax({
@@ -1596,7 +1727,10 @@ const app = {
             })
         },
         //ip红包查询
-        GET_IP_COUPON_QUERY_LIST(state, { data, pageNo }) {
+        GET_IP_COUPON_QUERY_LIST(state, {
+            data,
+            pageNo
+        }) {
             state.ip_coupon_query_search_info = data
             state.ip_coupon_query_public_page = pageNo
             util.ajax({
@@ -1631,7 +1765,10 @@ const app = {
             })
         },
         //IP红包详情查询
-        GET_IP_COUPON_DETAIL_QUERY_LIST(state, { data, pageNo }) {
+        GET_IP_COUPON_DETAIL_QUERY_LIST(state, {
+            data,
+            pageNo
+        }) {
             state.ip_coupon_detail_query_search_info = data
             state.ip_coupon_detail_query_public_page = pageNo
             util.ajax({
@@ -1676,12 +1813,12 @@ const app = {
         },
 
         //获取广告红包数据
-        GET_ADVERT_COUPON_LIST(state){
+        GET_ADVERT_COUPON_LIST(state) {
             util.ajax({
-                method:"post",
-                url:base_uri.search_advert_coupon_for_page_url
-            }).then(resp=>{
-                if(resp.data.success){
+                method: "post",
+                url: base_uri.search_advert_coupon_for_page_url
+            }).then(resp => {
+                if (resp.data.success) {
                     state.search_advert_coupon_result = resp.data.data.items[0]
                 }
             }).catch(error => {
@@ -1689,34 +1826,121 @@ const app = {
             })
         },
 
-         //获取动态数据
-    GET_DYNAMIC_LIST(state,{data,pageNo}){
-        state.dynamic_search_info = data
-        state.dynamic_public_page = pageNo
-        util.ajax({
-            method:"post",
-            url:base_uri.search_dynamic_for_page_url,
-            params:{
-                pageNo:pageNo,
-                pageSize:10,
-            },
-            data:data
-        }).then(resp=>{
-            if(resp.data.success){
-                let statusArr = ["","待审核","通过","驳回","用户已删除"]
-                resp.data.data.items.map(item=>{
-                    item.createTime = item.createTime?util.formatDate(new Date(item.createTime),"yyyy-MM-dd hh:mm:ss" ):""
-                    item.auditTime = item.auditTime?util.formatDate(new Date(item.auditTime),"yyyy-MM-dd hh:mm:ss" ):""
-                    item.businessStatus = statusArr[item.businessStatus]
-                })
-                state.dynamic_search_result = resp.data.data.items
-                state.dynamic_page_info.currentPage = resp.data.data.page
-                state.dynamic_page_info.totalCount = resp.data.data.totalCount
-            }
-        }).catch(error=>{
-            console.log(error)
-        })
-    }
+        //获取动态数据
+        GET_DYNAMIC_LIST(state, {
+            data,
+            pageNo
+        }) {
+            state.dynamic_search_info = data
+            state.dynamic_public_page = pageNo
+            util.ajax({
+                method: "post",
+                url: base_uri.search_dynamic_for_page_url,
+                params: {
+                    pageNo: pageNo,
+                    pageSize: 10,
+                },
+                data: data
+            }).then(resp => {
+                if (resp.data.success) {
+                    let statusArr = ["", "待审核", "通过", "驳回", "用户已删除"]
+                    resp.data.data.items.map(item => {
+                        item.createTime = item.createTime ? util.formatDate(new Date(item.createTime), "yyyy-MM-dd hh:mm:ss") : ""
+                        item.auditTime = item.auditTime ? util.formatDate(new Date(item.auditTime), "yyyy-MM-dd hh:mm:ss") : ""
+                        item.businessStatus = statusArr[item.businessStatus]
+                    })
+                    state.dynamic_search_result = resp.data.data.items
+                    state.dynamic_page_info.currentPage = resp.data.data.page
+                    state.dynamic_page_info.totalCount = resp.data.data.totalCount
+                }
+            }).catch(error => {
+                console.log(error)
+            })
+        },
+        //获取banner广告列表
+        GET_BANNER_AD_LIST(state, {
+            data,
+            pageNo
+        }) {
+            state.banner_ad_search_info = data
+            state.banner_ad_public_page = pageNo
+            util.ajax({
+                method: "post",
+                url: base_uri.query_adverts_url,
+                params: {
+                    pageNo: pageNo,
+                    pageSize: 10,
+                },
+                data: data
+            }).then(resp => {
+                let tempArr = [
+                    "",
+                    "IP广告",
+                    "服务广告",
+                    "需求广告",
+                    "动态广告",
+                    "红包广告",
+                    "H5广告"
+                ];
+                let useStatusArr = ["","上线","下线"]
+                if (resp.data.success) {
+                    resp.data.data.items.map(item => {
+                        item.createTime = item.createTime ? util.formatDate(new Date(item.createTime), "yyyy-MM-dd hh:mm:ss") : ""
+                        item.auditTime = item.auditTime ? util.formatDate(new Date(item.auditTime), "yyyy-MM-dd hh:mm:ss") : ""
+                        item.MyAdTypeId = tempArr[Number(item.adTypeId)]
+                        item.MyUseStatus = useStatusArr[Number(item.useStatus)]
+                    })
+                    state.banner_ad_search_result = resp.data.data.items
+                    state.banner_ad_page_info.currentPage = resp.data.data.page
+                    state.banner_ad_page_info.totalCount = resp.data.data.totalCount
+                }
+            }).catch(error => {
+                console.log(error)
+            })
+        },
+
+        //获取活动广告列表
+        GET_ACTIVITIES_AD_LIST(state, {
+            data,
+            pageNo
+        }) {
+            state.activities_ad_search_info = data
+            state.activities_ad_public_page = pageNo
+            util.ajax({
+                method: "post",
+                url: base_uri.query_adverts_url,
+                params: {
+                    pageNo: pageNo,
+                    pageSize: 10,
+                },
+                data: data
+            }).then(resp => {
+                let tempArr = [
+                    "",
+                    "IP广告",
+                    "服务广告",
+                    "需求广告",
+                    "动态广告",
+                    "红包广告",
+                    "H5广告"
+                ];
+                let useStatusArr = ["","上线","下线"]
+                if (resp.data.success) {
+                    resp.data.data.items.map(item => {
+                        item.createTime = item.createTime ? util.formatDate(new Date(item.createTime), "yyyy-MM-dd hh:mm:ss") : ""
+                        item.auditTime = item.auditTime ? util.formatDate(new Date(item.auditTime), "yyyy-MM-dd hh:mm:ss") : ""
+                        item.MyAdTypeId = tempArr[Number(item.adTypeId)]
+                        item.MyUseStatus = useStatusArr[Number(item.useStatus)]
+                    })
+                    state.activities_ad_search_result = resp.data.data.items
+                    state.activities_ad_page_info.currentPage = resp.data.data.page
+                    state.activities_ad_page_info.totalCount = resp.data.data.totalCount
+                }
+            }).catch(error => {
+                console.log(error)
+            })
+        },
     }
 }
+
 export default app

@@ -1,6 +1,6 @@
 <template>
   <div  style="z-index:1001">
-    <div class="demo-upload-list" v-for="(item,key) in uploadList" v-if="item" :key="item.key">
+    <div class="demo-upload-list" v-for="(item,key) in uploadList" v-if="item" :key="item">
         <img :src="aliyun + item">
         <div class="demo-upload-list-cover" >
           <Icon type="ios-eye-outline" @click.native="handleView(item,key)" style="margin-right:10px"></Icon>

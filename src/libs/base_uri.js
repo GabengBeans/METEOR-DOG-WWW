@@ -208,6 +208,15 @@ let base_uri = {
     search_dynamic_for_page_url:"/admin/v1/dynamic/search_dynamic_for_page",//动态查询
     dynamic_detail_url:"/admin/v1/dynamic/detail",
     dynamic_audit:"/admin/v1/dynamic/audit",
+
+    //新广告
+    query_advert_type_and_item_url:'/admin/v1/advert_info/query_advert_type_and_item',//查询广告项、广告类型列表
+    add_advert_url:'/admin/v1/advert_info/add_advert',//创建广告
+    query_adverts_url:'/admin/v1/advert_info/query_adverts',//分页查询
+    advert_online_downline_url:'/admin/v1/advert_info/advert_online_downline',//广告上线下线
+    delete_advert_url:'/admin/v1/advert_info/delete_advert',//移除广告
+    edit_advert_url:'/admin/v1/advert_info/edit_advert',//修改广告
+
 };
 
 export default base_uri;
