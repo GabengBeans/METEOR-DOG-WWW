@@ -31,7 +31,7 @@
             <span style="color:blue;margin-left:15px">序号越小位置越靠前</span>
           </FormItem>
           <FormItem v-if="auditObj.adType!=5" :label="labelStr">
-            <Input clearable v-model="auditObj.serviceId" style="width:60%;min-width:200px" />
+            <Input clearable v-model="auditObj.adType==6?businessName:auditObj.serviceId" style="width:60%;min-width:200px" />
             <Button v-if="auditObj.adType==2 || auditObj.adType==3" type="info" style="margin-left:15px" @click="getServiceDetail(auditObj.adType,auditObj.serviceId)">{{auditObj.adType==2?"服务详情":"需求详情"}}</Button>
           </FormItem>
           <FormItem label="展示图片">
@@ -175,6 +175,7 @@ export default {
                       this.auditObj.serviceId = params.row.businessId;
                       this.tempBusinessId = params.row.businessId;
                       this.auditObj.imgUrl = params.row.imgUrl;
+                      this.businessName = params.row.adDescribe
                       this.showAdAuditModal = true;
                     }
                   }

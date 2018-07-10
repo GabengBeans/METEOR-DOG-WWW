@@ -144,6 +144,7 @@ export default {
                       this.auditObj.serviceId = params.row.businessId;
                       this.tempBusinessId = params.row.businessId;
                       this.auditObj.imgUrl = params.row.imgUrl;
+                      this.businessName = params.row.adDescribe
                       this.showAdAuditModal = true;
                     }
                   }
