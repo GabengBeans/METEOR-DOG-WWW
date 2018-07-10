@@ -22,11 +22,11 @@
       <div>
         <Form :label-width="80" label-position="right">
           <FormItem label="序号">
-            <Input v-model="auditObj.sort" style="width:60%;min-width:200px" />
+            <Input clearable v-model="auditObj.sort" style="width:60%;min-width:200px" />
             <span style="color:blue;margin-left:15px">序号越小位置越靠前</span>
           </FormItem>
           <FormItem label="用户ID">
-            <Input v-model="auditObj.serviceId" style="width:60%;min-width:200px" />
+            <Input clearable v-model="auditObj.serviceId" style="width:60%;min-width:200px" />
           </FormItem>
           <FormItem label="展示图片">
             <upload-single-img :imgUrl="auditObj" :upload="true" :detial="true"></upload-single-img>
