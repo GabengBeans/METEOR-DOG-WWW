@@ -21,6 +21,9 @@
                     </FormItem>
                     <FormItem label="展示图片">
                         <upload-single-img :imgUrl="createObj" :upload="true" :detial="true"></upload-single-img>
+                        <div style="display:inline-block;vertical-align:top">
+                            <Button type="success" @click="getUserAvatar">使用头像</Button>
+                        </div>
                     </FormItem>
                 </Form>
             </div>
@@ -125,6 +128,31 @@ export default {
           } else {
             this.$Message.destroy();
             this.$Message.error(resp.data.msg);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    getUserAvatar(){
+        if(!this.createObj.serviceId){
+          this.$Message.error("请输入用户ID")
+          return
+      }
+       util
+        .ajax({
+          method: "get",
+          url: baseUri.user_detail_url,
+          params: {
+            userId: this.createObj.serviceId
+          }
+        })
+        .then(resp => {
+          if (resp.data.success) {
+              this.createObj.imgUrl = resp.data.data.avatarUrl
+          } else {
+              this.$Message.error("用户不存在")
+              console.log(resp.data.msg)
           }
         })
         .catch(error => {

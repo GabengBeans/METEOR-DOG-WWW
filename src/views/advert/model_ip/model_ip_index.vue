@@ -19,8 +19,12 @@
                     <FormItem label="用户ID">
                         <Input clearable v-model="createObj.serviceId" style="width:60%;min-width:200px" />
                     </FormItem>
-                    <FormItem label="展示图片">
+                    <FormItem label="展示图片" style="width:60%;min-width:200px;">
                         <upload-single-img :imgUrl="createObj" :upload="true" :detial="true"></upload-single-img>
+                        <div style="display:inline-block;vertical-align:top">
+                            <Button type="success" @click="getUserAvatar">使用头像</Button>
+                        </div>
+                        
                     </FormItem>
                 </Form>
             </div>
@@ -73,6 +77,10 @@ export default {
         content: "请求中...",
         duration: 0
       });
+      if(!this.createObj.serviceId){
+          this.$Message.error("请输入用户ID")
+          return
+      }
       util
         .ajax({
           method: "get",
@@ -125,6 +133,31 @@ export default {
           } else {
             this.$Message.destroy();
             this.$Message.error(resp.data.msg);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    getUserAvatar(){
+        if(!this.createObj.serviceId){
+          this.$Message.error("请输入用户ID")
+          return
+      }
+       util
+        .ajax({
+          method: "get",
+          url: baseUri.user_detail_url,
+          params: {
+            userId: this.createObj.serviceId
+          }
+        })
+        .then(resp => {
+          if (resp.data.success) {
+              this.createObj.imgUrl = resp.data.data.avatarUrl
+          } else {
+              this.$Message.error("用户不存在")
+              console.log(resp.data.msg)
           }
         })
         .catch(error => {
