@@ -12,7 +12,7 @@ let base_uri = {
     userLogin: "/admin/v1/oauth/token",
     //请求视频地址
     create_video_address_url:"/api/v1/video/create",
-    get_play_url:"/api/v1/video/play_url",
+    get_play_url:"/admin/v1/video/play_url",
     //服务地址
     serviceList: "admin/v1/service/search_services_for_page",
     serviceDetail: "/admin/v1/service/detail/",
