@@ -140,7 +140,7 @@ export default {
                   on: {
                     click: () => {
                       this.auditObj.id = params.row.id;
-                      this.auditObj.sort = params.row.adSort;
+                      this.auditObj.sort = params.row.adSort+'';
                       this.auditObj.serviceId = params.row.businessId;
                       this.tempBusinessId = params.row.businessId;
                       this.auditObj.imgUrl = params.row.imgUrl;
@@ -242,19 +242,30 @@ export default {
         });
     },
     saveAduitAd() {
+      if (!this.auditObj.imgUrl) {
+        this.$Message.error("请添加展示图片");
+        return;
+      }
+      if (
+        !this.auditObj.sort ||
+        this.auditObj.sort.indexOf(".") != "-1" ||
+        !Number(this.auditObj.sort)
+      ) {
+        this.$Message.error("请填写正确的序号");
+        return;
+      }
+      if (
+        !this.auditObj.serviceId ||
+        this.auditObj.serviceId.indexOf(".") != "-1" ||
+        !Number(this.auditObj.serviceId)
+      ) {
+        this.$Message.error("请正确填写用户ID");
+        return;
+      }
       this.$Message.success({
         content: "请求中...",
         duration: 0
       });
-
-      if (!this.auditObj.serviceId) {
-        this.$Message.error("请填写用户ID");
-        return;
-      }
-      if (!Number(this.auditObj.serviceId)) {
-        this.$Message.error("请正确填写用户ID");
-        return;
-      }
       if (this.auditObj.serviceId != this.tempBusinessId) {
         util
           .ajax({
@@ -316,12 +327,16 @@ export default {
           console.log(error);
         });
     },
-    getUserAvatar(){
-        if(!this.auditObj.serviceId){
-          this.$Message.error("请输入用户ID")
-          return
+    getUserAvatar() {
+      if (
+        !this.auditObj.serviceId ||
+        this.auditObj.serviceId.indexOf(".") != "-1" ||
+        !Number(this.auditObj.serviceId)
+      ) {
+        this.$Message.error("请正确填写用户ID");
+        return;
       }
-       util
+      util
         .ajax({
           method: "get",
           url: baseUri.user_detail_url,
@@ -331,10 +346,10 @@ export default {
         })
         .then(resp => {
           if (resp.data.success) {
-              this.auditObj.imgUrl = resp.data.data.avatarUrl
+            this.auditObj.imgUrl = resp.data.data.avatarUrl;
           } else {
-              this.$Message.error("用户不存在")
-              console.log(resp.data.msg)
+            this.$Message.error("用户不存在");
+            console.log(resp.data.msg);
           }
         })
         .catch(error => {

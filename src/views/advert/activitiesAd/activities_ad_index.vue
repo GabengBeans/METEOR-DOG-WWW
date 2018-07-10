@@ -86,25 +86,25 @@ export default {
     };
   },
   methods: {
-      init(){
-          this.createObj.adType = this.adTypeArr[0].id
-          this.createObj.sort = ""
-          this.createObj.serviceId = ""
-          this.createObj.imgUrl = ""
-          this.createObj.adName = ""
-          this.createObj.adDescribe = ""
-          this.businessName = ""
-      },
+    init() {
+      this.createObj.adType = this.adTypeArr[0].id;
+      this.createObj.sort = "";
+      this.createObj.serviceId = "";
+      this.createObj.imgUrl = "";
+      this.createObj.adName = "";
+      this.createObj.adDescribe = "";
+      this.businessName = "";
+    },
     showCreate() {
       this.showAdCreateModal = true;
     },
     getServiceDetail(type, serviceId) {
-      if (!serviceId) {
-        this.$Message.error("请填写服务ID");
-        return;
-      }
-      if (!Number(serviceId)) {
-        this.$Message.error("请正确填写服务ID");
+      if (!serviceId || !Number(serviceId) || serviceId.indexof('.')!='-1') {
+        if (type == 2) {
+          this.$Message.error("请正确填写服务ID");
+        } else {
+          this.$Message.error("请正确填写需求ID");
+        }
         return;
       }
       let url =
@@ -141,19 +141,31 @@ export default {
       this.imgArray = [];
     },
     saveCreateAd() {
-      this.$Message.success({
-        content: "请求中...",
-        duration: 0
-      });
+      if (!this.createObj.imgUrl) {
+        this.$Message.error("请添加展示图片");
+        return;
+      }
+      if (
+        !this.createObj.sort ||
+        this.createObj.sort.indexOf(".") != "-1" ||
+        !Number(this.createObj.sort)
+      ) {
+        this.$Message.error("请填写正确的序号");
+        return;
+      }
       if (this.createObj.adType == 2 || this.createObj.adType == 3) {
-        if (!this.createObj.serviceId) {
-          this.$Message.error("请填写查询ID");
+        if (!this.createObj.serviceId ||!Number(this.createObj.serviceId) || this.createObj.serviceId.indexOf('.')!='-1'){
+          if (this.createObj.adType == 2) {
+            this.$Message.error("请填写正确的服务ID");
+          } else {
+            this.$Message.error("请填写正确的需求ID");
+          }
           return;
         }
-        if (!Number(this.createObj.serviceId)) {
-          this.$Message.error("请正确填写查询ID");
-          return;
-        }
+        this.$Message.success({
+          content: "请求中...",
+          duration: 0
+        });
         if (!this.businessName) {
           //如果不存在
           let url =
@@ -176,7 +188,7 @@ export default {
                 this.businessName = obj.title;
                 this.requestCreate();
               } else {
-                   this.$Message.destroy()
+                this.$Message.destroy();
                 this.$Message.error("没有这个ID");
               }
             })
@@ -187,6 +199,10 @@ export default {
           this.requestCreate();
         }
       } else if (this.createObj.adType == 1) {
+        if (!!this.createObj.serviceId || this.createObj.serviceId.indexOf(".") != "-1" || !Number(this.createObj.serviceId)) {
+          this.$Message.error("请正确填写用户ID");
+          return;
+        }
         util
           .ajax({
             method: "get",
@@ -200,9 +216,9 @@ export default {
               this.businessName = resp.data.data.nickname;
               this.requestCreate();
             } else {
-              this.$Message.destroy()
-              this.$Message.error("用户不存在")
-              console.log(resp.data.msg)
+              this.$Message.destroy();
+              this.$Message.error("用户不存在");
+              console.log(resp.data.msg);
             }
           })
           .catch(error => {
@@ -210,13 +226,13 @@ export default {
           });
       } else if (this.createObj.adType == 6) {
         this.businessName = this.createObj.serviceId;
-        this.createObj.serviceId=""
+        this.createObj.serviceId = "";
         this.requestCreate();
-      }else if (this.createObj.adType == 5) {
-          this.createObj.serviceId=""
-          this.businessName =""
-          this.requestCreate();
-      }  else {
+      } else if (this.createObj.adType == 5) {
+        this.createObj.serviceId = "";
+        this.businessName = "";
+        this.requestCreate();
+      } else {
         this.requestCreate();
       }
     },
@@ -254,7 +270,7 @@ export default {
             });
             this.$Message.destroy();
             this.$Message.success("新增成功");
-            this.init()
+            this.init();
             this.showAdCreateModal = false;
           } else {
             this.$Message.destroy();
@@ -301,7 +317,7 @@ export default {
           this.adTypeArr = resp.data.data.advertTypeList;
           this.adTypeArr.map((item, index) => {
             if (item.id == 4) {
-              this.adTypeArr.splice(index,1)
+              this.adTypeArr.splice(index, 1);
             }
           });
           this.createObj.adType = this.adTypeArr[0].id;

@@ -159,10 +159,11 @@ export default {
                   on: {
                     click: () => {
                       this.auditObj.id = params.row.id;
-                      this.auditObj.sort = params.row.adSort;
+                      this.auditObj.sort = params.row.adSort+'';
                       this.auditObj.serviceId = params.row.businessId;
                       this.tempBusinessId = params.row.businessId;
                       this.auditObj.imgUrl = params.row.imgUrl;
+                      this.businessName = params.row.adDescribe
                       this.showAdAuditModal = true;
                     }
                   }
@@ -261,19 +262,26 @@ export default {
         });
     },
     saveAduitAd() {
+      if (!this.auditObj.imgUrl) {
+        this.$Message.error("请添加展示图片");
+        return;
+      }
+      if (
+        !this.auditObj.sort ||
+        this.auditObj.sort.indexOf(".") != "-1" ||
+        !Number(this.auditObj.sort)
+      ) {
+        this.$Message.error("请填写正确的序号");
+        return;
+      }
+      if (!this.auditObj.serviceId || this.auditObj.serviceId.indexOf(".") != "-1" || !Number(this.auditObj.serviceId)) {
+          this.$Message.error("请正确填写服务ID");
+          return;
+        }
       this.$Message.success({
         content: "请求中...",
         duration: 0
       });
-
-      if (!this.auditObj.serviceId) {
-        this.$Message.error("请填写用户ID");
-        return;
-      }
-      if (!Number(this.auditObj.serviceId)) {
-        this.$Message.error("请正确填写用户ID");
-        return;
-      }
       if (this.auditObj.serviceId != this.tempBusinessId) {
         util
           .ajax({
@@ -338,15 +346,10 @@ export default {
         });
     },
     getServiceDetail(type, serviceId) {
-      if (!serviceId) {
-        this.$Message.error("请填写服务ID");
-        return;
-      }
-      if (!Number(serviceId)) {
-        this.$Message.error("请正确填写服务ID");
-        return;
-      }
-
+      if (!this.auditObj.serviceId || this.auditObj.serviceId.indexOf(".") != "-1" || !Number(this.auditObj.serviceId)) {
+          this.$Message.error("请正确填写服务ID");
+          return;
+        }
       util
         .ajax({
           method: "get",

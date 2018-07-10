@@ -91,18 +91,30 @@ export default {
       this.showAdCreateModal = true;
     },
     saveCreateAd() {
+        if (!this.createObj.imgUrl) {
+        this.$Message.error("请添加展示图片");
+        return;
+      }
+      if (
+        !this.createObj.sort ||
+        this.createObj.sort.indexOf(".") != "-1" ||
+        !Number(this.createObj.sort)
+      ) {
+        this.$Message.error("请填写正确的序号");
+        return;
+      }
+      if (
+        !this.createObj.serviceId ||
+        this.createObj.serviceId.indexOf(".") != "-1" ||
+        !Number(this.createObj.serviceId)
+      ) {
+        this.$Message.error("请正确填写服务ID");
+        return;
+      }
       this.$Message.success({
         content: "请求中...",
         duration: 0
       });
-      if (!this.createObj.serviceId) {
-        this.$Message.error("请填写服务ID");
-        return;
-      }
-      if (!Number(this.createObj.serviceId)) {
-        this.$Message.error("请正确填写服务ID");
-        return;
-      }
       util
         .ajax({
           method: "get",
@@ -163,15 +175,14 @@ export default {
         });
     },
     getServiceDetail(type, serviceId) {
-      if (!serviceId) {
-        this.$Message.error("请填写服务ID");
-        return;
-      }
-      if (!Number(serviceId)) {
+      if (
+        !this.createObj.serviceId ||
+        this.createObj.serviceId.indexOf(".") != "-1" ||
+        !Number(this.createObj.serviceId)
+      ) {
         this.$Message.error("请正确填写服务ID");
         return;
       }
-
       util
         .ajax({
           method: "get",

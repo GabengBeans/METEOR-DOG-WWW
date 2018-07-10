@@ -171,7 +171,7 @@ export default {
                     click: () => {
                       this.auditObj.id = params.row.id;
                       this.auditObj.adType = params.row.adTypeId;
-                      this.auditObj.sort = params.row.adSort;
+                      this.auditObj.sort = params.row.adSort+'';
                       this.auditObj.serviceId = params.row.businessId;
                       this.tempBusinessId = params.row.businessId;
                       this.auditObj.imgUrl = params.row.imgUrl;
@@ -273,12 +273,12 @@ export default {
         });
     },
     getServiceDetail(type, serviceId) {
-      if (!serviceId) {
-        this.$Message.error("请填写服务ID");
-        return;
-      }
-      if (!Number(serviceId)) {
-        this.$Message.error("请正确填写服务ID");
+      if (!serviceId || !Number(serviceId) || serviceId.indexof('.')!='-1') {
+        if (type == 2) {
+          this.$Message.error("请正确填写服务ID");
+        } else {
+          this.$Message.error("请正确填写需求ID");
+        }
         return;
       }
       let url =
@@ -315,19 +315,31 @@ export default {
       this.imgArray = [];
     },
     saveAduitAd() {
-      this.$Message.success({
-        content: "请求中...",
-        duration: 0
-      });
+     if (!this.auditObj.imgUrl) {
+        this.$Message.error("请添加展示图片");
+        return;
+      }
+      if (
+        !this.auditObj.sort ||
+        this.auditObj.sort.indexOf(".") != "-1" ||
+        !Number(this.auditObj.sort)
+      ) {
+        this.$Message.error("请填写正确的序号");
+        return;
+      }
       if (this.auditObj.adType == 2 || this.auditObj.adType == 3) {
-        if (!this.auditObj.serviceId) {
-          this.$Message.error("请填写服务ID");
+        if (!this.auditObj.serviceId ||!Number(this.auditObj.serviceId) || this.auditObj.serviceId.indexOf('.')!='-1'){
+          if (this.auditObj.adType == 2) {
+            this.$Message.error("请填写正确的服务ID");
+          } else {
+            this.$Message.error("请填写正确的需求ID");
+          }
           return;
         }
-        if (!Number(this.auditObj.serviceId)) {
-          this.$Message.error("请正确填写服务ID");
-          return;
-        }
+        this.$Message.success({
+          content: "请求中...",
+          duration: 0
+        });
         if (
           !this.businessName ||
           this.auditObj.serviceId != this.tempBusinessId
@@ -353,7 +365,7 @@ export default {
                 this.businessName = obj.title;
                 this.requestAudit();
               } else {
-                 this.$Message.destroy()
+                this.$Message.destroy();
                 this.$Message.error("没有这个ID");
               }
             })
@@ -364,6 +376,10 @@ export default {
           this.requestAudit();
         }
       } else if (this.auditObj.adType == 1) {
+        if (!this.auditObj.serviceId || this.auditObj.serviceId.indexOf(".") != "-1" || !Number(this.auditObj.serviceId)) {
+          this.$Message.error("请正确填写用户ID");
+          return;
+        }
         util
           .ajax({
             method: "get",
@@ -377,15 +393,19 @@ export default {
               this.businessName = resp.data.data.nickname;
               this.requestAudit();
             } else {
-               this.$Message.destroy()
-              this.$Message.error("用户不存在")
-              console.log(resp.data.msg)
+              this.$Message.destroy();
+              this.$Message.error("用户不存在");
+              console.log(resp.data.msg);
             }
           })
           .catch(error => {
             console.log(error);
           });
       } else if (this.auditObj.adType == 6) {
+        if (!this.createObj.serviceId) {
+          this.$Message.error("请填写正确的H5地址链接");
+          return;
+        }
         this.businessName = this.auditObj.serviceId;
         this.auditObj.serviceId = "";
         this.requestAudit();

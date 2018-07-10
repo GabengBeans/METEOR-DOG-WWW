@@ -72,6 +72,26 @@ export default {
       this.showAdCreateModal = true;
     },
     saveCreateAd() {
+      if (!this.createObj.imgUrl) {
+        this.$Message.error("请添加展示图片");
+        return;
+      }
+      if (
+        !this.createObj.sort ||
+        this.createObj.sort.indexOf(".") != "-1" ||
+        !Number(this.createObj.sort)
+      ) {
+        this.$Message.error("请填写正确的序号");
+        return;
+      }
+      if (
+        !this.createObj.serviceId ||
+        this.createObj.serviceId.indexOf(".") != "-1" ||
+        !Number(this.createObj.serviceId)
+      ) {
+        this.$Message.error("请正确填写用户ID");
+        return;
+      }
       this.$Message.success({
         content: "请求中...",
         duration: 0
@@ -89,9 +109,9 @@ export default {
             this.businessName = resp.data.data.nickname;
             this.requestCreate();
           } else {
-             this.$Message.destroy()
-              this.$Message.error("用户不存在")
-              console.log(resp.data.msg)
+            this.$Message.destroy();
+            this.$Message.error("用户不存在");
+            console.log(resp.data.msg);
           }
         })
         .catch(error => {
@@ -134,12 +154,16 @@ export default {
           console.log(error);
         });
     },
-    getUserAvatar(){
-        if(!this.createObj.serviceId){
-          this.$Message.error("请输入用户ID")
-          return
+    getUserAvatar() {
+       if (
+        !this.createObj.serviceId ||
+        this.createObj.serviceId.indexOf(".") != "-1" ||
+        !Number(this.createObj.serviceId)
+      ) {
+        this.$Message.error("请正确填写用户ID");
+        return;
       }
-       util
+      util
         .ajax({
           method: "get",
           url: baseUri.user_detail_url,
@@ -149,10 +173,10 @@ export default {
         })
         .then(resp => {
           if (resp.data.success) {
-              this.createObj.imgUrl = resp.data.data.avatarUrl
+            this.createObj.imgUrl = resp.data.data.avatarUrl;
           } else {
-              this.$Message.error("用户不存在")
-              console.log(resp.data.msg)
+            this.$Message.error("用户不存在");
+            console.log(resp.data.msg);
           }
         })
         .catch(error => {
