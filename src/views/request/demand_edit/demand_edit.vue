@@ -104,7 +104,7 @@
           <br>
           <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
             <label class="from_label">需求视频:</label>视频限制大小200M
-            <UserEditVideoList class="image-style" :change="true" :upload="true" :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo" ></UserEditVideoList>
+            <UserEditVideoList class="image-style" :change="true" :upload="true" :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo"></UserEditVideoList>
           </div>
           <br>
           <FormItem>
@@ -283,10 +283,20 @@ export default {
           method: "post",
           url: baseUri.demand_update_url,
           data: data
-        }).then(response => {
-          this.$Message.destroy();
-          this.$Message.success("保存成功");
-        });
+        })
+          .then(response => {
+            if (response.data.success) {
+              this.$Message.destroy();
+              this.$store.state.app.videoId = [];
+              this.$Message.success("保存成功");
+            } else {
+              this.$Message.destroy();
+              this.$Message.success("保存失败，请联系管理员");
+            }
+          })
+          .catch(error => {
+            this.$Message.destroy();
+          });
       }
     },
     serach_place: function(event) {
@@ -376,7 +386,7 @@ export default {
                 } else if (obj.mediaList[y].mediaType == 2) {
                   this.data.mediaVideoImg = obj.mediaList[y].videoPhotoUrl;
                   this.data.mediaVideo = obj.mediaList[y].videoPlayUrl;
-                  this.$store.state.app.videoId = obj.mediaList[y].mediaUrl
+                  this.$store.state.app.videoId = obj.mediaList[y].mediaUrl;
                 }
               }
             } else if (x == "modeType") {

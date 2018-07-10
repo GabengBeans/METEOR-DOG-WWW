@@ -333,6 +333,7 @@ export default {
           .then(response => {
             if (response.data.success) {
               this.$Message.destroy();
+              this.$store.state.app.videoId=[]
               this.$Message.success("保存成功");
             } else {
               this.$Message.destroy();
@@ -341,7 +342,6 @@ export default {
           })
           .catch(error => {
             this.$Message.destroy();
-            //console.log(error);
           });
       }
     },
