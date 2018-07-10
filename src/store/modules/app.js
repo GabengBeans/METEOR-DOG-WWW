@@ -11,7 +11,7 @@ import base_uri from '../../libs/base_uri';
 const app = {
     state: {
         temp_status: true,
-        videoId: "",
+        videoId: [],
         //用户公共状态
         user_page_info: { //用户页页码
             currentPage: 1,

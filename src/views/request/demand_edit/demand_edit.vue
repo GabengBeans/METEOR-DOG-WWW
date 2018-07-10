@@ -347,7 +347,7 @@ export default {
       //console.log(baseUri.category_query_two_level)
       return Util.ajax.get(baseUri.category_query_two_level);
     }
-
+    this.$store.state.app.videoId = [];
     axios.all([getDemandDetail(), getTwoLevel()]).then(
       axios.spread((response, response1) => {
         //console.log(response);
@@ -379,14 +379,16 @@ export default {
               );
             } else if (x == "mediaList") {
               this.data.mediaImg = [];
+              this.data.mediaVideoImg = [];
+              this.data.mediaVideo = [];
               for (let y = 0; y < obj[x].length; y++) {
                 //console.log(obj.mediaList[y])
                 if (obj.mediaList[y].mediaType == 1) {
                   this.data.mediaImg.push(obj.mediaList[y].mediaUrl);
                 } else if (obj.mediaList[y].mediaType == 2) {
-                  this.data.mediaVideoImg = obj.mediaList[y].videoPhotoUrl;
-                  this.data.mediaVideo = obj.mediaList[y].videoPlayUrl;
-                  this.$store.state.app.videoId = obj.mediaList[y].mediaUrl;
+                  this.data.mediaVideoImg.push(obj.mediaList[y].videoPhotoUrl);
+                  this.data.mediaVideo.push(obj.mediaList[y].videoPlayUrl);
+                  this.$store.state.app.videoId.push(obj.mediaList[y].mediaUrl);
                 }
               }
             } else if (x == "modeType") {

@@ -253,9 +253,9 @@ export default {
                               } else if (item.mediaType == 2) {
                                 this.videoObj.push({
                                   videoImg:
-                                    base_uri.oss_video_img_url +
+                                    [base_uri.oss_video_img_url +
                                     item.mediaUrl +
-                                    "00001.jpg",
+                                    "00001.jpg"],
                                   videoId: item.mediaUrl,
                                   type: "id"
                                 });
@@ -311,9 +311,9 @@ export default {
                               } else if (item.mediaType == 2) {
                                 this.videoObj.push({
                                   videoImg:
-                                    base_uri.oss_video_img_url +
+                                    [base_uri.oss_video_img_url +
                                     item.mediaUrl +
-                                    "00001.jpg",
+                                    "00001.jpg"],
                                   videoId: item.mediaUrl,
                                   type: "id"
                                 });

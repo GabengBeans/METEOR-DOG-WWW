@@ -219,13 +219,15 @@ export default {
               );
             } else if (x == "mediaList") {
               this.data.mediaImg = [];
+              this.data.mediaVideoImg = []
+              this.data.mediaVideo = []
               for (let y in obj[x]) {
                 //console.log(obj.mediaList[y])
                 if (obj.mediaList[y].mediaType == 1) {
                   this.data.mediaImg.push(obj.mediaList[y].mediaUrl);
                 } else if (obj.mediaList[y].mediaType == 2) {
-                  this.data.mediaVideoImg = obj.mediaList[y].videoPhotoUrl;
-                  this.data.mediaVideo = obj.mediaList[y].videoPlayUrl;
+                  this.data.mediaVideoImg.push(obj.mediaList[y].videoPhotoUrl)
+                  this.data.mediaVideo.push(obj.mediaList[y].videoPlayUrl)
                 }
               }
               

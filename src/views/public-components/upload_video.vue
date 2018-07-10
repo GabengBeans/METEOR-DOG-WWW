@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="demo-upload-list" v-if="uploadList">
-      <img :src="uploadList" />
+    <div class="demo-upload-list" v-if="uploadList" v-for="(item,index) in uploadList" :key="item">
+      <img :src="item" />
       <div class="demo-upload-list-cover">
-        <Icon type="ios-eye-outline" @click.native="handleView()" style="margin-right:10px"></Icon>
-        <Icon v-if="!detail" type="ios-trash-outline" @click.native="handleRemove(uploadList)"></Icon>
+        <Icon type="ios-eye-outline" @click.native="handleView(index)" style="margin-right:10px"></Icon>
+        <Icon v-if="!detail" type="ios-trash-outline" @click.native="handleRemove(index)"></Icon>
       </div>
     </div>
     <div class="demo-upload-list" v-if="showProgress">
@@ -18,7 +18,7 @@
     </Upload>
 
     <Modal title="播放视频" v-model="visible" :mask-closable="false">
-      <video :src="videoUrlList" controls="controls" v-if="visible" style="width: 100%"></video>
+      <video :src="playVideoUrl" controls="controls" v-if="visible" style="width: 100%"></video>
     </Modal>
   </div>
 </template>
@@ -37,13 +37,14 @@ export default {
       visible: false,
       uploadList: this.imgList,
       videoUrlList: this.videoUrl,
+      playVideoUrl:"",
       progress: 0,
       showProgress: false
     };
   },
   props: ["imgList", "videoUrl", "type", "upload", "change", "detail"],
   methods: {
-    handleView() {
+    handleView(index) {
       if (this.type) {
         util.ajax({
             method: "get",
@@ -54,7 +55,7 @@ export default {
           })
           .then(resp => {
             if (resp.data.success) {
-              this.videoUrlList = resp.data.data.PlayInfoList.PlayInfo[1].PlayURL
+              this.playVideoUrl = resp.data.data.PlayInfoList.PlayInfo[1].PlayURL
               this.visible = true;
             } else {
               this.$Message.error("视频获取失败");
@@ -65,11 +66,12 @@ export default {
           });
       } else {
         this.visible = true;
+        this.playVideoUrl = this.videoUrlList[index]
       }
     },
-    handleRemove(file) {
-      this.uploadList = false;
-      this.$store.state.app.videoId = "";
+    handleRemove(index) {
+      this.uploadList.splice(index,1)
+      this.$store.state.app.videoId.splice(index,1)
     },
     // handleFormatError(file) {
     //   this.$Message.destroy();
@@ -86,10 +88,10 @@ export default {
     //   });
     // },
     handleBeforeUpload(file) {
-      if (this.uploadList) {
-        this.$Message.error("只能上传一个视频");
-        return;
-      }
+      // if (this.uploadList) {
+      //   this.$Message.error("只能上传一个视频");
+      //   return;
+      // }
       let titleStr = file.name.slice(0, file.name.indexOf("."));
       util.ajax({
         method: "get",
@@ -149,13 +151,10 @@ export default {
                         videoId: uploadInfo.videoId
                       }
                     }).then(res => {
-                      //console.log(res)
-                      // console.log(typeof res.data);
                       if (typeof res.data == "object" && res.data.success) {
-                        This.uploadList = res.data.data.VideoBase.CoverURL;
-                        This.videoUrlList =
-                          res.data.data.PlayInfoList.PlayInfo[1].PlayURL;
-                        This.$store.state.app.videoId = uploadInfo.videoId;
+                        This.uploadList.push(res.data.data.VideoBase.CoverURL)
+                        This.videoUrlList.push(res.data.data.PlayInfoList.PlayInfo[1].PlayURL)
+                        This.$store.state.app.videoId.push(uploadInfo.videoId)
                         This.$Message.destroy();
                         This.progress = 100;
                         This.showProgress = false;

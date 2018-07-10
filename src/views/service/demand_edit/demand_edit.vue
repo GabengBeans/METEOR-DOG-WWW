@@ -58,12 +58,12 @@
             <div class="user_detail_div">
               <label class="from_label">有效期至:</label>
               <b>{{data.expireTime}}</b> -->
-              <!-- <Input clearable style="width: 15vw;min-width:100px;"  v-model='data.expireTime' /> -->
+          <!-- <Input clearable style="width: 15vw;min-width:100px;"  v-model='data.expireTime' /> -->
 
-              <!-- <template>
+          <!-- <template>
                                 <DatePicker :value="data.expireTime" format="yyyy年MM月dd日" type="date" placeholder="Select date" style="width: 200px"></DatePicker>
                             </template> -->
-            <!-- </div>
+          <!-- </div>
           </FormItem>
           <br> -->
           <FormItem>
@@ -114,7 +114,7 @@
           <br>
           <div style=" border-bottom: 1px solid rgb(219, 207, 207);">
             <label class="from_label">服务视频:</label>视频限制大小200M
-            <UserEditVideoList class="image-style" :change="true" :upload="true" :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo" ></UserEditVideoList>
+            <UserEditVideoList class="image-style" :change="true" :upload="true" :imgList="data.mediaVideoImg" :videoUrl="data.mediaVideo"></UserEditVideoList>
           </div>
           <br>
           <FormItem>
@@ -304,7 +304,7 @@ export default {
         //console.log(this.data.modeType)
         let validDays = "[" + this.data.validDays + "]";
         let periodTypes = "[" + this.data.periodTypes + "]";
-        
+
         //console.log(this.$store.state.app.videoId)
         let data = {
           address: this.data.address || "",
@@ -333,7 +333,7 @@ export default {
           .then(response => {
             if (response.data.success) {
               this.$Message.destroy();
-              this.$store.state.app.videoId=[]
+              this.$store.state.app.videoId = [];
               this.$Message.success("保存成功");
             } else {
               this.$Message.destroy();
@@ -393,7 +393,7 @@ export default {
       //console.log(baseUri.category_query_two_level)
       return Util.ajax.get(baseUri.category_query_two_level);
     }
-
+    this.$store.state.app.videoId = [];
     axios
       .all([getDemandDetail(), getTwoLevel()])
       .then(
@@ -423,14 +423,24 @@ export default {
                 );
               } else if (x == "mediaList") {
                 this.data.mediaImg = [];
+                this.data.mediaVideoImg = [];
+                this.data.mediaVideo = [];
                 for (let y = 0; y < obj[x].length; y++) {
                   //console.log(obj.mediaList[y])
-                  if (obj.mediaList[y] && obj.mediaList[y].mediaType == 1 && obj.mediaList[y].mediaUrl) {
+                  if (
+                    obj.mediaList[y] &&
+                    obj.mediaList[y].mediaType == 1 &&
+                    obj.mediaList[y].mediaUrl
+                  ) {
                     this.data.mediaImg.push(obj.mediaList[y].mediaUrl);
                   } else if (obj.mediaList[y].mediaType == 2) {
-                    this.data.mediaVideoImg = obj.mediaList[y].videoPhotoUrl;
-                    this.data.mediaVideo = obj.mediaList[y].videoPlayUrl;
-                    this.$store.state.app.videoId = obj.mediaList[y].mediaUrl
+                    this.data.mediaVideoImg.push(
+                      obj.mediaList[y].videoPhotoUrl
+                    );
+                    this.data.mediaVideo.push(obj.mediaList[y].videoPlayUrl);
+                    this.$store.state.app.videoId.push(
+                      obj.mediaList[y].mediaUrl
+                    );
                   }
                 }
               } else if (x == "modeType") {
