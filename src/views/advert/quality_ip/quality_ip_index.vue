@@ -86,7 +86,9 @@ export default {
             this.businessName = resp.data.data.nickname;
             this.requestCreate();
           } else {
-            this.$Message.error(resp.data.msg);
+             this.$Message.destroy()
+              this.$Message.error("用户不存在")
+              console.log(resp.data.msg)
           }
         })
         .catch(error => {

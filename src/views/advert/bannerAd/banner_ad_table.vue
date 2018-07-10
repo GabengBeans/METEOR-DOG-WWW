@@ -353,6 +353,7 @@ export default {
                 this.businessName = obj.title;
                 this.requestAudit();
               } else {
+                 this.$Message.destroy()
                 this.$Message.error("没有这个ID");
               }
             })
@@ -376,7 +377,9 @@ export default {
               this.businessName = resp.data.data.nickname;
               this.requestAudit();
             } else {
-              this.$Message.error(resp.data.msg);
+               this.$Message.destroy()
+              this.$Message.error("用户不存在")
+              console.log(resp.data.msg)
             }
           })
           .catch(error => {

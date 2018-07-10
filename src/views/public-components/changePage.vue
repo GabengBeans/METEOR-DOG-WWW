@@ -201,6 +201,13 @@ export default {
             pageNo:index
           })
           break;
+
+        case "modelAd":
+          this.$store.commit("GET_MODEL_IP_LIST",{
+            data:this.$store.state.app.model_ip_search_info,
+            pageNo:index
+          })
+          break;
       }
     }
   }
