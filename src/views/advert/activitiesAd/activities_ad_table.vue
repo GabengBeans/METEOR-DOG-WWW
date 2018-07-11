@@ -31,7 +31,7 @@
             <span style="color:blue;margin-left:15px">序号越小位置越靠前</span>
           </FormItem>
           <FormItem v-if="auditObj.adType!=5" :label="labelStr">
-            <Input clearable v-model="auditObj.adType==6?auditObj.redirectUrl:auditObj.serviceId" style="width:60%;min-width:200px" />
+            <Input clearable v-model="auditObj.serviceId" style="width:60%;min-width:200px" />
             <Button v-if="auditObj.adType==2 || auditObj.adType==3" type="info" style="margin-left:15px" @click="getServiceDetail(auditObj.adType,auditObj.serviceId)">{{auditObj.adType==2?"服务详情":"需求详情"}}</Button>
           </FormItem>
           <FormItem label="展示图片">
@@ -173,7 +173,7 @@ export default {
                       this.auditObj.id = params.row.id;
                       this.auditObj.adType = params.row.adTypeId;
                       this.auditObj.sort = params.row.adSort+'';
-                      this.auditObj.serviceId = params.row.businessId;
+                      this.auditObj.serviceId = this.auditObj.adType!=6?params.row.businessId:params.row.redirectUrl
                       this.auditObj.redirectUrl = params.row.redirectUrl
                       this.tempBusinessId = params.row.businessId;
                       this.auditObj.imgUrl = params.row.imgUrl;
@@ -276,7 +276,7 @@ export default {
         });
     },
     getServiceDetail(type, serviceId) {
-      if (!serviceId || !Number(serviceId) || serviceId.indexof('.')!='-1') {
+      if (!serviceId || !Number(serviceId) || serviceId.indexOf('.')!='-1') {
         if (type == 2) {
           this.$Message.error("请正确填写服务ID");
         } else {
@@ -405,12 +405,12 @@ export default {
             console.log(error);
           });
       } else if (this.auditObj.adType == 6) {
-        if (!this.auditObj.redirectUrl) {
+        if (!this.auditObj.serviceId) {
           this.$Message.error("请填写正确的H5地址链接");
           return;
         }
-        this.businessName = this.auditObj.redirectUrl;
-        this.auditObj.redirectUrl = "";
+        this.businessName = this.auditObj.serviceId;
+        this.auditObj.serviceId = "";
         this.requestAudit();
       } else if (this.auditObj.adType == 5) {
         this.auditObj.serviceId = "";

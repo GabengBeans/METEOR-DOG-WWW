@@ -99,7 +99,7 @@ export default {
       this.showAdCreateModal = true;
     },
     getServiceDetail(type, serviceId) {
-      if (!serviceId || !Number(serviceId) || serviceId.indexof('.')!='-1') {
+      if (!serviceId || !Number(serviceId) || serviceId.indexOf('.')!='-1') {
         if (type == 2) {
           this.$Message.error("请正确填写服务ID");
         } else {
