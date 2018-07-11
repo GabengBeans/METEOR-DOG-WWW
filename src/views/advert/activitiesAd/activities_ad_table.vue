@@ -437,7 +437,8 @@ export default {
         adSort: this.auditObj.sort,
         businessId: this.auditObj.serviceId,
         adName: this.auditObj.adName,
-        adDescribe: this.businessName
+        adDescribe: this.businessName,
+        redirectUrl:this.businessName
       };
       util
         .ajax({

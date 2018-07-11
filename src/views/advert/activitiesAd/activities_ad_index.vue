@@ -254,7 +254,8 @@ export default {
         adSort: this.createObj.sort,
         businessId: this.createObj.serviceId,
         adName: this.createObj.adName,
-        adDescribe: this.businessName
+        adDescribe: this.businessName,
+        redirectUrl:this.businessName
       };
       util
         .ajax({
