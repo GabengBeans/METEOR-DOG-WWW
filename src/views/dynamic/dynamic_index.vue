@@ -2,7 +2,7 @@
   <div>
     <public-search :data="search" :storeStatus="storeStatus"></public-search>
     <public-table :columns="columns" :data="$store.state.app.dynamic_search_result"></public-table>
-    <public-change-page :storeStatus="storeStatus" :currentPage="$store.state.app.dynamic_page_info.currentPage" :totalPage="$store.state.app.dynamic_page_info.totalCount"></public-change-page>
+    <public-change-page :storeStatus="storeStatus" :currentPage="$store.state.app.dynamic_page_info.currentPage" :totalPage="$store.state.app.dynamic_page_info.totalPage"></public-change-page>
     <Modal v-model="showAuditModal" width="800" :mask-closable="false">
       <p slot="header" style="color:#f60;text-align:center">
         <span>动态审核</span>

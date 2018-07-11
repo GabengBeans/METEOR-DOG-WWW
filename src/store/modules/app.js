@@ -1879,7 +1879,7 @@ const app = {
                     })
                     state.dynamic_search_result = resp.data.data.items
                     state.dynamic_page_info.currentPage = resp.data.data.page
-                    state.dynamic_page_info.totalCount = resp.data.data.totalCount
+                    state.dynamic_page_info.totalPage = resp.data.data.totalCount
                 }
             }).catch(error => {
                 console.log(error)
@@ -1920,7 +1920,7 @@ const app = {
                     })
                     state.banner_ad_search_result = resp.data.data.items
                     state.banner_ad_page_info.currentPage = resp.data.data.page
-                    state.banner_ad_page_info.totalCount = resp.data.data.totalCount
+                    state.banner_ad_page_info.totalPage = resp.data.data.totalCount
                 }
             }).catch(error => {
                 console.log(error)
@@ -1962,7 +1962,7 @@ const app = {
                     })
                     state.activities_ad_search_result = resp.data.data.items
                     state.activities_ad_page_info.currentPage = resp.data.data.page
-                    state.activities_ad_page_info.totalCount = resp.data.data.totalCount
+                    state.activities_ad_page_info.totalPage = resp.data.data.totalCount
                 }
             }).catch(error => {
                 console.log(error)
@@ -1994,7 +1994,7 @@ const app = {
                     })
                     state.quality_ip_search_result = resp.data.data.items
                     state.quality_ip_page_info.currentPage = resp.data.data.page
-                    state.quality_ip_page_info.totalCount = resp.data.data.totalCount
+                    state.quality_ip_page_info.totalPage = resp.data.data.totalCount
                 }
             }).catch(error => {
                 console.log(error)
@@ -2026,7 +2026,7 @@ const app = {
                     })
                     state.model_ip_search_result = resp.data.data.items
                     state.model_ip_page_info.currentPage = resp.data.data.page
-                    state.model_ip_page_info.totalCount = resp.data.data.totalCount
+                    state.model_ip_page_info.totalPage = resp.data.data.totalCount
                 }
             }).catch(error => {
                 console.log(error)
@@ -2058,7 +2058,7 @@ const app = {
                     })
                     state.selling_service_search_result = resp.data.data.items
                     state.selling_service_page_info.currentPage = resp.data.data.page
-                    state.selling_service_page_info.totalCount = resp.data.data.totalCount
+                    state.selling_service_page_info.totalPage = resp.data.data.totalCount
                 }
             }).catch(error => {
                 console.log(error)

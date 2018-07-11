@@ -4,7 +4,9 @@
             <Button type="success" @click="showAdCreateModal = true">新增广告</Button>
         </div>
         <banner-table></banner-table>
-        <banner-page :storeStatus="status" :currentPage="$store.state.app.banner_ad_page_info.currentPage" :totalPage="$store.state.app.banner_ad_page_info.totalPage"></banner-page>
+        <banner-page :storeStatus="status" 
+        :currentPage="$store.state.app.banner_ad_page_info.currentPage" 
+        :totalPage="$store.state.app.banner_ad_page_info.totalPage"></banner-page>
 
         <Modal v-model="showAdCreateModal" width="600">
             <p slot="header" style="text-align:center">
