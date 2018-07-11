@@ -199,7 +199,7 @@ export default {
           this.requestCreate();
         }
       } else if (this.createObj.adType == 1) {
-        if (!!this.createObj.serviceId || this.createObj.serviceId.indexOf(".") != "-1" || !Number(this.createObj.serviceId)) {
+        if (!this.createObj.serviceId || this.createObj.serviceId.indexOf(".") != "-1" || !Number(this.createObj.serviceId)) {
           this.$Message.error("请正确填写用户ID");
           return;
         }
