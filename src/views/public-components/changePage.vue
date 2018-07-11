@@ -188,7 +188,7 @@ export default {
           })
           break;
 
-        case "bannerAd":
+        case "activitiesAd":
           this.$store.commit("GET_ACTIVITIES_AD_LIST",{
             data:this.$store.state.app.activities_ad_search_info,
             pageNo:index
