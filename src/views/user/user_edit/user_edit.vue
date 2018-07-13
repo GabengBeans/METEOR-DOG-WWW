@@ -14,7 +14,7 @@
         <br>
         <div class="user_detail_div">
           <label class="from_label">手机号</label>
-          <Input clearable style="width: 15vw;min-width:100px;" v-model='user_data.phone' />
+          <span  style="width: 15vw;min-width:100px;" >{{user_data.phone}}</span>
         </div>
         <br>
         <div class="user_detail_div">
