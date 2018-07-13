@@ -64,7 +64,7 @@ export default {
         if (valid) {
           let obj = this;
           util.ajax
-            .get(util.getConfigUri.userLogin, {
+            .get('http://39.106.16.60:8822/admin/v1/oauth/token', {
               params: {
                 userName: this.form.userName,
                 password: this.form.password
