@@ -87,6 +87,13 @@ const activities_ad_index = resolve => require(["@/views/advert/activitiesAd/act
 const selling_service_ad_index = resolve => require(["@/views/advert/selling_service_ad/selling_service_ad_index"], resolve)
 const quality_ip_index = resolve => require(["@/views/advert/quality_ip/quality_ip_index"], resolve)
 const model_ip_index = resolve => require(["@/views/advert/model_ip/model_ip_index"], resolve)
+//流星钻
+const meteor_diamond_budget_detail_index = resolve => require(["@/views/meteorDiamond/meteorDiamondBudgetDetail/meteor_diamond_budget_detail_index"], resolve)
+const meteor_diamond_set_index = resolve => require(["@/views/meteorDiamond/meteorDiamondSet/meteor_diamond_set_index"], resolve)
+const meteor_diamond_statistics_index = resolve => require(["@/views/meteorDiamond/meteorDiamondStatistics/meteor_diamond_statistics_index"], resolve)
+
+
+
 
 let util = {
 
@@ -485,7 +492,11 @@ util.createMenus = function (data) {
         'activities_ad_index':activities_ad_index,
         'selling_service_ad_index':selling_service_ad_index,
         'quality_ip_index':quality_ip_index,
-        'model_ip_index':model_ip_index
+        'model_ip_index':model_ip_index,
+        //流星钻
+        'meteor_diamond_budget_detail_index':meteor_diamond_budget_detail_index,
+        'meteor_diamond_set_index':meteor_diamond_set_index,
+        'meteor_diamond_statistics_index':meteor_diamond_statistics_index
     }
 
     let menus = []

@@ -218,6 +218,12 @@ let base_uri = {
     delete_advert_url:'/admin/v1/advert_info/delete_advert',//移除广告
     edit_advert_url:'/admin/v1/advert_info/edit_advert',//修改广告
 
+    //流星钻
+    get_budget_detail_url:'/admin/v1/meteordiamondreceivelog/meteordiamond_receive_log_list',//获取收支详情列表
+    get_meteor_diamond_set_url:'/admin/v1/meteordiamondrule/meteordiamondrule_list',//获取流星钻发放规则列表
+    audit_meteor_diamond_set_url:'/admin/v1/meteordiamondrule/update_meteordiamondrule',//修改流星钻发放规则
+    add_meteor_diamond_set_url:'/admin/v1/meteordiamondrule/add_meteordiamondrule',//添加流星钻规则
+    get_statistics_info_url:'/admin/v1/usermeteordiamond/search_usermeteordiamond_info_for_page',//获取用户流星钻统计信息及列表信息
 };
 
 export default base_uri;

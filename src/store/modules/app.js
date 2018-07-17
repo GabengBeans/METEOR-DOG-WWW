@@ -395,8 +395,6 @@ const app = {
         },
         model_ip_public_page: 1,
         
-
-
         //畅销服务
         selling_service_search_info: {adItemId: 5},
         selling_service_search_result: [],
@@ -405,6 +403,31 @@ const app = {
             totalPage: ""
         },
         selling_service_public_page: 1,
+
+        //流星钻-发放统计
+        statistics_search_info:{},
+        statistics_search_result:[],
+        statistics_page_info:{
+            currentPage:"",
+            totalPage:""
+        },
+        statistics_public_page:1,
+        statistics_info:{
+            alreadyGrant:"",
+            remainingCount:"",
+            totalCount:""
+        },
+
+        //流星钻-收支详情
+        budget_detail_search_info:{},
+        budget_detail_search_result:[],
+        budget_detail_page_info:{
+            currentPage:"",
+            totalPage:""
+        },
+        budget_detail_public_page:1,
+        //流星钻发放规则
+        meteor_diamond_set_result:[],
 
         cachePage: [],
         lang: '',
@@ -2059,6 +2082,96 @@ const app = {
                     state.selling_service_search_result = resp.data.data.items
                     state.selling_service_page_info.currentPage = resp.data.data.page
                     state.selling_service_page_info.totalPage = resp.data.data.totalCount
+                }
+            }).catch(error => {
+                console.log(error)
+            })
+        },
+
+         //获取流星钻发放统计
+         GET_STATISTICS_LIST(state, {
+            data,
+            pageNo
+        }) {
+            state.statistics_search_info = data
+            state.statistics_public_page = pageNo
+            util.ajax({
+                method: "post",
+                url: base_uri.get_statistics_info_url,
+                params: {
+                    page: pageNo,
+                    limit: 10,
+                },
+                data: data
+            }).then(resp => {
+                if (resp.data.success) {
+                    resp.data.data.list.items.map(item => {
+                        item.createTime = item.createTime ? util.formatDate(new Date(item.createTime), "yyyy-MM-dd hh:mm:ss") : ""
+                        item.auditTime = item.auditTime ? util.formatDate(new Date(item.auditTime), "yyyy-MM-dd hh:mm:ss") : ""
+                    })
+                    state.statistics_info.alreadyGrant = resp.data.data.alreadyGrant
+                    state.statistics_info.totalCount = resp.data.data.totalCount
+                    state.statistics_info.remainingCount = resp.data.data.remainingCount
+                    state.statistics_search_result = resp.data.data.list.items
+                    state.statistics_page_info.currentPage = resp.data.data.list.page
+                    state.statistics_page_info.totalPage = resp.data.data.list.totalCount
+                }
+            }).catch(error => {
+                console.log(error)
+            })
+        },
+
+         //获取流星钻收支详情列表
+         GET_BUDGET_DETAIL_LIST(state, {
+            data,
+            pageNo
+        }) {
+            state.budget_detail_search_info = data
+            state.budget_detail_public_page = pageNo
+            util.ajax({
+                method: "post",
+                url: base_uri.get_budget_detail_url,
+                params: {
+                    page: pageNo,
+                    limit: 10,
+                },
+                data: data
+            }).then(resp => {
+                let detailContent = ["","","好友IP昵称","订单号","服务ID","需求ID","动态ID","订单号","备注原因"]
+                if (resp.data.success) {
+                    resp.data.data.items.map(item => {
+                        item.createTime = item.createTime ? util.formatDate(new Date(item.createTime), "yyyy-MM-dd hh:mm:ss") : ""
+                        item.auditTime = item.auditTime ? util.formatDate(new Date(item.auditTime), "yyyy-MM-dd hh:mm:ss") : ""
+                        if(item.ruleType==2){
+                            item.detailContent = detailContent[item.ruleType]+"("+item.extensionNickName+")"
+                        }else if(item.ruleType==3 || item.ruleType==7){
+                            item.detailContent = detailContent[item.ruleType]+"("+item.orderNo+")"
+                        }else if(item.ruleType==4 || item.ruleType==5 ||item.ruleType==6){
+                            item.detailContent = detailContent[item.ruleType]+"("+item.businessId+")"
+                        }else if(item.ruleType==8){
+                            item.detailContent = detailContent[item.ruleType]+"("+item.refuseReason+")"
+                        }else(
+                            item.detailContent = ""
+                        )
+                        item.type=item.isIncoming==1?"支出":"收入"
+                    })
+                    state.budget_detail_search_result = resp.data.data.items
+                    state.budget_detail_page_info.currentPage = resp.data.data.page
+                    state.budget_detail_page_info.totalPage = resp.data.data.totalCount
+                }
+            }).catch(error => {
+                console.log(error)
+            })
+        },
+
+        //获取流星钻规则列表
+        GET_METEOR_DIAMOND_SET_LIST(state) {
+            util.ajax({
+                method: "get",
+                url: base_uri.get_meteor_diamond_set_url,
+            }).then(resp => {
+                if (resp.status==200 && resp.data.length>0) {
+                    state.meteor_diamond_set_result = resp.data
                 }
             }).catch(error => {
                 console.log(error)

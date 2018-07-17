@@ -215,6 +215,20 @@ export default {
             pageNo:index
           })
           break;
+
+        case "budgetDetail":
+          this.$store.commit("GET_BUDGET_DETAIL_LIST",{
+            data:this.$store.state.app.budget_detail_search_info,
+            pageNo:index
+          })
+          break;
+
+        case "statistics":
+          this.$store.commit("GET_STATISTICS_LIST",{
+            data:this.$store.state.app.statistics_search_info,
+            pageNo:index
+          })
+          break;
       }
     }
   }//

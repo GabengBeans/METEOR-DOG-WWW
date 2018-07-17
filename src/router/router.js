@@ -107,6 +107,8 @@ export const otherRouter = {
         { path: 'audit_user_detail/:id', title: '用户渠道详情', name: 'audit_user_detail', component: resolve => { require(['@/views/audit_operation/audit_user/audit_user_detail'], resolve) } },
         { path: 'audit_service_detail/:id', title: '服务渠道详情', name: 'audit_service_detail', component: resolve => { require(['@/views/audit_operation/audit_service/audit_service_detail'], resolve) } },
         { path: 'audit_demand_detail/:id', title: '需求渠道详情', name: 'audit_demand_detail', component: resolve => { require(['@/views/audit_operation/audit_demand/audit_demand_detail'], resolve) } },
+        //流星钻统计
+        { path: 'meteor_diamond_budget_detail_index/:id', title: '收支详情', name: 'meteor_diamond_budget_detail_index', component: resolve => { require(['@/views/meteorDiamond/meteorDiamondBudgetDetail/meteor_diamond_budget_detail_index'], resolve) } },
     ]
 };
 

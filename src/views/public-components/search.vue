@@ -182,10 +182,30 @@ export default {
             pageNo:1
           })
           break;
+
+        case "budgetDetail":
+        for(let i in obj){
+          if(obj[i]==='0') delete obj[i]
+        }
+          this.$store.commit("GET_BUDGET_DETAIL_LIST",{
+            data:obj,
+            pageNo:1
+          })
+          break;
+
+        case "statistics":
+        for(let i in obj){
+          if(obj[i]==='0') delete obj[i]
+        }
+          this.$store.commit("GET_STATISTICS_LIST",{
+            data:obj,
+            pageNo:1
+          })
+          break;
       }
     }
   }
-};
+};//
 </script>
 <style>
 @import "../../styles/public.less";
