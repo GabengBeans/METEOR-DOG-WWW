@@ -114,7 +114,7 @@ export default {
                   },
                   on: {
                     click: () => {
-                      this.deductionId = params.row.id;
+                      this.deductionId = params.row.userId;
                       this.deductionMeteorDiamondModal = true;
                     }
                   }
