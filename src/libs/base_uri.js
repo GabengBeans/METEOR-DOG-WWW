@@ -224,6 +224,7 @@ let base_uri = {
     audit_meteor_diamond_set_url:'/admin/v1/meteordiamondrule/update_meteordiamondrule',//修改流星钻发放规则
     add_meteor_diamond_set_url:'/admin/v1/meteordiamondrule/add_meteordiamondrule',//添加流星钻规则
     get_statistics_info_url:'/admin/v1/usermeteordiamond/search_usermeteordiamond_info_for_page',//获取用户流星钻统计信息及列表信息
+    deduction_meteor_diamond_url:'/admin/v1/usermeteordiamond/deduction_meteor_diamond',//扣除流星钻 
 };
 
 export default base_uri;

@@ -33,7 +33,7 @@ export default {
   },
   created() {
     this.$store.commit("GET_BUDGET_DETAIL_LIST", {
-      data: {userId:this.$route.query.userId},
+      data: {userId:this.$route.params.id},
       pageNo: this.$store.state.app.budget_detail_public_page
     });
   }

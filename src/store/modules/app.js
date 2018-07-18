@@ -2099,8 +2099,8 @@ const app = {
                 method: "post",
                 url: base_uri.get_statistics_info_url,
                 params: {
-                    page: pageNo,
-                    limit: 10,
+                    pageNo: pageNo,
+                    pageSize: 10,
                 },
                 data: data
             }).then(resp => {
