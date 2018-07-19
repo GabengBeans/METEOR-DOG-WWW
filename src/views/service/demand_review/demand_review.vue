@@ -55,8 +55,38 @@
         </div>
         <br>
         <div class="user_detail_div">
+          <label class="from_label">服务亮点:</label>
+          <b>{{data.descStre}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">代表案例:</label>
+          <b>{{data.descCase}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">服务流程:</label>
+          <b>{{data.descProc}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">流星钻标价:</label>
+          <b v-if="data.priceMd">{{data.priceMd +"克拉"}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
           <label class="from_label">出价:</label>
           <b>{{data.price}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">买服务置顶权重:</label>
+          <b>{{data.topall}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">分类置顶权重:</label>
+          <b>{{data.topcategory}}</b>
         </div>
         <br>
         <div class="user_detail_div">

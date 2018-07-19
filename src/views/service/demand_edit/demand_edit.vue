@@ -45,6 +45,21 @@
             <Input clearable style="width: 40vw;min-width:100px;" type="textarea" v-model='data.restrictions' />
           </div>
           <br>
+          <div class="user_detail_div">
+            <label class="from_label">服务亮点:</label>
+            <Input clearable style="width: 40vw;min-width:100px;" type="textarea" v-model='data.descStre' />
+          </div>
+          <br>
+          <div class="user_detail_div">
+            <label class="from_label">代表案例:</label>
+            <Input clearable style="width: 40vw;min-width:100px;" type="textarea" v-model='data.descCase' />
+          </div>
+          <br>
+          <div class="user_detail_div">
+            <label class="from_label">服务流程:</label>
+            <Input clearable style="width: 40vw;min-width:100px;" type="textarea" v-model='data.descProc' />
+          </div>
+          <br>
           <FormItem>
             <div class="user_detail_div">
               <label class="from_label">服务品类:</label>
@@ -81,6 +96,27 @@
             <div class="user_detail_div">
               <label class="from_label">服务定金:</label>
               <Input clearable style="width: 6vw;min-width:100px;" v-model='data.deposit' />
+            </div>
+            <br>
+          </FormItem>
+          <FormItem>
+            <div class="user_detail_div">
+              <label class="from_label">流星钻标价:</label>
+              <Input clearable style="width: 6vw;min-width:100px;" v-model='data.priceMd' />
+            </div>
+            <br>
+          </FormItem>
+          <FormItem>
+            <div class="user_detail_div">
+              <label class="from_label">买服务置顶权重:</label>
+              <Input clearable style="width: 6vw;min-width:100px;" v-model='data.topall' />
+            </div>
+            <br>
+          </FormItem>
+          <FormItem>
+            <div class="user_detail_div">
+              <label class="from_label">分类置顶权重:</label>
+              <Input clearable style="width: 6vw;min-width:100px;" v-model='data.topcategory' />
             </div>
             <br>
           </FormItem>
@@ -322,7 +358,14 @@ export default {
           restrictions: this.data.restrictions || "无",
           title: this.data.title,
           videoList: this.$store.state.app.videoId || "",
-          unitName: this.data.unitName
+          unitName: this.data.unitName,
+          //新增
+          descStre:this.data.descStre,
+          descCase:this.data.descCase,
+          descProc:this.data.descProc,
+          priceMd:this.data.priceMd,
+          topall:this.data.topall,
+          topcategory:this.data.topcategory
         };
         //console.log(data);
         Util.ajax({
