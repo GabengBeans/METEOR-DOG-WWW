@@ -11,6 +11,9 @@
                     <Checkbox label="ability01">
                         <span>IP红包权限</span>
                     </Checkbox>
+                    <Checkbox label="ability02">
+                        <span>动态审核权限</span>
+                    </Checkbox>
                 </CheckboxGroup>
             </div>
             <div slot="footer">

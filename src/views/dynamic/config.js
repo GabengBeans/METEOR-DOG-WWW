@@ -14,7 +14,7 @@ config.dynamicSearch = {
         value: ""
     },
     businessStatus: {
-        tagName: "审核状态",
+        tagName: "状态",
         value: 0,
         tag:{
             op1: {
@@ -22,16 +22,16 @@ config.dynamicSearch = {
                 value: "全部"
             },
             op2: {
-                num: 1,
-                value: "待审核"
+                num: 2,
+                value: "已发布"
             },
             op3: {
-                num: 2,
-                value: "通过"
+                num: 5,
+                value: "管理员已删除"
             },
-            op4: {
-                num: 3,
-                value: "驳回"
+            op4:{
+                num:4,
+                value:"用户已删除"
             }
         }
     },

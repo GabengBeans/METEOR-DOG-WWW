@@ -3,7 +3,7 @@
     <public-search :data="search" :storeStatus="storeStatus"></public-search>
     <public-table :columns="columns" :data="$store.state.app.dynamic_search_result"></public-table>
     <public-change-page :storeStatus="storeStatus" :currentPage="$store.state.app.dynamic_page_info.currentPage" :totalPage="$store.state.app.dynamic_page_info.totalPage"></public-change-page>
-    <Modal v-model="showAuditModal" width="800" :mask-closable="false">
+    <!-- <Modal v-model="showAuditModal" width="800" :mask-closable="false">
       <p slot="header" style="color:#f60;text-align:center">
         <span>动态审核</span>
       </p>
@@ -66,7 +66,6 @@
             <Col span="24">
             <FormItem label="动态音频：">
               <a :href="audioUrl">下载</a>
-              <!-- <Button type="info" @click="playAudio(audioUrl)">播放</Button> -->
               <div style="width:1px;height:1px;" id="playerQT"> </div>
             </FormItem>
             </Col>
@@ -77,7 +76,7 @@
         <Button type="error" @click="showAuditDismissedMoadl=true">驳回</Button>
         <Button type="success" @click="auditDynamic('2')">通过</Button>
       </div>
-    </Modal>
+    </Modal> -->
     <Modal v-model="showDetailModal" width="800" :mask-closable="false">
       <p slot="header" style="color:#f60;text-align:center">
         <span>动态详情</span>
@@ -164,6 +163,18 @@
         <Button type="success" @click="auditDynamic('3')">确定</Button>
       </div>
     </Modal>
+    <Modal v-model="showDeleteModal" width="500">
+      <p slot="header" style="text-align:center">
+        <span>删除动态</span>
+      </p>
+      <div style="text-align:center;font-size:20px;color:red">
+        确认删除此条动态?
+      </div>
+      <div slot="footer">
+        <Button type="error" @click="showDeleteModal=false">取消</Button>
+        <Button type="success" @click="deleteDynamic">确定</Button>
+      </div>
+    </Modal>
   </div>
 </template>
 <script>
@@ -180,9 +191,11 @@ export default {
     return {
       search: config.dynamicSearch,
       storeStatus: "dynamic",
+      showDeleteModal: false,
       showAuditModal: false,
       showDetailModal: false,
       showAuditDismissedMoadl: false,
+      deleteDynamicId: "",
       audioUrl: "",
       imgUrlArr: [],
       videoObj: [],
@@ -192,7 +205,8 @@ export default {
       columns: [
         {
           title: "动态ID",
-          key: "id"
+          key: "id",
+          width:160
         },
         {
           title: "昵称",
@@ -207,16 +221,12 @@ export default {
           key: "createTime"
         },
         {
-          title: "审核时间",
-          key: "auditTime"
-        },
-        {
-          title: "审核状态",
+          title: "状态",
           key: "businessStatus"
         },
         {
           title: "操作",
-          width: 300,
+          width: 200,
           align: "center",
           render: (h, params) => {
             return h("div", [
@@ -252,10 +262,11 @@ export default {
                                 this.imgUrlArr.push(item.mediaUrl);
                               } else if (item.mediaType == 2) {
                                 this.videoObj.push({
-                                  videoImg:
-                                    [base_uri.oss_video_img_url +
-                                    item.mediaUrl +
-                                    "00001.jpg"],
+                                  videoImg: [
+                                    base_uri.oss_video_img_url +
+                                      item.mediaUrl +
+                                      "00001.jpg"
+                                  ],
                                   videoId: item.mediaUrl,
                                   type: "id"
                                 });
@@ -281,60 +292,80 @@ export default {
                 "Button",
                 {
                   props: {
-                    type: "success",
+                    type: "error",
                     size: "small",
-                    disabled:
-                      params.row.businessStatus != "待审核" ? true : false
+                    disabled: params.row.businessStatus == "用户已删除" || params.row.businessStatus=="管理员已删除" ? true : false
                   },
                   style: {
                     marginRight: "5px"
                   },
                   on: {
                     click: () => {
-                      this.videoObj = [];
-                      this.imgUrlArr = [];
-                      util
-                        .ajax({
-                          method: "get",
-                          url: base_uri.dynamic_detail_url,
-                          params: {
-                            userId: params.row.userId,
-                            dynamicId: params.row.id
-                          }
-                        })
-                        .then(resp => {
-                          if (resp.data.success) {
-                            this.dynamicDetail = resp.data.data;
-                            this.dynamicDetail.medias.map(item => {
-                              if (item.mediaType == 1) {
-                                this.imgUrlArr.push(item.mediaUrl);
-                              } else if (item.mediaType == 2) {
-                                this.videoObj.push({
-                                  videoImg:
-                                    [base_uri.oss_video_img_url +
-                                    item.mediaUrl +
-                                    "00001.jpg"],
-                                  videoId: item.mediaUrl,
-                                  type: "id"
-                                });
-                              } else if (item.mediaType == 6) {
-                                this.audioUrl =
-                                  base_uri.oss_url + item.mediaUrl;
-                              }
-                            });
-                            this.showAuditModal = true;
-                          } else {
-                            this.$Message.error("获取失败");
-                          }
-                        })
-                        .catch(error => {
-                          console.log(error);
-                        });
+                      this.deleteDynamicId = params.row.id;
+                      this.showDeleteModal = true;
                     }
                   }
                 },
-                "审核"
+                "删除"
               )
+              // h(
+              //   "Button",
+              //   {
+              //     props: {
+              //       type: "success",
+              //       size: "small",
+              //       disabled:
+              //         params.row.businessStatus != "待审核" ? true : false
+              //     },
+              //     style: {
+              //       marginRight: "5px"
+              //     },
+              //     on: {
+              //       click: () => {
+              //         this.videoObj = [];
+              //         this.imgUrlArr = [];
+              //         util
+              //           .ajax({
+              //             method: "get",
+              //             url: base_uri.dynamic_detail_url,
+              //             params: {
+              //               userId: params.row.userId,
+              //               dynamicId: params.row.id
+              //             }
+              //           })
+              //           .then(resp => {
+              //             if (resp.data.success) {
+              //               this.dynamicDetail = resp.data.data;
+              //               this.dynamicDetail.medias.map(item => {
+              //                 if (item.mediaType == 1) {
+              //                   this.imgUrlArr.push(item.mediaUrl);
+              //                 } else if (item.mediaType == 2) {
+              //                   this.videoObj.push({
+              //                     videoImg:
+              //                       [base_uri.oss_video_img_url +
+              //                       item.mediaUrl +
+              //                       "00001.jpg"],
+              //                     videoId: item.mediaUrl,
+              //                     type: "id"
+              //                   });
+              //                 } else if (item.mediaType == 6) {
+              //                   this.audioUrl =
+              //                     base_uri.oss_url + item.mediaUrl;
+              //                 }
+              //               });
+              //               this.showAuditModal = true;
+              //             } else {
+              //               this.$Message.error("获取失败");
+              //             }
+              //           })
+              //           .catch(error => {
+              //             console.log(error);
+              //           });
+              //       }
+              //     }
+              //   },
+              //   "审核"
+              // )
             ]);
           }
         }
@@ -344,6 +375,30 @@ export default {
   methods: {
     auditDynamic(value) {
       this.audioFun(value);
+    },
+    deleteDynamic() {
+      let params = {
+        dynamicId: this.deleteDynamicId,
+        businessStatus: 5 //系统删除状态
+      };
+      util
+        .ajax({
+          method: "post",
+          url: base_uri.dynamic_audit,
+          params: params
+        })
+        .then(resp => {
+          if (resp.data.success) {
+            this.$store.commit("GET_DYNAMIC_LIST", {
+              data: this.$store.state.app.dynamic_search_info,
+              pageNo: this.$store.state.app.dynamic_public_page
+            });
+            this.showDeleteModal = false;
+            this.$Message.success("删除成功");
+          } else {
+            this.$Message.error("删除失败");
+          }
+        });
     },
     audioFun(status) {
       let params = {};
