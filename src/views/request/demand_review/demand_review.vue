@@ -60,6 +60,21 @@
         </div>
         <br>
         <div class="user_detail_div">
+          <label class="from_label">流星钻标价:</label>
+          <b v-if="data.priceMd">{{data.priceMd +"克拉"}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">需求置顶权重:</label>
+          <b>{{data.topall}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
+          <label class="from_label">分类置顶权重:</label>
+          <b>{{data.topcategory}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
           <label class="from_label">需求方式:</label>
           <b>{{data.modeType}}</b>
         </div>

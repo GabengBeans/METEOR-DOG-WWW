@@ -102,7 +102,7 @@
           <FormItem>
             <div class="user_detail_div">
               <label class="from_label">流星钻标价:</label>
-              <Input clearable style="width: 6vw;min-width:100px;" v-model='data.priceMd' />
+              <Input clearable style="width: 6vw;min-width:100px;" v-model='data.priceMd' />克拉
             </div>
             <br>
           </FormItem>

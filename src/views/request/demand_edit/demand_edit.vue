@@ -74,6 +74,27 @@
           <br>
           <FormItem>
             <div class="user_detail_div">
+              <label class="from_label">流星钻标价:</label>
+              <Input clearable style="width: 6vw;min-width:100px;" v-model='data.priceMd' />克拉
+            </div>
+            <br>
+          </FormItem>
+          <FormItem>
+            <div class="user_detail_div">
+              <label class="from_label">需求置顶权重:</label>
+              <Input clearable style="width: 6vw;min-width:100px;" v-model='data.topall' />
+            </div>
+            <br>
+          </FormItem>
+          <FormItem>
+            <div class="user_detail_div">
+              <label class="from_label">分类置顶权重:</label>
+              <Input clearable style="width: 6vw;min-width:100px;" v-model='data.topcategory' />
+            </div>
+            <br>
+          </FormItem>
+          <FormItem>
+            <div class="user_detail_div">
               <label class="from_label">需求方式:</label>
               <CheckboxGroup v-model="data.modeType" style="display:inline-block">
                 <Checkbox label=3>到店服务</Checkbox>
@@ -276,7 +297,11 @@ export default {
           restrictions: this.data.restrictions || "无",
           title: this.data.title,
           validDays: "[]",
-          videoList: this.$store.state.app.videoId
+          videoList: this.$store.state.app.videoId,
+          //新增
+          priceMd:this.data.priceMd,
+          topall:this.data.topall,
+          topcategory:this.data.topcategory
         };
         //console.log(data);
         Util.ajax({
