@@ -11,7 +11,7 @@ import App from './app.vue';
 
 import util from '@/libs/util';
 import BaiduMap from 'vue-baidu-map'
-////import Cookies from "js-cookie"
+////import Cookies from "js-cookie" 
 
 
 Vue.use(iview);
