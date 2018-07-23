@@ -665,7 +665,8 @@ const app = {
                     let arr = res.data.data.items
                     //console.log(state.user_ability_search_result)
                     let abilityName = {
-                        "ability01": "IP红包权限"
+                        "ability01": "IP红包权限",
+                        "ability02": "动态审核权限"
                     }
                     for (let x = 0; x < arr.length; x++) {
                         Vue.set(state.user_ability_search_result[x], "showStr", "")

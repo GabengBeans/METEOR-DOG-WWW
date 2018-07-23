@@ -31,7 +31,7 @@ export default {
   props: ["data"],
   data() {
     return {
-      IP_ABILITY_CODE: 1,
+      //IP_ABILITY_CODE: 1,
       showAbilityModal: false,
       userAbilityArr: [],
       userId: "",
@@ -86,7 +86,6 @@ export default {
                             }
                           }
                         }
-                        console.log(this.userAbilityArr)
                         this.userId = params.row.userId;
                         this.showAbilityModal = true;
                       });
@@ -103,19 +102,16 @@ export default {
   },
   methods: {
     saveAbility() {
-      let abilityValue = 0;
-      for (let x = 0; x < this.userAbilityArr.length; x++) {
-        if (this.userAbilityArr[x] == "ability01") {
-          abilityValue = 1;
-        }
-      }
+      let tempArr = []
+      this.userAbilityArr.map(item=>{
+        tempArr.push(item.slice(item.length-1))
+      })
       Util.ajax({
         method: "post",
-        url: baseUri.update_user_ability_url,
+        url: baseUri.update_user_ability_array_url,
         params: {
           userId: this.userId,
-          abilityCode: this.IP_ABILITY_CODE,
-          abilityValue: abilityValue
+          abilitys: tempArr,
         }
       }).then(res => {
         if (res.data.success && res.data.code == "100") {
