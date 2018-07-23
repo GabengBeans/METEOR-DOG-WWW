@@ -113,6 +113,9 @@ const app = {
         cash_withdraw_search_result: [],
         cash_withdraw_public_page: 1,
 
+        //特殊结算
+        special_balance_search_result:[],
+
         //商户入驻
         merchant_enter_search_info: {},
         merchant_enter_page_info: {
@@ -2177,6 +2180,20 @@ const app = {
                 console.log(error)
             })
         },
+
+        //获取特殊结算类别
+        // GET_SPECIAL_BALANCE_SET_LIST(state) {
+        //     util.ajax({
+        //         method: "get",
+        //         url: base_uri.get_meteor_diamond_set_url,
+        //     }).then(resp => {
+        //         if (resp.status==200 && resp.data.length>0) {
+        //             state.meteor_diamond_set_result = resp.data
+        //         }
+        //     }).catch(error => {
+        //         console.log(error)
+        //     })
+        // },
     }
 }
 

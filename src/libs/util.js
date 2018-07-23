@@ -91,7 +91,8 @@ const model_ip_index = resolve => require(["@/views/advert/model_ip/model_ip_ind
 //const meteor_diamond_budget_detail_index = resolve => require(["@/views/meteorDiamond/meteorDiamondBudgetDetail/meteor_diamond_budget_detail_index"], resolve)
 const meteor_diamond_set_index = resolve => require(["@/views/meteorDiamond/meteorDiamondSet/meteor_diamond_set_index"], resolve)
 const meteor_diamond_statistics_index = resolve => require(["@/views/meteorDiamond/meteorDiamondStatistics/meteor_diamond_statistics_index"], resolve)
-
+//结算管理-特殊结算
+const special_balance_index = resolve => require(["@/views/cash/specialBalance/special_balance_index"], resolve)
 
 
 
@@ -496,7 +497,9 @@ util.createMenus = function (data) {
         //流星钻
         // 'meteor_diamond_budget_detail_index':meteor_diamond_budget_detail_index,
         'meteor_diamond_set_index':meteor_diamond_set_index,
-        'meteor_diamond_statistics_index':meteor_diamond_statistics_index
+        'meteor_diamond_statistics_index':meteor_diamond_statistics_index,
+        //结算管理-特殊结算
+        'special_balance_index':special_balance_index
     }
 
     let menus = []
