@@ -2183,18 +2183,18 @@ const app = {
         },
 
         //获取特殊结算类别
-        // GET_SPECIAL_BALANCE_SET_LIST(state) {
-        //     util.ajax({
-        //         method: "get",
-        //         url: base_uri.get_meteor_diamond_set_url,
-        //     }).then(resp => {
-        //         if (resp.status==200 && resp.data.length>0) {
-        //             state.meteor_diamond_set_result = resp.data
-        //         }
-        //     }).catch(error => {
-        //         console.log(error)
-        //     })
-        // },
+        GET_SPECIAL_BALANCE_SET_LIST(state) {
+            util.ajax({
+                method: "post",
+                url: base_uri.search_special_rate_all_url,
+            }).then(resp => {
+               if(resp.data.success){
+                   state.special_balance_search_result = resp.data.data
+               }
+            }).catch(error => {
+                console.log(error)
+            })
+        },
     }
 }
 

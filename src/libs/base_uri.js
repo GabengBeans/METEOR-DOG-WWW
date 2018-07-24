@@ -71,6 +71,10 @@ let base_uri = {
     //提现
     cash_search_withdraw_for_page_url: "/admin/v1/cash/withdraw/search_withdraw_for_page",
     cash_withdraw_audit_url: "/admin/v1/cash/withdraw/audit/",
+    //特殊结算
+    search_special_rate_all_url:"/admin/v1/rate/search_special_rate_all",//查询
+    saveOrUpdate_special_rate_url:"/admin/v1/rate/saveOrUpdate_special_rate",//添加或修改
+    delete_special_rate_url:"/admin/v1/rate/delete_special_rate",//删除
 
     //商户入驻
     search_business_info_for_page_url: "/admin/v1/business_info/search_business_info_for_page",

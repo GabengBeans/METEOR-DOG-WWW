@@ -10,7 +10,7 @@ export default {
     specialBalanceTable
   },
   created(){
-      //this.commit("GET_SPECIAL_BALANCE_SET_LIST")
+      this.$store.commit("GET_SPECIAL_BALANCE_SET_LIST")
   }
 };
 </script>
