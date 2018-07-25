@@ -39,8 +39,8 @@
         </Form>
       </div>
       <div slot="footer" style="display:flex;justify-content:space-around">
-        <Button type="error">取消</Button>
-        <Button type="success">保存</Button>
+        <Button type="error" @click="auitUserModal = false">取消</Button>
+        <Button type="success" @click="saveAuditUser">保存</Button>
       </div>
     </Modal>
   </div>
@@ -144,6 +144,14 @@ export default {
   },
   methods: {
     saveAddUser() {
+      if(!this.addUserObj.id){
+        this.$Message.error("请填写用户ID")
+        return
+      }
+      if(!this.addUserObj.balanceScale){
+        this.$Message.error("请填写平台手续费扣除比例")
+        return
+      }
       let params = {
         userId: this.addUserObj.id,
         rate: this.addUserObj.balanceScale
@@ -158,6 +166,8 @@ export default {
           if (resp.data.success) {
             this.$Message.success("添加成功");
             this.$store.commit("GET_SPECIAL_BALANCE_SET_LIST");
+            this.addUserObj.id = ""
+            this.addUserObj.balanceScale=""
             this.addUserModal = false;
           } else {
             this.$Message.error("添加失败");
@@ -168,6 +178,14 @@ export default {
         });
     },
     saveAuditUser() {
+      if(!this.auditUserObj.id){
+        this.$Message.error("请填写用户ID")
+        return
+      }
+      if(!this.auditUserObj.balanceScale){
+        this.$Message.error("请填写平台手续费扣除比例")
+        return
+      }
       let params = {
         userId: this.auditUserObj.id,
         rate: this.auditUserObj.balanceScale
@@ -182,7 +200,7 @@ export default {
           if (resp.data.success) {
             this.$Message.success("修改成功");
             this.$store.commit("GET_SPECIAL_BALANCE_SET_LIST");
-            this.addUserModal = false;
+            this.auitUserModal = false;
           } else {
             this.$Message.error("修改失败");
           }
