@@ -2141,7 +2141,7 @@ const app = {
                 },
                 data: data
             }).then(resp => {
-                let detailContent = ["","","好友IP昵称","订单号","服务ID","需求ID","动态ID","订单号","备注原因"]
+                let detailContent = ["","","好友IP昵称","订单号","服务ID","需求ID","动态ID","订单号","备注原因","","订单号","订单号","订单号"]
                 if (resp.data.success) {
                     resp.data.data.items.map(item => {
                         item.createTime = item.createTime ? util.formatDate(new Date(item.createTime), "yyyy-MM-dd hh:mm:ss") : ""
