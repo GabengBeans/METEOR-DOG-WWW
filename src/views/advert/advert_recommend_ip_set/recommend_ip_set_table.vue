@@ -104,7 +104,7 @@ export default {
         {
           title: "序号",
           key: "adSort",
-          width: 100
+          width: 80
         },
         {
           title: "服务ID",
@@ -134,7 +134,7 @@ export default {
         {
           title: "操作",
           key: "phone",
-          width: 300,
+          width: 180,
           align: "center",
           render: (h, params) => {
             return h("div", [
