@@ -44,9 +44,10 @@
           <label class="from_label">订单金额:</label>
           <b>{{data.actualAmount}}</b>
         </div>
+        <br>
         <div class="user_detail_div">
           <label class="from_label">流星钻交易额:</label>
-          <b>{{data.meteorDiamondAmount}}</b>
+          <b>{{data.meteorDiamondAmount+'克拉'}}</b>
         </div>
         <br>
         <div class="user_detail_div">
