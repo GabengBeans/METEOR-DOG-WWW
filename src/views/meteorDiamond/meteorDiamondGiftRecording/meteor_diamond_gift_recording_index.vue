@@ -1,27 +1,30 @@
 <template>
     <div>
-        <statistics-table></statistics-table>
-        <statistics-change-page
+        <gift-reconding-search :data="search" :storeStatus="mark"></gift-reconding-search>
+        <gift-reconding-table></gift-reconding-table>
+        <gift-reconding-change-page
         :storeStatus ="mark"
         :currentPage="$store.state.app.statistics_page_info.currentPage"
         :totalPage ="$store.state.app.statistics_page_info.totalPage"
-        ></statistics-change-page>
+        ></gift-reconding-change-page>
     </div>
 </template>
 <script>
-import statisticsTable from "./meteor_diamond_gift_set_table.vue";
-import statisticsChangePage from "@/views/public-components/changePage";
+import giftRecondingSearch from "@/views/public-components/search";
+import giftRecondingTable from "./meteor_diamond_gift_recording_table.vue";
+import giftRecondingChangePage from "@/views/public-components/changePage";
 import config from "../config";
 export default {
   data() {
     return {
-      search: config.statisticsSearch,
-      mark: "giftSet"
+      search: config.searchConfig,
+      mark: "giftRecording"
     };
   },
   components: {
-    statisticsTable,
-    statisticsChangePage
+    giftRecondingSearch,
+    giftRecondingTable,
+    giftRecondingChangePage
   },
   created() {
     this.$store.commit("GET_STATISTICS_LIST", {

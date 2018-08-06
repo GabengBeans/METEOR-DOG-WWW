@@ -1,7 +1,5 @@
 <template>
   <div id='user_table' class="table">
-    <Button type="primary" style="margin-left:16px;" @click="openAddModal" >新增礼品</Button>
-    <br><br>
     <Table style="margin:0 16px;" border stripe :columns="columns" :data="$store.state.app.statistics_search_result">
     </Table>
     <Modal v-model="showAddModal" width="500s">
@@ -153,25 +151,7 @@ export default {
                     }
                   }
                 },
-                "修改"
-              ),
-              h(
-                "Button",
-                {
-                  props: {
-                    type: "error",
-                    size: "small"
-                  },
-                  style: {
-                    marginRight: "5px"
-                  },
-                  on: {
-                    click: () => {
-                     
-                    }
-                  }
-                },
-                "下架"
+                "发货"
               )
             ]);
           }

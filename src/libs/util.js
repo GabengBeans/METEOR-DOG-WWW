@@ -95,6 +95,7 @@ const meteor_diamond_statistics_index = resolve => require(["@/views/meteorDiamo
 const special_balance_index = resolve => require(["@/views/cash/specialBalance/special_balance_index"], resolve)
 //流星钻兑礼
 const meteor_diamond_gift_set_index = resolve => require(["@/views/meteorDiamond/meteorDiamondGiftSet/meteor_diamond_gift_set_index"], resolve)
+const meteor_diamond_gift_recording_index = resolve => require(["@/views/meteorDiamond/meteorDiamondGiftRecording/meteor_diamond_gift_recording_index"], resolve)
 
 
 
@@ -501,6 +502,7 @@ util.createMenus = function (data) {
         'meteor_diamond_set_index':meteor_diamond_set_index,
         'meteor_diamond_statistics_index':meteor_diamond_statistics_index,
         'meteor_diamond_gift_set_index':meteor_diamond_gift_set_index,
+        'meteor_diamond_gift_recording_index':meteor_diamond_gift_recording_index,
         //结算管理-特殊结算
         'special_balance_index':special_balance_index
     }

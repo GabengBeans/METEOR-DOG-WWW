@@ -35,4 +35,5 @@ export default {
 };
 </script>
 <style>
+@import '../../../styles/public.less'
 </style>

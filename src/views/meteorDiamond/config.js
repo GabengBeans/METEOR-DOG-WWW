@@ -102,4 +102,33 @@ config.statisticsSearch = {
     }
 }
 
+config.searchConfig={
+    userId:{
+        tagName:"用户ID",
+        value:""
+    },
+    nickName:{
+        tagName:"用户昵称",
+        value:""
+    },
+    status:{
+        tagName:"发货状态",
+        value:"-1",
+        tag:{
+            op1:{
+                num:'-1',
+                value:"全部"
+            },
+            op2:{
+                num:"0",
+                value:"待发货"
+            },
+            op3:{
+                num:"1",
+                value:"已发货"
+            }
+        }
+    }
+}
+
 export default config
