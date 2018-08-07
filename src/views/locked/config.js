@@ -106,6 +106,7 @@ config.icons = [
     "android-cloud-outline",
     "social-yen",
     "aperture",
-    "social-bitcoin"
+    "social-bitcoin",
+    "ribbon-b"
 ]
 export default config

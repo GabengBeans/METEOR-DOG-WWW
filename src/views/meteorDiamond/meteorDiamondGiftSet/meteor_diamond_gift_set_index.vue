@@ -3,8 +3,8 @@
         <statistics-table></statistics-table>
         <statistics-change-page
         :storeStatus ="mark"
-        :currentPage="$store.state.app.statistics_page_info.currentPage"
-        :totalPage ="$store.state.app.statistics_page_info.totalPage"
+        :currentPage="$store.state.app.gift_set_page_info.currentPage"
+        :totalPage ="$store.state.app.gift_set_page_info.totalPage"
         ></statistics-change-page>
     </div>
 </template>
@@ -24,9 +24,8 @@ export default {
     statisticsChangePage
   },
   created() {
-    this.$store.commit("GET_STATISTICS_LIST", {
-      data: this.$store.state.app.statistics_search_info,
-      pageNo: this.$store.state.app.statistics_public_page
+     this.$store.commit("GET_GIFT_SET_LIST", {
+      pageNo: this.$store.state.app.gift_set_public_page
     });
   }
 };

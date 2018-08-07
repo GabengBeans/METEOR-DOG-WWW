@@ -431,6 +431,16 @@ const app = {
         budget_detail_public_page:1,
         //流星钻发放规则
         meteor_diamond_set_result:[],
+        
+        //流星钻兑礼
+        gift_set_search_result:[],
+        gift_set_page_info:{
+            currentPage:"",
+            totalPage:""
+        },
+        gift_set_public_page:1,
+
+
 
         cachePage: [],
         lang: '',
@@ -2190,6 +2200,33 @@ const app = {
             }).then(resp => {
                if(resp.data.success){
                    state.special_balance_search_result = resp.data.data
+               }
+            }).catch(error => {
+                console.log(error)
+            })
+        },
+
+         //获取兑礼设置列表
+         GET_GIFT_SET_LIST(state,{
+             pageNo
+         }) {
+             let body = {
+                 pageSize:10,
+                 pageNo:pageNo
+             }
+            util.ajax({
+                method: "post",
+                url: base_uri.exchange_good_list_url,
+            }).then(resp => {
+               if(resp.data.success){
+                   let arr = resp.data.data.items
+                   arr.map(item=>{
+                       item.status = item.status=='1'?'上架':''
+                   })
+                 state.gift_set_page_info.currentPage = resp.data.page
+                 state.gift_set_page_info.totalPage = resp.data.totalCount
+                 state.gift_set_search_result = resp.data.data.items
+
                }
             }).catch(error => {
                 console.log(error)

@@ -4,34 +4,21 @@
     </Table>
     <Modal v-model="showAddModal" width="500s">
       <p slot="header" style="text-align:center">
-        <span>{{modalName}}</span>
+        <span>填写发货信息</span>
       </p>
       <div>
-        <Form ref="giftAddInfo" :model="giftAddInfo" :rules="ruleInline" :label-width="90" >
-          <FormItem label="序号" prop="sort" >
-            <Input clearable v-model.number="giftAddInfo.sort" style="width:200px;" /><span style="color:blue;margin-left:15px;">序号越小位置越靠前</span>
+        <Form ref="deliveryInfo" :model="deliveryInfo" :rules="ruleInline" :label-width="90" >
+          <FormItem label="序号" prop="companyName" >
+            <Input clearable v-model="deliveryInfo.companyName" style="min-width:200px;" />
           </FormItem>
-          <FormItem label="礼品名称" prop="giftName" >
-            <Input clearable v-model="giftAddInfo.giftName" style="width:200px;"  />
-          </FormItem>
-           <FormItem label="流星钻价格" prop="meteorDiamondAmount" >
-            <Input clearable v-model.number="giftAddInfo.meteorDiamondAmount" style="width:200px;" /><span style="margin-left:15px;">克拉/个</span>
-          </FormItem>
-           <FormItem label="库存" prop="invertory">
-            <Input clearable v-model.number="giftAddInfo.invertory" style="width:200px;"  /> <span v-if="modalName=='修改礼品'" style="color:blue;margin-left:15px;">库存只能增加不能减少</span>
-          </FormItem>
-           <FormItem label="兑换提示" >
-            <Input clearable type="textarea" v-model="giftAddInfo.desc" />
-          </FormItem>
-          <FormItem label="上传图片" prop="imgUrl" >
-           <upload-single-img :imgUrl="giftAddInfo" :upload="true"></upload-single-img>
-            <Input  v-model="giftAddInfo.imgUrl" style="display:none" />
+          <FormItem label="礼品名称" prop="companyNo" >
+            <Input clearable v-model="deliveryInfo.companyNo" style="min-width:200px;"  />
           </FormItem>
         </Form>
       </div>
       <div slot="footer">
         <Button type="error" @click="showAddModal = false">取消</Button>
-        <Button type="success" @click="saveAddGiftInfo('giftAddInfo')">保存</Button>
+        <Button type="success" @click="saveDeliveryInfo('deliveryInfo')">保存</Button>
       </div>
     </Modal>
   </div>
@@ -48,59 +35,58 @@ export default {
   data() {
     return {
       showAddModal: false,
-      modalName:"新增礼品",
-      giftAddInfo:{
-          sort:"",
-          giftName:"",
-          meteorDiamondAmount:"",
-          invertory:"",
-          desc:"",
-          imgUrl:""
+      deliveryInfo:{
+          companyName:"",
+          companyNo:""
       },
       ruleInline:{
-          sort:[
-              {required:true, type:'number', message: '序号不能为空且必须为数字',trigger: 'blur'}
+          companyName:[
+              {required:true, message: '物流公司名称不能为空',trigger: 'blur'}
           ],
-          giftName:[
-               {required:true,message: '礼品名称不能为空', trigger: 'blur'}
+          companyNo:[
+               {required:true,message: '编号不能为空', trigger:'blur'}
           ],
-          meteorDiamondAmount:[
-              {required:true, type:'number', message: '流星钻不能为空且必须为数字',trigger: 'blur'}
-          ],
-          invertory:[
-              {required:true, type:'number', message: '库存不能为空且必须为数字',trigger: 'blur'}
-          ],
-          imgUrl:[
-              {required:true,message: '请上传图片', trigger: 'blur'}
-          ]
+         
       },
       columns: [
         {
-          title: "序号",
+          title: "兑换时间",
           key: "userId",
           align: "center",
           width: 160
         },
         {
-          title: "礼品名称",
+          title: "用户信息",
           key: "nickname",
           align: "center",
           width: 200
         },
         {
-          title: "礼品图片",
+          title: "礼品名称",
           key: "currentCount",
           align: "center",
           width: 160
         },
         {
-          title: "兑换提示",
+          title: "兑换数量",
           key: "accumulateCount",
           align: "center",
           width: 160
         },
         {
-          title: "流星钻价格",
+          title: "收件人信息",
+          key: "availableCount",
+          align: "center",
+          width: 160
+        },
+        {
+          title: "实付流星钻",
+          key: "availableCount",
+          align: "center",
+          width: 160
+        },
+        {
+          title: "留言备注",
           key: "availableCount",
           align: "center",
           width: 160
@@ -112,19 +98,7 @@ export default {
           width: 160
         },
         {
-          title: "已兑换",
-          key: "availableCount",
-          align: "center",
-          width: 160
-        },
-        {
-          title: "剩余",
-          key: "availableCount",
-          align: "center",
-          width: 160
-        },
-        {
-          title: "总库存",
+          title: "发货信息",
           key: "availableCount",
           align: "center",
           width: 160
@@ -146,7 +120,6 @@ export default {
                   },
                   on: {
                     click: () => {
-                      this.modalName = "修改礼品"
                       this.showAddModal = true
                     }
                   }
@@ -173,7 +146,7 @@ export default {
         this.modalName = "新增礼品"
         this.showAddModal = true
     },
-    saveAddGiftInfo(name) {
+    saveDeliveryInfo(name) {
         this.$refs[name].validate(valid=>{
             if(valid){
                 this.$Message.success('Success!');

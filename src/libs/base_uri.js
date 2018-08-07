@@ -230,6 +230,11 @@ let base_uri = {
     add_meteor_diamond_set_url:'/admin/v1/meteordiamondrule/add_meteordiamondrule',//添加流星钻规则
     get_statistics_info_url:'/admin/v1/usermeteordiamond/search_usermeteordiamond_info_for_page',//获取用户流星钻统计信息及列表信息
     deduction_meteor_diamond_url:'/admin/v1/usermeteordiamond/deduction_meteor_diamond',//扣除流星钻 
+    //
+    exchange_good_list_url:'/admin/v1/exchangegood/exchange_good_list',//流星钻兑礼设置列表
+    add_exchange_good_url:'/admin/v1/exchangegood/add_exchange_good',//添加兑换礼品
+    update_exchange_good_url:'/admin/v1/exchangegood/update_exchange_good',//修改兑换礼品
+    disable_exchange_good_url:'/admin/v1/exchangegood/disable_exchange_good',//礼品下架
 };
 
 export default base_uri;
