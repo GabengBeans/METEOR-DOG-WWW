@@ -142,6 +142,10 @@ export default {
         this.$Message.error("请补全信息");
         return;
       }
+      if(Number(this.deductionCount)<0){
+        this.$Message.error("扣除数量不能小于0");
+        return;
+      }
       let params = {
         userId: this.deductionId,
         ruleType: 8,
