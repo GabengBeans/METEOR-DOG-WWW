@@ -235,6 +235,11 @@ let base_uri = {
     add_exchange_good_url:'/admin/v1/exchangegood/add_exchange_good',//添加兑换礼品
     update_exchange_good_url:'/admin/v1/exchangegood/update_exchange_good',//修改兑换礼品
     disable_exchange_good_url:'/admin/v1/exchangegood/disable_exchange_good',//礼品下架
+
+    //礼品兑换记录
+    user_exchange_good_list_url:'/admin/v1/userExchangeGood/user_exchange_good_list',//记录列表
+    deliver_user_exchange_good_url:'/admin/v1/userExchangeGood/deliver_user_exchange_good',//发货
+
 };
 
 export default base_uri;

@@ -107,11 +107,11 @@ config.searchConfig={
         tagName:"用户ID",
         value:""
     },
-    nickName:{
+    nickname:{
         tagName:"用户昵称",
         value:""
     },
-    status:{
+    businessStatus:{
         tagName:"发货状态",
         value:"-1",
         tag:{
@@ -120,11 +120,11 @@ config.searchConfig={
                 value:"全部"
             },
             op2:{
-                num:"0",
-                value:"待发货"
+                num:"1",
+                value:"未发货"
             },
             op3:{
-                num:"1",
+                num:"2",
                 value:"已发货"
             }
         }

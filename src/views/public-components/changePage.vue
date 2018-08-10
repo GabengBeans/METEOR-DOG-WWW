@@ -229,6 +229,13 @@ export default {
             pageNo:index
           })
           break;
+
+        case "giftRecording":
+          this.$store.commit("GET_GIFT_RECORDING_LIST",{
+            data:this.$store.state.app.gift_recording_search_info,
+            pageNo:index
+          })
+          break;
       }
     }
   }//

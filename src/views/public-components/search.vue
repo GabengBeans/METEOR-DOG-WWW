@@ -202,6 +202,13 @@ export default {
             pageNo:1
           })
           break;
+
+         case "giftRecording":
+          this.$store.commit("GET_GIFT_RECORDING_LIST", {
+            data: obj,
+            pageNo: 1
+          });
+          break;
       }
     }
   }

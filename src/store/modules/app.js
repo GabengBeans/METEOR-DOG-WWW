@@ -439,7 +439,16 @@ const app = {
             totalPage:""
         },
         gift_set_public_page:1,
-
+        //兑礼记录列表
+        gift_recording_search_info:{
+            businessStatus:-1
+        },
+        gift_recording_search_result:[],
+        gift_recording_page_info:{
+            currentPage:"",
+            totalPage:""
+        },
+        gift_recording_public_page:1,
 
 
         cachePage: [],
@@ -2210,6 +2219,7 @@ const app = {
          GET_GIFT_SET_LIST(state,{
              pageNo
          }) {
+             state.gift_set_public_page = pageNo
              let body = {
                  pageSize:10,
                  pageNo:pageNo
@@ -2232,7 +2242,43 @@ const app = {
                 console.log(error)
             })
         },
+
+        //获取兑礼记录列表
+        GET_GIFT_RECORDING_LIST(state,{
+            data,
+            pageNo
+        }) {
+            state.gift_recording_search_info = data
+            state.gift_recording_public_page = pageNo
+            let params={
+                pageSize:10,
+                pageNo:pageNo
+            }
+          
+           util.ajax({
+               method: "post",
+               url: base_uri.user_exchange_good_list_url,
+               params:params,
+               data:data
+           }).then(resp => {
+              if(resp.data.success){
+                  let arr = resp.data.data.items
+                  console.log(resp)
+                  let bussinessStatusArr = ["","未发货","已发货"]
+                  arr.map(item=>{
+                      item.createTime = util.formatDate(new Date(item.createTime), "yyyy-MM-dd hh:mm:ss")
+                      item.businessStatus = bussinessStatusArr[item.businessStatus]
+                  })
+                state.gift_recording_page_info.currentPage = resp.data.page
+                state.gift_recording_page_info.totalPage = resp.data.totalCount
+                state.gift_recording_search_result = resp.data.data.items
+
+              }
+           }).catch(error => {
+               console.log(error)
+           })
+       },
     }
-}
+}//recording
 
 export default app

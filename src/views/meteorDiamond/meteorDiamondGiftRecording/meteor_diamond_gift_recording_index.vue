@@ -4,8 +4,8 @@
         <gift-reconding-table></gift-reconding-table>
         <gift-reconding-change-page
         :storeStatus ="mark"
-        :currentPage="$store.state.app.statistics_page_info.currentPage"
-        :totalPage ="$store.state.app.statistics_page_info.totalPage"
+        :currentPage="$store.state.app.gift_recording_page_info.currentPage"
+        :totalPage ="$store.state.app.gift_recording_page_info.totalPage"
         ></gift-reconding-change-page>
     </div>
 </template>
@@ -27,9 +27,9 @@ export default {
     giftRecondingChangePage
   },
   created() {
-    this.$store.commit("GET_STATISTICS_LIST", {
-      data: this.$store.state.app.statistics_search_info,
-      pageNo: this.$store.state.app.statistics_public_page
+    this.$store.commit("GET_GIFT_RECORDING_LIST", {
+      data: this.$store.state.app.gift_recording_search_info,
+      pageNo: this.$store.state.app.gift_recording_public_page
     });
   }
 };

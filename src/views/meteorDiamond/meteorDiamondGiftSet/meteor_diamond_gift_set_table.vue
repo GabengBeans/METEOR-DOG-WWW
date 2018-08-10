@@ -287,6 +287,8 @@ export default {
                       });
                       this.showAddModal = false
                     this.$Message.success('保存成功');
+                  }else{
+                    this.$Message.error(resp.data.msg)
                   }
                 })
             }
