@@ -209,6 +209,13 @@ export default {
             pageNo: 1
           });
           break;
+
+        case "winningRecording":
+          this.$store.commit("GET_WINNING_RECORDING_LIST", {
+            data: obj,
+            pageNo: 1
+          });
+          break;
       }
     }
   }

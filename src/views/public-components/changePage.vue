@@ -236,6 +236,13 @@ export default {
             pageNo:index
           })
           break;
+
+        case "winningRecording":
+          this.$store.commit("GET_WINNING_RECORDING_LIST",{
+            data:this.$store.state.app.winning_recording_search_info,
+            pageNo:index
+          })
+          break;
       }
     }
   }//

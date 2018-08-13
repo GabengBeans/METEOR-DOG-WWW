@@ -3,12 +3,12 @@ const config = {}
 config.lotterySetColumns = [{
         align: 'center',
         title: "奖品",
-        value: "godff"
+        key: "prizesName"
     },
     {
         align: 'center',
-        title: "中奖概率",
-        value: "aaaaa"
+        title: "中奖概率(%)",
+        key: "myPrizesRate"
     }
 ]
 config.winningRecordingSearch = {
@@ -39,27 +39,27 @@ config.winningRecordingColumns =[
     {
         align: 'center',
         title:"抽奖时间",
-        value:"time",
+        key:"createTime",
     },
     {
         align: 'center',
         title:"用户ID",
-        value:"userId",
+        key:"userId",
     },
     {
         align: 'center',
         title:"用户昵称",
-        value:"nickname",
+        key:"nickname",
     },
     {
         align: 'center',
         title:"手机号",
-        value:"phone",
+        key:"phone",
     },
     {
         align: 'center',
         title:"奖品名称",
-        value:"time",
+        key:"prizesName",
     }
 ]
 export default config

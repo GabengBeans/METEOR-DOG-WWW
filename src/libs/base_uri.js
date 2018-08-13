@@ -240,6 +240,14 @@ let base_uri = {
     user_exchange_good_list_url:'/admin/v1/userExchangeGood/user_exchange_good_list',//记录列表
     deliver_user_exchange_good_url:'/admin/v1/userExchangeGood/deliver_user_exchange_good',//发货
 
+    //抽奖记录
+    list_for_page_url:'/admin/v1/prizes_reveive_log/list_for_page',//分页查询抽奖记录
+
+    //抽奖奖品设置
+    lottery_lis_for_page_url:'/admin/v1/prizes_settings/lis_for_page',//分页查询奖品
+    lottery_batch_update_url:'/admin/v1/prizes_settings/batch_update',//批量更新奖品设置
+
+
 };
 
 export default base_uri;

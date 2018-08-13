@@ -114,7 +114,7 @@ const app = {
         cash_withdraw_public_page: 1,
 
         //特殊结算
-        special_balance_search_result:[],
+        special_balance_search_result: [],
 
         //商户入驻
         merchant_enter_search_info: {},
@@ -363,16 +363,20 @@ const app = {
         dynamic_public_page: 1,
 
         //banner广告
-        banner_ad_search_info: {adItemId: 1},
+        banner_ad_search_info: {
+            adItemId: 1
+        },
         banner_ad_search_result: [],
         banner_ad_page_info: {
             currentPage: "",
             totalPage: ""
         },
         banner_ad_public_page: 1,
-        
+
         //活动广告
-        activities_ad_search_info: {adItemId: 2},
+        activities_ad_search_info: {
+            adItemId: 2
+        },
         activities_ad_search_result: [],
         activities_ad_page_info: {
             currentPage: "",
@@ -381,7 +385,9 @@ const app = {
         activities_ad_public_page: 1,
 
         //品质IP
-        quality_ip_search_info: {adItemId: 3},
+        quality_ip_search_info: {
+            adItemId: 3
+        },
         quality_ip_search_result: [],
         quality_ip_page_info: {
             currentPage: "",
@@ -390,16 +396,20 @@ const app = {
         quality_ip_public_page: 1,
 
         //样板IP
-        model_ip_search_info: {adItemId: 4},
+        model_ip_search_info: {
+            adItemId: 4
+        },
         model_ip_search_result: [],
         model_ip_page_info: {
             currentPage: "",
             totalPage: ""
         },
         model_ip_public_page: 1,
-        
+
         //畅销服务
-        selling_service_search_info: {adItemId: 5},
+        selling_service_search_info: {
+            adItemId: 5
+        },
         selling_service_search_result: [],
         selling_service_page_info: {
             currentPage: "",
@@ -408,48 +418,60 @@ const app = {
         selling_service_public_page: 1,
 
         //流星钻-发放统计
-        statistics_search_info:{},
-        statistics_search_result:[],
-        statistics_page_info:{
-            currentPage:"",
-            totalPage:""
+        statistics_search_info: {},
+        statistics_search_result: [],
+        statistics_page_info: {
+            currentPage: "",
+            totalPage: ""
         },
-        statistics_public_page:1,
-        statistics_info:{
-            alreadyGrant:"",
-            remainingCount:"",
-            totalCount:""
+        statistics_public_page: 1,
+        statistics_info: {
+            alreadyGrant: "",
+            remainingCount: "",
+            totalCount: ""
         },
 
         //流星钻-收支详情
-        budget_detail_search_info:{},
-        budget_detail_search_result:[],
-        budget_detail_page_info:{
-            currentPage:"",
-            totalPage:""
+        budget_detail_search_info: {},
+        budget_detail_search_result: [],
+        budget_detail_page_info: {
+            currentPage: "",
+            totalPage: ""
         },
-        budget_detail_public_page:1,
+        budget_detail_public_page: 1,
         //流星钻发放规则
-        meteor_diamond_set_result:[],
-        
-        //流星钻兑礼
-        gift_set_search_result:[],
-        gift_set_page_info:{
-            currentPage:"",
-            totalPage:""
-        },
-        gift_set_public_page:1,
-        //兑礼记录列表
-        gift_recording_search_info:{
-            businessStatus:-1
-        },
-        gift_recording_search_result:[],
-        gift_recording_page_info:{
-            currentPage:"",
-            totalPage:""
-        },
-        gift_recording_public_page:1,
+        meteor_diamond_set_result: [],
 
+        //流星钻兑礼
+        gift_set_search_result: [],
+        gift_set_page_info: {
+            currentPage: "",
+            totalPage: ""
+        },
+        gift_set_public_page: 1,
+        //兑礼记录列表
+        gift_recording_search_info: {
+            businessStatus: -1
+        },
+        gift_recording_search_result: [],
+        gift_recording_page_info: {
+            currentPage: "",
+            totalPage: ""
+        },
+        gift_recording_public_page: 1,
+
+        //中奖记录
+        winning_recording_search_info: {},
+        winning_recording_search_result: [],
+        winning_recording_page_info: {
+            currentPage: "",
+            totalPage: ""
+        },
+        winning_recording_public_page: 1,
+
+
+        //抽奖设置
+        lottery_set_search_result: [],
 
         cachePage: [],
         lang: '',
@@ -1917,7 +1939,7 @@ const app = {
                 data: data
             }).then(resp => {
                 if (resp.data.success) {
-                    let statusArr = ["", "待审核", "已发布", "驳回", "用户已删除","管理员已删除"]
+                    let statusArr = ["", "待审核", "已发布", "驳回", "用户已删除", "管理员已删除"]
                     resp.data.data.items.map(item => {
                         item.createTime = item.createTime ? util.formatDate(new Date(item.createTime), "yyyy-MM-dd hh:mm:ss") : ""
                         item.auditTime = item.auditTime ? util.formatDate(new Date(item.auditTime), "yyyy-MM-dd hh:mm:ss") : ""
@@ -1956,7 +1978,7 @@ const app = {
                     "红包广告",
                     "H5广告"
                 ];
-                let useStatusArr = ["","上线","下线"]
+                let useStatusArr = ["", "上线", "下线"]
                 if (resp.data.success) {
                     resp.data.data.items.map(item => {
                         item.createTime = item.createTime ? util.formatDate(new Date(item.createTime), "yyyy-MM-dd hh:mm:ss") : ""
@@ -1998,7 +2020,7 @@ const app = {
                     "红包广告",
                     "H5广告"
                 ];
-                let useStatusArr = ["","上线","下线"]
+                let useStatusArr = ["", "上线", "下线"]
                 if (resp.data.success) {
                     resp.data.data.items.map(item => {
                         item.createTime = item.createTime ? util.formatDate(new Date(item.createTime), "yyyy-MM-dd hh:mm:ss") : ""
@@ -2031,7 +2053,7 @@ const app = {
                 },
                 data: data
             }).then(resp => {
-                let useStatusArr = ["","上线","下线"]
+                let useStatusArr = ["", "上线", "下线"]
                 if (resp.data.success) {
                     resp.data.data.items.map(item => {
                         item.createTime = item.createTime ? util.formatDate(new Date(item.createTime), "yyyy-MM-dd hh:mm:ss") : ""
@@ -2063,7 +2085,7 @@ const app = {
                 },
                 data: data
             }).then(resp => {
-                let useStatusArr = ["","上线","下线"]
+                let useStatusArr = ["", "上线", "下线"]
                 if (resp.data.success) {
                     resp.data.data.items.map(item => {
                         item.createTime = item.createTime ? util.formatDate(new Date(item.createTime), "yyyy-MM-dd hh:mm:ss") : ""
@@ -2095,7 +2117,7 @@ const app = {
                 },
                 data: data
             }).then(resp => {
-                let useStatusArr = ["","上线","下线"]
+                let useStatusArr = ["", "上线", "下线"]
                 if (resp.data.success) {
                     resp.data.data.items.map(item => {
                         item.createTime = item.createTime ? util.formatDate(new Date(item.createTime), "yyyy-MM-dd hh:mm:ss") : ""
@@ -2111,8 +2133,8 @@ const app = {
             })
         },
 
-         //获取流星钻发放统计
-         GET_STATISTICS_LIST(state, {
+        //获取流星钻发放统计
+        GET_STATISTICS_LIST(state, {
             data,
             pageNo
         }) {
@@ -2144,8 +2166,8 @@ const app = {
             })
         },
 
-         //获取流星钻收支详情列表
-         GET_BUDGET_DETAIL_LIST(state, {
+        //获取流星钻收支详情列表
+        GET_BUDGET_DETAIL_LIST(state, {
             data,
             pageNo
         }) {
@@ -2160,23 +2182,23 @@ const app = {
                 },
                 data: data
             }).then(resp => {
-                let detailContent = ["","","好友IP昵称","订单号","服务ID","需求ID","动态ID","订单号","备注原因","","订单号","订单号","订单号"]
+                let detailContent = ["", "", "好友IP昵称", "订单号", "服务ID", "需求ID", "动态ID", "订单号", "备注原因", "", "订单号", "订单号", "订单号"]
                 if (resp.data.success) {
                     resp.data.data.items.map(item => {
                         item.createTime = item.createTime ? util.formatDate(new Date(item.createTime), "yyyy-MM-dd hh:mm:ss") : ""
                         item.auditTime = item.auditTime ? util.formatDate(new Date(item.auditTime), "yyyy-MM-dd hh:mm:ss") : ""
-                        if(item.ruleType==2){
-                            item.detailContent = detailContent[item.ruleType]+"("+item.extensionNickName+")"
-                        }else if(item.ruleType==3 || item.ruleType==7){
-                            item.detailContent = detailContent[item.ruleType]+"("+item.orderNo+")"
-                        }else if(item.ruleType==4 || item.ruleType==5 ||item.ruleType==6){
-                            item.detailContent = detailContent[item.ruleType]+"("+item.businessId+")"
-                        }else if(item.ruleType==8){
-                            item.detailContent = detailContent[item.ruleType]+"("+item.refuseReason+")"
-                        }else(
+                        if (item.ruleType == 2) {
+                            item.detailContent = detailContent[item.ruleType] + "(" + item.extensionNickName + ")"
+                        } else if (item.ruleType == 3 || item.ruleType == 7) {
+                            item.detailContent = detailContent[item.ruleType] + "(" + item.orderNo + ")"
+                        } else if (item.ruleType == 4 || item.ruleType == 5 || item.ruleType == 6) {
+                            item.detailContent = detailContent[item.ruleType] + "(" + item.businessId + ")"
+                        } else if (item.ruleType == 8) {
+                            item.detailContent = detailContent[item.ruleType] + "(" + item.refuseReason + ")"
+                        } else(
                             item.detailContent = ""
                         )
-                        item.type=item.isIncoming==1?"支出":"收入"
+                        item.type = item.isIncoming == 1 ? "支出" : "收入"
                     })
                     state.budget_detail_search_result = resp.data.data.items
                     state.budget_detail_page_info.currentPage = resp.data.data.page
@@ -2193,7 +2215,7 @@ const app = {
                 method: "get",
                 url: base_uri.get_meteor_diamond_set_url,
             }).then(resp => {
-                if (resp.status==200 && resp.data.length>0) {
+                if (resp.status == 200 && resp.data.length > 0) {
                     state.meteor_diamond_set_result = resp.data
                 }
             }).catch(error => {
@@ -2207,78 +2229,135 @@ const app = {
                 method: "post",
                 url: base_uri.search_special_rate_all_url,
             }).then(resp => {
-               if(resp.data.success){
-                   state.special_balance_search_result = resp.data.data
-               }
+                if (resp.data.success) {
+                    state.special_balance_search_result = resp.data.data
+                }
             }).catch(error => {
                 console.log(error)
             })
         },
 
-         //获取兑礼设置列表
-         GET_GIFT_SET_LIST(state,{
-             pageNo
-         }) {
-             state.gift_set_public_page = pageNo
-             let body = {
-                 pageSize:10,
-                 pageNo:pageNo
-             }
+        //获取兑礼设置列表
+        GET_GIFT_SET_LIST(state, {
+            pageNo
+        }) {
+            state.gift_set_public_page = pageNo
+            let body = {
+                pageSize: 10,
+                pageNo: pageNo
+            }
             util.ajax({
                 method: "post",
                 url: base_uri.exchange_good_list_url,
             }).then(resp => {
-               if(resp.data.success){
-                   let arr = resp.data.data.items
-                   arr.map(item=>{
-                       item.status = item.status=='1'?'上架':''
-                   })
-                 state.gift_set_page_info.currentPage = resp.data.page
-                 state.gift_set_page_info.totalPage = resp.data.totalCount
-                 state.gift_set_search_result = resp.data.data.items
+                if (resp.data.success) {
+                    let arr = resp.data.data.items
+                    arr.map(item => {
+                        item.status = item.status == '1' ? '上架' : ''
+                    })
+                    state.gift_set_page_info.currentPage = resp.data.data.page
+                    state.gift_set_page_info.totalPage = resp.data.data.totalCount
+                    state.gift_set_search_result = resp.data.data.items
 
-               }
+                }
             }).catch(error => {
                 console.log(error)
             })
         },
 
         //获取兑礼记录列表
-        GET_GIFT_RECORDING_LIST(state,{
+        GET_GIFT_RECORDING_LIST(state, {
             data,
             pageNo
         }) {
             state.gift_recording_search_info = data
             state.gift_recording_public_page = pageNo
-            let params={
-                pageSize:10,
-                pageNo:pageNo
+            let params = {
+                pageSize: 10,
+                pageNo: pageNo
             }
-          
-           util.ajax({
-               method: "post",
-               url: base_uri.user_exchange_good_list_url,
-               params:params,
-               data:data
-           }).then(resp => {
-              if(resp.data.success){
-                  let arr = resp.data.data.items
-                  console.log(resp)
-                  let bussinessStatusArr = ["","未发货","已发货"]
-                  arr.map(item=>{
-                      item.createTime = util.formatDate(new Date(item.createTime), "yyyy-MM-dd hh:mm:ss")
-                      item.businessStatus = bussinessStatusArr[item.businessStatus]
-                  })
-                state.gift_recording_page_info.currentPage = resp.data.page
-                state.gift_recording_page_info.totalPage = resp.data.totalCount
-                state.gift_recording_search_result = resp.data.data.items
 
-              }
-           }).catch(error => {
-               console.log(error)
-           })
-       },
+            util.ajax({
+                method: "post",
+                url: base_uri.user_exchange_good_list_url,
+                params: params,
+                data: data
+            }).then(resp => {
+                if (resp.data.success) {
+                    let arr = resp.data.data.items
+                    console.log(resp)
+                    let bussinessStatusArr = ["", "未发货", "已发货"]
+                    arr.map(item => {
+                        item.createTime = util.formatDate(new Date(item.createTime), "yyyy-MM-dd hh:mm:ss")
+                        item.businessStatus = bussinessStatusArr[item.businessStatus]
+                    })
+                    state.gift_recording_page_info.currentPage = resp.data.data.page
+                    state.gift_recording_page_info.totalPage = resp.data.data.totalCount
+                    state.gift_recording_search_result = resp.data.data.items
+
+                }
+            }).catch(error => {
+                console.log(error)
+            })
+        },
+
+        //中奖记录列表
+        GET_WINNING_RECORDING_LIST(state, {
+            data,
+            pageNo
+        }) {
+            state.winning_recording_search_info = data
+            state.winning_recording_public_page = pageNo
+            let params = {
+                pageSize: 10,
+                pageNo: pageNo
+            }
+            let body = Object.assign(params, data)
+            util.ajax({
+                method: "post",
+                url: base_uri.list_for_page_url,
+                data: body
+            }).then(resp => {
+                if (resp.data.success) {
+                    let arr = resp.data.data.items
+                    arr.map(item => {
+                        item.createTime = util.formatDate(new Date(item.createTime), "yyyy-MM-dd hh:mm:ss")
+                    })
+                    state.winning_recording_page_info.currentPage = resp.data.data.page
+                    state.winning_recording_page_info.totalPage = resp.data.data.totalCount
+                    state.winning_recording_search_result = resp.data.data.items
+
+                }
+            }).catch(error => {
+                console.log(error)
+            })
+        },
+
+         //获取抽奖奖品列表
+         GET_LOTTERY_SET_LIST(state) {
+             let params = {
+                 pageNo:1,
+                 pageSize:999
+             }
+            util.ajax({
+                method: "get",
+                url: base_uri.lottery_lis_for_page_url,
+                params:params
+            }).then(resp => {
+               if(resp.data.success){
+                  let arr = resp.data.data.items
+                arr.map(item=>{
+                    item.myPrizesRate = (Number(item.prizesRate)/10)
+                    item.myPrizesName = item.prizesName+"(%)"
+                })
+
+                   state.lottery_set_search_result = arr
+               }
+            }).catch(error => {
+                console.log(error)
+            })
+        },
     }
-}//recording
+} //
 
 export default app

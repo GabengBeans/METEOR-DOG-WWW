@@ -1,8 +1,12 @@
 <template>
     <div>
         <winning-recording-search :data="search"></winning-recording-search>
-        <winning-recording-table :columns="columns"></winning-recording-table>
-        <winning-recording-change-page></winning-recording-change-page>
+        <winning-recording-table :columns="columns" :data="$store.state.app.winning_recording_search_result"></winning-recording-table>
+        <winning-recording-change-page
+            :storeStatus="mark"
+            :currentPage ="$store.state.app.winning_recording_page_info.currentPage"
+            :totalPage="$store.state.app.winning_recording_page_info.totalPage"
+        ></winning-recording-change-page>
     </div>
 </template>
 
@@ -23,6 +27,11 @@ export default {
             mark:"winningRecording",
             columns:config.winningRecordingColumns
         }
+    },
+    created(){
+    this.$store.commit("GET_WINNING_RECORDING_LIST",{
+        data:this.$store.state.app.winning_recording_search_info,
+        pageNo:this.$store.state.app.winning_recording_public_page})        
     }
 }
 </script>
