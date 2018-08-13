@@ -17,7 +17,8 @@ export default {
       columns: [
         {
           title: "服务ID",
-          key: "id"
+          key: "id",
+          width:160
         },
         {
           title: "服务标题",

@@ -1,6 +1,10 @@
 const config = {}
 
 config.requestSearch = {
+  id: {
+    tagName: "需求id",
+    value: ""
+  },
     phone: {
         tagName: "手机号",
         value: ""

@@ -15,7 +15,8 @@ export default {
       columns: [
         {
           title: "需求ID",
-          key: "id"
+          key: "id",
+          width:160
         },
         {
           title: "需求标题",

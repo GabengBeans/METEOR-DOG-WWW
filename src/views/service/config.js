@@ -1,5 +1,9 @@
 let config={}
 config.serviceSearch = {
+  id: {
+    tagName: "服务id",
+    value: ""
+  },
     phone: {
         tagName: "手机号",
         value: ""
