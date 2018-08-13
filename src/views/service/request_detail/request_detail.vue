@@ -30,6 +30,11 @@
 
         <br>
         <div class="user_detail_div">
+          <label class="from_label">服务ID:</label>
+          <b>{{data.id}}</b>
+        </div>
+        <br>
+        <div class="user_detail_div">
           <label class="from_label">服务标题:</label>
           <b>{{data.title}}</b>
         </div>
