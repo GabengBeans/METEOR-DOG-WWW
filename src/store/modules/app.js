@@ -2242,13 +2242,14 @@ const app = {
             pageNo
         }) {
             state.gift_set_public_page = pageNo
-            let body = {
+            let params = {
                 pageSize: 10,
                 pageNo: pageNo
             }
             util.ajax({
                 method: "post",
                 url: base_uri.exchange_good_list_url,
+                params:params
             }).then(resp => {
                 if (resp.data.success) {
                     let arr = resp.data.data.items

@@ -239,7 +239,6 @@ export default {
 
         case "giftSet":
           this.$store.commit("GET_GIFT_SET_LIST",{
-            
             pageNo:index
           })
           break;
