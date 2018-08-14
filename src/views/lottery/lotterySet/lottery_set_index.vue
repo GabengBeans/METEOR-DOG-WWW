@@ -77,6 +77,7 @@ export default {
         if(resp.data.success){
           this.$store.commit("GET_LOTTERY_SET_LIST")
           this.$Message.success('修改成功')
+          this.showAddModal = false
         }else{
           this.$Message.error(resp.data.msg)
         }
