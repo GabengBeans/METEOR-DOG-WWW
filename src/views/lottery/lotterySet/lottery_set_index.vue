@@ -7,9 +7,9 @@
         <span>修改中奖概率</span>
       </p>
       <div>
-        <Form   :label-width="120" >
-          <FormItem v-for="item in auditLotteryObj" :key="item.id" :label="item.myPrizesName">
-            <Input clearable v-model.number="item.myPrizesRate" style="min-width:50px;" />
+        <Form :label-width="120" >
+          <FormItem  v-for="item in auditLotteryObj" :key="item.id"  :label="item.myPrizesName" >
+            <Input clearable v-model="item.myPrizesRate" style="min-width:50px;" />
           </FormItem>
         </Form>
       </div>
@@ -34,21 +34,58 @@ export default {
     return {
       showAddModal: false,
       columns:config.lotterySetColumns,
-      auditLotteryObj:{}
+      auditLotteryObj:[]
     };
   },
   methods: {
     openAddModal(){
+    //  this.$store.state.app.lottery_set_search_result.map((item,index)=>{
+    //    this.$set(this.auditLotteryObj,index,item)
+    //  })
        this.auditLotteryObj = this.$store.state.app.lottery_set_search_result
         this.showAddModal = true
     },
     saveAddGiftInfo() {
-        
+       let boole = true
+       let num = 0
+       this.auditLotteryObj.map(item=>{
+         if(item.myPrizesRate===''){
+           this.$Message.error("请补全中奖概率")
+           return
+         }
+         num+=Number(item.myPrizesRate)
+       })
+       if(num!=100){
+         this.$Message.error("综合中奖率不能高于或低于100%")
+          return
+       }
+       let data = []
+       this.auditLotteryObj.map(item=>{
+         let obj = {}
+         obj.id = item.id
+         obj.prizesId = item.prizesId
+         obj.prizesName = item.prizesName
+         obj.prizesRateStr = item.myPrizesRate
+         obj.prizesType = item.prizesType
+         data.push(obj)
+       })
+      util.ajax({
+        method:'post',
+        url:base_uri.lottery_batch_update_url,
+        data:data
+      }).then(resp=>{
+        if(resp.data.success){
+          this.$store.commit("GET_LOTTERY_SET_LIST")
+          this.$Message.success('修改成功')
+        }else{
+          this.$Message.error(resp.data.msg)
+        }
+      })
     }
-  },//lottery_batch_update_url
+  },
   created(){
     this.$store.commit("GET_LOTTERY_SET_LIST")        
-    }
+  }
 };
 </script>
 <style>
