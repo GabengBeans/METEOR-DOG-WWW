@@ -237,6 +237,13 @@ export default {
           })
           break;
 
+        case "giftSet":
+          this.$store.commit("GET_GIFT_SET_LIST",{
+            
+            pageNo:index
+          })
+          break;
+
         case "winningRecording":
           this.$store.commit("GET_WINNING_RECORDING_LIST",{
             data:this.$store.state.app.winning_recording_search_info,
