@@ -2018,7 +2018,8 @@ const app = {
                     "需求广告",
                     "动态广告",
                     "红包广告",
-                    "H5广告"
+                    "H5广告",
+                    "H5token"
                 ];
                 let useStatusArr = ["", "上线", "下线"]
                 if (resp.data.success) {

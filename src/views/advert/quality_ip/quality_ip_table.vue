@@ -28,6 +28,9 @@
           <FormItem label="用户ID">
             <Input clearable v-model="auditObj.serviceId" style="width:60%;min-width:200px" />
           </FormItem>
+          <FormItem label="描述">
+              <Input clearable v-model="auditObj.adDescribe" style="width:60%;min-width:200px" />
+          </FormItem>
           <FormItem label="展示图片">
             <upload-single-img :imgUrl="auditObj" :upload="true" :detial="true"></upload-single-img>
             <div style="display:inline-block;vertical-align:top">
@@ -144,7 +147,7 @@ export default {
                       this.auditObj.serviceId = params.row.businessId;
                       this.tempBusinessId = params.row.businessId;
                       this.auditObj.imgUrl = params.row.imgUrl;
-                      this.businessName = params.row.adDescribe
+                      this.auditObj.adDescribe = params.row.adDescribe
                       this.showAdAuditModal = true;
                     }
                   }
@@ -298,7 +301,7 @@ export default {
         adSort: this.auditObj.sort,
         businessId: this.auditObj.serviceId,
         adName: this.auditObj.adName,
-        adDescribe: this.businessName
+        adDescribe:this.auditObj.adDescribe
       };
 
       util
