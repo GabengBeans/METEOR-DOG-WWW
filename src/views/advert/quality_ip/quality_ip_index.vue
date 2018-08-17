@@ -19,6 +19,9 @@
                     <FormItem label="用户ID">
                         <Input clearable v-model="createObj.serviceId" style="width:60%;min-width:200px" />
                     </FormItem>
+                    <FormItem label="名称">
+                        <Input clearable v-model="createObj.adName" style="width:60%;min-width:200px" />
+                    </FormItem>
                     <FormItem label="描述">
                         <Input clearable v-model="createObj.adDescribe" style="width:60%;min-width:200px" />
                     </FormItem>
@@ -58,7 +61,7 @@ export default {
         sort: "",
         serviceId: "",
         imgUrl: "",
-        adName: "IP昵称",
+        adName: "",
         adDescribe: ""
       }
     };
@@ -69,6 +72,7 @@ export default {
       this.createObj.serviceId = "";
       this.createObj.imgUrl = "";
       this.createObj.adDescribe = "";
+      this.createObj.adName=""
       this.businessName = "";
     },
     showCreate() {

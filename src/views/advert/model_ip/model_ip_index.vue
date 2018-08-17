@@ -19,6 +19,12 @@
                     <FormItem label="用户ID">
                         <Input clearable v-model="createObj.serviceId" style="width:60%;min-width:200px" />
                     </FormItem>
+                    <FormItem label="名称">
+                        <Input clearable v-model="createObj.adName" style="width:60%;min-width:200px" />
+                    </FormItem>
+                    <FormItem label="描述">
+                        <Input clearable v-model="createObj.adDescribe" style="width:60%;min-width:200px" />
+                    </FormItem>
                     <FormItem label="展示图片" style="width:60%;min-width:200px;">
                         <upload-single-img :imgUrl="createObj" :upload="true" :detial="true"></upload-single-img>
                         <div style="display:inline-block;vertical-align:top">
@@ -56,7 +62,7 @@ export default {
         sort: "",
         serviceId: "",
         imgUrl: "",
-        adName: "IP昵称",
+        adName: "",
         adDescribe: ""
       }
     };
@@ -66,6 +72,7 @@ export default {
       this.createObj.sort = "";
       this.createObj.serviceId = "";
       this.createObj.imgUrl = "";
+      this.createObj.adName = ""
       this.createObj.adDescribe = "";
       this.businessName = "";
     },
@@ -127,7 +134,7 @@ export default {
         adSort: this.createObj.sort,
         businessId: this.createObj.serviceId,
         adName: this.createObj.adName,
-        adDescribe: this.businessName
+        adDescribe: this.createObj.adDescribe
       };
 
       util

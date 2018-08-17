@@ -29,6 +29,12 @@
             <Input clearable v-model="auditObj.serviceId" style="width:60%;min-width:200px" />
             <Button type="info" style="margin-left:15px" @click="getServiceDetail(auditObj.adType,auditObj.serviceId)">服务详情</Button>
           </FormItem>
+           <FormItem label="名称">
+            <Input clearable v-model="auditObj.adName" style="width:60%;min-width:200px" />
+          </FormItem>
+           <FormItem label="描述">
+            <Input clearable v-model="auditObj.adDescribe" style="width:60%;min-width:200px" />
+          </FormItem>
           <FormItem label="展示图片">
             <upload-single-img :imgUrl="auditObj" :upload="true" :detial="true"></upload-single-img>
           </FormItem>
@@ -84,7 +90,7 @@ export default {
         sort: "",
         serviceId: "",
         imgUrl: "",
-        adName: "服务标题",
+        adName: "",
         adDescribe: ""
       },
       adTypeArr: [],
@@ -163,7 +169,8 @@ export default {
                       this.auditObj.serviceId = params.row.businessId;
                       this.tempBusinessId = params.row.businessId;
                       this.auditObj.imgUrl = params.row.imgUrl;
-                      this.businessName = params.row.adDescribe
+                      this.auditObj.adName = params.row.adName
+                      this.auditObj.adDescribe = params.row.adDescribe
                       this.showAdAuditModal = true;
                     }
                   }
@@ -318,7 +325,7 @@ export default {
         adSort: this.auditObj.sort,
         businessId: this.auditObj.serviceId,
         adName: this.auditObj.adName,
-        adDescribe: this.businessName
+        adDescribe: this.auditObj.adDescribe
       };
 
       util

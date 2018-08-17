@@ -28,6 +28,9 @@
           <FormItem label="用户ID">
             <Input clearable v-model="auditObj.serviceId" style="width:60%;min-width:200px" />
           </FormItem>
+          <FormItem label="名称">
+              <Input clearable v-model="auditObj.adName" style="width:60%;min-width:200px" />
+          </FormItem>
           <FormItem label="描述">
               <Input clearable v-model="auditObj.adDescribe" style="width:60%;min-width:200px" />
           </FormItem>
@@ -68,7 +71,7 @@ export default {
         sort: "",
         serviceId: "",
         imgUrl: "",
-        adName: "IP昵称",
+        adName: "",
         adDescribe: ""
       },
       adTypeArr: [],
@@ -147,6 +150,7 @@ export default {
                       this.auditObj.serviceId = params.row.businessId;
                       this.tempBusinessId = params.row.businessId;
                       this.auditObj.imgUrl = params.row.imgUrl;
+                      this.auditObj.adName = params.row.adName
                       this.auditObj.adDescribe = params.row.adDescribe
                       this.showAdAuditModal = true;
                     }
