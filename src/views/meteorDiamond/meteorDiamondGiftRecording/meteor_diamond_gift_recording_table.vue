@@ -150,7 +150,8 @@ export default {
                 {
                   props: {
                     type: "primary",
-                    size: "small"
+                    size: "small",
+                    disabled:params.row.businessStatus=="已发货"?true:false
                   },
                   style: {
                     marginRight: "5px"
@@ -205,6 +206,8 @@ export default {
                   pageNo: this.$store.state.app.gift_recording_public_page
                 });
                 this.$Message.success("保存成功!");
+                this.deliveryInfo.companyName = ""
+                this.deliveryInfo.companyNo=""
                 this.showAddModal = false
               }else{
                 this.$Message.error(resp.data.msg)

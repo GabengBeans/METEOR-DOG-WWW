@@ -2287,7 +2287,6 @@ const app = {
             }).then(resp => {
                 if (resp.data.success) {
                     let arr = resp.data.data.items
-                    console.log(resp)
                     let bussinessStatusArr = ["", "未发货", "已发货"]
                     arr.map(item => {
                         item.createTime = util.formatDate(new Date(item.createTime), "yyyy-MM-dd hh:mm:ss")
