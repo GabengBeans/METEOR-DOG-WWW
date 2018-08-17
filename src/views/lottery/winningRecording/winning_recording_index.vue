@@ -1,6 +1,6 @@
 <template>
     <div>
-        <winning-recording-search :data="search" :mark="mark"></winning-recording-search>
+        <winning-recording-search :data="search" :searchData="mark"></winning-recording-search>
         <winning-recording-table :columns="columns" :data="$store.state.app.winning_recording_search_result"></winning-recording-table>
         <winning-recording-change-page
             :storeStatus="mark"
