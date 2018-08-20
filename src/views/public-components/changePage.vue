@@ -216,6 +216,13 @@ export default {
           })
           break;
 
+          case "fashionCharacters":
+          this.$store.commit("GET_FASHION_CHARACTERS_LIST",{
+            data:this.$store.state.app.fashion_characters_search_info,
+            pageNo:index
+          })
+          break;
+
         case "sellingServiceAd":
           this.$store.commit("GET_SELLING_SERVICE_LIST",{
             data:this.$store.state.app.selling_service_search_info,

@@ -4,44 +4,6 @@ import baseConfig from './base_config.js';
 ////import Cookies from "js-cookie"
 import Main from '@/views/Main.vue';
 
-
-// import user_query from "@/views/user/index"
-// import demand_audit from "@/views/request/index"
-// import service_audit from "@/views/service/index"
-// import order_request from "@/views/order/order_demand_list/order_demand_list"
-// import order_service from "@/views/order/order_service_list/order_service_list"
-// import expand_manage from "@/views/expand/expand-manager/index"
-// import expand_order_audit from "@/views/expand/expand-order-audit/index"
-// import expand_charge_list from "@/views/expand/expand-charge-list/index"
-// import expand_group from "@/views/expand/expand-group/index"
-// import cash_flow_list from "@/views/cash/cash_flow_list/cash_flow_list"
-// import cash_withdraw_list from "@/views/cash/cash_withdraw_list/cash_withdraw_list"
-// import cash_refund_list from "@/views/cash/cash_refund_list/cash_refund_list"
-// import new_advert_list from "@/views/advert/advert_new_list/advert_new_list"
-// import advert_list from "@/views/advert/advert_new_list/advert_new_list"
-// import advert_new_bits_list from "@/views/advert/advert_new_bits_list/advert_new_bits_list"
-// import category_general from "@/views/category/category_general/category_general_index"
-// import category_tab_general from "@/views/category/category_tab_general/category_tab_general_index"
-// import after_merchant_enter_list from "@/views/merchant/after_merchant_enter"
-// import statistics_transaction_list from "@/views/statistics/statistics_transaction/statistics_transaction_index"
-// import system_settings from "@/views/system/system_settings/system_settings_index"
-// import web_im from "@/views/error-page/404.vue"
-// import app_list from "@/views/app/app_list/app_list_index"
-// import after_feedback_list from "@/views/after_feedback/after_feedback_list/after_feedback_list"
-// import locked_user_list from "@/views/locked/locked_user/locked_user_list"
-// import locked_role_list from "@/views/locked/locked_role/locked_role_list"
-// import locked_resource_index from "@/views/locked/locked_resource/locked_resource_index"
-// import audit_operation_index from "@/views/audit_operation/audit_operation_index/audit_operation_index"
-// import after_merchant_enter_query from "@/views/merchant/after_merchant_enter_query/after_merchant_enter_query"
-// import query_session_record_index from "@/views/im/query_session_record/query_session_record_index"
-// import ip_coupon_index from "@/views/ip_coupon/ip_coupon_index"
-// import user_ability from "@/views/user/user_ability/user_ability_index"
-// import advert_recommend_ip_set from "@/views/advert/advert_recommend_ip_set/recommend_ip_set_index"
-// import audit_user from "@/views/audit_operation/audit_user/audit_user_index"
-// import audit_service from "@/views/audit_operation/audit_service/audit_service_index"
-// import audit_demand from "@/views/audit_operation/audit_demand/audit_demand_index"
-// import audit_order from "@/views/audit_operation/audit_order/audit_order_index"
-
 const user_query = resolve => require(["@/views/user/index"], resolve)
 const demand_audit = resolve => require(["@/views/request/index"], resolve)
 const service_audit = resolve => require(["@/views/service/index"], resolve)
@@ -88,6 +50,7 @@ const selling_service_ad_index = resolve => require(["@/views/advert/selling_ser
 const quality_ip_index = resolve => require(["@/views/advert/quality_ip/quality_ip_index"], resolve)
 const model_ip_index = resolve => require(["@/views/advert/model_ip/model_ip_index"], resolve)
 const new_model_ip_index = resolve => require(["@/views/advert/new_model_ip/new_model_ip_index"], resolve)
+const fashion_characters_index = resolve => require(["@/views/advert/fashion_characters/fashion_characters_index"], resolve)
 //流星钻
 //const meteor_diamond_budget_detail_index = resolve => require(["@/views/meteorDiamond/meteorDiamondBudgetDetail/meteor_diamond_budget_detail_index"], resolve)
 const meteor_diamond_set_index = resolve => require(["@/views/meteorDiamond/meteorDiamondSet/meteor_diamond_set_index"], resolve)
@@ -501,6 +464,7 @@ util.createMenus = function (data) {
         'quality_ip_index':quality_ip_index,
         'model_ip_index':model_ip_index,
         'new_model_ip_index':new_model_ip_index,
+        'fashion_characters_index':fashion_characters_index,
         //流星钻
         // 'meteor_diamond_budget_detail_index':meteor_diamond_budget_detail_index,
         'meteor_diamond_set_index':meteor_diamond_set_index,
