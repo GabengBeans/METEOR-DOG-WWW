@@ -209,6 +209,13 @@ export default {
           })
           break;
 
+          case "newModelAd":
+          this.$store.commit("GET_NEW_MODEL_IP_LIST",{
+            data:this.$store.state.app.new_model_ip_search_info,
+            pageNo:index
+          })
+          break;
+
         case "sellingServiceAd":
           this.$store.commit("GET_SELLING_SERVICE_LIST",{
             data:this.$store.state.app.selling_service_search_info,
