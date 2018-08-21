@@ -41,13 +41,25 @@
           <Button type="success" @click="handleOk()">通　过</Button>
           <Button type="error" @click="handleNo()">不通过</Button>
         </div>
-        <Modal v-model="modalShow" @on-cancel="closePage()">
-          <p slot="header" style="color:#f60;text-align:center"></p>
-          <div style="font-size:20px;text-align:center">
-            <b>已审核</b>
+
+        <Modal v-model="modalShow" >
+          <p slot="header"></p>
+          <div style="width:100%;font-size:20px;text-align:center">
+            <b>需要打开地址进行下一步退款操作:</b>
+            <a @click="enterZFB" style="width:100%;font-size:12px;display:block;text-align:left;word-wrap:break-word;" target="_blank" :href="urlStr">{{urlStr}}</a>
           </div>
           <div slot="footer" style="text-align:center">
-            <Button type="success" size="large" @click="closePage()">返回</Button>
+          </div>
+        </Modal>
+
+        <Modal v-model="aamodalShow" >
+          <p slot="header" style="text-align:center">提示</p>
+          <div style="width:100%;font-size:20px;text-align:center">
+            <b>您是否已经在支付宝平台完成退款?</b>
+          </div>
+          <div slot="footer" style="display:flex;justify-content:space-around">
+            <Button type="error" @click="aamodalShow = false">否</Button>
+             <Button type="success" @click="closePage">是</Button>
           </div>
         </Modal>
       </Card>
@@ -62,14 +74,20 @@ export default {
     return {
       data: {},
       show: false,
-      modalShow: false
+      modalShow: false,
+      aamodalShow:false,
+      urlStr:""
     };
   },
   methods: {
+    enterZFB(){
+      this.modalShow = false
+      this.aamodalShow  = true
+    },
     handleOk() {
       let data = {
         orderId: this.data.orderId,
-        orderStatus: 6
+        orderStatus: 5
       };
       Util.ajax({
         method: "post",
@@ -77,12 +95,9 @@ export default {
         data: Util.formData(data)
       })
         .then(response => {
-          //console.log(response);
           if (response.data.success) {
-            this.$Message.success("审核成功")
-            this.modalShow = true;
-          } else {
-            this.$Message.error("审核失败")
+            let index = response.data.data.failureMsg.indexOf(':')+1
+            this.urlStr = response.data.data.failureMsg.slice(index)
             this.modalShow = true;
           }
         })
@@ -133,7 +148,8 @@ export default {
       pageOpenedList = this.$store.state.app.pageOpenedList;
       localStorage.pageOpenedList = JSON.stringify(pageOpenedList);
       this.$router.back(-1);
-      this.modalShow = false;
+      this.$Message.success("退款成功")
+      this.aamodalShow = false;
     }
   },
   created() {
